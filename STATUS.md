@@ -170,13 +170,13 @@ Done:
 1. Edge precision/recall on labeled development and unseen test corpora.
 2. Clean wheel install in a fresh virtual environment.
 3. Reproducible benchmark results.
+4. CI passing on Python 3.10, 3.12 and 3.13 for commit `11b7bb7`.
 
 Still blocking a stronger launch:
 
 1. Agent-behavior evaluation (12 pre-registered tasks, with and without MCP).
 2. At least one design partner using it on a real repository.
-3. CI passing on the public branch after the current fixes are pushed.
-4. Explicit authorization to publish an announcement or package.
+3. Explicit authorization to publish an announcement or package.
 
 ## Reproduce the prototype
 
