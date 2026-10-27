@@ -6,9 +6,9 @@
 
 ## Bottom line
 
-RepoGraph is a working local tool: it indexes real Python/TypeScript/JavaScript repositories, exposes a CLI and six MCP tools, and produces evidence-backed impact reports with explicit blind spots. The engineering baseline is tested, and **edge accuracy is now measured**: 100% precision on 150 sampled resolved edges across three unseen repositories, with 94.3% estimated recall.
+RepoGraph is a working local tool: it indexes real Python/TypeScript/JavaScript repositories, exposes a CLI and six MCP tools, and produces evidence-backed impact reports with explicit blind spots. The engineering baseline is tested, and **edge accuracy is measured**: 100% precision on 150 sampled resolved edges across three unseen repositories, with 94.3% estimated recall for that measured build. A later post-fix recheck resolved 25 of the 29 known misses on the same sample with no regression on previously correct sampled edges; that recheck is not a new recall estimate.
 
-The **product claim is still only partly validated**. There is no user study and no evidence that the tool changes agent behavior. Missing edges remain the main risk, not wrong ones. The competitive field is crowded, including projects already claiming evidence/confidence and impact analysis.
+The **product claim is still only partly validated**. There is no user study and no evidence that the tool changes agent behavior. A five-pair agent pilot hit a ceiling: both control and RepoGraph arms were perfect on word-search-solvable rename tasks, so it neither supports nor rules out a benefit. Missing edges remain the main risk, not wrong ones. The competitive field is crowded, including projects already claiming evidence/confidence and impact analysis.
 
 ## Implemented
 
@@ -63,16 +63,16 @@ The **product claim is still only partly validated**. There is no user study and
 ### Tests
 
 ```
-51 passed
+56 passed
 ```
 
 Coverage (direct in-process measurement):
 
 ```
-TOTAL 2016 statements, 656 missed, 67%
+TOTAL 2144 statements, 671 missed, 69%
 ```
 
-The CLI and MCP server show 0% direct coverage because they are tested through subprocesses (`python -m repograph`, stdio MCP client). Their behavior is exercised; the coverage tool does not attribute it to those modules. Core modules: `impact.py` 93%, `indexer.py` 96%, `store.py` 94%, `resolve.py` 91%, `extract.py` 89%.
+The CLI and MCP server show 0% direct coverage because they are tested through subprocesses (`python -m repograph`, stdio MCP client). Their behavior is exercised; the coverage tool does not attribute it to those modules. Core modules: `impact.py` 93%, `indexer.py` 96%, `store.py` 94%, `resolve.py` 90%, `extract.py` 89%.
 
 Reproduce:
 
@@ -111,7 +111,9 @@ Pre-registered protocol, two independent AI labelers per round. Final test repos
 - `confirmed` 90/90 and `inferred` 60/60 correct in the final sample.
 - Baseline before fixes: 24 false stdlib edges, 96 missed Express root imports, 17 missed `.d.ts` imports, broken `tsconfig` globs, Express recall 32.4%.
 - 12 measured defects fixed; 23 labeler disagreements in the final sample, all non-code assets or one conditional-exports fixture.
-- Residual recall gaps: Python `tests/`/`examples/` import roots, Node `#imports`, JSON/config imports, conditional `exports`, package self-references.
+- Residual recall gaps: JSON/config imports, bundler-virtual specifiers, deep fixture packages, and conditional `exports` beyond the package entry.
+- Post-fix recheck: Python project/conftest import roots and Node `#imports`/`exports` maps corrected 25 of the 29 final-test misses with no change to the 150 previously correct sampled edges. Not a new estimate.
+- Agent behavior: five paired rename tasks, control versus RepoGraph CLI, both arms perfect. Ceiling effect; no behavioral claim. See `research/AGENT_BEHAVIOR_PILOT.md`.
 
 Full method and threats to validity: `research/EDGE_ACCURACY_RESULTS.md`. Raw artifacts: `benchmarks/eval/`.
 
@@ -129,7 +131,7 @@ Full method and threats to validity: `research/EDGE_ACCURACY_RESULTS.md`. Raw ar
 - `docs/MCP.md` — tool contracts and agent policy.
 - `docs/LIMITATIONS.md` — analysis gaps, benchmark caveats, threat model.
 - `SECURITY.md`, `CONTRIBUTING.md`, `ROADMAP.md`, `CHANGELOG.md`, `LICENSE`.
-- `research/` — evidence, competitive analysis, technical landscape, opportunity analysis, hypotheses, validation plan, decision log, edge-accuracy protocol and results.
+- `research/` — evidence, competitive analysis, technical landscape, opportunity analysis, hypotheses, validation plan, decision log, edge-accuracy protocol and results, agent-behavior pilot.
 - `benchmarks/` — reproducible script, raw results, method.
 - `launch/` — strategy and draft announcement (not published).
 - `.github/` — CI, issue templates, PR template.
@@ -191,4 +193,4 @@ cd /home/darion-dev/repograph
 
 ## Next action
 
-Run Phase 2 of `research/VALIDATION_PLAN.md`: agent-behavior evaluation on 12 pre-registered change tasks with and without the six MCP tools. In parallel, fix the measured recall gaps in this order: Python `tests/`/`examples/` import roots (16 of 29 agreed misses), Node `#imports` (6), JSON/config imports (3). Do not add languages until those are measured again on a new unseen corpus.
+Run Phase 2 of `research/VALIDATION_PLAN.md` with tasks that are not word-search-solvable and a harness that records tokens and tool calls. The rename-based pilot produced a ceiling and is not sufficient. Before any new accuracy claim, collect a fresh unseen corpus; the post-fix recheck was within-sample. Do not add languages until then.

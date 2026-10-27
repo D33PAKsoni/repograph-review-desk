@@ -37,11 +37,24 @@ Artifacts: `tests/`, `benchmarks/results/`, `docs/LIMITATIONS.md`.
 
 **Kill:** Precision cannot be raised without a language server or a much larger effort. Re-scope to a visualization tool or stop.
 
-## Phase 2 — Agent behavior (next, blocking)
+## Phase 2 — Agent behavior (pilot run, still blocking)
 
 **Question:** Does the MCP server change what an agent does?
 
-**Method:**
+**Pilot result (2026-10-27):** five paired rename tasks in isolated Flask
+copies, control versus RepoGraph CLI. Both arms were perfect on every pair
+(recall 1.0, no stray edits, no parse failures). The task family was
+word-search-solvable and hit a ceiling, so it produced no useful comparison.
+No behavioral claim is supported. A sixth task was excluded because its
+mechanical ground truth collided with Werkzeug's `Request`. See
+`AGENT_BEHAVIOR_PILOT.md`.
+
+**What the pilot changed:** the plan below is necessary but not sufficient.
+Rename tasks must be replaced by changes that require judgement, and the
+harness must expose token and tool-call counts before the phase can pass or
+fail.
+
+**Method (required):**
 
 1. Define 12 change tasks across two repositories: a rename, a signature change, a move, a deletion, a route rename, a model field change, and a test-only change.
 2. Pre-register expected affected files and required tests.
@@ -49,7 +62,7 @@ Artifacts: `tests/`, `benchmarks/results/`, `docs/LIMITATIONS.md`.
 4. Score task completion, unrelated edits, missed tests, and total tokens.
 5. Freeze prompts and model versions. Report variance across repeats.
 
-**Metrics:** Completion rate, unrelated-edit count, missed-test count, context tokens, tool calls.
+**Metrics:** Completion rate, unrelated-edit count, missed-test count, context tokens, tool calls. Rename-only tasks do not count.
 
 **Pass:** A statistically credible improvement in at least one meaningful metric without lower completion.
 
