@@ -243,3 +243,123 @@ def test_python_from_dot_import_attribute_keeps_init_edge(tmp_path: Path):
     imp = extract("pkg/use.py", "python", b"from . import VERSION\n").imports
     got = {(x.module, x.target) for x in r.resolve("pkg/use.py", imp)}
     assert "pkg/__init__.py" in {t for _, t in got}
+
+
+def test_python_project_root_resolves_example_app(tmp_path: Path):
+    """Example projects import their own top-level package (measured Flask miss)."""
+    for rel in ("examples/tutorial/flaskr/__init__.py", "examples/tutorial/flaskr/db.py",
+                "examples/tutorial/tests/test_db.py"):
+        (tmp_path / rel).parent.mkdir(parents=True, exist_ok=True)
+        (tmp_path / rel).write_text("")
+    (tmp_path / "examples/tutorial/pyproject.toml").write_text("[project]\nname='tutorial'\n")
+    files = [("examples/tutorial/flaskr/__init__.py", "python"),
+             ("examples/tutorial/flaskr/db.py", "python"),
+             ("examples/tutorial/tests/test_db.py", "python")]
+    r = Resolver(tmp_path, files)
+    imp = extract("examples/tutorial/tests/test_db.py", "python",
+                  b"from flaskr import create_app\nfrom flaskr.db import get_db\n").imports
+    got = {(x.module, x.target, x.confidence, x.method) for x in r.resolve(
+        "examples/tutorial/tests/test_db.py", imp)}
+    assert any(x[1] == "examples/tutorial/flaskr/db.py" and x[2] == "inferred"
+               and x[3] == "python-project-root" for x in got)
+
+
+def test_python_ambiguous_project_roots_stay_unresolved(tmp_path: Path):
+    """Two project roots defining the same name must not guess."""
+    for rel in ("a/common/__init__.py", "b/common/__init__.py", "use.py"):
+        (tmp_path / rel).parent.mkdir(parents=True, exist_ok=True)
+        (tmp_path / rel).write_text("")
+    (tmp_path / "a/pyproject.toml").write_text("")
+    (tmp_path / "b/setup.py").write_text("")
+    files = [("a/common/__init__.py", "python"), ("b/common/__init__.py", "python"),
+             ("use.py", "python")]
+    r = Resolver(tmp_path, files)
+    imp = extract("use.py", "python", b"import common\n").imports
+    got = r.resolve("use.py", imp)
+    assert got[0].target is None and got[0].kind == "unresolved"
+    assert got[0].method == "ambiguous-python-root"
+
+
+def test_python_conftest_syspath_root_resolves_test_app(tmp_path: Path):
+    """A conftest syspath_prepend directory is an import root (measured Flask miss)."""
+    for rel in ("tests/test_apps/blueprintapp/__init__.py",
+                "tests/test_apps/blueprintapp/apps/admin/__init__.py",
+                "tests/test_blueprints.py"):
+        (tmp_path / rel).parent.mkdir(parents=True, exist_ok=True)
+        (tmp_path / rel).write_text("")
+    (tmp_path / "tests/conftest.py").write_text(
+        "import os\n"
+        "def fixture(monkeypatch):\n"
+        "    monkeypatch.syspath_prepend(os.path.join(os.path.dirname(__file__), 'test_apps'))\n")
+    files = [("tests/test_apps/blueprintapp/__init__.py", "python"),
+             ("tests/test_apps/blueprintapp/apps/admin/__init__.py", "python"),
+             ("tests/test_blueprints.py", "python"), ("tests/conftest.py", "python")]
+    r = Resolver(tmp_path, files)
+    imp = extract("tests/test_blueprints.py", "python",
+                  b"from blueprintapp.apps.admin import admin\n").imports
+    got = {(x.module, x.target, x.confidence, x.method) for x in r.resolve(
+        "tests/test_blueprints.py", imp)}
+    assert ("blueprintapp.apps.admin",
+            "tests/test_apps/blueprintapp/apps/admin/__init__.py",
+            "inferred", "python-syspath-root") in got
+
+
+def test_ts_package_imports_map_resolves_private_specifiers(tmp_path: Path):
+    """`#private` specifiers come from the nearest package.json imports map."""
+    pkg = tmp_path / "packages/svelte"
+    (pkg / "src/internal/client").mkdir(parents=True)
+    (pkg / "src/compiler").mkdir(parents=True)
+    (pkg / "src/wild").mkdir(parents=True)
+    (pkg / "package.json").write_text(json.dumps({
+        "name": "svelte",
+        "imports": {
+            "#client/constants": "./src/internal/client/constants.js",
+            "#compiler": {"types": "./src/compiler/private.d.ts",
+                          "default": "./src/compiler/index.js"},
+            "#wild/*": "./src/wild/*.js",
+        },
+    }))
+    for rel in ("packages/svelte/src/internal/client/constants.js",
+                "packages/svelte/src/compiler/index.js",
+                "packages/svelte/src/compiler/private.d.ts",
+                "packages/svelte/src/wild/a.js",
+                "packages/svelte/src/use.ts"):
+        (tmp_path / rel).write_text("")
+    files = [(rel, "typescript" if rel.endswith((".ts", ".d.ts")) else "javascript")
+             for rel in ("packages/svelte/src/internal/client/constants.js",
+                         "packages/svelte/src/compiler/index.js",
+                         "packages/svelte/src/compiler/private.d.ts",
+                         "packages/svelte/src/wild/a.js",
+                         "packages/svelte/src/use.ts")]
+    r = Resolver(tmp_path, files)
+    imp = extract("packages/svelte/src/use.ts", "typescript",
+                  b'import "#client/constants";\nimport "#compiler";\n'
+                  b'import "#wild/a";\nimport "#missing";\n').imports
+    got = {(x.module, x.target, x.kind, x.method) for x in r.resolve(
+        "packages/svelte/src/use.ts", imp)}
+    assert ("#client/constants", "packages/svelte/src/internal/client/constants.js",
+            "internal", "package-imports-map") in got
+    assert ("#compiler", "packages/svelte/src/compiler/index.js",
+            "internal", "package-imports-map") in got
+    assert ("#wild/a", "packages/svelte/src/wild/a.js",
+            "internal", "package-imports-map") in got
+    assert ("#missing", None, "unresolved", "package-imports-map") in got
+
+
+def test_ts_exports_dist_entry_maps_to_source_entry(tmp_path: Path):
+    """`import "vite"` inside Vite resolves via exports dist -> src (measured miss)."""
+    (tmp_path / "packages/vite/src/node").mkdir(parents=True)
+    (tmp_path / "packages/vite/package.json").write_text(json.dumps({
+        "name": "vite", "exports": {".": "./dist/node/index.js"}}))
+    for rel in ("packages/vite/src/node/index.ts", "playground/config.ts"):
+        (tmp_path / rel).parent.mkdir(parents=True, exist_ok=True)
+        (tmp_path / rel).write_text("")
+    files = [("packages/vite/src/node/index.ts", "typescript"),
+             ("playground/config.ts", "typescript")]
+    r = Resolver(tmp_path, files)
+    imp = extract("playground/config.ts", "typescript",
+                  b'import { defineConfig } from "vite";\n').imports
+    got = {(x.module, x.target, x.confidence, x.method) for x in r.resolve(
+        "playground/config.ts", imp)}
+    assert ("vite", "packages/vite/src/node/index.ts", "inferred",
+            "workspace-package") in got

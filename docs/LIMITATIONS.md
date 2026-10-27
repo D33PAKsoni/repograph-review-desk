@@ -26,7 +26,7 @@ RepoGraph reports what static parsing can establish. It does not prove safety.
 ### Measured accuracy caveats
 
 - The final unseen test measured 100% precision (150/150 resolved edges) and 94.3% estimated recall. Precision's 95% lower bound is 97.5%; recall is a weighted sample estimate.
-- Known recall gaps: Python modules imported by bare name from `tests/`/`examples/` (sys.path roots), Node `#imports` aliases, JSON/config imports, `package.json` `exports` conditions and package self-references. See `research/EDGE_ACCURACY_RESULTS.md`.
+- Known recall gaps: JSON/config imports, bundler-virtual specifiers and fixture packages nested below the package-discovery depth bound. Python bare imports from test/example roots and Node `#imports` maps were measured defects and are now resolved as `inferred` (see `research/EDGE_ACCURACY_RESULTS.md`, "Post-fix recheck"). Conditional `exports` targets beyond the package entry are still only approximated by path probing.
 - Non-code assets (CSS, images, JSON), `.vue` SFCs and bundler-virtual specifiers (`?raw`, `?worker`, `?url`) are outside the code graph. They are reported unresolved, not silently dropped.
 - Labelers were AI agents, not humans. Two independent labelers agreed on 91.5% of the final sample; disagreements become `uncertain`.
 - Three test repositories are not a random sample of all code. Do not extrapolate to polyglot or generated-code-heavy repositories.

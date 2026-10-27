@@ -33,6 +33,14 @@ class ResolvedImport:
 PY_EXT = ".py"
 TS_EXTS = (".ts", ".tsx", ".js", ".jsx", ".mjs", ".cjs", ".mts", ".cts")
 PY_STDLIB = set(sys.stdlib_module_names) | {"__future__"}
+PY_PROJECT_MANIFESTS = ("pyproject.toml", "setup.py", "setup.cfg")
+# Directories walked for project manifests and package.json files. Depth is a
+# deliberate bound: deeper fixture packages tend to be named after real
+# dependencies, and registering those globally would hijack real imports.
+MANIFEST_MAX_DEPTH = 3
+PACKAGE_MAX_DEPTH = 4
+WALK_SKIP = ("node_modules", ".git", ".venv", "venv", "dist", "build",
+             "coverage", "__pycache__", ".tox", ".mypy_cache")
 
 
 def _strip_json_comments(text: str) -> str:
@@ -81,11 +89,16 @@ class Resolver:
         self.files = {rel for rel, _ in files}
         self.lang = dict(files)
         self.py_modules: dict[str, str | None] = {}
+        # Names reachable only via a project root or a conftest sys.path
+        # mutation. They are runtime configuration, so they stay `inferred`.
+        self.py_alt_modules: dict[str, tuple[str | None, str, str]] = {}
         self.ts_configs: list[dict] = []
         self.packages: dict[str, str] = {}
         self.package_dirs: dict[str, str] = {}
+        self.package_imports: dict[str, dict] = {}
         self._dirs = {str(PurePosixPath(p).parent) for p in self.files}
         self._build_python_modules()
+        self._build_python_roots()
         self._build_ts_configs()
         self._build_packages()
 
@@ -127,6 +140,76 @@ class Resolver:
             aliases.append(".".join(parts[start:-1] + [stem]))
         return list(dict.fromkeys(aliases))
 
+    def _build_python_roots(self) -> None:
+        """Register names that are importable only through a sys.path root.
+
+        Two measured, evidence-bearing cases in Flask: example projects import
+        their own top-level package (``flaskr``), and a conftest fixture calls
+        ``syspath_prepend(tests/test_apps)``. Neither is importable from the
+        repository root, so the root-relative alias map cannot see them.
+        Names are registered only when unambiguous across the whole repo.
+        """
+        import os
+
+        roots: list[tuple[str, str, str]] = []
+
+        for dirpath, dirnames, filenames in os.walk(self.root):
+            dirnames[:] = [d for d in dirnames if d not in WALK_SKIP]
+            rel_dir = Path(dirpath).relative_to(self.root).as_posix()
+            depth = 0 if rel_dir == "." else rel_dir.count("/") + 1
+            if depth >= MANIFEST_MAX_DEPTH:
+                dirnames[:] = []
+            if not any(m in filenames for m in PY_PROJECT_MANIFESTS):
+                continue
+            base = "" if rel_dir == "." else rel_dir
+            src = posixpath.join(base, "src") if base else "src"
+            if any(p.startswith(src + "/") and p.endswith(PY_EXT) for p in self.files):
+                roots.append((src, "python-project-root",
+                              f"src layout of the Python project at {base or '.'}"))
+            else:
+                roots.append((base or ".", "python-project-root",
+                              f"Python project root {base or '.'}"))
+
+        for rel, lang in self.lang.items():
+            if lang != "python" or rel.rsplit("/", 1)[-1] != "conftest.py":
+                continue
+            try:
+                text = (self.root / rel).read_text(encoding="utf-8", errors="replace")
+            except OSError:
+                continue
+            for line in text.splitlines():
+                if "syspath_prepend(" not in line and "sys.path.insert(" not in line:
+                    continue
+                for name in re.findall(r'"([^"\n]+)"|\'([^\'\n]+)\'', line):
+                    literal = name[0] or name[1]
+                    cand = posixpath.normpath(posixpath.join(posixpath.dirname(rel), literal))
+                    if cand.startswith("../") or not any(
+                            p.startswith(cand + "/") for p in self.files):
+                        continue
+                    roots.append((cand, "python-syspath-root",
+                                  f"conftest {rel} prepends {cand} to sys.path"))
+
+        for root, method, note in dict.fromkeys(roots):
+            prefix = "" if root == "." else root + "/"
+            for rel, lang in self.lang.items():
+                if lang != "python" or (prefix and not rel.startswith(prefix)):
+                    continue
+                parts = (rel[len(prefix):] if prefix else rel).split("/")
+                stem = parts[-1][:-len(PY_EXT)]
+                dotted = ".".join(parts[:-1] if stem == "__init__" else parts[:-1] + [stem])
+                if not dotted:
+                    continue
+                if dotted in self.py_modules:
+                    continue  # a root-relative alias already resolves this name
+                current = self.py_alt_modules.get(dotted)
+                if current is None:
+                    self.py_alt_modules[dotted] = (rel, method, note)
+                elif current[0] != rel:
+                    self.py_alt_modules[dotted] = (
+                        None, "ambiguous-python-root",
+                        "the same import name is defined by more than one sys.path root",
+                    )
+
     def _build_ts_configs(self) -> None:
         import os
 
@@ -162,16 +245,59 @@ class Resolver:
         # Most specific config (deepest directory) wins.
         self.ts_configs.sort(key=lambda c: len(c["dir"]), reverse=True)
 
+    @staticmethod
+    def _condition_target(value) -> str | None:
+        """First usable target in an exports/imports condition object.
+
+        ``types`` is tried last: for change impact we want the file that
+        runs, not the declaration file.
+        """
+        if isinstance(value, str):
+            return value
+        if isinstance(value, dict):
+            for key in ("source", "import", "module", "default", "require", "types"):
+                if key in value:
+                    found = Resolver._condition_target(value[key])
+                    if found:
+                        return found
+            for item in value.values():
+                found = Resolver._condition_target(item)
+                if found:
+                    return found
+        if isinstance(value, list):
+            for item in value:
+                found = Resolver._condition_target(item)
+                if found:
+                    return found
+        return None
+
+    def _entry_source_candidates(self, base: str, entry: str) -> list[str]:
+        """Concrete files an entry field may denote, preferring source.
+
+        Published entries point at build output (``dist/node/index.js``) that
+        is absent from a source checkout; the file developers change is
+        ``src/node/index.ts``. Generalising this also makes a package
+        self-reference (``import "vite"`` inside Vite) resolvable.
+        """
+        cand = posixpath.normpath(posixpath.join(base, entry))
+        cands = [cand]
+        rel = posixpath.relpath(cand, base or ".")
+        if rel.startswith("dist/"):
+            stem = rel[len("dist/"):].rsplit(".", 1)[0]
+            for ext in TS_EXTS:
+                cands.append(posixpath.normpath(
+                    posixpath.join(base, "src", stem + ext)))
+        return cands
+
     def _build_packages(self) -> None:
         import os
 
         for dirpath, dirnames, filenames in os.walk(self.root):
-            dirnames[:] = [d for d in dirnames if d not in ("node_modules", ".git", ".venv", "dist", "build")]
+            dirnames[:] = [d for d in dirnames if d not in WALK_SKIP]
             rel_dir = Path(dirpath).relative_to(self.root).as_posix()
             depth = 0 if rel_dir == "." else rel_dir.count("/") + 1
-            if depth > 4:
+            if depth >= PACKAGE_MAX_DEPTH:
                 dirnames[:] = []
-                continue
             if "package.json" not in filenames:
                 continue
             pkg_json = Path(dirpath, "package.json")
@@ -180,46 +306,62 @@ class Resolver:
                 data = json.loads(_strip_json_comments(pkg_json.read_text(encoding="utf-8", errors="replace")))
             except (OSError, ValueError):
                 continue
+            base = posixpath.dirname(rel)
+            imports = data.get("imports")
+            if isinstance(imports, dict) and imports:
+                self.package_imports[base] = imports
             name = data.get("name")
             if not isinstance(name, str) or not name:
                 continue
-            base = posixpath.dirname(rel)
+            self.package_dirs[name] = base
+            exports = data.get("exports")
+            if isinstance(exports, str):
+                main_export = exports
+            elif isinstance(exports, dict):
+                main_export = self._condition_target(exports.get("."))
+            else:
+                main_export = None
+            entries = [data.get("source"), data.get("module"), data.get("main"),
+                       main_export, "src/index.ts", "src/index.tsx", "src/index.js",
+                       "index.ts", "index.js"]
             resolved = None
-            for entry in (data.get("source"), data.get("module"), data.get("main"),
-                          "src/index.ts", "src/index.tsx", "index.ts", "index.js"):
-                if not isinstance(entry, str):
+            for entry in entries:
+                if not isinstance(entry, str) or not entry:
                     continue
-                cand = posixpath.normpath(posixpath.join(base, entry))
-                if cand in self.files:
-                    resolved = cand
+                hit = next((c for c in self._entry_source_candidates(base, entry)
+                            if c in self.files), None)
+                if hit:
+                    resolved = hit
                     break
-            # Published entries often point at build output (``dist/...``) that
-            # may not exist in a source checkout. For change impact the file
-            # developers edit is ``src/index.ts``, so prefer it in that case.
-            # ponytail: fixed src/index.ts candidates; add other source layouts
-            # when a measured corpus needs them.
-            src_entry = None
-            for entry in ("src/index.ts", "src/index.tsx", "src/index.js"):
-                cand = posixpath.normpath(posixpath.join(base, entry))
-                if cand in self.files:
-                    src_entry = cand
-                    break
-            published = f"{data.get('module') or ''} {data.get('main') or ''}"
-            if src_entry and (resolved is None or "dist/" in published):
-                resolved = src_entry
+            # If the published entry is build output, prefer the conventional
+            # source entry over a stale top-level shim.
+            published = f"{data.get('module') or ''} {data.get('main') or ''} {main_export or ''}"
+            if resolved and "dist/" in published:
+                for entry in ("src/index.ts", "src/index.tsx", "src/index.js"):
+                    cand = posixpath.normpath(posixpath.join(base, entry))
+                    if cand in self.files:
+                        resolved = cand
+                        break
             if resolved:
                 self.packages[name] = resolved
-                self.package_dirs[name] = base
 
     # -- Python -------------------------------------------------------------
 
-    def _py_lookup(self, dotted: str) -> tuple[str | None, str]:
+    def _py_lookup(self, dotted: str) -> tuple[str | None, str, str, str]:
         # Only exact module paths. A suffix match such as ``types`` ->
         # ``fastapi.types`` is not how Python absolute imports bind, and it
         # produced false edges to same-named repository files (stdlib
         # collisions). Source-root aliases are already registered exactly.
         target = self.py_modules.get(dotted)
-        return (target, "confirmed") if target else (None, "unresolved")
+        if target:
+            return target, "confirmed", "python-absolute-import", ""
+        alt = self.py_alt_modules.get(dotted)
+        if alt is None:
+            return None, "unresolved", "python-absolute-import", ""
+        target, method, note = alt
+        if target is None:
+            return None, "unresolved", method, note
+        return target, "inferred", method, note
 
     def _package_of(self, rel: str) -> list[str]:
         parts = rel.split("/")[:-1]
@@ -248,6 +390,7 @@ class Resolver:
             base_parts = (pkg[:-drop] if drop else pkg) + (imp.module.split(".") if imp.module else [])
             base_target = file_for_parts(base_parts)
             base_conf = "confirmed"
+            base_note = ""
         else:
             base_parts = imp.module.split(".") if imp.module else []
             base = ".".join(base_parts)
@@ -258,7 +401,9 @@ class Resolver:
                 return [ResolvedImport(imp.raw, imp.module, imp.line, None, "external",
                                        method, "external", imp.names,
                                        "standard library (absolute import)")]
-            base_target, base_conf = self._py_lookup(base) if base else (None, "unresolved")
+            base_target, base_conf, lookup_method, base_note = (
+                self._py_lookup(base) if base else (None, "unresolved", method, ""))
+            method = lookup_method
 
         # `from pkg import submodule` where `submodule` is a module file.
         name_edges: list[ResolvedImport] = []
@@ -268,16 +413,16 @@ class Resolver:
                 continue
             if imp.level:
                 target = file_for_parts(base_parts + imported.split("."))
-                conf = "confirmed"
+                conf, sub_method, note = "confirmed", method, ""
             else:
                 dotted = ".".join([*base_parts, imported])
-                target, conf = self._py_lookup(dotted)
+                target, conf, sub_method, note = self._py_lookup(dotted)
             if target:
                 resolved_names.add(imported)
                 if target != base_target:
                     name_edges.append(ResolvedImport(
                         imp.raw, f"{imp.module}.{imported}", imp.line, target,
-                        conf, method, "internal", [(imported, local)]))
+                        conf, sub_method, "internal", [(imported, local)], note))
 
         # Emit the package `__init__` edge only when the import names the
         # package itself, or when a name is a package attribute rather than a
@@ -287,7 +432,7 @@ class Resolver:
         if base_target and (imp.module or not meaningful
                             or any(n not in resolved_names for n in meaningful)):
             out.append(ResolvedImport(imp.raw, imp.module, imp.line, base_target, base_conf,
-                                      method, "internal", imp.names))
+                                      method, "internal", imp.names, base_note))
         out.extend(name_edges)
 
         if out:
@@ -299,7 +444,7 @@ class Resolver:
         if not imp.level and top:
             return [ResolvedImport(imp.raw, imp.module, imp.line, None, "unresolved", method,
                                    "unresolved", imp.names,
-                                   "top-level name matches repository content but module was not resolved")]
+                                   base_note or "top-level name matches repository content but module was not resolved")]
         return [ResolvedImport(imp.raw, imp.module, imp.line, None, "unresolved", method,
                                "unresolved", imp.names)]
 
@@ -335,6 +480,44 @@ class Resolver:
                         break
         return cands
 
+    def _resolve_package_import(self, rel: str, spec: str, imp: Import) -> list[ResolvedImport]:
+        """Resolve a Node ``#private`` specifier from the nearest ``imports`` map.
+
+        ``imports`` maps are package-local and use mandatory ``#`` prefixes;
+        they are ordinary static configuration, but the mapping lives in JSON
+        outside the module, so the edge is reported as ``inferred``.
+        """
+        dirs = sorted(self.package_dirs.values(), key=len, reverse=True)
+        pkg_dir = next((d for d in dirs if d == "" or rel.startswith(d + "/")), None)
+        mapping = self.package_imports.get(pkg_dir) if pkg_dir is not None else None
+        target = None
+        if mapping:
+            if spec in mapping:
+                target = self._condition_target(mapping[spec])
+            else:
+                for key, value in mapping.items():
+                    if key.count("*") != 1:
+                        continue
+                    prefix, suffix = key.split("*", 1)
+                    if spec.startswith(prefix) and (not suffix or spec.endswith(suffix)):
+                        middle = spec[len(prefix): len(spec) - len(suffix) if suffix else None]
+                        declared = self._condition_target(value)
+                        if declared:
+                            target = declared.replace("*", middle)
+                            break
+        if target:
+            base = posixpath.normpath(posixpath.join(pkg_dir or ".", target))
+            found = self._ts_candidates(base)
+            if found:
+                return [ResolvedImport(
+                    imp.raw, spec, imp.line, found[0], "inferred", "package-imports-map",
+                    "internal", imp.names,
+                    f"resolved by the imports map of {pkg_dir or '.'}/package.json")]
+        return [ResolvedImport(
+            imp.raw, spec, imp.line, None, "unresolved", "package-imports-map",
+            "unresolved", imp.names,
+            "private # import is not declared by the nearest package.json imports map")]
+
     def _resolve_ts(self, rel: str, imp: Import) -> list[ResolvedImport]:
         spec = imp.module
         method = "typescript-relative-import"
@@ -348,6 +531,8 @@ class Resolver:
                                        "typescript-relative-import", "unresolved", imp.names,
                                        "relative path not found (generated, missing, or out of index)")]
         else:
+            if spec.startswith("#"):
+                return self._resolve_package_import(rel, spec, imp)
             cfg = next(
                 (c for c in self.ts_configs
                  if c["dir"] == "" or rel == c["dir"] or rel.startswith(c["dir"] + "/")),

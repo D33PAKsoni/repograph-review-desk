@@ -57,7 +57,7 @@ Population-weighted estimates, scaling each sampled stratum to its size. `uncert
 
 ### What the test still misses
 
-The 29 agreed misses are concentrated, not random:
+The 29 agreed misses are concentrated, not random (pre-fix snapshot):
 
 | Category | Rows | Example |
 | --- | ---: | --- |
@@ -68,6 +68,30 @@ The 29 agreed misses are concentrated, not random:
 | Other | 2 | Deno/worker conditions |
 
 Non-code assets are excluded from the code graph by design. The `.vue` SFC and Vite `?raw`/`?worker` rows are also reported as unresolved, not silently resolved.
+
+### Post-fix recheck (not a new accuracy estimate)
+
+Four resolver changes were made after that diagnosis. Every one of the 29 agreed
+misses was then re-resolved through the production index path (re-index, then
+query the stored edge):
+
+| Change | Evidence |
+| --- | --- |
+| Python project roots from `pyproject.toml`/`setup.py`/`setup.cfg` (including `src` layouts), registered only when unambiguous | `flaskr`, `js_example`, `task_app` |
+| Directories named in a `conftest` `syspath_prepend`/`sys.path.insert` literal | `blueprintapp`, `cliapp` |
+| Node `package.json` `imports` maps with exact and `*` keys, nearest package wins | svelte `#compiler/builders`, `#client/constants`, `#shared` |
+| `exports`/`main` build output mapped back to `src/…` for the package entry | `vite` self-reference in playgrounds |
+
+Result: **25 of 29** misses now resolve, and **0 of the 150** previously correct
+resolved edges changed target. Every new edge is `inferred`, with its method and
+the root or map that produced it recorded in `imports.method`/`note`.
+
+This is a within-sample recheck on data already used to choose the fixes. It is
+**not** a new recall estimate and must not be quoted as one. The four remaining
+rows are three JSON/config imports (a documented non-code blind spot) and one
+fixture package nested below the package-discovery depth bound; registering
+deep fixture packages globally would let a fixture named like a real dependency
+hijack unrelated imports, so it stays unresolved.
 
 ## Baseline and fix-validation (development repositories)
 
