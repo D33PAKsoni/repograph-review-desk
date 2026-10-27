@@ -122,3 +122,31 @@ Known protocol deviations:
 - No human adjudication exists. Disagreements remain `uncertain`.
 - `report-postfix.json` is an intermediate round from a superseded build and is excluded from claims.
 - The final test was chosen deliberately (one Python app, one TypeScript monorepo, one JS/TS compiler), not sampled from all GitHub repositories.
+
+## Amendment 2 — Post-fix recheck and targeted precision audit (2026-10-27)
+
+Added after four resolver changes fixed 25 of the 29 agreed final-test misses.
+The final-test recall estimate (94.3%) is **not** replaced: the recheck is
+within-sample and cannot support a new estimate.
+
+1. **Recheck.** Every agreed miss in the final test was re-resolved through the
+   production index path, and every previously labeled resolved row was checked
+   for a changed target. Reported as a count, not as precision or recall.
+2. **Precision audit.** The four changes add edges whose method did not exist in
+   the measured build. All 241 such edges were pooled across flask, svelte and
+   vite (the same development corpora). A deterministic random sample of 40
+   (seed `20261027`, `benchmarks/edge_accuracy.py`-style records) is labeled by
+   two independent AI labelers under the unchanged rubric.
+3. **Metric.** Unweighted precision with a Wilson 95% interval. This is a QA
+   audit of new code paths, not a population estimate, and it is not combined
+   with the final-test precision.
+
+**Decision rule, fixed before labeling:** the new inferred methods ship by
+default only if at least 38 of 40 sampled edges are `correct` (unweighted
+precision ≥95%). If 3 or more are wrong or not-internal, the offending method is
+restricted or removed and the recheck is rerun. `uncertain` labels are excluded
+from the numerator but reported.
+
+Sampling code: a one-off query over `imports` where `method IN
+('python-project-root','python-syspath-root','package-imports-map')`, materialized
+as `benchmarks/eval/sample-audit-newmethods.jsonl`.

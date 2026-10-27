@@ -334,12 +334,15 @@ def test_ts_package_imports_map_resolves_private_specifiers(tmp_path: Path):
     r = Resolver(tmp_path, files)
     imp = extract("packages/svelte/src/use.ts", "typescript",
                   b'import "#client/constants";\nimport "#compiler";\n'
+                  b'import type { AST } from "#compiler";\n'
                   b'import "#wild/a";\nimport "#missing";\n').imports
     got = {(x.module, x.target, x.kind, x.method) for x in r.resolve(
         "packages/svelte/src/use.ts", imp)}
     assert ("#client/constants", "packages/svelte/src/internal/client/constants.js",
             "internal", "package-imports-map") in got
     assert ("#compiler", "packages/svelte/src/compiler/index.js",
+            "internal", "package-imports-map") in got
+    assert ("#compiler", "packages/svelte/src/compiler/private.d.ts",
             "internal", "package-imports-map") in got
     assert ("#wild/a", "packages/svelte/src/wild/a.js",
             "internal", "package-imports-map") in got

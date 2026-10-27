@@ -113,6 +113,7 @@ Pre-registered protocol, two independent AI labelers per round. Final test repos
 - 12 measured defects fixed; 23 labeler disagreements in the final sample, all non-code assets or one conditional-exports fixture.
 - Residual recall gaps: JSON/config imports, bundler-virtual specifiers, deep fixture packages, and conditional `exports` beyond the package entry.
 - Post-fix recheck: Python project/conftest import roots and Node `#imports`/`exports` maps corrected 25 of the 29 final-test misses with no change to the 150 previously correct sampled edges. Not a new estimate.
+- Audit of the new inferred methods (Amendment 2): 38/40 correct, 95.0% (Wilson 83.5%–98.6%). The two wrong edges were type-only `#compiler` imports; the `types` condition is now preferred for `import type`, rechecked within the sample.
 - Agent behavior: five paired rename tasks, control versus RepoGraph CLI, both arms perfect. Ceiling effect; no behavioral claim. See `research/AGENT_BEHAVIOR_PILOT.md`.
 
 Full method and threats to validity: `research/EDGE_ACCURACY_RESULTS.md`. Raw artifacts: `benchmarks/eval/`.

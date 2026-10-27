@@ -14,6 +14,7 @@ All notable changes to this project are documented here. The format is based on 
 - Python bare imports of example/test applications now resolve through project roots (`pyproject.toml`, `setup.py`, `setup.cfg`, including `src` layouts) and `conftest` `syspath_prepend` directories, as `inferred`; ambiguous names stay unresolved.
 - Node `#private` specifiers resolve from the nearest `package.json` `imports` map, including `*` keys and condition objects.
 - Package entries that point at unbuilt `dist/…` output map back to `src/…`, so a package self-reference (for example `import "vite"` inside Vite) resolves.
+- Whole-module `import type`/`export type` statements resolve the `types` condition of an `imports`/`exports` entry instead of the runtime entry (2 audited svelte `#compiler` edges). Value imports still choose the file that runs.
 - Python stdlib names no longer bind to same-named repository files (`types` → `fastapi/types.py`), which produced 24 false edges.
 - CommonJS `require('..')` now resolves the root `index.js` (96 Express imports).
 - `.d.ts` files resolve for extensionless TypeScript imports (17 Vue misses).

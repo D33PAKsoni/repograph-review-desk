@@ -127,6 +127,44 @@ The baseline pooled precision passed the 95% threshold, which is exactly why poo
 
 Targeted recheck of the exact baseline failures in the re-indexed repositories: 30/30 Express root imports now target `index.js`; 24/24 FastAPI stdlib rows are external; 17/17 Vue `.d.ts` rows resolve; the one workspace subpath is correct.
 
+## Amendment 2 audit of the new inferred methods
+
+The four post-test changes add edges whose method did not exist in the measured
+build, so they were audited separately under the rule fixed in the protocol
+(Amendment 2): ship only if at least 38 of 40 sampled edges are `correct`.
+
+Sample: 40 of the 241 edges produced by `python-project-root`,
+`python-syspath-root` and `package-imports-map` across flask, svelte and vite
+(seed `20261027`; 4 Python, 36 Node). Two independent AI labelers agreed on
+**40/40** rows.
+
+| Result | Count |
+| --- | ---: |
+| `correct` | 38 |
+| `wrong_target` | 2 |
+| `not_internal` / `uncertain` | 0 |
+
+Unweighted precision **95.0%** (38/40), Wilson 95% interval **83.5%–98.6%**.
+This is a QA sample of the new code paths, not a population estimate, and it is
+not pooled with the final-test precision.
+
+Both wrong edges are the same defect: a type-only import through svelte's
+`#compiler` mapping (`import type { AST } from '#compiler'`) resolved to the
+runtime entry `src/compiler/index.js` instead of the declaration entry
+`src/compiler/private.d.ts`. The condition selector preferred `default`/`import`
+over `types`, and the extractor did not record that the statement was a type
+import.
+
+Fix: `_condition_target` takes a `prefer_types` flag, and the resolver sets it
+when the raw statement matches `import type` / `export type`. Value imports keep
+choosing the file that runs, which is what change impact needs.
+
+**Within-sample recheck.** After re-indexing svelte through the production path,
+both audited rows resolve to `packages/svelte/src/compiler/private.d.ts`, and
+**0 of the sampled resolved svelte test rows changed target**. As with the
+recall recheck, this is a check on data that exposed the defect — the 38/40
+result above remains the measured number.
+
 ## Threats to validity
 
 - **Development-set overfitting.** Fixes were derived from the development labels. The final test used new repositories, but three repositories are not a random sample of code, and repository selection was deliberate (Python app, TS monorepo, JS/TS compiler).
@@ -137,6 +175,7 @@ Targeted recheck of the exact baseline failures in the re-indexed repositories: 
 - **Single measurement.** One index per repository, one resolver version, no repeated runs.
 - **Anchoring.** Labelers see the resolver's proposed target and method. The rubric asks for independent verification; anchoring cannot be eliminated.
 - **No human adjudication.** Disagreements become `uncertain` in the weighted metrics.
+- **Audit sample size.** The Amendment 2 audit labeled 40 edges. Its interval is wide (83.5%–98.6%) and both labelers are AI; it bounds the new methods loosely, not tightly.
 
 ## Decision
 

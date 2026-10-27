@@ -169,6 +169,7 @@ Edge accuracy was measured with a pre-registered protocol and two independent AI
 - No false resolved edge appeared in the final sample (Wilson 95% lower bound 97.5%).
 - `confirmed` and `inferred` edges were both 100% precise in that sample.
 - Those numbers describe the measured build. Later resolver fixes were verified by a within-sample recheck (25 of 29 known misses resolved, no previously correct sampled edge changed); that recheck is not a new recall estimate. See `research/EDGE_ACCURACY_RESULTS.md`.
+- The edges those fixes add were audited separately: 38/40 correct (95.0%, Wilson 83.5%–98.6%). Both wrong edges were one type-only `#compiler` defect, fixed and rechecked within the sample.
 - Recall is an estimate, not a census. The largest known gaps: Python apps imported by bare name from `tests/`/`examples/`, Node `#imports` aliases, JSON/config imports, and package self-references. Non-code assets, `.vue` SFCs and bundler-virtual modules (`?raw`, `?worker`) are reported as unresolved or external, not guessed.
 - Earlier rounds found and fixed 12 measured defects, including false stdlib edges, missed CommonJS root imports, broken `tsconfig` globs and `.d.ts` resolution. The baseline Express recall was 32%.
 

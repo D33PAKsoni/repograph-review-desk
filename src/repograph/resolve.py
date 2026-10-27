@@ -246,27 +246,31 @@ class Resolver:
         self.ts_configs.sort(key=lambda c: len(c["dir"]), reverse=True)
 
     @staticmethod
-    def _condition_target(value) -> str | None:
+    def _condition_target(value, prefer_types: bool = False) -> str | None:
         """First usable target in an exports/imports condition object.
 
-        ``types`` is tried last: for change impact we want the file that
-        runs, not the declaration file.
+        ``types`` is tried last for value imports: for change impact we want
+        the file that runs. Whole-module ``import type`` resolves the ``types``
+        condition instead, which the audit showed is a different file.
         """
         if isinstance(value, str):
             return value
         if isinstance(value, dict):
-            for key in ("source", "import", "module", "default", "require", "types"):
+            order = (("types", "source", "import", "module", "default", "require")
+                     if prefer_types else
+                     ("source", "import", "module", "default", "require", "types"))
+            for key in order:
                 if key in value:
-                    found = Resolver._condition_target(value[key])
+                    found = Resolver._condition_target(value[key], prefer_types)
                     if found:
                         return found
             for item in value.values():
-                found = Resolver._condition_target(item)
+                found = Resolver._condition_target(item, prefer_types)
                 if found:
                     return found
         if isinstance(value, list):
             for item in value:
-                found = Resolver._condition_target(item)
+                found = Resolver._condition_target(item, prefer_types)
                 if found:
                     return found
         return None
@@ -490,10 +494,11 @@ class Resolver:
         dirs = sorted(self.package_dirs.values(), key=len, reverse=True)
         pkg_dir = next((d for d in dirs if d == "" or rel.startswith(d + "/")), None)
         mapping = self.package_imports.get(pkg_dir) if pkg_dir is not None else None
+        type_only = bool(re.match(r"\s*(?:import|export)\s+type\b", imp.raw))
         target = None
         if mapping:
             if spec in mapping:
-                target = self._condition_target(mapping[spec])
+                target = self._condition_target(mapping[spec], type_only)
             else:
                 for key, value in mapping.items():
                     if key.count("*") != 1:
@@ -501,7 +506,7 @@ class Resolver:
                     prefix, suffix = key.split("*", 1)
                     if spec.startswith(prefix) and (not suffix or spec.endswith(suffix)):
                         middle = spec[len(prefix): len(spec) - len(suffix) if suffix else None]
-                        declared = self._condition_target(value)
+                        declared = self._condition_target(value, type_only)
                         if declared:
                             target = declared.replace("*", middle)
                             break
