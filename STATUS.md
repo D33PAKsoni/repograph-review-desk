@@ -2,11 +2,13 @@
 
 **Date:** 2026-10-27
 **Version:** 0.1.0 alpha
-**Repository:** `/home/darion-dev/repograph` (not a git repository; nothing committed, pushed or published)
+**Repository:** `/home/darion-dev/repograph` — published source at `https://github.com/INDEX0-RESEARCH-LABS/repograph` (no release, package publication or announcement)
 
 ## Bottom line
 
-RepoGraph is a working local prototype: it indexes real Python/TypeScript/JavaScript repositories, exposes a CLI and six MCP tools, and produces evidence-backed impact reports with explicit blind spots. The engineering baseline is real and tested. The **product claim is not validated**: there is no measured edge precision/recall, no user study, and no evidence that the tool changes agent behavior. The competitive field is crowded, including projects already claiming evidence/confidence and impact analysis.
+RepoGraph is a working local tool: it indexes real Python/TypeScript/JavaScript repositories, exposes a CLI and six MCP tools, and produces evidence-backed impact reports with explicit blind spots. The engineering baseline is tested, and **edge accuracy is now measured**: 100% precision on 150 sampled resolved edges across three unseen repositories, with 94.3% estimated recall.
+
+The **product claim is still only partly validated**. There is no user study and no evidence that the tool changes agent behavior. Missing edges remain the main risk, not wrong ones. The competitive field is crowded, including projects already claiming evidence/confidence and impact analysis.
 
 ## Implemented
 
@@ -61,16 +63,16 @@ RepoGraph is a working local prototype: it indexes real Python/TypeScript/JavaSc
 ### Tests
 
 ```
-39 passed
+51 passed
 ```
 
 Coverage (direct in-process measurement):
 
 ```
-TOTAL 1949 statements, 654 missed, 66%
+TOTAL 2016 statements, 656 missed, 67%
 ```
 
-The CLI and MCP server show 0% direct coverage because they are tested through subprocesses (`python -m repograph`, stdio MCP client). Their behavior is exercised; the coverage tool does not attribute it to those modules. Core modules: `impact.py` 93%, `indexer.py` 96%, `store.py` 94%, `resolve.py` 90%, `extract.py` 89%.
+The CLI and MCP server show 0% direct coverage because they are tested through subprocesses (`python -m repograph`, stdio MCP client). Their behavior is exercised; the coverage tool does not attribute it to those modules. Core modules: `impact.py` 93%, `indexer.py` 96%, `store.py` 94%, `resolve.py` 91%, `extract.py` 89%.
 
 Reproduce:
 
@@ -95,11 +97,29 @@ Impact is the highest-inbound file at depth 2. Express (63 symbols from 142 JS f
 
 Self-index: 21 Python files, 182 symbols, 1,497 refs, 0 parse errors, 0.15 s, 248 KiB.
 
+### Edge accuracy
+
+Pre-registered protocol, two independent AI labelers per round. Final test repositories (flask, vite, svelte) were not used to develop the resolver.
+
+| Repo | Resolved sample | Precision | Recall |
+| --- | ---: | ---: | ---: |
+| flask | 30 | 100% | 94.9% |
+| vite | 60 | 100% | 85.5% |
+| svelte | 60 | 100% | 97.6% |
+| **overall** | **150** | **100%** | **94.3%** |
+
+- `confirmed` 90/90 and `inferred` 60/60 correct in the final sample.
+- Baseline before fixes: 24 false stdlib edges, 96 missed Express root imports, 17 missed `.d.ts` imports, broken `tsconfig` globs, Express recall 32.4%.
+- 12 measured defects fixed; 23 labeler disagreements in the final sample, all non-code assets or one conditional-exports fixture.
+- Residual recall gaps: Python `tests/`/`examples/` import roots, Node `#imports`, JSON/config imports, conditional `exports`, package self-references.
+
+Full method and threats to validity: `research/EDGE_ACCURACY_RESULTS.md`. Raw artifacts: `benchmarks/eval/`.
+
 ## Research conclusions
 
 - The agent and MCP ecosystem is large and active.
 - The generic code-graph category is saturated; several competitors claim impact analysis, change-aware tests, evidence/confidence, and "every edge explained".
-- RepoGraph has **no proven differentiation**. The defensible hypothesis is narrower: auditable impact with explicit uncertainty.
+- RepoGraph has **no proven differentiation yet**. The defensible hypothesis remains narrow: auditable impact with explicit uncertainty. Accuracy data now supports the "auditable" part; user value is untested.
 - No competitor was installed or benchmarked. All competitor capabilities are claims from GitHub descriptions.
 
 ## Documentation and materials
@@ -109,15 +129,16 @@ Self-index: 21 Python files, 182 symbols, 1,497 refs, 0 parse errors, 0.15 s, 24
 - `docs/MCP.md` — tool contracts and agent policy.
 - `docs/LIMITATIONS.md` — analysis gaps, benchmark caveats, threat model.
 - `SECURITY.md`, `CONTRIBUTING.md`, `ROADMAP.md`, `CHANGELOG.md`, `LICENSE`.
-- `research/` — evidence, competitive analysis, technical landscape, opportunity analysis, hypotheses, validation plan, decision log.
+- `research/` — evidence, competitive analysis, technical landscape, opportunity analysis, hypotheses, validation plan, decision log, edge-accuracy protocol and results.
 - `benchmarks/` — reproducible script, raw results, method.
 - `launch/` — strategy and draft announcement (not published).
 - `.github/` — CI, issue templates, PR template.
 
 ## Not done
 
-- Labeled edge precision/recall evaluation.
 - User interviews, agent task evaluation, willingness-to-pay evidence.
+- Closing the measured recall gaps (Python test/example roots, Node `#imports`, JSON/config imports).
+- Independent human labeling or adjudication of the accuracy sample.
 - Go/Rust/Java/Kotlin support.
 - LSP/compiler-backed resolution.
 - Call graphs, data flow, type compatibility.
@@ -125,7 +146,7 @@ Self-index: 21 Python files, 182 symbols, 1,497 refs, 0 parse errors, 0.15 s, 24
 - Schema migrations.
 - GitHub Action/pre-commit integration.
 - Watch mode, daemon, editor integration.
-- Public release, package publication, or git history.
+- Public release, package publication or announcement (source is on GitHub).
 - Windows/macOS testing.
 
 ## Known issues and limitations
@@ -134,7 +155,7 @@ Self-index: 21 Python files, 182 symbols, 1,497 refs, 0 parse errors, 0.15 s, 24
 - CommonJS extraction is weak (Express benchmark).
 - Test selection and route/model detection are heuristic.
 - Diff analysis uses symbols already in the index; re-index first.
-- No precision data; do not use as a blocking CI gate.
+- Measured precision is high but sampled; recall has known gaps. Do not use as a blocking CI gate; re-index and verify before relying on an empty dependent list.
 - One machine, one run benchmarks; not tested beyond 1,223 files.
 - Coverage report understates CLI/MCP behavior due to subprocess testing.
 - `parse_errors` retry behavior: a file with unchanged content and a prior parse error is skipped until content changes or `--force` is used.
@@ -142,15 +163,20 @@ Self-index: 21 Python files, 182 symbols, 1,497 refs, 0 parse errors, 0.15 s, 24
 
 ## Launch readiness
 
-**Not ready for a "trustworthy impact analysis" launch.** Ready for an experimental, feedback-seeking release if the maintainer authorizes it.
+**Ready for an experimental, feedback-seeking release if the maintainer authorizes it.** Not ready for a "complete dependency coverage" or blocking-CI claim.
 
-Blocking:
+Done:
 
-1. Edge precision/recall on a labeled corpus.
-2. A clean-install test in a fresh environment.
-3. CI passing on a public branch.
-4. At least one design partner using it on a real repository.
-5. Explicit authorization to publish.
+1. Edge precision/recall on labeled development and unseen test corpora.
+2. Clean wheel install in a fresh virtual environment.
+3. Reproducible benchmark results.
+
+Still blocking a stronger launch:
+
+1. Agent-behavior evaluation (12 pre-registered tasks, with and without MCP).
+2. At least one design partner using it on a real repository.
+3. CI passing on the public branch after the current fixes are pushed.
+4. Explicit authorization to publish an announcement or package.
 
 ## Reproduce the prototype
 
@@ -165,4 +191,4 @@ cd /home/darion-dev/repograph
 
 ## Next action
 
-Run Phase 1 of `research/VALIDATION_PLAN.md`: label 200 internal edges on three real repositories, compute precision/recall per confidence class, and only then decide whether to broaden languages or launch.
+Run Phase 2 of `research/VALIDATION_PLAN.md`: agent-behavior evaluation on 12 pre-registered change tasks with and without the six MCP tools. In parallel, fix the measured recall gaps in this order: Python `tests/`/`examples/` import roots (16 of 29 agreed misses), Node `#imports` (6), JSON/config imports (3). Do not add languages until those are measured again on a new unseen corpus.

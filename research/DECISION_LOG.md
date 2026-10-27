@@ -147,3 +147,15 @@ Architecture and product decisions, newest context first. Status values: **accep
 **Decision:** Build a local-first index with six read-only MCP tools, focused on evidence-backed impact analysis.
 
 **Consequences:** Success depends on a differentiated wedge that is not yet proven. See `OPPORTUNITY_ANALYSIS.md` for go/no-go criteria.
+
+---
+
+## D-004 — Measure edge accuracy before broadening scope
+
+**Date:** 2026-10-27 · **Status:** accepted, first measurement complete
+
+**Context:** The alpha had speed benchmarks but no accuracy data. A code graph that is fast and wrong is worse than no graph.
+
+**Decision:** Pre-register an edge-accuracy protocol, label samples with two independent agents, fix measured defects before launch claims, and hold out unseen repositories for the final number. Prefer source entries over unbuilt publish shims for workspace packages.
+
+**Consequences:** The final test measured 150/150 correct resolved edges and 94.3% estimated recall. Residual gaps are Python `tests/`/`examples/` import roots, Node `#imports`, JSON/config assets, conditional `exports`, and non-code assets. Language breadth is deferred until those gaps and agent-behavior validation are addressed.

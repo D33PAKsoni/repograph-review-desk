@@ -1,0 +1,152 @@
+{
+  "sample": "benchmarks/eval/sample-holdout.jsonl",
+  "labelers": [
+    "benchmarks/eval/labels-holdout-a.jsonl",
+    "benchmarks/eval/labels-holdout-b.jsonl"
+  ],
+  "n": 227,
+  "agreement": 0.9868,
+  "disagreements": [
+    {
+      "id": "axios-0004",
+      "reason": "label-disagreement",
+      "labels": [
+        "internal_missed",
+        "unresolved_ok"
+      ],
+      "file": "rollup.config.js",
+      "line": 12,
+      "module": "./package.json",
+      "target": null
+    },
+    {
+      "id": "axios-0113",
+      "reason": "label-disagreement",
+      "labels": [
+        "internal_missed",
+        "unresolved_ok"
+      ],
+      "file": "docs/.vitepress/theme/index.ts",
+      "line": 6,
+      "module": "./style.css",
+      "target": null
+    },
+    {
+      "id": "axios-0208",
+      "reason": "label-disagreement",
+      "labels": [
+        "internal_missed",
+        "unresolved_ok"
+      ],
+      "file": "docs/.vitepress/theme/index.ts",
+      "line": 5,
+      "module": "./SecurityUpdatesBanner.vue",
+      "target": null
+    }
+  ],
+  "disagreement_count": 3,
+  "overall": {
+    "group": "all",
+    "resolved_sample": 122,
+    "resolved_labeled": 122,
+    "miss_sample": 105,
+    "weighted_estimated_edges": {
+      "correct": 622.6,
+      "wrong_target": 16.4,
+      "not_internal": 0.0,
+      "uncertain": 0.0,
+      "internal_missed": 821.4
+    },
+    "precision": 0.9743,
+    "precision_conservative": 0.9743,
+    "recall_estimate": 0.4312,
+    "precision_unweighted": 0.9672,
+    "by_confidence": {
+      "confirmed": {
+        "n": 62,
+        "precision": 0.9355
+      },
+      "inferred": {
+        "n": 60,
+        "precision": 1.0
+      }
+    }
+  },
+  "axios": {
+    "group": "axios",
+    "resolved_sample": 60,
+    "resolved_labeled": 60,
+    "miss_sample": 29,
+    "weighted_estimated_edges": {
+      "correct": 432.0,
+      "wrong_target": 0.0,
+      "not_internal": 0.0,
+      "uncertain": 0.0,
+      "internal_missed": 5.0
+    },
+    "precision": 1.0,
+    "precision_conservative": 1.0,
+    "recall_estimate": 0.9886,
+    "precision_unweighted": 1.0,
+    "by_confidence": {
+      "confirmed": {
+        "n": 30,
+        "precision": 1.0
+      },
+      "inferred": {
+        "n": 30,
+        "precision": 1.0
+      }
+    }
+  },
+  "requests": {
+    "group": "requests",
+    "resolved_sample": 30,
+    "resolved_labeled": 30,
+    "miss_sample": 26,
+    "weighted_estimated_edges": {
+      "correct": 106.6,
+      "wrong_target": 16.4,
+      "not_internal": 0.0,
+      "uncertain": 0.0,
+      "internal_missed": 5.0
+    },
+    "precision": 0.8667,
+    "precision_conservative": 0.8667,
+    "recall_estimate": 0.9552,
+    "precision_unweighted": 0.8667,
+    "by_confidence": {
+      "confirmed": {
+        "n": 30,
+        "precision": 0.8667
+      }
+    }
+  },
+  "zod": {
+    "group": "zod",
+    "resolved_sample": 32,
+    "resolved_labeled": 32,
+    "miss_sample": 50,
+    "weighted_estimated_edges": {
+      "correct": 84.0,
+      "wrong_target": 0.0,
+      "not_internal": 0.0,
+      "uncertain": 0.0,
+      "internal_missed": 811.4
+    },
+    "precision": 1.0,
+    "precision_conservative": 1.0,
+    "recall_estimate": 0.0938,
+    "precision_unweighted": 1.0,
+    "by_confidence": {
+      "confirmed": {
+        "n": 2,
+        "precision": 1.0
+      },
+      "inferred": {
+        "n": 30,
+        "precision": 1.0
+      }
+    }
+  }
+}

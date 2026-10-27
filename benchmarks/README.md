@@ -72,9 +72,34 @@ do
 done
 ```
 
+## Edge accuracy
+
+Speed is not accuracy. The edge evaluation is separate:
+
+- Protocol: `research/EDGE_ACCURACY_PROTOCOL.md`
+- Results: `research/EDGE_ACCURACY_RESULTS.md`
+- Harness: `benchmarks/edge_accuracy.py` (`sample`, `report`)
+- Artifacts: `benchmarks/eval/` (samples, independent labels, weighted reports)
+
+Final unseen test (flask, vite, svelte): 150/150 sampled resolved edges correct; estimated recall 94.3%. Development rounds and the pre-fix baseline are in the results document. The harness never labels anything; labels come from independent reviewers.
+
+```bash
+.venv/bin/python benchmarks/edge_accuracy.py sample \
+  --repo fastapi=/tmp/opencode/repograph-bench/fastapi \
+  --repo vue-core=/tmp/opencode/repograph-bench/vue-core \
+  --repo express=/tmp/opencode/repograph-bench/express \
+  --out benchmarks/eval/sample.jsonl
+
+.venv/bin/python benchmarks/edge_accuracy.py report \
+  --sample benchmarks/eval/sample.jsonl \
+  --labels benchmarks/eval/labels-a.jsonl \
+  --labels benchmarks/eval/labels-b.jsonl \
+  --out benchmarks/eval/report.json
+```
+
 ## Honest caveats
 
-- These measure speed and index size, not accuracy.
+- These measure speed and index size. Accuracy is measured separately above.
 - One machine, one run, no variance analysis.
 - The largest repository is 1,223 files. This is not evidence of behavior at 100k files.
 - Cloned repositories change over time; hashes are not pinned. Dates are in each JSON file.

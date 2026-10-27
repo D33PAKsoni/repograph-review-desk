@@ -23,6 +23,14 @@ RepoGraph reports what static parsing can establish. It does not prove safety.
 - **TypeScript/JavaScript**: `export *` chains, path aliases not declared in `tsconfig`, bundler-only aliases, decorator metadata, nested `package.json` `exports` conditions and CommonJS function-expression exports are weak spots. The Express benchmark shows the last one directly: 142 files yielded only 63 symbols.
 - **No other languages**: Go, Rust, Java, C/C++, Ruby, PHP and others are not parsed. Their files are ignored, so the graph can be very incomplete in polyglot repositories.
 
+### Measured accuracy caveats
+
+- The final unseen test measured 100% precision (150/150 resolved edges) and 94.3% estimated recall. Precision's 95% lower bound is 97.5%; recall is a weighted sample estimate.
+- Known recall gaps: Python modules imported by bare name from `tests/`/`examples/` (sys.path roots), Node `#imports` aliases, JSON/config imports, `package.json` `exports` conditions and package self-references. See `research/EDGE_ACCURACY_RESULTS.md`.
+- Non-code assets (CSS, images, JSON), `.vue` SFCs and bundler-virtual specifiers (`?raw`, `?worker`, `?url`) are outside the code graph. They are reported unresolved, not silently dropped.
+- Labelers were AI agents, not humans. Two independent labelers agreed on 91.5% of the final sample; disagreements become `uncertain`.
+- Three test repositories are not a random sample of all code. Do not extrapolate to polyglot or generated-code-heavy repositories.
+
 ### Benchmark caveats
 
 - Numbers in the README come from one Linux x86_64 machine, Python 3.14.8, one run per repository. They are not a promise of performance on other hardware or repositories.

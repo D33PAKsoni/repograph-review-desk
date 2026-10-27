@@ -1,0 +1,18 @@
+{
+  "seed": 20261027,
+  "sample_size": 217,
+  "population": {
+    "requests|resolved|confirmed": 119,
+    "requests|unresolved|unresolved": 2,
+    "requests|external|external": 193,
+    "axios|resolved|confirmed": 377,
+    "axios|resolved|inferred": 60,
+    "axios|unresolved|unresolved": 4,
+    "axios|external|external": 407,
+    "zod|resolved|confirmed": 673,
+    "zod|resolved|inferred": 332,
+    "zod|unresolved|unresolved": 1,
+    "zod|external|external": 447
+  },
+  "labels": {}
+}

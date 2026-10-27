@@ -60,3 +60,15 @@ def test_config_defaults_cannot_be_replaced_by_user_config(tmp_path: Path):
     assert "custom" in loaded.exclude
     assert "node_modules" in loaded.exclude  # safety defaults are merged in
     assert loaded.max_files == 5
+
+
+def test_directory_named_env_is_not_excluded(tmp_path: Path):
+    """`lib/env/` is source, not a virtualenv (measured Axios defect)."""
+    (tmp_path / "lib/env").mkdir(parents=True)
+    (tmp_path / "lib/env/data.js").write_text("export const VERSION = '1'\n")
+    (tmp_path / "venv").mkdir()
+    (tmp_path / "venv/x.py").write_text("x = 1\n")
+    result = scan(tmp_path, Settings(root=tmp_path))
+    paths = [e.path for e in result.files]
+    assert "lib/env/data.js" in paths
+    assert "venv/x.py" not in paths

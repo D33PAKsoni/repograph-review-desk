@@ -1,0 +1,392 @@
+{
+  "sample": "benchmarks/eval/sample-test.jsonl",
+  "labelers": [
+    "benchmarks/eval/labels-test-a.jsonl",
+    "benchmarks/eval/labels-test-b.jsonl"
+  ],
+  "n": 270,
+  "agreement": 0.9148,
+  "disagreements": [
+    {
+      "id": "vite-0011",
+      "reason": "label-disagreement",
+      "labels": [
+        "internal_missed",
+        "unresolved_ok"
+      ],
+      "file": "playground/css/async/async-2.js",
+      "line": 2,
+      "module": "./async-2.css",
+      "target": null
+    },
+    {
+      "id": "vite-0030",
+      "reason": "label-disagreement",
+      "labels": [
+        "internal_missed",
+        "unresolved_ok"
+      ],
+      "file": "packages/create-vite/template-qwik-ts/src/main.tsx",
+      "line": 4,
+      "module": "./index.css",
+      "target": null
+    },
+    {
+      "id": "vite-0043",
+      "reason": "label-disagreement",
+      "labels": [
+        "internal_missed",
+        "unresolved_ok"
+      ],
+      "file": "packages/create-vite/template-vanilla/src/main.js",
+      "line": 1,
+      "module": "./style.css",
+      "target": null
+    },
+    {
+      "id": "vite-0057",
+      "reason": "label-disagreement",
+      "labels": [
+        "internal_missed",
+        "unresolved_ok"
+      ],
+      "file": "playground/hmr-ssr/hmr.ts",
+      "line": 12,
+      "module": "./logo-no-inline.svg",
+      "target": null
+    },
+    {
+      "id": "vite-0065",
+      "reason": "label-disagreement",
+      "labels": [
+        "internal_missed",
+        "unresolved_ok"
+      ],
+      "file": "playground/assets-sanitize/index.js",
+      "line": 1,
+      "module": "./+circle.svg",
+      "target": null
+    },
+    {
+      "id": "vite-0066",
+      "reason": "label-disagreement",
+      "labels": [
+        "internal_missed",
+        "unresolved_ok"
+      ],
+      "file": "playground/css-codesplit-cjs/other.js",
+      "line": 1,
+      "module": "./style.css",
+      "target": null
+    },
+    {
+      "id": "vite-0089",
+      "reason": "label-disagreement",
+      "labels": [
+        "internal_missed",
+        "unresolved_ok"
+      ],
+      "file": "playground/hmr/hmr.ts",
+      "line": 14,
+      "module": "./logo-no-inline.svg",
+      "target": null
+    },
+    {
+      "id": "vite-0092",
+      "reason": "label-disagreement",
+      "labels": [
+        "internal_missed",
+        "unresolved_ok"
+      ],
+      "file": "packages/create-vite/template-vanilla-ts/src/main.ts",
+      "line": 2,
+      "module": "./assets/hero.png",
+      "target": null
+    },
+    {
+      "id": "vite-0094",
+      "reason": "label-disagreement",
+      "labels": [
+        "unresolved_ok",
+        "internal_missed"
+      ],
+      "file": "packages/vite/src/node/__tests__/fixtures/test-dep-conditions-app/entry.js",
+      "line": 1,
+      "module": "@vitejs/test-dep-conditions",
+      "target": null
+    },
+    {
+      "id": "vite-0107",
+      "reason": "label-disagreement",
+      "labels": [
+        "internal_missed",
+        "unresolved_ok"
+      ],
+      "file": "playground/css/async/async-1.js",
+      "line": 2,
+      "module": "./async-1.css",
+      "target": null
+    },
+    {
+      "id": "vite-0131",
+      "reason": "label-disagreement",
+      "labels": [
+        "internal_missed",
+        "unresolved_ok"
+      ],
+      "file": "playground/html/main.js",
+      "line": 2,
+      "module": "./common.css",
+      "target": null
+    },
+    {
+      "id": "vite-0136",
+      "reason": "label-disagreement",
+      "labels": [
+        "internal_missed",
+        "unresolved_ok"
+      ],
+      "file": "playground/css/postcss-caching/blue-app/main.js",
+      "line": 1,
+      "module": "./imported.css",
+      "target": null
+    },
+    {
+      "id": "vite-0139",
+      "reason": "label-disagreement",
+      "labels": [
+        "internal_missed",
+        "unresolved_ok"
+      ],
+      "file": "packages/create-vite/template-qwik-ts/src/app.tsx",
+      "line": 6,
+      "module": "./app.css",
+      "target": null
+    },
+    {
+      "id": "vite-0149",
+      "reason": "label-disagreement",
+      "labels": [
+        "internal_missed",
+        "unresolved_ok"
+      ],
+      "file": "packages/create-vite/template-solid-ts/src/App.tsx",
+      "line": 5,
+      "module": "./App.css",
+      "target": null
+    },
+    {
+      "id": "vite-0156",
+      "reason": "label-disagreement",
+      "labels": [
+        "internal_missed",
+        "unresolved_ok"
+      ],
+      "file": "playground/css/treeshake-scoped/order/a.js",
+      "line": 3,
+      "module": "./after.css",
+      "target": null
+    },
+    {
+      "id": "vite-0167",
+      "reason": "label-disagreement",
+      "labels": [
+        "internal_missed",
+        "unresolved_ok"
+      ],
+      "file": "packages/create-vite/template-vanilla/src/main.js",
+      "line": 3,
+      "module": "./assets/javascript.svg",
+      "target": null
+    },
+    {
+      "id": "vite-0172",
+      "reason": "label-disagreement",
+      "labels": [
+        "internal_missed",
+        "unresolved_ok"
+      ],
+      "file": "playground/css-lightningcss/main.js",
+      "line": 3,
+      "module": "./external.css",
+      "target": null
+    },
+    {
+      "id": "vite-0184",
+      "reason": "label-disagreement",
+      "labels": [
+        "internal_missed",
+        "unresolved_ok"
+      ],
+      "file": "playground/chunk-importmap/dynamic.js",
+      "line": 1,
+      "module": "./dynamic.css",
+      "target": null
+    },
+    {
+      "id": "vite-0187",
+      "reason": "label-disagreement",
+      "labels": [
+        "internal_missed",
+        "unresolved_ok"
+      ],
+      "file": "playground/css/treeshake-scoped/order/a.js",
+      "line": 1,
+      "module": "./before.css",
+      "target": null
+    },
+    {
+      "id": "vite-0201",
+      "reason": "label-disagreement",
+      "labels": [
+        "internal_missed",
+        "unresolved_ok"
+      ],
+      "file": "playground/css/main.js",
+      "line": 21,
+      "module": "./mod.module.css",
+      "target": null
+    },
+    {
+      "id": "vite-0208",
+      "reason": "label-disagreement",
+      "labels": [
+        "internal_missed",
+        "unresolved_ok"
+      ],
+      "file": "playground/hmr-full-bundle-mode/hmr.js",
+      "line": 4,
+      "module": "./asset.png",
+      "target": null
+    },
+    {
+      "id": "vite-0239",
+      "reason": "label-disagreement",
+      "labels": [
+        "internal_missed",
+        "unresolved_ok"
+      ],
+      "file": "playground/css-lightningcss/main.js",
+      "line": 4,
+      "module": "./mod.module.css",
+      "target": null
+    },
+    {
+      "id": "vite-0264",
+      "reason": "label-disagreement",
+      "labels": [
+        "internal_missed",
+        "unresolved_ok"
+      ],
+      "file": "packages/create-vite/template-solid/src/App.jsx",
+      "line": 5,
+      "module": "./App.css",
+      "target": null
+    }
+  ],
+  "disagreement_count": 23,
+  "overall": {
+    "group": "all",
+    "resolved_sample": 150,
+    "resolved_labeled": 150,
+    "miss_sample": 120,
+    "weighted_estimated_edges": {
+      "correct": 8113.0,
+      "wrong_target": 0.0,
+      "not_internal": 0.0,
+      "uncertain": 0.0,
+      "internal_missed": 489.0
+    },
+    "precision": 1.0,
+    "precision_conservative": 1.0,
+    "recall_estimate": 0.9432,
+    "precision_unweighted": 1.0,
+    "by_confidence": {
+      "confirmed": {
+        "n": 90,
+        "precision": 1.0
+      },
+      "inferred": {
+        "n": 60,
+        "precision": 1.0
+      }
+    }
+  },
+  "flask": {
+    "group": "flask",
+    "resolved_sample": 30,
+    "resolved_labeled": 30,
+    "miss_sample": 41,
+    "weighted_estimated_edges": {
+      "correct": 300.0,
+      "wrong_target": 0.0,
+      "not_internal": 0.0,
+      "uncertain": 0.0,
+      "internal_missed": 16.0
+    },
+    "precision": 1.0,
+    "precision_conservative": 1.0,
+    "recall_estimate": 0.9494,
+    "precision_unweighted": 1.0,
+    "by_confidence": {
+      "confirmed": {
+        "n": 30,
+        "precision": 1.0
+      }
+    }
+  },
+  "svelte": {
+    "group": "svelte",
+    "resolved_sample": 60,
+    "resolved_labeled": 60,
+    "miss_sample": 29,
+    "weighted_estimated_edges": {
+      "correct": 5878.0,
+      "wrong_target": 0.0,
+      "not_internal": 0.0,
+      "uncertain": 0.0,
+      "internal_missed": 144.0
+    },
+    "precision": 1.0,
+    "precision_conservative": 1.0,
+    "recall_estimate": 0.9761,
+    "precision_unweighted": 1.0,
+    "by_confidence": {
+      "confirmed": {
+        "n": 30,
+        "precision": 1.0
+      },
+      "inferred": {
+        "n": 30,
+        "precision": 1.0
+      }
+    }
+  },
+  "vite": {
+    "group": "vite",
+    "resolved_sample": 60,
+    "resolved_labeled": 60,
+    "miss_sample": 50,
+    "weighted_estimated_edges": {
+      "correct": 1935.0,
+      "wrong_target": 0.0,
+      "not_internal": 0.0,
+      "uncertain": 0.0,
+      "internal_missed": 329.0
+    },
+    "precision": 1.0,
+    "precision_conservative": 1.0,
+    "recall_estimate": 0.8547,
+    "precision_unweighted": 1.0,
+    "by_confidence": {
+      "confirmed": {
+        "n": 30,
+        "precision": 1.0
+      },
+      "inferred": {
+        "n": 30,
+        "precision": 1.0
+      }
+    }
+  }
+}

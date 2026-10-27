@@ -1,0 +1,18 @@
+{
+  "seed": 20261027,
+  "sample_size": 270,
+  "population": {
+    "flask|resolved|confirmed": 300,
+    "flask|unresolved|unresolved": 21,
+    "flask|external|external": 328,
+    "vite|resolved|confirmed": 1736,
+    "vite|resolved|inferred": 199,
+    "vite|unresolved|unresolved": 248,
+    "vite|external|external": 1521,
+    "svelte|resolved|confirmed": 4516,
+    "svelte|resolved|inferred": 1362,
+    "svelte|unresolved|unresolved": 9,
+    "svelte|external|external": 480
+  },
+  "labels": {}
+}

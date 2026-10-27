@@ -15,6 +15,7 @@ No dates. Items move when they are tested, not when they are announced.
 - [x] Typer CLI and six-tool MCP server.
 - [x] Unit, integration, CLI, MCP and security tests.
 - [x] Reproducible benchmarks on five public repositories.
+- [x] Edge-accuracy evaluation on development and unseen repositories (`research/EDGE_ACCURACY_RESULTS.md`).
 
 ## 0.2 — precision before breadth
 
@@ -25,7 +26,8 @@ No dates. Items move when they are tested, not when they are announced.
 - [ ] Add changed-symbol impact when no resolved reference exists (currently a known blind spot).
 - [ ] Add `--fail-on-unresolved` style CI guardrails for teams that want a strict mode.
 - [ ] Add schema migration tooling instead of the current version-mismatch error.
-- [ ] Publish a precision/recall evaluation on a labeled set of import edges, including false positives.
+- [x] Publish a precision/recall evaluation on a labeled set of import edges, including false positives.
+- [ ] Close measured recall gaps: Python `tests/`/`examples/` roots, Node `#imports`, JSON/config imports, conditional `exports`.
 
 ## 0.3 — language and repository coverage
 
@@ -54,7 +56,8 @@ No dates. Items move when they are tested, not when they are announced.
 
 ## Known gaps that block a 1.0
 
-- No precision/recall evaluation on a labeled edge set yet.
+- No human-labeled or adjudicated accuracy set; current labels are from independent AI agents.
+- Measured recall gaps remain in test/example import roots, `#imports`, config files and conditional exports.
 - Dynamic and reflective code remains a blind spot by design, but its practical frequency is not measured.
 - Only three first-class languages.
 - No migration story for schema changes beyond `--force`.

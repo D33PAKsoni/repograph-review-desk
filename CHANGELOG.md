@@ -2,6 +2,24 @@
 
 All notable changes to this project are documented here. The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). This project follows semantic versioning once it reaches 1.0.
 
+## [Unreleased]
+
+### Added
+
+- Pre-registered edge-accuracy protocol, deterministic stratified sampler/reporter (`benchmarks/edge_accuracy.py`), independent labels and weighted precision/recall reports in `benchmarks/eval/`.
+- `research/EDGE_ACCURACY_RESULTS.md`: baseline, development rounds and an unseen final test (flask, vite, svelte) with threats to validity.
+
+### Fixed
+
+- Python stdlib names no longer bind to same-named repository files (`types` → `fastapi/types.py`), which produced 24 false edges.
+- CommonJS `require('..')` now resolves the root `index.js` (96 Express imports).
+- `.d.ts` files resolve for extensionless TypeScript imports (17 Vue misses).
+- `tsconfig` glob aliases survive JSONC comment stripping (`"@vue/*"` was truncated as a comment).
+- Workspace packages resolve subpaths and prefer source entries over unbuilt `dist` shims.
+- ESM `./x.js` imports map to `x.ts`; `import pkg` binds `pkg/__init__.py` in `src` layouts.
+- Directories named `env` are no longer excluded (`lib/env/data.js`).
+- `from . import mod` no longer emits a duplicate package edge, while attribute imports keep the `__init__` edge.
+
 ## [0.1.0] — 2026-10-27
 
 First alpha. Local-only, read-only analysis.

@@ -1,0 +1,227 @@
+{"id": "axios-0001", "label": "correct", "note": "deno.json import map points axios at dist/esm/axios.js, build output; the in-repo source entry is index.js."}
+{"id": "requests-0002", "label": "external_ok", "note": ""}
+{"id": "axios-0003", "label": "correct", "note": ""}
+{"actual_target": "package.json", "id": "axios-0004", "label": "internal_missed", "note": "`./package.json` is a tracked repository manifest resolved relative to rollup.config.js; internal, statically resolvable."}
+{"actual_target": "src/requests/__init__.py", "id": "requests-0005", "label": "internal_missed", "note": "Absolute import of this repo's package (src layout); should resolve to src/requests/__init__.py."}
+{"id": "zod-0006", "label": "correct", "note": ""}
+{"actual_target": "packages/zod/src/v4/mini/parse.ts", "id": "zod-0007", "label": "internal_missed", "note": "Relative .js specifier './parse.js' resolves to packages/zod/src/v4/mini/parse.ts under TypeScript .js\u2192.ts resolution; statically resolvable but left unresolved."}
+{"id": "axios-0008", "label": "correct", "note": "Package self-reference; in-repo source entry is index.js (module / exports default). CJS require resolves to ./dist/node/axios.cjs, build output produced from this source."}
+{"id": "axios-0009", "label": "correct", "note": ""}
+{"id": "requests-0010", "label": "correct", "note": ""}
+{"id": "axios-0011", "label": "correct", "note": ""}
+{"id": "axios-0012", "label": "external_ok", "note": ""}
+{"id": "requests-0013", "label": "external_ok", "note": ""}
+{"id": "zod-0014", "label": "correct", "note": ""}
+{"id": "zod-0015", "label": "correct", "note": "Workspace package zod; root tsconfig customConditions @zod/source maps '.' to packages/zod/src/index.ts."}
+{"actual_target": "packages/zod/src/v3/errors.ts", "id": "zod-0016", "label": "internal_missed", "note": "Relative .js specifier './errors.js' resolves to packages/zod/src/v3/errors.ts under TypeScript .js\u2192.ts resolution; statically resolvable but left unresolved."}
+{"actual_target": "packages/zod/src/v3/helpers/util.ts", "id": "zod-0017", "label": "internal_missed", "note": "Relative .js specifier '../helpers/util.js' resolves to packages/zod/src/v3/helpers/util.ts under TypeScript .js\u2192.ts resolution; statically resolvable but left unresolved."}
+{"id": "axios-0018", "label": "correct", "note": ""}
+{"id": "axios-0019", "label": "correct", "note": ""}
+{"id": "zod-0020", "label": "external_ok", "note": ""}
+{"id": "requests-0021", "label": "correct", "note": ""}
+{"id": "requests-0022", "label": "correct", "note": ""}
+{"id": "axios-0023", "label": "external_ok", "note": ""}
+{"id": "zod-0024", "label": "correct", "note": "Workspace package zod; root tsconfig customConditions @zod/source maps '.' to packages/zod/src/index.ts."}
+{"id": "axios-0025", "label": "correct", "note": "Package self-reference; in-repo source entry is index.js (module / exports default). CJS require resolves to ./dist/node/axios.cjs, build output produced from this source."}
+{"id": "requests-0026", "label": "correct", "note": ""}
+{"id": "axios-0027", "label": "correct", "note": "Package self-reference; in-repo source entry is index.js (module / exports default). CJS require resolves to ./dist/node/axios.cjs, build output produced from this source."}
+{"id": "requests-0028", "label": "correct", "note": ""}
+{"id": "axios-0029", "label": "correct", "note": "Package self-reference; in-repo source entry is index.js (module / exports default). CJS require resolves to ./dist/node/axios.cjs, build output produced from this source."}
+{"id": "zod-0030", "label": "correct", "note": ""}
+{"actual_target": "src/requests/_types.py", "id": "requests-0031", "label": "wrong_target", "note": "`from . import _types` imports sibling module _types.py; __init__.py is the package, not the imported module."}
+{"id": "zod-0032", "label": "correct", "note": "Workspace package zod; root tsconfig customConditions @zod/source maps '.' to packages/zod/src/index.ts."}
+{"id": "zod-0033", "label": "correct", "note": ""}
+{"id": "axios-0034", "label": "external_ok", "note": ""}
+{"id": "axios-0035", "label": "unresolved_ok", "note": "tests/module/esm/tests/ts.module.test.js emits this declarations/ directory (tsc outDir); no source file exists at the path."}
+{"id": "zod-0036", "label": "external_ok", "note": ""}
+{"id": "requests-0037", "label": "unresolved_ok", "note": "requests.packages.urllib3.* is injected into sys.modules at runtime by src/requests/packages.py; no repository file implements it."}
+{"id": "axios-0038", "label": "correct", "note": "deno.json import map points axios at dist/esm/axios.js, build output; the in-repo source entry is index.js."}
+{"id": "axios-0039", "label": "correct", "note": "Package self-reference; in-repo source entry is index.js (module / exports default). CJS require resolves to ./dist/node/axios.cjs, build output produced from this source."}
+{"actual_target": "packages/zod/src/mini/index.ts", "id": "zod-0040", "label": "internal_missed", "note": "`zod/mini` is a subpath of the workspace zod package; package exports map it via @zod/source to src/mini/index.ts, so it is internal, not external."}
+{"id": "zod-0041", "label": "correct", "note": ""}
+{"id": "axios-0042", "label": "external_ok", "note": ""}
+{"actual_target": "packages/zod/src/index.ts", "id": "zod-0043", "label": "internal_missed", "note": "Relative .js specifier '../../../../index.js' resolves to packages/zod/src/index.ts under TypeScript .js\u2192.ts resolution; statically resolvable but left unresolved."}
+{"id": "requests-0044", "label": "correct", "note": ""}
+{"id": "axios-0045", "label": "external_ok", "note": ""}
+{"id": "zod-0046", "label": "correct", "note": "Workspace package zod; root tsconfig customConditions @zod/source maps '.' to packages/zod/src/index.ts."}
+{"id": "requests-0047", "label": "correct", "note": ""}
+{"id": "axios-0048", "label": "external_ok", "note": ""}
+{"actual_target": "src/requests/sessions.py", "id": "requests-0049", "label": "wrong_target", "note": "`from . import sessions` imports sibling module sessions.py, not the package __init__.py."}
+{"actual_target": "packages/zod/src/v4/core/visit.ts", "id": "zod-0050", "label": "internal_missed", "note": "Relative .js specifier '../core/visit.js' resolves to packages/zod/src/v4/core/visit.ts under TypeScript .js\u2192.ts resolution; statically resolvable but left unresolved."}
+{"id": "axios-0051", "label": "correct", "note": ""}
+{"id": "zod-0052", "label": "correct", "note": ""}
+{"id": "zod-0053", "label": "external_ok", "note": ""}
+{"id": "axios-0054", "label": "correct", "note": "Package self-reference; in-repo source entry is index.js (module / exports default). CJS require resolves to ./dist/node/axios.cjs, build output produced from this source. Type-only names are declared in the adjacent index.d.ts that pairs with index.js."}
+{"id": "zod-0055", "label": "correct", "note": ""}
+{"id": "requests-0056", "label": "external_ok", "note": ""}
+{"actual_target": "packages/zod/src/v3/index.ts", "id": "zod-0057", "label": "internal_missed", "note": "`zod/v3` is a subpath of the workspace zod package; exports @zod/source map it to src/v3/index.ts, so it is internal, not external."}
+{"id": "requests-0058", "label": "correct", "note": ""}
+{"id": "axios-0059", "label": "correct", "note": "Package self-reference; in-repo source entry is index.js (module / exports default). CJS require resolves to ./dist/node/axios.cjs, build output produced from this source."}
+{"id": "axios-0060", "label": "correct", "note": "Package self-reference; in-repo source entry is index.js (module / exports default). CJS require resolves to ./dist/node/axios.cjs, build output produced from this source."}
+{"id": "zod-0061", "label": "external_ok", "note": ""}
+{"id": "zod-0062", "label": "external_ok", "note": ""}
+{"actual_target": "packages/zod/src/v4/core/errors.ts", "id": "zod-0063", "label": "internal_missed", "note": "Relative .js specifier '../core/errors.js' resolves to packages/zod/src/v4/core/errors.ts under TypeScript .js\u2192.ts resolution; statically resolvable but left unresolved."}
+{"id": "axios-0064", "label": "external_ok", "note": ""}
+{"id": "axios-0065", "label": "correct", "note": ""}
+{"id": "zod-0066", "label": "external_ok", "note": ""}
+{"id": "requests-0067", "label": "external_ok", "note": ""}
+{"id": "requests-0068", "label": "correct", "note": ""}
+{"id": "requests-0069", "label": "correct", "note": ""}
+{"actual_target": "lib/env/data.js", "id": "axios-0070", "label": "internal_missed", "note": "lib/env/data.js is a tracked source file; the relative specifier resolves to it."}
+{"id": "axios-0071", "label": "correct", "note": "Package self-reference; in-repo source entry is index.js (module / exports default). CJS require resolves to ./dist/node/axios.cjs, build output produced from this source."}
+{"id": "axios-0072", "label": "external_ok", "note": ""}
+{"id": "requests-0073", "label": "correct", "note": ""}
+{"actual_target": "packages/zod/src/v4/core/errors.ts", "id": "zod-0074", "label": "internal_missed", "note": "Relative .js specifier '../core/errors.js' resolves to packages/zod/src/v4/core/errors.ts under TypeScript .js\u2192.ts resolution; statically resolvable but left unresolved."}
+{"id": "requests-0075", "label": "external_ok", "note": ""}
+{"id": "zod-0076", "label": "correct", "note": ""}
+{"id": "axios-0077", "label": "correct", "note": ""}
+{"id": "requests-0078", "label": "correct", "note": ""}
+{"id": "axios-0079", "label": "correct", "note": "Package self-reference; in-repo source entry is index.js (module / exports default). CJS require resolves to ./dist/node/axios.cjs, build output produced from this source."}
+{"id": "requests-0080", "label": "correct", "note": ""}
+{"id": "axios-0081", "label": "external_ok", "note": ""}
+{"id": "axios-0082", "label": "correct", "note": ""}
+{"id": "axios-0083", "label": "correct", "note": "Package self-reference; in-repo source entry is index.js (module / exports default). CJS require resolves to ./dist/node/axios.cjs, build output produced from this source. Type-only names are declared in the adjacent index.d.ts that pairs with index.js."}
+{"id": "requests-0084", "label": "external_ok", "note": ""}
+{"id": "axios-0085", "label": "correct", "note": "Package self-reference; in-repo source entry is index.js (module / exports default). CJS require resolves to ./dist/node/axios.cjs, build output produced from this source."}
+{"actual_target": "packages/zod/src/v4/core/checks.ts", "id": "zod-0086", "label": "internal_missed", "note": "Relative .js specifier './checks.js' resolves to packages/zod/src/v4/core/checks.ts under TypeScript .js\u2192.ts resolution; statically resolvable but left unresolved."}
+{"id": "axios-0087", "label": "correct", "note": ""}
+{"id": "requests-0088", "label": "correct", "note": ""}
+{"actual_target": "src/requests/__init__.py", "id": "requests-0089", "label": "internal_missed", "note": "Absolute import of this repo's package (src layout); should resolve to src/requests/__init__.py."}
+{"id": "zod-0090", "label": "correct", "note": "Workspace package zod; root tsconfig customConditions @zod/source maps '.' to packages/zod/src/index.ts."}
+{"actual_target": "src/requests/__init__.py", "id": "requests-0091", "label": "internal_missed", "note": "Absolute import of this repo's package (src layout); should resolve to src/requests/__init__.py."}
+{"id": "axios-0092", "label": "correct", "note": ""}
+{"id": "axios-0093", "label": "correct", "note": ""}
+{"id": "axios-0094", "label": "correct", "note": ""}
+{"id": "axios-0095", "label": "external_ok", "note": ""}
+{"id": "axios-0096", "label": "correct", "note": ""}
+{"id": "axios-0097", "label": "correct", "note": ""}
+{"actual_target": "packages/zod/src/v4/core/to-json-schema.ts", "id": "zod-0098", "label": "internal_missed", "note": "Relative .js specifier './to-json-schema.js' resolves to packages/zod/src/v4/core/to-json-schema.ts under TypeScript .js\u2192.ts resolution; statically resolvable but left unresolved."}
+{"id": "axios-0099", "label": "correct", "note": ""}
+{"id": "zod-0100", "label": "correct", "note": ""}
+{"id": "axios-0101", "label": "correct", "note": ""}
+{"id": "requests-0102", "label": "external_ok", "note": ""}
+{"id": "zod-0103", "label": "correct", "note": "Workspace package zod; root tsconfig customConditions @zod/source maps '.' to packages/zod/src/index.ts."}
+{"id": "axios-0104", "label": "external_ok", "note": ""}
+{"id": "axios-0105", "label": "correct", "note": "Package self-reference; in-repo source entry is index.js (module / exports default). CJS require resolves to ./dist/node/axios.cjs, build output produced from this source."}
+{"actual_target": "packages/zod/src/v4/core/errors.ts", "id": "zod-0106", "label": "internal_missed", "note": "Relative .js specifier '../core/errors.js' resolves to packages/zod/src/v4/core/errors.ts under TypeScript .js\u2192.ts resolution; statically resolvable but left unresolved."}
+{"id": "axios-0107", "label": "external_ok", "note": ""}
+{"id": "axios-0108", "label": "correct", "note": ""}
+{"id": "requests-0109", "label": "correct", "note": ""}
+{"id": "axios-0110", "label": "correct", "note": "Package self-reference; in-repo source entry is index.js (module / exports default). CJS require resolves to ./dist/node/axios.cjs, build output produced from this source."}
+{"id": "axios-0111", "label": "correct", "note": ""}
+{"id": "requests-0112", "label": "external_ok", "note": ""}
+{"actual_target": "docs/.vitepress/theme/style.css", "id": "axios-0113", "label": "internal_missed", "note": "docs/.vitepress/theme/style.css exists in the repo; side-effect asset import RepoGraph does not index."}
+{"id": "axios-0114", "label": "correct", "note": ""}
+{"id": "zod-0115", "label": "correct", "note": ""}
+{"actual_target": "packages/zod/src/v3/helpers/util.ts", "id": "zod-0116", "label": "internal_missed", "note": "Relative .js specifier '../helpers/util.js' resolves to packages/zod/src/v3/helpers/util.ts under TypeScript .js\u2192.ts resolution; statically resolvable but left unresolved."}
+{"id": "axios-0117", "label": "external_ok", "note": ""}
+{"id": "axios-0118", "label": "correct", "note": ""}
+{"actual_target": "packages/zod/src/v4/mini/external.ts", "id": "zod-0119", "label": "internal_missed", "note": "Relative .js specifier '../v4/mini/external.js' resolves to packages/zod/src/v4/mini/external.ts under TypeScript .js\u2192.ts resolution; statically resolvable but left unresolved."}
+{"id": "axios-0120", "label": "correct", "note": "Package self-reference; in-repo source entry is index.js (module / exports default). CJS require resolves to ./dist/node/axios.cjs, build output produced from this source."}
+{"id": "requests-0121", "label": "correct", "note": ""}
+{"id": "zod-0122", "label": "correct", "note": "Workspace package zod; root tsconfig customConditions @zod/source maps '.' to packages/zod/src/index.ts."}
+{"id": "zod-0123", "label": "correct", "note": "Workspace package zod; root tsconfig customConditions @zod/source maps '.' to packages/zod/src/index.ts."}
+{"id": "zod-0124", "label": "external_ok", "note": ""}
+{"id": "axios-0125", "label": "correct", "note": "Package self-reference; in-repo source entry is index.js (module / exports default). CJS require resolves to ./dist/node/axios.cjs, build output produced from this source."}
+{"id": "requests-0126", "label": "external_ok", "note": ""}
+{"id": "zod-0127", "label": "correct", "note": "Workspace package zod; root tsconfig customConditions @zod/source maps '.' to packages/zod/src/index.ts."}
+{"id": "zod-0128", "label": "correct", "note": ""}
+{"actual_target": "packages/zod/src/v4/mini/external.ts", "id": "zod-0129", "label": "internal_missed", "note": "Relative .js specifier './external.js' resolves to packages/zod/src/v4/mini/external.ts under TypeScript .js\u2192.ts resolution; statically resolvable but left unresolved."}
+{"id": "axios-0130", "label": "correct", "note": ""}
+{"id": "zod-0131", "label": "correct", "note": "Workspace package @zod/mini; exports @zod/source maps '.' to packages/mini/src/index.ts (published index.cjs is build output)."}
+{"actual_target": "packages/zod/src/v4/core/doc.ts", "id": "zod-0132", "label": "internal_missed", "note": "Relative .js specifier './doc.js' resolves to packages/zod/src/v4/core/doc.ts under TypeScript .js\u2192.ts resolution; statically resolvable but left unresolved."}
+{"id": "requests-0133", "label": "correct", "note": ""}
+{"actual_target": "packages/bench/benchUtil.ts", "id": "zod-0134", "label": "internal_missed", "note": "Relative .js specifier './benchUtil.js' resolves to packages/bench/benchUtil.ts under TypeScript .js\u2192.ts resolution; statically resolvable but left unresolved."}
+{"id": "zod-0135", "label": "correct", "note": ""}
+{"id": "zod-0136", "label": "external_ok", "note": ""}
+{"actual_target": "packages/zod/src/v3/helpers/util.ts", "id": "zod-0137", "label": "internal_missed", "note": "Relative .js specifier '../helpers/util.js' resolves to packages/zod/src/v3/helpers/util.ts under TypeScript .js\u2192.ts resolution; statically resolvable but left unresolved."}
+{"id": "requests-0138", "label": "correct", "note": ""}
+{"id": "axios-0139", "label": "correct", "note": "Package self-reference; in-repo source entry is index.js (module / exports default). CJS require resolves to ./dist/node/axios.cjs, build output produced from this source."}
+{"actual_target": "packages/bench/benchUtil.ts", "id": "zod-0140", "label": "internal_missed", "note": "Relative .js specifier './benchUtil.js' resolves to packages/bench/benchUtil.ts under TypeScript .js\u2192.ts resolution; statically resolvable but left unresolved."}
+{"id": "requests-0141", "label": "external_ok", "note": ""}
+{"id": "zod-0142", "label": "correct", "note": ""}
+{"id": "zod-0143", "label": "external_ok", "note": ""}
+{"id": "requests-0144", "label": "external_ok", "note": ""}
+{"id": "axios-0145", "label": "correct", "note": "Package self-reference; in-repo source entry is index.js (module / exports default). CJS require resolves to ./dist/node/axios.cjs, build output produced from this source."}
+{"id": "zod-0146", "label": "correct", "note": ""}
+{"actual_target": "packages/zod/src/v4/core/index.ts", "id": "zod-0147", "label": "internal_missed", "note": "Relative .js specifier '../packages/zod/src/v4/core/index.js' resolves to packages/zod/src/v4/core/index.ts under TypeScript .js\u2192.ts resolution; statically resolvable but left unresolved."}
+{"id": "zod-0148", "label": "correct", "note": ""}
+{"id": "requests-0149", "label": "external_ok", "note": ""}
+{"actual_target": "packages/zod/src/v4/core/errors.ts", "id": "zod-0150", "label": "internal_missed", "note": "Relative .js specifier './errors.js' resolves to packages/zod/src/v4/core/errors.ts under TypeScript .js\u2192.ts resolution; statically resolvable but left unresolved."}
+{"id": "requests-0151", "label": "external_ok", "note": ""}
+{"actual_target": "lib/env/data.js", "id": "axios-0152", "label": "internal_missed", "note": "lib/env/data.js is a tracked source file; the relative specifier resolves to it."}
+{"id": "requests-0153", "label": "correct", "note": ""}
+{"actual_target": "packages/zod/src/v3/index.ts", "id": "zod-0154", "label": "internal_missed", "note": "`zod/v3` is a subpath of the workspace zod package; exports @zod/source map it to src/v3/index.ts, so it is internal, not external."}
+{"actual_target": "src/requests/__init__.py", "id": "requests-0155", "label": "internal_missed", "note": "Absolute import of this repo's package (src layout); should resolve to src/requests/__init__.py."}
+{"id": "zod-0156", "label": "correct", "note": "Workspace package zod; root tsconfig customConditions @zod/source maps '.' to packages/zod/src/index.ts."}
+{"actual_target": "lib/env/data.js", "id": "axios-0157", "label": "internal_missed", "note": "lib/env/data.js is a tracked source file; the relative specifier resolves to it."}
+{"actual_target": "packages/zod/src/v4/locales/hi.ts", "id": "zod-0158", "label": "internal_missed", "note": "Relative .js specifier './hi.js' resolves to packages/zod/src/v4/locales/hi.ts under TypeScript .js\u2192.ts resolution; statically resolvable but left unresolved."}
+{"id": "axios-0159", "label": "external_ok", "note": ""}
+{"actual_target": "packages/zod/src/v4/core/errors.ts", "id": "zod-0160", "label": "internal_missed", "note": "Relative .js specifier '../core/errors.js' resolves to packages/zod/src/v4/core/errors.ts under TypeScript .js\u2192.ts resolution; statically resolvable but left unresolved."}
+{"actual_target": "packages/zod/src/v4/mini/checks.ts", "id": "zod-0161", "label": "internal_missed", "note": "Relative .js specifier './checks.js' resolves to packages/zod/src/v4/mini/checks.ts under TypeScript .js\u2192.ts resolution; statically resolvable but left unresolved."}
+{"id": "zod-0162", "label": "correct", "note": "Workspace package zod; root tsconfig customConditions @zod/source maps '.' to packages/zod/src/index.ts."}
+{"id": "axios-0163", "label": "correct", "note": "Package self-reference; in-repo source entry is index.js (module / exports default). CJS require resolves to ./dist/node/axios.cjs, build output produced from this source."}
+{"id": "axios-0164", "label": "correct", "note": "Package self-reference; in-repo source entry is index.js (module / exports default). CJS require resolves to ./dist/node/axios.cjs, build output produced from this source."}
+{"id": "axios-0165", "label": "correct", "note": "Package self-reference; in-repo source entry is index.js (module / exports default). CJS require resolves to ./dist/node/axios.cjs, build output produced from this source."}
+{"id": "axios-0166", "label": "correct", "note": ""}
+{"id": "axios-0167", "label": "external_ok", "note": ""}
+{"id": "axios-0168", "label": "correct", "note": "deno.json import map points axios at dist/esm/axios.js, build output; the in-repo source entry is index.js."}
+{"id": "axios-0169", "label": "correct", "note": ""}
+{"id": "zod-0170", "label": "external_ok", "note": ""}
+{"id": "zod-0171", "label": "external_ok", "note": ""}
+{"id": "zod-0172", "label": "external_ok", "note": ""}
+{"id": "axios-0173", "label": "correct", "note": "Package self-reference; in-repo source entry is index.js (module / exports default). CJS require resolves to ./dist/node/axios.cjs, build output produced from this source."}
+{"id": "requests-0174", "label": "correct", "note": ""}
+{"id": "axios-0175", "label": "correct", "note": ""}
+{"actual_target": "src/requests/_types.py", "id": "requests-0176", "label": "wrong_target", "note": "`from . import _types` imports sibling module _types.py; __init__.py is the package, not the imported module."}
+{"id": "zod-0177", "label": "correct", "note": "Workspace package zod; root tsconfig customConditions @zod/source maps '.' to packages/zod/src/index.ts."}
+{"id": "requests-0178", "label": "external_ok", "note": ""}
+{"id": "zod-0179", "label": "correct", "note": ""}
+{"actual_target": "packages/bench/metabench.ts", "id": "zod-0180", "label": "internal_missed", "note": "Relative .js specifier './metabench.js' resolves to packages/bench/metabench.ts under TypeScript .js\u2192.ts resolution; statically resolvable but left unresolved."}
+{"id": "axios-0181", "label": "external_ok", "note": ""}
+{"id": "requests-0182", "label": "external_ok", "note": ""}
+{"id": "zod-0183", "label": "correct", "note": "Workspace package zod; root tsconfig customConditions @zod/source maps '.' to packages/zod/src/index.ts."}
+{"id": "requests-0184", "label": "correct", "note": ""}
+{"id": "axios-0185", "label": "correct", "note": ""}
+{"actual_target": "packages/zod/src/v3/index.ts", "id": "zod-0186", "label": "internal_missed", "note": "`zod/v3` is a subpath of the workspace zod package; exports @zod/source map it to src/v3/index.ts, so it is internal, not external."}
+{"id": "axios-0187", "label": "external_ok", "note": ""}
+{"id": "axios-0188", "label": "correct", "note": "Package self-reference; in-repo source entry is index.js (module / exports default). CJS require resolves to ./dist/node/axios.cjs, build output produced from this source. Type-only names are declared in the adjacent index.d.ts that pairs with index.js."}
+{"id": "axios-0189", "label": "correct", "note": "Package self-reference; in-repo source entry is index.js (module / exports default). CJS require resolves to ./dist/node/axios.cjs, build output produced from this source."}
+{"id": "requests-0190", "label": "external_ok", "note": ""}
+{"actual_target": "packages/zod/src/v4/core/util.ts", "id": "zod-0191", "label": "internal_missed", "note": "Relative .js specifier '../core/util.js' resolves to packages/zod/src/v4/core/util.ts under TypeScript .js\u2192.ts resolution; statically resolvable but left unresolved."}
+{"actual_target": "packages/zod/src/v3/helpers/util.ts", "id": "zod-0192", "label": "internal_missed", "note": "Relative .js specifier '../helpers/util.js' resolves to packages/zod/src/v3/helpers/util.ts under TypeScript .js\u2192.ts resolution; statically resolvable but left unresolved."}
+{"id": "requests-0193", "label": "external_ok", "note": ""}
+{"id": "requests-0194", "label": "correct", "note": ""}
+{"actual_target": "lib/env/data.js", "id": "axios-0195", "label": "internal_missed", "note": "lib/env/data.js is a tracked source file; the relative specifier resolves to it."}
+{"id": "axios-0196", "label": "correct", "note": ""}
+{"id": "axios-0197", "label": "external_ok", "note": ""}
+{"id": "requests-0198", "label": "correct", "note": ""}
+{"id": "zod-0199", "label": "external_ok", "note": ""}
+{"id": "zod-0200", "label": "correct", "note": ""}
+{"id": "requests-0201", "label": "correct", "note": ""}
+{"actual_target": "src/requests/__init__.py", "id": "requests-0202", "label": "internal_missed", "note": "Absolute import of this repo's package (src layout); should resolve to src/requests/__init__.py."}
+{"actual_target": "src/requests/_types.py", "id": "requests-0203", "label": "wrong_target", "note": "`from . import _types` imports sibling module _types.py; __init__.py is the package, not the imported module."}
+{"actual_target": "packages/zod/src/v3/helpers/util.ts", "id": "zod-0204", "label": "internal_missed", "note": "Relative .js specifier './util.js' resolves to packages/zod/src/v3/helpers/util.ts under TypeScript .js\u2192.ts resolution; statically resolvable but left unresolved."}
+{"id": "axios-0205", "label": "external_ok", "note": ""}
+{"id": "requests-0206", "label": "correct", "note": ""}
+{"id": "axios-0207", "label": "correct", "note": "Package self-reference; in-repo source entry is index.js (module / exports default). CJS require resolves to ./dist/node/axios.cjs, build output produced from this source."}
+{"actual_target": "docs/.vitepress/theme/SecurityUpdatesBanner.vue", "id": "axios-0208", "label": "internal_missed", "note": "docs/.vitepress/theme/SecurityUpdatesBanner.vue exists in the repo; Vue SFC import RepoGraph does not index."}
+{"id": "zod-0209", "label": "external_ok", "note": ""}
+{"id": "zod-0210", "label": "unresolved_ok", "note": "`@/.source` maps via packages/docs/tsconfig.json to ./.source/index.ts, which fumadocs-mdx generates at build time and which is absent from the repo."}
+{"id": "zod-0211", "label": "correct", "note": ""}
+{"actual_target": "lib/env/data.js", "id": "axios-0212", "label": "internal_missed", "note": "lib/env/data.js is a tracked source file; the relative specifier resolves to it."}
+{"id": "axios-0213", "label": "correct", "note": "Package self-reference; in-repo source entry is index.js (module / exports default). CJS require resolves to ./dist/node/axios.cjs, build output produced from this source."}
+{"id": "zod-0214", "label": "external_ok", "note": ""}
+{"actual_target": "packages/zod/src/v3/ZodError.ts", "id": "zod-0215", "label": "internal_missed", "note": "Relative .js specifier '../ZodError.js' resolves to packages/zod/src/v3/ZodError.ts under TypeScript .js\u2192.ts resolution; statically resolvable but left unresolved."}
+{"id": "axios-0216", "label": "correct", "note": ""}
+{"id": "axios-0217", "label": "correct", "note": ""}
+{"id": "requests-0218", "label": "external_ok", "note": ""}
+{"actual_target": "packages/zod/src/v4/locales/index.ts", "id": "zod-0219", "label": "internal_missed", "note": "Relative .js specifier '../locales/index.js' resolves to packages/zod/src/v4/locales/index.ts under TypeScript .js\u2192.ts resolution; statically resolvable but left unresolved."}
+{"id": "requests-0220", "label": "external_ok", "note": ""}
+{"id": "axios-0221", "label": "external_ok", "note": ""}
+{"id": "requests-0222", "label": "external_ok", "note": ""}
+{"actual_target": "packages/zod/src/v4/locales/es.ts", "id": "zod-0223", "label": "internal_missed", "note": "Relative .js specifier '../../../locales/es.js' resolves to packages/zod/src/v4/locales/es.ts under TypeScript .js\u2192.ts resolution; statically resolvable but left unresolved."}
+{"actual_target": "packages/zod/src/v4/locales/ro.ts", "id": "zod-0224", "label": "internal_missed", "note": "Relative .js specifier './ro.js' resolves to packages/zod/src/v4/locales/ro.ts under TypeScript .js\u2192.ts resolution; statically resolvable but left unresolved."}
+{"id": "axios-0225", "label": "correct", "note": "deno.json import map points axios at dist/esm/axios.js, build output; the in-repo source entry is index.js."}
+{"id": "axios-0226", "label": "correct", "note": ""}
+{"id": "requests-0227", "label": "correct", "note": ""}

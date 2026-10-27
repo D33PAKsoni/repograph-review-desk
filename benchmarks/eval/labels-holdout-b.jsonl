@@ -1,0 +1,227 @@
+{"id": "axios-0001", "label": "correct", "note": "deno.json maps 'axios' -> ../../../dist/esm/axios.js, a build artifact (absent) produced by rollup from input './index.js'; resolving to the source entry index.js is correct for this repo."}
+{"id": "requests-0002", "label": "external_ok", "note": ""}
+{"id": "axios-0003", "label": "correct", "note": ""}
+{"id": "axios-0004", "label": "unresolved_ok", "note": "require('./package.json') targets the JSON data file package.json; JSON assets are not code modules in the indexed graph (no .json nodes)."}
+{"id": "requests-0005", "label": "internal_missed", "note": "Absolute import of the repository's own package; pyproject uses src layout (packages.find where=['src']) and sibling absolute imports (e.g. requests.compat) already resolve to src/requests. Expected src/requests/__init__.py.", "actual_target": "src/requests/__init__.py"}
+{"id": "zod-0006", "label": "correct", "note": ""}
+{"id": "zod-0007", "label": "internal_missed", "note": "Relative '.js' specifier resolves to the existing TypeScript source packages/zod/src/v4/mini/parse.ts (nodenext convention); the file is indexed and no ambiguity exists, so this is a resolvable internal import that was missed.", "actual_target": "packages/zod/src/v4/mini/parse.ts"}
+{"id": "axios-0008", "label": "correct", "note": "workspace/self package 'axios': root package.json exports 'import' -> ./index.js; dist/node/axios.cjs is build output and is absent, so index.js is the in-repo source entry."}
+{"id": "axios-0009", "label": "correct", "note": ""}
+{"id": "requests-0010", "label": "correct", "note": ""}
+{"id": "axios-0011", "label": "correct", "note": ""}
+{"id": "axios-0012", "label": "external_ok", "note": ""}
+{"id": "requests-0013", "label": "external_ok", "note": ""}
+{"id": "zod-0014", "label": "correct", "note": ""}
+{"id": "zod-0015", "label": "correct", "note": "workspace package 'zod': root tsconfig customConditions ['@zod/source'] + packages/zod/package.json exports '@zod/source' -> ./src/index.ts select the source entry; published ./index.js is build output and is absent, so src/index.ts is the in-repo referent."}
+{"id": "zod-0016", "label": "internal_missed", "note": "Relative '.js' specifier resolves to the existing TypeScript source packages/zod/src/v3/errors.ts (nodenext convention); the file is indexed and no ambiguity exists, so this is a resolvable internal import that was missed.", "actual_target": "packages/zod/src/v3/errors.ts"}
+{"id": "zod-0017", "label": "internal_missed", "note": "Relative '.js' specifier resolves to the existing TypeScript source packages/zod/src/v3/helpers/util.ts (nodenext convention); the file is indexed and no ambiguity exists, so this is a resolvable internal import that was missed.", "actual_target": "packages/zod/src/v3/helpers/util.ts"}
+{"id": "axios-0018", "label": "correct", "note": ""}
+{"id": "axios-0019", "label": "correct", "note": ""}
+{"id": "zod-0020", "label": "external_ok", "note": ""}
+{"id": "requests-0021", "label": "correct", "note": ""}
+{"id": "requests-0022", "label": "correct", "note": ""}
+{"id": "axios-0023", "label": "external_ok", "note": ""}
+{"id": "zod-0024", "label": "correct", "note": "workspace package 'zod': root tsconfig customConditions ['@zod/source'] + packages/zod/package.json exports '@zod/source' -> ./src/index.ts select the source entry; published ./index.js is build output and is absent, so src/index.ts is the in-repo referent."}
+{"id": "axios-0025", "label": "correct", "note": "workspace/self package 'axios': root package.json exports 'import' -> ./index.js; dist/node/axios.cjs is build output and is absent, so index.js is the in-repo source entry."}
+{"id": "requests-0026", "label": "correct", "note": ""}
+{"id": "axios-0027", "label": "correct", "note": "workspace/self package 'axios': root package.json exports 'import' -> ./index.js; dist/node/axios.cjs is build output and is absent, so index.js is the in-repo source entry."}
+{"id": "requests-0028", "label": "correct", "note": ""}
+{"id": "axios-0029", "label": "correct", "note": "workspace/self package 'axios': root package.json exports 'import' -> ./index.js; dist/node/axios.cjs is build output and is absent, so index.js is the in-repo source entry."}
+{"id": "zod-0030", "label": "correct", "note": ""}
+{"id": "requests-0031", "label": "wrong_target", "note": "'from . import _types as _t' imports the submodule src/requests/_types.py (which exists), not the package __init__; RepoGraph pointed at the package initializer.", "actual_target": "src/requests/_types.py"}
+{"id": "zod-0032", "label": "correct", "note": "workspace package 'zod': root tsconfig customConditions ['@zod/source'] + packages/zod/package.json exports '@zod/source' -> ./src/index.ts select the source entry; published ./index.js is build output and is absent, so src/index.ts is the in-repo referent."}
+{"id": "zod-0033", "label": "correct", "note": ""}
+{"id": "axios-0034", "label": "external_ok", "note": ""}
+{"id": "axios-0035", "label": "unresolved_ok", "note": "./declarations/index.js does not exist; the declarations/ directory is emitted at test time by TypeScript declaration emit (see helpers/declaration-emit.ts), so it is a generated module."}
+{"id": "zod-0036", "label": "external_ok", "note": ""}
+{"id": "requests-0037", "label": "unresolved_ok", "note": "requests.packages.urllib3.* is a runtime sys.modules alias to the third-party urllib3 installed package (see src/requests/packages.py); no repository file implements requests.packages.urllib3.poolmanager."}
+{"id": "axios-0038", "label": "correct", "note": "deno.json maps 'axios' -> ../../../dist/esm/axios.js, a build artifact (absent) produced by rollup from input './index.js'; resolving to the source entry index.js is correct for this repo."}
+{"id": "axios-0039", "label": "correct", "note": "workspace/self package 'axios': root package.json exports 'import' -> ./index.js; dist/node/axios.cjs is build output and is absent, so index.js is the in-repo source entry."}
+{"id": "zod-0040", "label": "internal_missed", "note": "'zod/mini' is the repo's own package subpath export './mini' -> ./src/mini/index.ts (via @zod/source condition), not an external package.", "actual_target": "packages/zod/src/mini/index.ts"}
+{"id": "zod-0041", "label": "correct", "note": ""}
+{"id": "axios-0042", "label": "external_ok", "note": ""}
+{"id": "zod-0043", "label": "internal_missed", "note": "Relative '.js' specifier resolves to the existing TypeScript source packages/zod/src/index.ts (nodenext convention); the file is indexed and no ambiguity exists, so this is a resolvable internal import that was missed.", "actual_target": "packages/zod/src/index.ts"}
+{"id": "requests-0044", "label": "correct", "note": ""}
+{"id": "axios-0045", "label": "external_ok", "note": ""}
+{"id": "zod-0046", "label": "correct", "note": "workspace package 'zod': root tsconfig customConditions ['@zod/source'] + packages/zod/package.json exports '@zod/source' -> ./src/index.ts select the source entry; published ./index.js is build output and is absent, so src/index.ts is the in-repo referent."}
+{"id": "requests-0047", "label": "correct", "note": ""}
+{"id": "axios-0048", "label": "external_ok", "note": ""}
+{"id": "requests-0049", "label": "wrong_target", "note": "'from . import sessions' in src/requests/api.py binds the submodule src/requests/sessions.py (exists); the package __init__.py is not the referent.", "actual_target": "src/requests/sessions.py"}
+{"id": "zod-0050", "label": "internal_missed", "note": "Relative '.js' specifier resolves to the existing TypeScript source packages/zod/src/v4/core/visit.ts (nodenext convention); the file is indexed and no ambiguity exists, so this is a resolvable internal import that was missed.", "actual_target": "packages/zod/src/v4/core/visit.ts"}
+{"id": "axios-0051", "label": "correct", "note": ""}
+{"id": "zod-0052", "label": "correct", "note": ""}
+{"id": "zod-0053", "label": "external_ok", "note": ""}
+{"id": "axios-0054", "label": "correct", "note": "workspace/self package 'axios': root package.json exports 'import' -> ./index.js; dist/node/axios.cjs is build output and is absent, so index.js is the in-repo source entry."}
+{"id": "zod-0055", "label": "correct", "note": ""}
+{"id": "requests-0056", "label": "external_ok", "note": ""}
+{"id": "zod-0057", "label": "internal_missed", "note": "'zod/v3' is the repo's own package subpath export './v3' -> ./src/v3/index.ts (via @zod/source condition); not an external package.", "actual_target": "packages/zod/src/v3/index.ts"}
+{"id": "requests-0058", "label": "correct", "note": ""}
+{"id": "axios-0059", "label": "correct", "note": "workspace/self package 'axios': root package.json exports 'import' -> ./index.js; dist/node/axios.cjs is build output and is absent, so index.js is the in-repo source entry."}
+{"id": "axios-0060", "label": "correct", "note": "workspace/self package 'axios': root package.json exports 'import' -> ./index.js; dist/node/axios.cjs is build output and is absent, so index.js is the in-repo source entry."}
+{"id": "zod-0061", "label": "external_ok", "note": ""}
+{"id": "zod-0062", "label": "external_ok", "note": ""}
+{"id": "zod-0063", "label": "internal_missed", "note": "Relative '.js' specifier resolves to the existing TypeScript source packages/zod/src/v4/core/errors.ts (nodenext convention); the file is indexed and no ambiguity exists, so this is a resolvable internal import that was missed.", "actual_target": "packages/zod/src/v4/core/errors.ts"}
+{"id": "axios-0064", "label": "external_ok", "note": ""}
+{"id": "axios-0065", "label": "correct", "note": ""}
+{"id": "zod-0066", "label": "external_ok", "note": ""}
+{"id": "requests-0067", "label": "external_ok", "note": ""}
+{"id": "requests-0068", "label": "correct", "note": ""}
+{"id": "requests-0069", "label": "correct", "note": ""}
+{"id": "axios-0070", "label": "internal_missed", "note": "lib/env/data.js exists in the repo and exports VERSION (updated by the gulp 'env' task); it is the direct referent and was not resolved.", "actual_target": "lib/env/data.js"}
+{"id": "axios-0071", "label": "correct", "note": "workspace/self package 'axios': root package.json exports 'import' -> ./index.js; dist/node/axios.cjs is build output and is absent, so index.js is the in-repo source entry."}
+{"id": "axios-0072", "label": "external_ok", "note": ""}
+{"id": "requests-0073", "label": "correct", "note": ""}
+{"id": "zod-0074", "label": "internal_missed", "note": "Relative '.js' specifier resolves to the existing TypeScript source packages/zod/src/v4/core/errors.ts (nodenext convention); the file is indexed and no ambiguity exists, so this is a resolvable internal import that was missed.", "actual_target": "packages/zod/src/v4/core/errors.ts"}
+{"id": "requests-0075", "label": "external_ok", "note": ""}
+{"id": "zod-0076", "label": "correct", "note": ""}
+{"id": "axios-0077", "label": "correct", "note": ""}
+{"id": "requests-0078", "label": "correct", "note": ""}
+{"id": "axios-0079", "label": "correct", "note": "workspace/self package 'axios': root package.json exports 'import' -> ./index.js; dist/node/axios.cjs is build output and is absent, so index.js is the in-repo source entry."}
+{"id": "requests-0080", "label": "correct", "note": ""}
+{"id": "axios-0081", "label": "external_ok", "note": ""}
+{"id": "axios-0082", "label": "correct", "note": ""}
+{"id": "axios-0083", "label": "correct", "note": "workspace/self package 'axios': root package.json exports 'import' -> ./index.js; dist/node/axios.cjs is build output and is absent, so index.js is the in-repo source entry."}
+{"id": "requests-0084", "label": "external_ok", "note": ""}
+{"id": "axios-0085", "label": "correct", "note": "workspace/self package 'axios': root package.json exports 'import' -> ./index.js; dist/node/axios.cjs is build output and is absent, so index.js is the in-repo source entry."}
+{"id": "zod-0086", "label": "internal_missed", "note": "Relative '.js' specifier resolves to the existing TypeScript source packages/zod/src/v4/core/checks.ts (nodenext convention); the file is indexed and no ambiguity exists, so this is a resolvable internal import that was missed.", "actual_target": "packages/zod/src/v4/core/checks.ts"}
+{"id": "axios-0087", "label": "correct", "note": ""}
+{"id": "requests-0088", "label": "correct", "note": ""}
+{"id": "requests-0089", "label": "internal_missed", "note": "Absolute import of the repository's own package; pyproject uses src layout (packages.find where=['src']) and sibling absolute imports (e.g. requests.compat) already resolve to src/requests. Expected src/requests/__init__.py.", "actual_target": "src/requests/__init__.py"}
+{"id": "zod-0090", "label": "correct", "note": "workspace package 'zod': root tsconfig customConditions ['@zod/source'] + packages/zod/package.json exports '@zod/source' -> ./src/index.ts select the source entry; published ./index.js is build output and is absent, so src/index.ts is the in-repo referent."}
+{"id": "requests-0091", "label": "internal_missed", "note": "Absolute import of the repository's own package; pyproject uses src layout (packages.find where=['src']) and sibling absolute imports (e.g. requests.compat) already resolve to src/requests. Expected src/requests/__init__.py.", "actual_target": "src/requests/__init__.py"}
+{"id": "axios-0092", "label": "correct", "note": ""}
+{"id": "axios-0093", "label": "correct", "note": ""}
+{"id": "axios-0094", "label": "correct", "note": ""}
+{"id": "axios-0095", "label": "external_ok", "note": ""}
+{"id": "axios-0096", "label": "correct", "note": ""}
+{"id": "axios-0097", "label": "correct", "note": ""}
+{"id": "zod-0098", "label": "internal_missed", "note": "Relative '.js' specifier resolves to the existing TypeScript source packages/zod/src/v4/core/to-json-schema.ts (nodenext convention); the file is indexed and no ambiguity exists, so this is a resolvable internal import that was missed.", "actual_target": "packages/zod/src/v4/core/to-json-schema.ts"}
+{"id": "axios-0099", "label": "correct", "note": ""}
+{"id": "zod-0100", "label": "correct", "note": ""}
+{"id": "axios-0101", "label": "correct", "note": ""}
+{"id": "requests-0102", "label": "external_ok", "note": ""}
+{"id": "zod-0103", "label": "correct", "note": "workspace package 'zod': root tsconfig customConditions ['@zod/source'] + packages/zod/package.json exports '@zod/source' -> ./src/index.ts select the source entry; published ./index.js is build output and is absent, so src/index.ts is the in-repo referent."}
+{"id": "axios-0104", "label": "external_ok", "note": ""}
+{"id": "axios-0105", "label": "correct", "note": "workspace/self package 'axios': root package.json exports 'import' -> ./index.js; dist/node/axios.cjs is build output and is absent, so index.js is the in-repo source entry."}
+{"id": "zod-0106", "label": "internal_missed", "note": "Relative '.js' specifier resolves to the existing TypeScript source packages/zod/src/v4/core/errors.ts (nodenext convention); the file is indexed and no ambiguity exists, so this is a resolvable internal import that was missed.", "actual_target": "packages/zod/src/v4/core/errors.ts"}
+{"id": "axios-0107", "label": "external_ok", "note": ""}
+{"id": "axios-0108", "label": "correct", "note": ""}
+{"id": "requests-0109", "label": "correct", "note": ""}
+{"id": "axios-0110", "label": "correct", "note": "workspace/self package 'axios': root package.json exports 'import' -> ./index.js; dist/node/axios.cjs is build output and is absent, so index.js is the in-repo source entry."}
+{"id": "axios-0111", "label": "correct", "note": ""}
+{"id": "requests-0112", "label": "external_ok", "note": ""}
+{"id": "axios-0113", "label": "unresolved_ok", "note": "./style.css is a CSS asset resolved by the Vite bundler, not a statically resolvable JS/TS module; .css files are not in the code graph."}
+{"id": "axios-0114", "label": "correct", "note": ""}
+{"id": "zod-0115", "label": "correct", "note": ""}
+{"id": "zod-0116", "label": "internal_missed", "note": "Relative '.js' specifier resolves to the existing TypeScript source packages/zod/src/v3/helpers/util.ts (nodenext convention); the file is indexed and no ambiguity exists, so this is a resolvable internal import that was missed.", "actual_target": "packages/zod/src/v3/helpers/util.ts"}
+{"id": "axios-0117", "label": "external_ok", "note": ""}
+{"id": "axios-0118", "label": "correct", "note": ""}
+{"id": "zod-0119", "label": "internal_missed", "note": "Relative '.js' specifier resolves to the existing TypeScript source packages/zod/src/v4/mini/external.ts (nodenext convention); the file is indexed and no ambiguity exists, so this is a resolvable internal import that was missed.", "actual_target": "packages/zod/src/v4/mini/external.ts"}
+{"id": "axios-0120", "label": "correct", "note": "workspace/self package 'axios': root package.json exports 'import' -> ./index.js; dist/node/axios.cjs is build output and is absent, so index.js is the in-repo source entry."}
+{"id": "requests-0121", "label": "correct", "note": ""}
+{"id": "zod-0122", "label": "correct", "note": "workspace package 'zod': root tsconfig customConditions ['@zod/source'] + packages/zod/package.json exports '@zod/source' -> ./src/index.ts select the source entry; published ./index.js is build output and is absent, so src/index.ts is the in-repo referent."}
+{"id": "zod-0123", "label": "correct", "note": "workspace package 'zod': root tsconfig customConditions ['@zod/source'] + packages/zod/package.json exports '@zod/source' -> ./src/index.ts select the source entry; published ./index.js is build output and is absent, so src/index.ts is the in-repo referent."}
+{"id": "zod-0124", "label": "external_ok", "note": ""}
+{"id": "axios-0125", "label": "correct", "note": "workspace/self package 'axios': root package.json exports 'import' -> ./index.js; dist/node/axios.cjs is build output and is absent, so index.js is the in-repo source entry."}
+{"id": "requests-0126", "label": "external_ok", "note": ""}
+{"id": "zod-0127", "label": "correct", "note": "workspace package 'zod': root tsconfig customConditions ['@zod/source'] + packages/zod/package.json exports '@zod/source' -> ./src/index.ts select the source entry; published ./index.js is build output and is absent, so src/index.ts is the in-repo referent."}
+{"id": "zod-0128", "label": "correct", "note": ""}
+{"id": "zod-0129", "label": "internal_missed", "note": "Relative '.js' specifier resolves to the existing TypeScript source packages/zod/src/v4/mini/external.ts (nodenext convention); the file is indexed and no ambiguity exists, so this is a resolvable internal import that was missed.", "actual_target": "packages/zod/src/v4/mini/external.ts"}
+{"id": "axios-0130", "label": "correct", "note": ""}
+{"id": "zod-0131", "label": "correct", "note": "workspace package '@zod/mini': package.json exports '@zod/source' -> ./src/index.ts; published ./index.js is build output and absent."}
+{"id": "zod-0132", "label": "internal_missed", "note": "Relative '.js' specifier resolves to the existing TypeScript source packages/zod/src/v4/core/doc.ts (nodenext convention); the file is indexed and no ambiguity exists, so this is a resolvable internal import that was missed.", "actual_target": "packages/zod/src/v4/core/doc.ts"}
+{"id": "requests-0133", "label": "correct", "note": ""}
+{"id": "zod-0134", "label": "internal_missed", "note": "Relative '.js' specifier resolves to the existing TypeScript source packages/bench/benchUtil.ts (nodenext convention); the file is indexed and no ambiguity exists, so this is a resolvable internal import that was missed.", "actual_target": "packages/bench/benchUtil.ts"}
+{"id": "zod-0135", "label": "correct", "note": ""}
+{"id": "zod-0136", "label": "external_ok", "note": ""}
+{"id": "zod-0137", "label": "internal_missed", "note": "Relative '.js' specifier resolves to the existing TypeScript source packages/zod/src/v3/helpers/util.ts (nodenext convention); the file is indexed and no ambiguity exists, so this is a resolvable internal import that was missed.", "actual_target": "packages/zod/src/v3/helpers/util.ts"}
+{"id": "requests-0138", "label": "correct", "note": ""}
+{"id": "axios-0139", "label": "correct", "note": "workspace/self package 'axios': root package.json exports 'import' -> ./index.js; dist/node/axios.cjs is build output and is absent, so index.js is the in-repo source entry."}
+{"id": "zod-0140", "label": "internal_missed", "note": "Relative '.js' specifier resolves to the existing TypeScript source packages/bench/benchUtil.ts (nodenext convention); the file is indexed and no ambiguity exists, so this is a resolvable internal import that was missed.", "actual_target": "packages/bench/benchUtil.ts"}
+{"id": "requests-0141", "label": "external_ok", "note": ""}
+{"id": "zod-0142", "label": "correct", "note": ""}
+{"id": "zod-0143", "label": "external_ok", "note": ""}
+{"id": "requests-0144", "label": "external_ok", "note": ""}
+{"id": "axios-0145", "label": "correct", "note": "workspace/self package 'axios': root package.json exports 'import' -> ./index.js; dist/node/axios.cjs is build output and is absent, so index.js is the in-repo source entry."}
+{"id": "zod-0146", "label": "correct", "note": ""}
+{"id": "zod-0147", "label": "internal_missed", "note": "Relative '.js' specifier resolves to the existing TypeScript source packages/zod/src/v4/core/index.ts (nodenext convention); the file is indexed and no ambiguity exists, so this is a resolvable internal import that was missed.", "actual_target": "packages/zod/src/v4/core/index.ts"}
+{"id": "zod-0148", "label": "correct", "note": ""}
+{"id": "requests-0149", "label": "external_ok", "note": ""}
+{"id": "zod-0150", "label": "internal_missed", "note": "Relative '.js' specifier resolves to the existing TypeScript source packages/zod/src/v4/core/errors.ts (nodenext convention); the file is indexed and no ambiguity exists, so this is a resolvable internal import that was missed.", "actual_target": "packages/zod/src/v4/core/errors.ts"}
+{"id": "requests-0151", "label": "external_ok", "note": ""}
+{"id": "axios-0152", "label": "internal_missed", "note": "lib/env/data.js exists in the repo and exports VERSION (updated by the gulp 'env' task); it is the direct referent and was not resolved.", "actual_target": "lib/env/data.js"}
+{"id": "requests-0153", "label": "correct", "note": ""}
+{"id": "zod-0154", "label": "internal_missed", "note": "'zod/v3' is the repo's own package subpath export './v3' -> ./src/v3/index.ts (via @zod/source condition); not an external package.", "actual_target": "packages/zod/src/v3/index.ts"}
+{"id": "requests-0155", "label": "internal_missed", "note": "Absolute import of the repository's own package; pyproject uses src layout (packages.find where=['src']) and sibling absolute imports (e.g. requests.compat) already resolve to src/requests. Expected src/requests/__init__.py.", "actual_target": "src/requests/__init__.py"}
+{"id": "zod-0156", "label": "correct", "note": "workspace package 'zod': root tsconfig customConditions ['@zod/source'] + packages/zod/package.json exports '@zod/source' -> ./src/index.ts select the source entry; published ./index.js is build output and is absent, so src/index.ts is the in-repo referent."}
+{"id": "axios-0157", "label": "internal_missed", "note": "lib/env/data.js exists in the repo and exports VERSION (updated by the gulp 'env' task); it is the direct referent and was not resolved.", "actual_target": "lib/env/data.js"}
+{"id": "zod-0158", "label": "internal_missed", "note": "Relative '.js' specifier resolves to the existing TypeScript source packages/zod/src/v4/locales/hi.ts (nodenext convention); the file is indexed and no ambiguity exists, so this is a resolvable internal import that was missed.", "actual_target": "packages/zod/src/v4/locales/hi.ts"}
+{"id": "axios-0159", "label": "external_ok", "note": ""}
+{"id": "zod-0160", "label": "internal_missed", "note": "Relative '.js' specifier resolves to the existing TypeScript source packages/zod/src/v4/core/errors.ts (nodenext convention); the file is indexed and no ambiguity exists, so this is a resolvable internal import that was missed.", "actual_target": "packages/zod/src/v4/core/errors.ts"}
+{"id": "zod-0161", "label": "internal_missed", "note": "Relative '.js' specifier resolves to the existing TypeScript source packages/zod/src/v4/mini/checks.ts (nodenext convention); the file is indexed and no ambiguity exists, so this is a resolvable internal import that was missed.", "actual_target": "packages/zod/src/v4/mini/checks.ts"}
+{"id": "zod-0162", "label": "correct", "note": "workspace package 'zod': root tsconfig customConditions ['@zod/source'] + packages/zod/package.json exports '@zod/source' -> ./src/index.ts select the source entry; published ./index.js is build output and is absent, so src/index.ts is the in-repo referent."}
+{"id": "axios-0163", "label": "correct", "note": "workspace/self package 'axios': root package.json exports 'import' -> ./index.js; dist/node/axios.cjs is build output and is absent, so index.js is the in-repo source entry."}
+{"id": "axios-0164", "label": "correct", "note": "workspace/self package 'axios': root package.json exports 'import' -> ./index.js; dist/node/axios.cjs is build output and is absent, so index.js is the in-repo source entry."}
+{"id": "axios-0165", "label": "correct", "note": "workspace/self package 'axios': root package.json exports 'import' -> ./index.js; dist/node/axios.cjs is build output and is absent, so index.js is the in-repo source entry."}
+{"id": "axios-0166", "label": "correct", "note": ""}
+{"id": "axios-0167", "label": "external_ok", "note": ""}
+{"id": "axios-0168", "label": "correct", "note": "deno.json maps 'axios' -> ../../../dist/esm/axios.js, a build artifact (absent) produced by rollup from input './index.js'; resolving to the source entry index.js is correct for this repo."}
+{"id": "axios-0169", "label": "correct", "note": ""}
+{"id": "zod-0170", "label": "external_ok", "note": ""}
+{"id": "zod-0171", "label": "external_ok", "note": ""}
+{"id": "zod-0172", "label": "external_ok", "note": ""}
+{"id": "axios-0173", "label": "correct", "note": "workspace/self package 'axios': root package.json exports 'import' -> ./index.js; dist/node/axios.cjs is build output and is absent, so index.js is the in-repo source entry."}
+{"id": "requests-0174", "label": "correct", "note": ""}
+{"id": "axios-0175", "label": "correct", "note": ""}
+{"id": "requests-0176", "label": "wrong_target", "note": "'from . import _types as _t' imports the submodule src/requests/_types.py (which exists), not the package __init__; RepoGraph pointed at the package initializer.", "actual_target": "src/requests/_types.py"}
+{"id": "zod-0177", "label": "correct", "note": "workspace package 'zod': root tsconfig customConditions ['@zod/source'] + packages/zod/package.json exports '@zod/source' -> ./src/index.ts select the source entry; published ./index.js is build output and is absent, so src/index.ts is the in-repo referent."}
+{"id": "requests-0178", "label": "external_ok", "note": ""}
+{"id": "zod-0179", "label": "correct", "note": ""}
+{"id": "zod-0180", "label": "internal_missed", "note": "Relative '.js' specifier resolves to the existing TypeScript source packages/bench/metabench.ts (nodenext convention); the file is indexed and no ambiguity exists, so this is a resolvable internal import that was missed.", "actual_target": "packages/bench/metabench.ts"}
+{"id": "axios-0181", "label": "external_ok", "note": ""}
+{"id": "requests-0182", "label": "external_ok", "note": ""}
+{"id": "zod-0183", "label": "correct", "note": "workspace package 'zod': root tsconfig customConditions ['@zod/source'] + packages/zod/package.json exports '@zod/source' -> ./src/index.ts select the source entry; published ./index.js is build output and is absent, so src/index.ts is the in-repo referent."}
+{"id": "requests-0184", "label": "correct", "note": ""}
+{"id": "axios-0185", "label": "correct", "note": ""}
+{"id": "zod-0186", "label": "internal_missed", "note": "'zod/v3' is the repo's own package subpath export './v3' -> ./src/v3/index.ts (via @zod/source condition); not an external package.", "actual_target": "packages/zod/src/v3/index.ts"}
+{"id": "axios-0187", "label": "external_ok", "note": ""}
+{"id": "axios-0188", "label": "correct", "note": "workspace/self package 'axios': root package.json exports 'import' -> ./index.js; dist/node/axios.cjs is build output and is absent, so index.js is the in-repo source entry."}
+{"id": "axios-0189", "label": "correct", "note": "workspace/self package 'axios': root package.json exports 'import' -> ./index.js; dist/node/axios.cjs is build output and is absent, so index.js is the in-repo source entry."}
+{"id": "requests-0190", "label": "external_ok", "note": ""}
+{"id": "zod-0191", "label": "internal_missed", "note": "Relative '.js' specifier resolves to the existing TypeScript source packages/zod/src/v4/core/util.ts (nodenext convention); the file is indexed and no ambiguity exists, so this is a resolvable internal import that was missed.", "actual_target": "packages/zod/src/v4/core/util.ts"}
+{"id": "zod-0192", "label": "internal_missed", "note": "Relative '.js' specifier resolves to the existing TypeScript source packages/zod/src/v3/helpers/util.ts (nodenext convention); the file is indexed and no ambiguity exists, so this is a resolvable internal import that was missed.", "actual_target": "packages/zod/src/v3/helpers/util.ts"}
+{"id": "requests-0193", "label": "external_ok", "note": ""}
+{"id": "requests-0194", "label": "correct", "note": ""}
+{"id": "axios-0195", "label": "internal_missed", "note": "lib/env/data.js exists in the repo and exports VERSION (updated by the gulp 'env' task); it is the direct referent and was not resolved.", "actual_target": "lib/env/data.js"}
+{"id": "axios-0196", "label": "correct", "note": ""}
+{"id": "axios-0197", "label": "external_ok", "note": ""}
+{"id": "requests-0198", "label": "correct", "note": ""}
+{"id": "zod-0199", "label": "external_ok", "note": ""}
+{"id": "zod-0200", "label": "correct", "note": ""}
+{"id": "requests-0201", "label": "correct", "note": ""}
+{"id": "requests-0202", "label": "internal_missed", "note": "Absolute import of the repository's own package; pyproject uses src layout (packages.find where=['src']) and sibling absolute imports (e.g. requests.compat) already resolve to src/requests. Expected src/requests/__init__.py.", "actual_target": "src/requests/__init__.py"}
+{"id": "requests-0203", "label": "wrong_target", "note": "'from . import _types as _t' imports the submodule src/requests/_types.py (which exists), not the package __init__; RepoGraph pointed at the package initializer.", "actual_target": "src/requests/_types.py"}
+{"id": "zod-0204", "label": "internal_missed", "note": "Relative '.js' specifier resolves to the existing TypeScript source packages/zod/src/v3/helpers/util.ts (nodenext convention); the file is indexed and no ambiguity exists, so this is a resolvable internal import that was missed.", "actual_target": "packages/zod/src/v3/helpers/util.ts"}
+{"id": "axios-0205", "label": "external_ok", "note": ""}
+{"id": "requests-0206", "label": "correct", "note": ""}
+{"id": "axios-0207", "label": "correct", "note": "workspace/self package 'axios': root package.json exports 'import' -> ./index.js; dist/node/axios.cjs is build output and is absent, so index.js is the in-repo source entry."}
+{"id": "axios-0208", "label": "unresolved_ok", "note": "./SecurityUpdatesBanner.vue is a Vue SFC requiring the Vue/Vite plugin pipeline; not a plain JS/TS module and not indexed."}
+{"id": "zod-0209", "label": "external_ok", "note": ""}
+{"id": "zod-0210", "label": "unresolved_ok", "note": "'@/.source' is generated by fumadocs-mdx at build/test time; packages/docs/.source/ is absent. tsconfig maps it to ./.source/index.ts, so it is internal-looking but generated."}
+{"id": "zod-0211", "label": "correct", "note": ""}
+{"id": "axios-0212", "label": "internal_missed", "note": "lib/env/data.js exists in the repo and exports VERSION (updated by the gulp 'env' task); it is the direct referent and was not resolved.", "actual_target": "lib/env/data.js"}
+{"id": "axios-0213", "label": "correct", "note": "workspace/self package 'axios': root package.json exports 'import' -> ./index.js; dist/node/axios.cjs is build output and is absent, so index.js is the in-repo source entry."}
+{"id": "zod-0214", "label": "external_ok", "note": ""}
+{"id": "zod-0215", "label": "internal_missed", "note": "Relative '.js' specifier resolves to the existing TypeScript source packages/zod/src/v3/ZodError.ts (nodenext convention); the file is indexed and no ambiguity exists, so this is a resolvable internal import that was missed.", "actual_target": "packages/zod/src/v3/ZodError.ts"}
+{"id": "axios-0216", "label": "correct", "note": ""}
+{"id": "axios-0217", "label": "correct", "note": ""}
+{"id": "requests-0218", "label": "external_ok", "note": ""}
+{"id": "zod-0219", "label": "internal_missed", "note": "Relative '.js' specifier resolves to the existing TypeScript source packages/zod/src/v4/locales/index.ts (nodenext convention); the file is indexed and no ambiguity exists, so this is a resolvable internal import that was missed.", "actual_target": "packages/zod/src/v4/locales/index.ts"}
+{"id": "requests-0220", "label": "external_ok", "note": ""}
+{"id": "axios-0221", "label": "external_ok", "note": ""}
+{"id": "requests-0222", "label": "external_ok", "note": ""}
+{"id": "zod-0223", "label": "internal_missed", "note": "Relative '.js' specifier resolves to the existing TypeScript source packages/zod/src/v4/locales/es.ts (nodenext convention); the file is indexed and no ambiguity exists, so this is a resolvable internal import that was missed.", "actual_target": "packages/zod/src/v4/locales/es.ts"}
+{"id": "zod-0224", "label": "internal_missed", "note": "Relative '.js' specifier resolves to the existing TypeScript source packages/zod/src/v4/locales/ro.ts (nodenext convention); the file is indexed and no ambiguity exists, so this is a resolvable internal import that was missed.", "actual_target": "packages/zod/src/v4/locales/ro.ts"}
+{"id": "axios-0225", "label": "correct", "note": "deno.json maps 'axios' -> ../../../dist/esm/axios.js, a build artifact (absent) produced by rollup from input './index.js'; resolving to the source entry index.js is correct for this repo."}
+{"id": "axios-0226", "label": "correct", "note": ""}
+{"id": "requests-0227", "label": "correct", "note": ""}

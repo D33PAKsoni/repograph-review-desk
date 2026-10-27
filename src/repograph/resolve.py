@@ -36,9 +36,43 @@ PY_STDLIB = set(sys.stdlib_module_names) | {"__future__"}
 
 
 def _strip_json_comments(text: str) -> str:
-    text = re.sub(r"/\*.*?\*/", "", text, flags=re.S)
-    text = re.sub(r"(^|\s)//.*?$", r"\1", text, flags=re.M)
-    return re.sub(r",(\s*[}\]])", r"\1", text)
+    """Remove // and /* */ comments without touching string contents.
+
+    A regex over the raw text corrupts glob patterns: ``"@vue/*"`` contains
+    ``/*`` and was truncated up to the ``*/`` inside ``./packages/*/src``,
+    silently discarding tsconfig path aliases.
+    """
+    out: list[str] = []
+    i, n = 0, len(text)
+    in_string = escaped = False
+    while i < n:
+        ch = text[i]
+        if in_string:
+            out.append(ch)
+            if escaped:
+                escaped = False
+            elif ch == "\\":
+                escaped = True
+            elif ch == '"':
+                in_string = False
+            i += 1
+            continue
+        if ch == '"':
+            in_string = True
+            out.append(ch)
+            i += 1
+            continue
+        if ch == "/" and i + 1 < n and text[i + 1] == "/":
+            end = text.find("\n", i)
+            i = n if end < 0 else end
+            continue
+        if ch == "/" and i + 1 < n and text[i + 1] == "*":
+            end = text.find("*/", i + 2)
+            i = n if end < 0 else end + 2
+            continue
+        out.append(ch)
+        i += 1
+    return re.sub(r",(\s*[}\]])", r"\1", "".join(out))
 
 
 class Resolver:
@@ -49,6 +83,7 @@ class Resolver:
         self.py_modules: dict[str, str | None] = {}
         self.ts_configs: list[dict] = []
         self.packages: dict[str, str] = {}
+        self.package_dirs: dict[str, str] = {}
         self._dirs = {str(PurePosixPath(p).parent) for p in self.files}
         self._build_python_modules()
         self._build_ts_configs()
@@ -68,6 +103,9 @@ class Resolver:
                 pkg = ".".join(parts[:-1])
                 if pkg:
                     self.py_modules.setdefault(pkg, rel)
+                # `import pkg` must bind the package, not `pkg.__init__`.
+                if parts[0] in ("src", "lib", "python") and len(parts) > 2:
+                    self.py_modules.setdefault(".".join(parts[1:-1]), rel)
 
     @staticmethod
     def _python_aliases(parts: list[str], stem: str) -> list[str]:
@@ -146,25 +184,42 @@ class Resolver:
             if not isinstance(name, str) or not name:
                 continue
             base = posixpath.dirname(rel)
-            for entry in (data.get("source"), data.get("module"), data.get("main"), "src/index.ts", "index.ts"):
+            resolved = None
+            for entry in (data.get("source"), data.get("module"), data.get("main"),
+                          "src/index.ts", "src/index.tsx", "index.ts", "index.js"):
                 if not isinstance(entry, str):
                     continue
                 cand = posixpath.normpath(posixpath.join(base, entry))
                 if cand in self.files:
-                    self.packages[name] = cand
+                    resolved = cand
                     break
+            # Published entries often point at build output (``dist/...``) that
+            # may not exist in a source checkout. For change impact the file
+            # developers edit is ``src/index.ts``, so prefer it in that case.
+            # ponytail: fixed src/index.ts candidates; add other source layouts
+            # when a measured corpus needs them.
+            src_entry = None
+            for entry in ("src/index.ts", "src/index.tsx", "src/index.js"):
+                cand = posixpath.normpath(posixpath.join(base, entry))
+                if cand in self.files:
+                    src_entry = cand
+                    break
+            published = f"{data.get('module') or ''} {data.get('main') or ''}"
+            if src_entry and (resolved is None or "dist/" in published):
+                resolved = src_entry
+            if resolved:
+                self.packages[name] = resolved
+                self.package_dirs[name] = base
 
     # -- Python -------------------------------------------------------------
 
     def _py_lookup(self, dotted: str) -> tuple[str | None, str]:
-        if dotted in self.py_modules:
-            target = self.py_modules[dotted]
-            return (target, "confirmed") if target else (None, "unresolved")
-        suffix = "." + dotted
-        matches = {v for k, v in self.py_modules.items() if k.endswith(suffix) and v}
-        if len(matches) == 1:
-            return matches.pop(), "inferred"
-        return None, "unresolved"
+        # Only exact module paths. A suffix match such as ``types`` ->
+        # ``fastapi.types`` is not how Python absolute imports bind, and it
+        # produced false edges to same-named repository files (stdlib
+        # collisions). Source-root aliases are already registered exactly.
+        target = self.py_modules.get(dotted)
+        return (target, "confirmed") if target else (None, "unresolved")
 
     def _package_of(self, rel: str) -> list[str]:
         parts = rel.split("/")[:-1]
@@ -196,13 +251,18 @@ class Resolver:
         else:
             base_parts = imp.module.split(".") if imp.module else []
             base = ".".join(base_parts)
+            top = base_parts[0] if base_parts else ""
+            # An absolute import of a stdlib name is external unless this
+            # repository defines that exact top-level module (shadowing).
+            if top in PY_STDLIB and top not in self.py_modules:
+                return [ResolvedImport(imp.raw, imp.module, imp.line, None, "external",
+                                       method, "external", imp.names,
+                                       "standard library (absolute import)")]
             base_target, base_conf = self._py_lookup(base) if base else (None, "unresolved")
 
-        if base_target:
-            out.append(ResolvedImport(imp.raw, imp.module, imp.line, base_target, base_conf,
-                                      method, "internal", imp.names))
-
         # `from pkg import submodule` where `submodule` is a module file.
+        name_edges: list[ResolvedImport] = []
+        resolved_names: set[str] = set()
         for imported, local in imp.names:
             if imported in ("*", ""):
                 continue
@@ -212,9 +272,23 @@ class Resolver:
             else:
                 dotted = ".".join([*base_parts, imported])
                 target, conf = self._py_lookup(dotted)
-            if target and target != base_target:
-                out.append(ResolvedImport(imp.raw, f"{imp.module}.{imported}", imp.line, target,
-                                          conf, method, "internal", [(imported, local)]))
+            if target:
+                resolved_names.add(imported)
+                if target != base_target:
+                    name_edges.append(ResolvedImport(
+                        imp.raw, f"{imp.module}.{imported}", imp.line, target,
+                        conf, method, "internal", [(imported, local)]))
+
+        # Emit the package `__init__` edge only when the import names the
+        # package itself, or when a name is a package attribute rather than a
+        # submodule (`from . import VERSION`). Otherwise `from . import mod`
+        # produced a duplicate edge that labeling scored as a wrong target.
+        meaningful = [n for n, _ in imp.names if n not in ("*", "")]
+        if base_target and (imp.module or not meaningful
+                            or any(n not in resolved_names for n in meaningful)):
+            out.append(ResolvedImport(imp.raw, imp.module, imp.line, base_target, base_conf,
+                                      method, "internal", imp.names))
+        out.extend(name_edges)
 
         if out:
             return out
@@ -242,15 +316,22 @@ class Resolver:
             return []
         cands = [base] if base in self.files else []
         if not cands:
-            for ext in TS_EXTS:
+            for ext in (*TS_EXTS, ".d.ts"):
                 if base + ext in self.files:
                     cands.append(base + ext)
                     break
             if not cands:
-                for ext in TS_EXTS:
-                    idx = posixpath.join(base, "index" + ext)
+                for ext in (*TS_EXTS, ".d.ts"):
+                    idx = posixpath.normpath(posixpath.join(base, "index" + ext))
                     if idx in self.files:
                         cands.append(idx)
+                        break
+            if not cands and base.endswith((".js", ".jsx", ".mjs", ".cjs")):
+                # ESM style: `./x.js` refers to `./x.ts` in TypeScript source.
+                stem = base.rsplit(".", 1)[0]
+                for ext in (".ts", ".tsx", ".mts", ".cts", ".d.ts"):
+                    if stem + ext in self.files:
+                        cands.append(stem + ext)
                         break
         return cands
 
@@ -297,9 +378,25 @@ class Resolver:
                 if targets:
                     break
             if not targets:
-                pkg = self.packages.get(spec) or self.packages.get(spec.split("/")[0])
-                if pkg:
-                    targets = [pkg]
+                if spec.startswith("@"):
+                    parts = spec.split("/")
+                    pkg_name = "/".join(parts[:2])
+                    subpath = "/".join(parts[2:])
+                else:
+                    parts = spec.split("/")
+                    pkg_name = parts[0]
+                    subpath = "/".join(parts[1:])
+                pkg_dir = self.package_dirs.get(pkg_name)
+                if pkg_dir and subpath:
+                    for probe in (posixpath.join(pkg_dir, subpath),
+                                  posixpath.join(pkg_dir, "src", subpath)):
+                        found = self._ts_candidates(posixpath.normpath(probe))
+                        if found:
+                            targets = found
+                            method = "workspace-package"
+                            break
+                elif self.packages.get(pkg_name):
+                    targets = [self.packages[pkg_name]]
                     method = "workspace-package"
             if not targets:
                 return [ResolvedImport(imp.raw, spec, imp.line, None, "external",

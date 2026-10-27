@@ -21,7 +21,6 @@ DEFAULT_EXCLUDES = [
     ".repograph",
     ".venv",
     "venv",
-    "env",
     "node_modules",
     "__pycache__",
     ".mypy_cache",

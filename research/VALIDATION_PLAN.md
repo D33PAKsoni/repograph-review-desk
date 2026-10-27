@@ -12,7 +12,7 @@ The repository currently validates that the pipeline works. It does not validate
 
 Artifacts: `tests/`, `benchmarks/results/`, `docs/LIMITATIONS.md`.
 
-## Phase 1 — Edge accuracy (next, blocking)
+## Phase 1 — Edge accuracy (complete)
 
 **Question:** Are the import edges and reference bindings correct?
 
@@ -33,9 +33,11 @@ Artifacts: `tests/`, `benchmarks/results/`, `docs/LIMITATIONS.md`.
 
 **Pass:** ≥95% precision on resolved internal edges and ≥85% recall on static internal imports. If precision is below 90%, do not market the analysis as reliable.
 
+**Result (2026-10-27):** pass. Final unseen test: 100% precision (150/150; Wilson 95% lower bound 97.5%) and 94.3% estimated recall (flask 94.9%, vite 85.5%, svelte 97.6%). Baseline had 98.97% pooled precision but 53.7% `inferred` precision and 32.4% Express recall; those defects were fixed. Not measured: false-positive/false-negative impact for 20 changes. See `EDGE_ACCURACY_RESULTS.md`.
+
 **Kill:** Precision cannot be raised without a language server or a much larger effort. Re-scope to a visualization tool or stop.
 
-## Phase 2 — Agent behavior
+## Phase 2 — Agent behavior (next, blocking)
 
 **Question:** Does the MCP server change what an agent does?
 

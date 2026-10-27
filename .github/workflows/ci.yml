@@ -33,5 +33,5 @@ jobs:
           repograph init .
           repograph index .
           repograph status . --json
-          repograph arch . --json > /dev/null
+          repograph arch --root . --json > /dev/null
           repograph impact src/repograph/impact.py --json > /dev/null

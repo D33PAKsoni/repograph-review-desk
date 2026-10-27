@@ -155,6 +155,24 @@ Measured with `benchmarks/benchmark.py` on 2026-10-27, Linux x86_64, Python 3.14
 
 These numbers measure RepoGraph, not the quality of its answers. Express shows a real weakness: CommonJS function-expression exports yield few symbols. Vue core produced two parse errors in this run. Neither is hidden in the report; see [docs/LIMITATIONS.md](docs/LIMITATIONS.md).
 
+## Measured accuracy
+
+Edge accuracy was measured with a pre-registered protocol and two independent AI labelers. The final test used three repositories not used to develop the resolver: flask, vite and svelte.
+
+| Repository | Precision | Recall |
+| --- | ---: | ---: |
+| flask (Python) | 100% | 94.9% |
+| vite (TypeScript monorepo) | 100% | 85.5% |
+| svelte (JS/TS compiler) | 100% | 97.6% |
+| **overall** | **100%** (150/150) | **94.3%** |
+
+- No false resolved edge appeared in the final sample (Wilson 95% lower bound 97.5%).
+- `confirmed` and `inferred` edges were both 100% precise in that sample.
+- Recall is an estimate, not a census. The largest known gaps: Python apps imported by bare name from `tests/`/`examples/`, Node `#imports` aliases, JSON/config imports, and package self-references. Non-code assets, `.vue` SFCs and bundler-virtual modules (`?raw`, `?worker`) are reported as unresolved or external, not guessed.
+- Earlier rounds found and fixed 12 measured defects, including false stdlib edges, missed CommonJS root imports, broken `tsconfig` globs and `.d.ts` resolution. The baseline Express recall was 32%.
+
+Full method, per-repository tables, disagreements and threats to validity: [`research/EDGE_ACCURACY_RESULTS.md`](research/EDGE_ACCURACY_RESULTS.md). Precision does not make an empty dependent list safe: re-index and verify before relying on absence.
+
 ## Limitations
 
 - Static analysis only. Reflection, dynamic imports with computed targets, runtime DI, generated code and external consumers are not fully modeled.

@@ -1,0 +1,172 @@
+{
+  "sample": "benchmarks/eval/sample-postfix.jsonl",
+  "labelers": [
+    "benchmarks/eval/labels-postfix-a.jsonl",
+    "benchmarks/eval/labels-postfix-b.jsonl"
+  ],
+  "n": 226,
+  "agreement": 0.9779,
+  "disagreements": [
+    {
+      "id": "vue-core-0077",
+      "reason": "label-disagreement",
+      "labels": [
+        "internal_missed",
+        "unresolved_ok"
+      ],
+      "file": "packages-private/sfc-playground/src/download/download.ts",
+      "line": 3,
+      "module": "./template/index.html?raw",
+      "target": null
+    },
+    {
+      "id": "vue-core-0149",
+      "reason": "label-disagreement",
+      "labels": [
+        "internal_missed",
+        "unresolved_ok"
+      ],
+      "file": "packages-private/sfc-playground/src/download/download.ts",
+      "line": 6,
+      "module": "./template/vite.config.js?raw",
+      "target": null
+    },
+    {
+      "id": "vue-core-0160",
+      "reason": "label-disagreement",
+      "labels": [
+        "internal_missed",
+        "unresolved_ok"
+      ],
+      "file": "packages-private/sfc-playground/src/download/download.ts",
+      "line": 7,
+      "module": "./template/README.md?raw",
+      "target": null
+    },
+    {
+      "id": "vue-core-0178",
+      "reason": "label-disagreement",
+      "labels": [
+        "internal_missed",
+        "unresolved_ok"
+      ],
+      "file": "packages-private/sfc-playground/src/download/download.ts",
+      "line": 4,
+      "module": "./template/main.js?raw",
+      "target": null
+    },
+    {
+      "id": "vue-core-0201",
+      "reason": "label-disagreement",
+      "labels": [
+        "internal_missed",
+        "unresolved_ok"
+      ],
+      "file": "packages-private/sfc-playground/src/download/download.ts",
+      "line": 5,
+      "module": "./template/package.json?raw",
+      "target": null
+    }
+  ],
+  "disagreement_count": 5,
+  "overall": {
+    "group": "all",
+    "resolved_sample": 120,
+    "resolved_labeled": 120,
+    "miss_sample": 106,
+    "weighted_estimated_edges": {
+      "correct": 3949.0,
+      "wrong_target": 0.0,
+      "not_internal": 0.0,
+      "uncertain": 0.0,
+      "internal_missed": 2.0
+    },
+    "precision": 1.0,
+    "precision_conservative": 1.0,
+    "recall_estimate": 0.9995,
+    "precision_unweighted": 1.0,
+    "by_confidence": {
+      "confirmed": {
+        "n": 90,
+        "precision": 1.0
+      },
+      "inferred": {
+        "n": 30,
+        "precision": 1.0
+      }
+    }
+  },
+  "express": {
+    "group": "express",
+    "resolved_sample": 30,
+    "resolved_labeled": 30,
+    "miss_sample": 20,
+    "weighted_estimated_edges": {
+      "correct": 142.0,
+      "wrong_target": 0.0,
+      "not_internal": 0.0,
+      "uncertain": 0.0,
+      "internal_missed": 0.0
+    },
+    "precision": 1.0,
+    "precision_conservative": 1.0,
+    "recall_estimate": 1.0,
+    "precision_unweighted": 1.0,
+    "by_confidence": {
+      "confirmed": {
+        "n": 30,
+        "precision": 1.0
+      }
+    }
+  },
+  "fastapi": {
+    "group": "fastapi",
+    "resolved_sample": 30,
+    "resolved_labeled": 30,
+    "miss_sample": 50,
+    "weighted_estimated_edges": {
+      "correct": 1914.0,
+      "wrong_target": 0.0,
+      "not_internal": 0.0,
+      "uncertain": 0.0,
+      "internal_missed": 0.0
+    },
+    "precision": 1.0,
+    "precision_conservative": 1.0,
+    "recall_estimate": 1.0,
+    "precision_unweighted": 1.0,
+    "by_confidence": {
+      "confirmed": {
+        "n": 30,
+        "precision": 1.0
+      }
+    }
+  },
+  "vue-core": {
+    "group": "vue-core",
+    "resolved_sample": 60,
+    "resolved_labeled": 60,
+    "miss_sample": 36,
+    "weighted_estimated_edges": {
+      "correct": 1893.0,
+      "wrong_target": 0.0,
+      "not_internal": 0.0,
+      "uncertain": 0.0,
+      "internal_missed": 2.0
+    },
+    "precision": 1.0,
+    "precision_conservative": 1.0,
+    "recall_estimate": 0.9989,
+    "precision_unweighted": 1.0,
+    "by_confidence": {
+      "confirmed": {
+        "n": 30,
+        "precision": 1.0
+      },
+      "inferred": {
+        "n": 30,
+        "precision": 1.0
+      }
+    }
+  }
+}
