@@ -1,0 +1,50 @@
+name: Feature request
+description: Propose a capability or a language/resolver improvement
+title: "feat: "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What decision or workflow is blocked today?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposal
+      description: What should RepoGraph do? Include the evidence and confidence it should report.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Language extraction
+        - Import resolution
+        - Impact analysis
+        - Search
+        - CLI
+        - MCP server
+        - Performance
+        - Documentation
+        - Other
+    validations:
+      required: true
+  - type: checkboxes
+    id: honesty
+    attributes:
+      label: Evidence standard
+      options:
+        - label: I understand that a proposal must state its blind spots and cannot claim safety
+          required: true
+        - label: I have not included fabricated benchmarks or unverified competitor claims
+          required: true

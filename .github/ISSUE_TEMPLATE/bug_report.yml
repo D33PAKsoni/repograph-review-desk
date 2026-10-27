@@ -1,0 +1,54 @@
+name: Bug report
+description: Report incorrect behavior, a crash, or a security-relevant defect (not a vulnerability — use SECURITY.md for that)
+title: "bug: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Do not report security vulnerabilities here. Follow SECURITY.md.
+        Never paste real credentials or private source code. Use a synthetic reproduction.
+  - type: input
+    id: version
+    attributes:
+      label: RepoGraph version
+      description: Output of `repograph version`
+    validations:
+      required: true
+  - type: input
+    id: python
+    attributes:
+      label: Python and OS
+      placeholder: "3.14.8 on Linux x86_64"
+    validations:
+      required: true
+  - type: textarea
+    id: command
+    attributes:
+      label: Command and output
+      description: Include `--json` output where available, and the relevant blind_spots
+      render: shell
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Minimal reproduction
+      description: A synthetic repository or file layout that triggers the bug
+    validations:
+      required: true
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checks
+      options:
+        - label: I removed secrets and private code from this report
+          required: true
+        - label: This is not a security vulnerability
+          required: true

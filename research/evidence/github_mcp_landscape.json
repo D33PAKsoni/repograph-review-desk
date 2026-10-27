@@ -1,0 +1,134 @@
+{
+  "Graphify-Labs/graphify": {
+    "full_name": "Graphify-Labs/graphify",
+    "stargazers_count": 136425,
+    "forks_count": 13018,
+    "open_issues_count": 1653,
+    "created_at": "2026-04-03T15:49:07Z",
+    "pushed_at": "2026-10-26T15:18:22Z",
+    "language": "Python",
+    "size": 32622,
+    "license": "Apache-2.0"
+  },
+  "DeusData/codebase-memory-mcp": {
+    "full_name": "DeusData/codebase-memory-mcp",
+    "stargazers_count": 47599,
+    "forks_count": 3912,
+    "open_issues_count": 630,
+    "created_at": "2026-02-24T22:01:00Z",
+    "pushed_at": "2026-10-26T01:29:10Z",
+    "language": "C",
+    "size": 348709,
+    "license": "MIT"
+  },
+  "tirth8205/code-review-graph": {
+    "full_name": "tirth8205/code-review-graph",
+    "stargazers_count": 32419,
+    "forks_count": 2958,
+    "open_issues_count": 188,
+    "created_at": "2026-02-26T17:25:13Z",
+    "pushed_at": "2026-10-16T11:20:26Z",
+    "language": "Python",
+    "size": 19768,
+    "license": "MIT"
+  },
+  "vitali87/code-graph-rag": {
+    "full_name": "vitali87/code-graph-rag",
+    "stargazers_count": 5287,
+    "forks_count": 705,
+    "open_issues_count": 543,
+    "created_at": "2025-06-16T14:31:57Z",
+    "pushed_at": "2026-10-27T00:37:25Z",
+    "language": "Python",
+    "size": 600034,
+    "license": "MIT"
+  },
+  "zilliztech/claude-context": {
+    "full_name": "zilliztech/claude-context",
+    "stargazers_count": 12649,
+    "forks_count": 943,
+    "open_issues_count": 147,
+    "created_at": "2025-06-06T02:12:47Z",
+    "pushed_at": "2026-07-14T12:00:38Z",
+    "language": "TypeScript",
+    "size": 7758,
+    "license": "MIT"
+  },
+  "oraios/serena": {
+    "full_name": "oraios/serena",
+    "stargazers_count": 30747,
+    "forks_count": 2095,
+    "open_issues_count": 127,
+    "created_at": "2025-03-23T22:35:24Z",
+    "pushed_at": "2026-10-26T23:02:19Z",
+    "language": "Python",
+    "size": 13829,
+    "license": "NOASSERTION"
+  },
+  "xberg-io/xberg": {
+    "full_name": "xberg-io/xberg",
+    "stargazers_count": 9451,
+    "forks_count": 603,
+    "open_issues_count": 20,
+    "created_at": "2025-01-31T21:50:02Z",
+    "pushed_at": "2026-10-27T07:51:15Z",
+    "language": "Rust",
+    "size": 1018922,
+    "license": "MIT"
+  },
+  "aoci-spec/aoci-code": {
+    "full_name": "aoci-spec/aoci-code",
+    "stargazers_count": 1758,
+    "forks_count": 209,
+    "open_issues_count": 29,
+    "created_at": "2026-08-08T11:33:08Z",
+    "pushed_at": "2026-10-27T07:39:35Z",
+    "language": "Go",
+    "size": 7485,
+    "license": "NOASSERTION"
+  },
+  "justrach/codedb": {
+    "full_name": "justrach/codedb",
+    "stargazers_count": 1397,
+    "forks_count": 88,
+    "open_issues_count": 12,
+    "created_at": "2026-03-03T13:20:44Z",
+    "pushed_at": "2026-10-26T17:14:59Z",
+    "language": "Zig",
+    "size": 93890,
+    "license": "BSD-3-Clause"
+  },
+  "bartolli/codanna": {
+    "full_name": "bartolli/codanna",
+    "stargazers_count": 757,
+    "forks_count": 69,
+    "open_issues_count": 19,
+    "created_at": "2025-07-24T23:13:52Z",
+    "pushed_at": "2026-10-11T22:02:34Z",
+    "language": "Rust",
+    "size": 26513,
+    "license": "Apache-2.0"
+  },
+  "SimplyLiz/ckb": {
+    "full_name": "SimplyLiz/ckb",
+    "stargazers_count": 111,
+    "forks_count": 12,
+    "open_issues_count": 14,
+    "created_at": "2025-12-16T16:32:09Z",
+    "pushed_at": "2026-10-14T16:52:21Z",
+    "language": "Go",
+    "size": 64588,
+    "license": "NOASSERTION"
+  },
+  "0ximu/mu": {
+    "full_name": "0ximu/mu",
+    "stargazers_count": 70,
+    "forks_count": 5,
+    "open_issues_count": 4,
+    "created_at": "2025-12-06T10:16:56Z",
+    "pushed_at": "2026-09-22T19:02:44Z",
+    "language": "Rust",
+    "size": 1085,
+    "license": "Apache-2.0"
+  }
+}

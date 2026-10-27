@@ -1,0 +1,168 @@
+# Status report
+
+**Date:** 2026-10-27
+**Version:** 0.1.0 alpha
+**Repository:** `/home/darion-dev/repograph` (not a git repository; nothing committed, pushed or published)
+
+## Bottom line
+
+RepoGraph is a working local prototype: it indexes real Python/TypeScript/JavaScript repositories, exposes a CLI and six MCP tools, and produces evidence-backed impact reports with explicit blind spots. The engineering baseline is real and tested. The **product claim is not validated**: there is no measured edge precision/recall, no user study, and no evidence that the tool changes agent behavior. The competitive field is crowded, including projects already claiming evidence/confidence and impact analysis.
+
+## Implemented
+
+### Indexing
+
+- Repository scanner with fixed default exclusions, secret-shaped filename exclusions, symlink policy, size cap and file cap.
+- tree-sitter extraction for Python, TypeScript, TSX, JavaScript, JSX and Prisma.
+- Symbols, imports, references, decorators, HTTP routes, model tags.
+- Static import resolution:
+  - Python relative/absolute imports and `src` layouts;
+  - TypeScript `tsconfig`/`jsconfig` aliases and workspace `package.json` names;
+  - CommonJS `require`, dynamic `import()` and syntactic `importlib` calls.
+- Incremental SQLite index (size/mtime then SHA-256), WAL, per-file transactions, parse-error retention.
+- External, dynamic and unresolved imports kept distinct.
+
+### Query and analysis
+
+- Lexical symbol search and source/documentation text search.
+- Definitions and resolved references with confidence/method.
+- File dependency graph (`in`/`out`/`both`, depth 1–5).
+- Cycle detection via iterative Kosaraju.
+- Architecture summary: languages, layers, directories, hubs, entry points, routes, models.
+- Impact analysis from paths, a symbol, or git worktree diff:
+  - direct dependents (imports + references);
+  - transitive dependents with chains;
+  - related tests (import + naming rules);
+  - affected routes and models;
+  - documentation mentions;
+  - confidence counts and structured blind spots;
+  - caveats that state absence is not safety.
+- Path containment for user-supplied impact paths.
+
+### Interfaces
+
+- Typer CLI: `init`, `index`, `status`, `search`, `impact`, `graph`, `refs`, `arch`, `serve`, `version`.
+- JSON output for read commands.
+- MCP stdio server and optional streamable HTTP (localhost default, no auth).
+- Six tools: `search_symbols`, `find_references`, `get_dependency_graph`, `analyze_change_impact`, `find_related_tests`, `get_architecture_summary`.
+- `REPOGRAPH_ROOT` support for `python -m repograph.mcp_server`.
+
+### Safety
+
+- Indexing never imports or executes repository code; enforced by a test that would create a marker if executed.
+- Symlinks skipped by default; opt-in targets must resolve inside the root.
+- Default exclusions cannot be removed by project config.
+- Secret-shaped filenames excluded.
+- Bound SQL parameters.
+- Read-only MCP tools.
+
+## Verification
+
+### Tests
+
+```
+39 passed
+```
+
+Coverage (direct in-process measurement):
+
+```
+TOTAL 1949 statements, 654 missed, 66%
+```
+
+The CLI and MCP server show 0% direct coverage because they are tested through subprocesses (`python -m repograph`, stdio MCP client). Their behavior is exercised; the coverage tool does not attribute it to those modules. Core modules: `impact.py` 93%, `indexer.py` 96%, `store.py` 94%, `resolve.py` 90%, `extract.py` 89%.
+
+Reproduce:
+
+```bash
+.venv/bin/python -m pytest
+.venv/bin/python -m pytest --cov=repograph --cov-report=term-missing
+```
+
+### Benchmarks
+
+Measured 2026-10-27, Linux x86_64, Python 3.14.8, one run per repository. Raw JSON in `benchmarks/results/`.
+
+| Repo | Files | Symbols | Internal imports | Parse errors | Cold | Incremental | DB | Impact |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| express | 142 | 63 | 46 | 0 | 0.282 s | 0.082 s | 176 KiB | 2.1 ms |
+| click | 91 | 2,077 | 350 | 0 | 0.573 s | 0.056 s | 960 KiB | 18.4 ms |
+| requests | 37 | 807 | 130 | 0 | 0.259 s | 0.041 s | 508 KiB | 8.2 ms |
+| vue-core | 528 | 2,273 | 1,875 | 2 | 1.791 s | 0.244 s | 1,496 KiB | 22.4 ms |
+| fastapi | 1,223 | 7,125 | 1,939 | 0 | 5.257 s | 1.101 s | 4,048 KiB | 82.1 ms |
+
+Impact is the highest-inbound file at depth 2. Express (63 symbols from 142 JS files) and two Vue parse errors are documented weaknesses, not hidden.
+
+Self-index: 21 Python files, 182 symbols, 1,497 refs, 0 parse errors, 0.15 s, 248 KiB.
+
+## Research conclusions
+
+- The agent and MCP ecosystem is large and active.
+- The generic code-graph category is saturated; several competitors claim impact analysis, change-aware tests, evidence/confidence, and "every edge explained".
+- RepoGraph has **no proven differentiation**. The defensible hypothesis is narrower: auditable impact with explicit uncertainty.
+- No competitor was installed or benchmarked. All competitor capabilities are claims from GitHub descriptions.
+
+## Documentation and materials
+
+- `README.md` — usage, confidence model, benchmarks, limitations.
+- `docs/ARCHITECTURE.md` — modules, schema, indexing, resolution, algorithms.
+- `docs/MCP.md` — tool contracts and agent policy.
+- `docs/LIMITATIONS.md` — analysis gaps, benchmark caveats, threat model.
+- `SECURITY.md`, `CONTRIBUTING.md`, `ROADMAP.md`, `CHANGELOG.md`, `LICENSE`.
+- `research/` — evidence, competitive analysis, technical landscape, opportunity analysis, hypotheses, validation plan, decision log.
+- `benchmarks/` — reproducible script, raw results, method.
+- `launch/` — strategy and draft announcement (not published).
+- `.github/` — CI, issue templates, PR template.
+
+## Not done
+
+- Labeled edge precision/recall evaluation.
+- User interviews, agent task evaluation, willingness-to-pay evidence.
+- Go/Rust/Java/Kotlin support.
+- LSP/compiler-backed resolution.
+- Call graphs, data flow, type compatibility.
+- Semantic search or embeddings.
+- Schema migrations.
+- GitHub Action/pre-commit integration.
+- Watch mode, daemon, editor integration.
+- Public release, package publication, or git history.
+- Windows/macOS testing.
+
+## Known issues and limitations
+
+- Static analysis only; dynamic targets, reflection, DI and external consumers are blind spots.
+- CommonJS extraction is weak (Express benchmark).
+- Test selection and route/model detection are heuristic.
+- Diff analysis uses symbols already in the index; re-index first.
+- No precision data; do not use as a blocking CI gate.
+- One machine, one run benchmarks; not tested beyond 1,223 files.
+- Coverage report understates CLI/MCP behavior due to subprocess testing.
+- `parse_errors` retry behavior: a file with unchanged content and a prior parse error is skipped until content changes or `--force` is used.
+- MCP HTTP mode has no authentication.
+
+## Launch readiness
+
+**Not ready for a "trustworthy impact analysis" launch.** Ready for an experimental, feedback-seeking release if the maintainer authorizes it.
+
+Blocking:
+
+1. Edge precision/recall on a labeled corpus.
+2. A clean-install test in a fresh environment.
+3. CI passing on a public branch.
+4. At least one design partner using it on a real repository.
+5. Explicit authorization to publish.
+
+## Reproduce the prototype
+
+```bash
+cd /home/darion-dev/repograph
+.venv/bin/python -m pytest
+.venv/bin/python -m repograph index .
+.venv/bin/python -m repograph status .
+.venv/bin/python -m repograph impact src/repograph/impact.py --root .
+.venv/bin/python -m repograph serve --root .
+```
+
+## Next action
+
+Run Phase 1 of `research/VALIDATION_PLAN.md`: label 200 internal edges on three real repositories, compute precision/recall per confidence class, and only then decide whether to broaden languages or launch.

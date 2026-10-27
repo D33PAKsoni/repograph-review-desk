@@ -1,0 +1,124 @@
+from __future__ import annotations
+
+import subprocess
+from pathlib import Path
+
+from repograph.config import load_settings
+from repograph.impact import analyze_impact, git_changes
+from repograph.indexer import index_repository
+from repograph.store import Store
+
+
+def _impact(repo: Path, **kwargs) -> dict:
+    with Store(load_settings(repo)) as store:
+        return analyze_impact(store, repo, **kwargs)
+
+
+def test_direct_and_transitive_dependents(indexed: Path):
+    result = _impact(indexed, paths=["src/shop/services/subscription.py"], depth=2)
+    direct = {d["path"] for d in result["direct_dependents"]}
+    transitive = {t["path"] for t in result["transitive_dependents"]}
+    assert "src/shop/services/billing.py" in direct
+    assert "src/shop/api/routes.py" in direct
+    assert "src/shop/app.py" in transitive
+    assert result["summary"]["changed_files"] == 1
+    assert result["caveats"]
+
+
+def test_changed_file_evidence_has_locations(indexed: Path):
+    result = _impact(indexed, paths=["src/shop/services/subscription.py"])
+    for dep in result["direct_dependents"]:
+        assert ":" in dep["evidence"]["location"]
+        assert dep["confidence"] in {"confirmed", "inferred"}
+        for reason in dep["reasons"]:
+            assert reason["evidence"]["location"]
+
+
+def test_routes_and_models_are_reported(indexed: Path):
+    result = _impact(indexed, paths=["src/shop/models.py"], depth=2)
+    assert any(r["path"] == "/subscriptions/{subscription_id}/cancel"
+               for r in result["affected_routes"])
+    names = {m["name"] for m in result["related_models"]}
+    assert {"Subscription", "Customer"} <= names
+    assert all(m["confidence"] == "heuristic" for m in result["related_models"])
+
+
+def test_related_tests_use_import_and_naming(indexed: Path):
+    result = _impact(indexed, paths=["src/shop/services/subscription.py"])
+    tests = {t["path"]: t for t in result["related_tests"]}
+    assert "tests/test_subscription.py" in tests
+    rules = {r["rule"] for r in tests["tests/test_subscription.py"]["rules"]}
+    assert "test-imports-changed-file" in rules
+
+
+def test_unresolved_external_and_parse_error_blind_spots(indexed: Path):
+    result = _impact(indexed, paths=["src/shop/api/routes.py"])
+    kinds = {b["kind"] for b in result["blind_spots"]}
+    assert "external-imports" in kinds
+    assert "repo-parse-errors" in kinds
+    assert "absence of a relationship is not evidence" in result["caveats"][0].lower()
+
+
+def test_no_static_dependents_is_not_safety(indexed: Path):
+    result = _impact(indexed, paths=["src/shop/services/audit.py"])
+    kinds = {b["kind"] for b in result["blind_spots"]}
+    # audit.py is imported by subscription.py, so this one has dependents.
+    assert "repo-parse-errors" in kinds
+    result = _impact(indexed, paths=["src/shop/dynamic.py"])
+    kinds = {b["kind"] for b in result["blind_spots"]}
+    assert "no-static-dependents" in kinds
+
+
+def test_symbol_target_and_ambiguity(indexed: Path):
+    unambiguous = _impact(indexed, symbol="SubscriptionService.cancel")
+    assert unambiguous["target"]["paths"] == ["web/src/domain/subscription.ts"]
+    ambiguous = _impact(indexed, symbol="cancel")
+    assert "error" in ambiguous
+    assert ambiguous["candidates"]
+    missing = _impact(indexed, symbol="does_not_exist")
+    assert "not found" in missing["error"]
+
+
+def test_file_cycles_are_visible_in_graph(indexed: Path):
+    result = _impact(indexed, paths=["src/shop/services/billing.py"])
+    assert result["changed_files"] == ["src/shop/services/billing.py"]
+    assert "src/shop/services/subscription.py" in {
+        d["path"] for d in result["direct_dependents"]
+    }
+
+
+def _git(root: Path, *args: str) -> None:
+    subprocess.run(["git", "-C", str(root), *args], check=True, capture_output=True)
+
+
+def test_git_diff_maps_hunks_to_symbols(indexed: Path):
+    _git(indexed, "init")
+    _git(indexed, "config", "user.email", "test@example.com")
+    _git(indexed, "config", "user.name", "Test")
+    _git(indexed, "add", "-A")
+    _git(indexed, "commit", "-m", "initial")
+
+    target = indexed / "src/shop/models.py"
+    target.write_text(target.read_text() + "\n\nclass Extra(Base):\n    pass\n")
+    changes = git_changes(indexed)
+    assert changes["available"] is True
+    assert "src/shop/models.py" in changes["paths"]
+    assert changes["lines"]["src/shop/models.py"]
+
+    index_repository(indexed)  # diff analysis reads symbols from the index
+    result = _impact(indexed, diff=True, depth=1)
+    assert result["source"] == "git-diff"
+    names = {s["name"] for s in result["target"]["symbols"]}
+    assert "Extra" in names
+    assert "Subscription" not in names
+
+
+def test_git_diff_reports_not_a_repository(indexed: Path):
+    changes = git_changes(indexed)
+    assert changes["available"] is False
+    assert "not a git repository" in changes["error"]
+
+
+def test_path_escape_is_rejected(indexed: Path):
+    result = _impact(indexed, paths=["../../etc/passwd"])
+    assert "error" in result

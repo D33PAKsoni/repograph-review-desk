@@ -1,0 +1,40 @@
+{
+  "name": "vue-core",
+  "source": "https://github.com/vuejs/core",
+  "generated_at": "2026-10-27T08:23:13Z",
+  "environment": {
+    "python": "3.14.8",
+    "platform": "Linux-7.2.5-3-omarchy-x86_64-with-glibc2.44",
+    "machine": "x86_64"
+  },
+  "index": {
+    "files": 528,
+    "symbols": 2273,
+    "internal_imports": 1875,
+    "refs": 4319,
+    "tests": 207,
+    "parse_errors": 2,
+    "languages": {
+      "typescript": 487,
+      "javascript": 36,
+      "tsx": 5
+    },
+    "cold_seconds": 1.7914,
+    "cold_added": 528,
+    "incremental_seconds": 0.2444,
+    "incremental_updated": 0,
+    "db_bytes": 1531904,
+    "files_per_second": 294.7
+  },
+  "queries": {
+    "search_median_ms": 1.2,
+    "impact_median_ms": 22.4,
+    "architecture_ms": 16.3,
+    "graph_ms": 10.0,
+    "impact_hub": "packages/shared/index.js",
+    "impact_hub_inbound": 162,
+    "graph_nodes": 505,
+    "graph_edges": 1875,
+    "architecture_hubs": 10
+  }
+}
