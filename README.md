@@ -14,17 +14,21 @@
 
 <p align="center">
   <b>Change impact you can audit.</b><br>
-  Local-first codebase intelligence for AI coding agents.
+  Local code intelligence for AI coding agents.
 </p>
 
-RepoGraph indexes a repository with tree-sitter, stores symbols, imports, references, routes and models in SQLite, and exposes the result through a CLI and an MCP server. Its focus is **change impact you can audit**: every relationship returns a source location, extraction method and confidence, and every analysis lists its blind spots.
+RepoGraph reads a repository and builds a map of its files, symbols and imports. You can then ask one practical question:
 
-```
+> If I change this file or symbol, what else may break — and how sure can I be?
+
+Every answer shows **where the evidence comes from** and **what the tool could not see**. It runs on your machine. No API key, no cloud account, no code execution.
+
+```bash
 repograph index .
 repograph impact src/payments/refund.py
 ```
 
-Output from the repository's own fixture (`tests/fixtures/shop`), unedited:
+Real output from the repository's test fixture (`tests/fixtures/shop`), unedited:
 
 ```
 changed files (1): src/shop/services/subscription.py
@@ -45,6 +49,11 @@ related tests (1):
 affected routes:
   POST /subscriptions/{subscription_id}/cancel  src/shop/api/routes.py:8
 
+documentation mentions:
+  docs/adr/0001-subscription-cancellation.md:1
+  docs/adr/0001-subscription-cancellation.md:3
+  docs/adr/0001-subscription-cancellation.md:5
+
 blind spots:
   - repo-dynamic-imports (2): Dynamic imports exist in the repository; their runtime targets may include the changed files.
   - repo-parse-errors (1): Files with parse errors contribute no symbols or edges anywhere in the index.
@@ -52,35 +61,81 @@ blind spots:
 note: absence of static evidence is not evidence of safety.
 ```
 
-> **Status: 0.1.0 alpha.** Python, TypeScript, JavaScript, JSX and TSX only. Static analysis only. The benchmark numbers below are from one machine and one run; reproduce them with `benchmarks/benchmark.py`. Current evidence state, including what is *not* yet validated, is in [STATUS.md](STATUS.md).
+> **Status: 0.1.0 alpha.** Supports Python, TypeScript, JavaScript, JSX and TSX. Static analysis only. See [STATUS.md](STATUS.md) for what is validated and what is not.
 
-## Why another code graph?
+## Contents
 
-Most code-indexing tools answer *"what is connected?"*. RepoGraph answers *"what might this change break, how sure are you, and what did you fail to see?"*
+- [Why RepoGraph](#why-repograph)
+- [Requirements](#requirements)
+- [Install](#install)
+- [Quick start](#quick-start)
+- [Commands](#commands)
+- [MCP server](#mcp-server)
+- [How it works](#how-it-works)
+- [Confidence levels](#confidence-levels)
+- [Measured accuracy](#measured-accuracy)
+- [Performance](#performance)
+- [What RepoGraph is not](#what-repograph-is-not)
+- [Limitations](#limitations)
+- [Troubleshooting](#troubleshooting)
+- [Development](#development)
+- [Contributing](#contributing)
+- [License](#license)
 
-- **Evidence on every edge.** Imports and references carry file, line, extractor and method.
-- **Separate confidence classes.** `confirmed`, `inferred`, `heuristic`, `unresolved`.
-- **Explicit blind spots.** Dynamic imports, reflection, unresolved imports, parse failures, external consumers and missing tests are reported, not silently dropped.
-- **Empty is not safe.** A result with no dependents says so; it never claims the change is safe.
-- **Local and dependency-light.** No API key, no cloud, no embeddings. SQLite plus tree-sitter.
-- **Read-only by construction.** Indexing parses bytes. It never imports or executes repository code.
+## Why RepoGraph
 
-It is *not* a compiler front end, a semantic search engine, or a replacement for tests and type checking.
+Most code-map tools answer *"what is connected?"*. RepoGraph answers *"what may break, how sure are you, and what did you miss?"*.
+
+| What you get | What it means in practice |
+| --- | --- |
+| **Evidence on every link** | Each import and reference shows file, line, extractor and method. |
+| **Separate confidence levels** | `confirmed`, `inferred`, `heuristic` and `unresolved` are never mixed together. |
+| **Explicit blind spots** | Dynamic imports, reflection, parse errors, unresolved imports and missing tests are reported, not hidden. |
+| **No false comfort** | An empty result says "no dependents found", never "this change is safe". |
+| **Local and small** | SQLite and tree-sitter. No server, no account, no embeddings. |
+| **Read-only by design** | The indexer reads bytes. It never imports or runs repository code. |
+
+## Requirements
+
+| Item | Requirement |
+| --- | --- |
+| Python | 3.10 or newer |
+| Operating system | Linux is tested in CI. macOS and Windows should work but are not tested yet. |
+| Disk | A few MB per repository for the index |
+| Network | Not needed after install |
+| API keys | None |
 
 ## Install
 
-Requires Python 3.10+.
+RepoGraph is not yet published to PyPI. Install it from a checkout.
 
-From a local checkout:
+**1. Clone and create a virtual environment**
 
 ```bash
+git clone https://github.com/INDEX0-RESEARCH-LABS/repograph.git
 cd repograph
 python -m venv .venv
+```
+
+**2. Install**
+
+```bash
+.venv/bin/pip install -e .
+```
+
+For development, include the test tools:
+
+```bash
 .venv/bin/pip install -e '.[dev]'
+```
+
+**3. Check the install**
+
+```bash
 .venv/bin/repograph version
 ```
 
-Or install the checkout with pipx:
+If you use `pipx`, you can install the checkout the same way:
 
 ```bash
 pipx install --editable .
@@ -88,26 +143,71 @@ pipx install --editable .
 
 ## Quick start
 
+**1. Go to the repository you want to analyze**
+
 ```bash
 cd /path/to/your/repo
+```
+
+**2. Create the local index folder**
+
+```bash
 repograph init .
+```
+
+This creates `.repograph/` with a default config file (`exclude`, size and file caps, symlink policy). The index database also lives there. Commit the config if your team wants shared rules; do not commit the database.
+
+**3. Build the index**
+
+```bash
 repograph index .
+```
+
+**4. Check what was indexed**
+
+```bash
 repograph status .
 ```
 
-Search, inspect and analyze:
+**5. Ask a question**
 
 ```bash
-repograph search "cancel_subscription"
-repograph refs cancel_subscription
-repograph graph --cycles
-repograph arch
 repograph impact src/billing/subscription.py
-repograph impact --symbol SubscriptionService.cancel
-repograph impact --diff            # current git worktree changes
 ```
 
-All read commands accept `--json`. Analyze the current diff *after* re-indexing, so symbols added in the worktree exist in the index:
+That is the whole loop. Re-run `repograph index .` after you change code.
+
+## Commands
+
+All read commands accept `--json` for scripts and agents.
+
+| Command | What it does |
+| --- | --- |
+| `repograph init [path]` | Create `.repograph/` and a default config. |
+| `repograph index [path]` | Scan, parse and store the repository. Incremental by default; `--force` reparses everything, `--reset` drops the index first. |
+| `repograph status [path]` | Show file, symbol and edge counts, parse errors and whether a re-index is needed. |
+| `repograph search <query>` | Search symbol names and source text. Filter with `--kind`, limit with `--limit`. |
+| `repograph refs <name>` | Show the definition of a symbol and its resolved reference sites. |
+| `repograph graph [path]` | Show the file dependency graph around a path or for the whole repo. Use `--direction in\|out\|both`, `--depth 1-5`, `--format dot`, or `--cycles`. |
+| `repograph arch` | Summarize languages, layers, hubs, entry points, routes, models, unresolved imports and parse errors. |
+| `repograph impact <paths>` | List direct and transitive dependents, related tests, affected routes and models, and blind spots. |
+| `repograph impact --symbol <Name>` | Analyze a symbol instead of a file. |
+| `repograph impact --diff` | Analyze the current git worktree changes. |
+| `repograph serve` | Start the MCP server (see below). |
+| `repograph version` | Print the version. |
+
+### Common options
+
+| Option | Used by | Effect |
+| --- | --- | --- |
+| `--root <path>` | read commands, `serve` | Repository root to use. Defaults to the current directory. |
+| `--json` | read commands | Machine-readable output. |
+| `--depth <1-5>` | `impact`, `graph` | How many levels to follow. Default is 2. |
+| `--tests / --no-tests` | `impact` | Include or skip related tests. Tests are included by default. |
+
+### Analyze an uncommitted change
+
+The index must know about your edit before the diff can be analyzed:
 
 ```bash
 repograph index . && repograph impact --diff --json
@@ -115,12 +215,14 @@ repograph index . && repograph impact --diff --json
 
 ## MCP server
 
+MCP (Model Context Protocol) is the standard way for AI assistants to call external tools. RepoGraph ships a read-only MCP server, so an agent can query the index instead of grepping the whole repository.
+
 ```bash
-repograph serve --root /path/to/repo          # stdio
+repograph serve --root /path/to/repo          # stdio, for local clients
 repograph serve --root /path/to/repo --http   # streamable HTTP on 127.0.0.1:8765
 ```
 
-Example client configuration:
+Client configuration:
 
 ```json
 {
@@ -133,51 +235,77 @@ Example client configuration:
 }
 ```
 
-The server exposes six read-only tools:
+The server exposes six tools:
 
-| Tool | Purpose |
+| Tool | What it returns |
 | --- | --- |
-| `search_symbols` | Lexical symbol lookup with file:line |
-| `find_references` | Definitions plus statically resolved reference sites |
-| `get_dependency_graph` | File graph around a path or the whole repo |
-| `analyze_change_impact` | Direct/transitive dependents, tests, routes, models, blind spots |
-| `find_related_tests` | Tests selected by import edges and naming conventions |
-| `get_architecture_summary` | Languages, layers, hubs, entry points, routes, models |
+| `search_symbols` | Symbol matches with file and line. |
+| `find_references` | Definitions plus statically resolved reference sites. |
+| `get_dependency_graph` | The file graph around a path, or the whole repo. |
+| `analyze_change_impact` | Direct and transitive dependents, tests, routes, models and blind spots. |
+| `find_related_tests` | Candidate tests, chosen by imports and naming rules. |
+| `get_architecture_summary` | Languages, layers, hubs, entry points, routes and models. |
 
-`REPOGRAPH_ROOT` is also read by `python -m repograph.mcp_server`.
+`python -m repograph.mcp_server` also works and reads the `REPOGRAPH_ROOT` environment variable.
 
-The HTTP mode has **no authentication**. It binds to localhost by default and prints a warning for non-loopback hosts. Do not expose it to an untrusted network.
+> **Security notice:** HTTP mode has **no authentication**. It binds to `127.0.0.1` by default and warns if you choose another host. Do not expose it to an untrusted network.
 
 ## How it works
 
 <p align="center">
-  <img src="docs/assets/architecture.svg" alt="RepoGraph pipeline: source bytes are scanned, parsed with tree-sitter, resolved statically into a local SQLite index, and queried through the CLI or MCP tools" width="820">
+  <img src="docs/assets/architecture.svg" alt="Pipeline: source bytes are scanned, parsed with tree-sitter, resolved, stored in a local SQLite index, and queried by the CLI or MCP tools" width="820">
 </p>
 
-1. **Scan** — walk the repository with default and user exclusions, skip symlinks, binaries, oversized files and an optional file cap.
-2. **Parse** — tree-sitter extracts symbols, imports, calls, attributes, routes and model classes. Source is read as bytes; nothing is imported.
-3. **Resolve** — static resolver handles Python relative/absolute imports and `src` layouts, TypeScript `tsconfig` aliases and workspace packages, CommonJS `require`, and syntactic dynamic imports. External and unresolved imports are kept distinct.
-4. **Store** — SQLite tables for `files`, `symbols`, `imports`, `refs` and `routes`, with incremental updates by size/mtime then SHA-256.
-5. **Query** — graph traversal, reverse imports, cycle detection (Kosaraju), lexical search, documentation mentions and impact analysis.
-
-See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for the schema and algorithms.
-
-## Confidence model
-
-| Class | Meaning |
+| Step | What happens |
 | --- | --- |
-| `confirmed` | Direct syntax evidence, e.g. a call to a symbol defined in the same file or a resolved import binding. |
-| `inferred` | Resolved through project conventions, e.g. a TypeScript path alias or a module-object attribute. |
-| `heuristic` | Pattern-based, e.g. route decorators, model base classes, test naming. |
-| `unresolved` | Kept in the index and reported, but no target was resolved. |
+| **1. Scan** | Walk the repository. Skip symlinks, binaries, oversized files, secret-shaped filenames and configured paths. |
+| **2. Parse** | tree-sitter, a parser library, extracts symbols, imports, calls, attributes, routes and model classes. Source is read as bytes. |
+| **3. Resolve** | Match imports to files: Python relative and absolute imports, `src` layouts, TypeScript aliases, workspace packages, CommonJS `require` and literal dynamic imports. External and unresolved imports stay separate. |
+| **4. Store** | Write tables to a local SQLite database (one file): files, symbols, imports, references and routes. Updates use size and mtime first, then SHA-256. |
+| **5. Query** | Traverse the graph, find reverse imports, detect cycles (Kosaraju), search names and documentation, and build impact reports. |
 
-Transitive impact is computed from resolved import edges. A cycle is reported, not treated as an error.
+Schema and algorithms: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
-## Benchmarks
+## Confidence levels
 
-Measured with `benchmarks/benchmark.py` on 2026-10-27, Linux x86_64, Python 3.14.8. Cold = empty index; incremental = immediate no-op re-index; impact = highest-inbound file, depth 2. Full JSON in [`benchmarks/results/`](benchmarks/results/).
+Every answer is labeled. The labels are the point of the tool, so read them before you act.
 
-| Repo | Files | Symbols | Cold | Incremental | DB | Search | Impact |
+| Label | Meaning | Example |
+| --- | --- | --- |
+| `confirmed` | Direct syntax evidence. | A resolved import, or a call to a symbol in the same file. |
+| `inferred` | Found through project conventions. | A TypeScript path alias, or a workspace package entry. |
+| `heuristic` | Pattern-based, can be wrong. | Route decorators, model base classes, test naming. |
+| `unresolved` | Stored and reported, but no target was found. | A missing file or a computed import path. |
+
+Transitive impact follows resolved import edges only. A dependency cycle is reported as a cycle; it is not treated as an error.
+
+## Measured accuracy
+
+Accuracy is measured with a pre-registered protocol and two independent AI labelers. Round 5 used three repositories that were never indexed or tuned against before.
+
+| Repository | Precision | Recall |
+| --- | ---: | ---: |
+| [httpx](https://github.com/encode/httpx) (Python) | 100% (30/30) | 100% (30/30) |
+| [zustand](https://github.com/pmndrs/zustand) (TypeScript) | 96.7% (58/60) | 100% (58/58) |
+| [mocha](https://github.com/mochajs/mocha) (JavaScript) | 100% (30/30) | 78.9% (30/38) |
+| **Overall** | **98.3%** (118/120) | **93.7%** (118/126) |
+
+- 95% intervals: precision **94.1%–99.5%**, recall **88.0%–96.8%** (Wilson). Weighted by the number of imports in each repository: 99.5% precision, 98.5% recall.
+- Both precision errors were one defect: a root `tsconfig` alias applied to zustand example apps that pin the registry package. It is fixed and rechecked on the same sample; the measured figure stays 118/120.
+- All eight agreed misses are JSON `require`s in mocha. JSON files are not part of the code graph, which is why mocha's recall is shown separately instead of being averaged away.
+- `confirmed` edges: 90/90 correct. `inferred` edges: 28/30.
+- An earlier round on flask, vite and svelte measured 150/150 precision and 94.3% recall, and drove twelve resolver fixes. Those numbers describe that build, not this one.
+- Recall is an estimate, not a census. Known gaps: JSON and config imports, Node `#imports` aliases, Python imports that rely on test or example paths, and package self-references. Non-code assets, `.vue` files and bundler-only specifiers (`?raw`, `?worker`) are reported as unresolved or external, never guessed.
+
+Method, adjudication and threats to validity: [research/EDGE_ACCURACY_RESULTS.md](research/EDGE_ACCURACY_RESULTS.md).
+
+> A correct edge list does not make an empty result safe. Re-index, then verify before you rely on "no dependents".
+
+## Performance
+
+Measured with `benchmarks/benchmark.py` on 2026-10-27: Linux x86_64, Python 3.14.8, one run per repository. Cold = empty index. Incremental = immediate no-op re-index. Impact = highest-inbound file, depth 2. Raw JSON: [`benchmarks/results/`](benchmarks/results/).
+
+| Repository | Files | Symbols | Cold index | Incremental | Index size | Search | Impact |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
 | [express](https://github.com/expressjs/express) | 142 | 63 | 0.28 s | 0.08 s | 176 KiB | 0.2 ms | 2.1 ms |
 | [click](https://github.com/pallets/click) | 91 | 2,077 | 0.57 s | 0.06 s | 960 KiB | 2.5 ms | 18.4 ms |
@@ -185,37 +313,31 @@ Measured with `benchmarks/benchmark.py` on 2026-10-27, Linux x86_64, Python 3.14
 | [vue-core](https://github.com/vuejs/core) | 528 | 2,273 | 1.79 s | 0.24 s | 1.5 MiB | 1.2 ms | 22.4 ms |
 | [fastapi](https://github.com/fastapi/fastapi) | 1,223 | 7,125 | 5.26 s | 1.10 s | 4.0 MiB | 5.4 ms | 82.1 ms |
 
-These numbers measure RepoGraph, not the quality of its answers. Express shows a real weakness: CommonJS function-expression exports yield few symbols. Vue core produced two parse errors in this run. Neither is hidden in the report; see [docs/LIMITATIONS.md](docs/LIMITATIONS.md).
+These numbers describe RepoGraph, not the quality of its answers. Express is a known weak spot: CommonJS function-expression exports produce few symbols. Vue core produced two parse errors in that run. Both cases appear in the reports; see [docs/LIMITATIONS.md](docs/LIMITATIONS.md).
 
-## Measured accuracy
+## What RepoGraph is not
 
-Edge accuracy is measured with a pre-registered protocol and two independent AI labelers. Round 5 used three repositories that had never been indexed or tuned against: httpx, zustand and mocha.
-
-| Repository | Precision | Recall |
-| --- | ---: | ---: |
-| [httpx](https://github.com/encode/httpx) (Python) | 100% (30/30) | 100% (30/30) |
-| [zustand](https://github.com/pmndrs/zustand) (TypeScript) | 96.7% (58/60) | 100% (58/58) |
-| [mocha](https://github.com/mochajs/mocha) (JavaScript) | 100% (30/30) | 78.9% (30/38) |
-| **overall** | **98.3%** (118/120) | **93.7%** (118/126) |
-
-- Precision 95% interval: **94.1%–99.5%**; recall **88.0%–96.8%** (Wilson, 120 and 126 rows). Weighted for population size: 99.5% precision, 98.5% recall.
-- Both precision errors are one defect: a root `tsconfig` alias applied to zustand example apps that pin the registry package. Fixed afterwards (alias scope follows `include`; cross-package names need a workspace declaration) and rechecked on the same sample: both rows now external, 118/118 correct rows unchanged. The estimate below stays 118/120.
-- All eight agreed misses are JSON `require`s in mocha, a documented non-code blind spot. That is why mocha's recall is below the pooled figure; the per-repository number is the honest one.
-- `confirmed` edges were 90/90 correct; `inferred` edges 28/30.
-- An earlier round on flask, vite and svelte measured 150/150 precision and 94.3% recall, and its misses drove twelve resolver fixes. Those numbers describe that build, not this one.
-- Recall is an estimate, not a census. Known gaps: Python apps imported by bare name from `tests/`/`examples/`, Node `#imports` aliases, JSON/config imports, and package self-references. Non-code assets, `.vue` SFCs and bundler-virtual modules (`?raw`, `?worker`) are reported as unresolved or external, not guessed.
-
-Method, adjudication log and threats to validity: [`research/EDGE_ACCURACY_RESULTS.md`](research/EDGE_ACCURACY_RESULTS.md). Precision does not make an empty dependent list safe: re-index and verify before relying on absence.
+It is not a compiler front end, a type checker, a semantic search engine, or a replacement for your test suite. It does not prove that a change is safe. It gives you a checked list of what is linked, what is uncertain, and what it could not see.
 
 ## Limitations
 
-- Static analysis only. Reflection, dynamic imports with computed targets, runtime DI, generated code and external consumers are not fully modeled.
-- Python and TypeScript/JavaScript are the only supported languages today.
-- Symbol names are lexical, not semantic. `search` does not understand intent.
-- Impact analysis is file- and symbol-oriented. It does not perform data-flow or type analysis.
-- Test selection is heuristic. It can miss tests and include irrelevant ones. A measured run on Flask found **24% file recall** on six behaviour-changing mutations (60% if transitive dependents are counted); see `research/TEST_SELECTION_RESULTS.md`. Always run the suite; do not treat the list as complete.
-- Route/model extraction is framework-specific and incomplete.
-- Diff analysis uses symbols already in the index; re-index before analyzing a fresh edit.
+- **Static analysis only.** Reflection, computed dynamic imports, runtime dependency injection, generated code and external consumers are not fully modeled.
+- **Two language families.** Python and TypeScript/JavaScript (including JSX and TSX). Other languages are ignored.
+- **Lexical search.** `search` matches names and text. It does not understand intent.
+- **No data-flow or type analysis.** Impact is file- and symbol-oriented.
+- **Test selection is heuristic.** It can miss tests and include unrelated ones. A measured run on Flask found **24% file recall** (60% when transitive dependents are counted). Read [research/TEST_SELECTION_RESULTS.md](research/TEST_SELECTION_RESULTS.md). Always run the full suite.
+- **Framework coverage is partial.** Route and model extraction knows common patterns, not every framework.
+- **Diffs use indexed symbols.** Re-index before analyzing a fresh edit.
+
+## Troubleshooting
+
+| Symptom | Cause and fix |
+| --- | --- |
+| `impact --diff` finds nothing | The worktree edit is not indexed yet. Run `repograph index .` first. |
+| No dependents, but the code does break | The edge may be dynamic, unresolved or outside the indexed languages. Check the blind spots block. |
+| Fewer symbols than expected | The language may use patterns the extractor does not cover (for example CommonJS function-expression exports). Check `repograph status` and `repograph arch` for parse errors. |
+| `status` says a re-index is needed | Files changed after the last index. Run `repograph index .`. |
+| MCP client cannot connect | Use an absolute path in `--root`, and confirm the `repograph` binary is on the client's `PATH`. |
 
 ## Development
 
@@ -225,9 +347,11 @@ Method, adjudication log and threats to validity: [`research/EDGE_ACCURACY_RESUL
 .venv/bin/python benchmarks/benchmark.py --repo . --name repograph
 ```
 
-62 tests run in a few seconds. CI runs them on Python 3.10, 3.12 and 3.13, then smoke-tests `repograph arch --root .`. Direct coverage is 70%; the CLI and MCP server are exercised through subprocesses, so the coverage tool attributes none of that to their modules.
+62 tests run in a few seconds. CI runs them on Python 3.10, 3.12 and 3.13, then smoke-tests `repograph arch --root .`. Direct coverage is 70%. The CLI and MCP server are tested through subprocesses, so the coverage tool does not attribute those runs to their modules.
 
-Contribution rules, test expectations and the security model are in [CONTRIBUTING.md](CONTRIBUTING.md) and [SECURITY.md](SECURITY.md).
+## Contributing
+
+Read [CONTRIBUTING.md](CONTRIBUTING.md) for code style, test expectations and the review process. Report security issues privately as described in [SECURITY.md](SECURITY.md). Do not open a public issue for a vulnerability.
 
 ## License
 
