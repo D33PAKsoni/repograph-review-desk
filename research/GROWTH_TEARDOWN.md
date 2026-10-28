@@ -109,6 +109,10 @@ Both goals start with the same blocker: **there is no one-line install and no Py
 
 ## 5. Thirty-day plan
 
+> Amended 2026-10-28: [`REA_TEARDOWN.md`](REA_TEARDOWN.md) reorders this plan. `repograph setup`
+> (installer that also installs the agent skill) ships before the PyPI release, because it
+> fixes the measured 0/5 agent-invocation failure rather than only install friction.
+
 | Week | Action | Done when |
 | --- | --- | --- |
 | 1 | Publish `repograph-codeintel` 0.1.0 to PyPI (build, twine, trusted publishing); verify `uvx --from repograph-codeintel repograph version` in a clean container | One command installs from a cold machine |
