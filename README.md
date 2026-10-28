@@ -199,7 +199,7 @@ Edge accuracy is measured with a pre-registered protocol and two independent AI 
 | **overall** | **98.3%** (118/120) | **93.7%** (118/126) |
 
 - Precision 95% interval: **94.1%–99.5%**; recall **88.0%–96.8%** (Wilson, 120 and 126 rows). Weighted for population size: 99.5% precision, 98.5% recall.
-- Both precision errors are one defect: a root `tsconfig` alias applied to zustand example apps that pin the registry package. The fix is scoped to the config's `include` and is not yet folded into these numbers.
+- Both precision errors are one defect: a root `tsconfig` alias applied to zustand example apps that pin the registry package. Fixed afterwards (alias scope follows `include`; cross-package names need a workspace declaration) and rechecked on the same sample: both rows now external, 118/118 correct rows unchanged. The estimate below stays 118/120.
 - All eight agreed misses are JSON `require`s in mocha, a documented non-code blind spot. That is why mocha's recall is below the pooled figure; the per-repository number is the honest one.
 - `confirmed` edges were 90/90 correct; `inferred` edges 28/30.
 - An earlier round on flask, vite and svelte measured 150/150 precision and 94.3% recall, and its misses drove twelve resolver fixes. Those numbers describe that build, not this one.
@@ -225,7 +225,7 @@ Method, adjudication log and threats to validity: [`research/EDGE_ACCURACY_RESUL
 .venv/bin/python benchmarks/benchmark.py --repo . --name repograph
 ```
 
-60 tests run in a few seconds. CI runs them on Python 3.10, 3.12 and 3.13, then smoke-tests `repograph arch --root .`. Direct coverage is 69%; the CLI and MCP server are exercised through subprocesses, so the coverage tool attributes none of that to their modules.
+62 tests run in a few seconds. CI runs them on Python 3.10, 3.12 and 3.13, then smoke-tests `repograph arch --root .`. Direct coverage is 70%; the CLI and MCP server are exercised through subprocesses, so the coverage tool attributes none of that to their modules.
 
 Contribution rules, test expectations and the security model are in [CONTRIBUTING.md](CONTRIBUTING.md) and [SECURITY.md](SECURITY.md).
 

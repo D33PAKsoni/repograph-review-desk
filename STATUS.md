@@ -6,7 +6,7 @@
 
 ## Bottom line
 
-RepoGraph is a working local tool: it indexes real Python/TypeScript/JavaScript repositories, exposes a CLI and six MCP tools, and produces evidence-backed impact reports with explicit blind spots. The engineering baseline is tested, and **edge accuracy is measured on a fresh corpus**: round 5 (httpx, zustand, mocha — never indexed or tuned against) measured **98.3% precision on 120 resolved edges** (Wilson 94.1%–99.5%) and **93.7% estimated recall** (118/126; Wilson 88.0%–96.8%). Both precision errors are one resolver defect (a root `tsconfig` alias leaking into example apps); the fix is pending and will be reported as a within-sample recheck, not a new estimate.
+RepoGraph is a working local tool: it indexes real Python/TypeScript/JavaScript repositories, exposes a CLI and six MCP tools, and produces evidence-backed impact reports with explicit blind spots. The engineering baseline is tested, and **edge accuracy is measured on a fresh corpus**: round 5 (httpx, zustand, mocha — never indexed or tuned against) measured **98.3% precision on 120 resolved edges** (Wilson 94.1%–99.5%) and **93.7% estimated recall** (118/126; Wilson 88.0%–96.8%). Both precision errors are one resolver defect (a root `tsconfig` alias leaking into example apps); it is fixed, and the within-sample recheck resolves both audited rows with no change to any previously correct sampled edge, so the estimate itself is unchanged.
 
 The **product claim is still only partly validated**. There is no user study and no evidence that the tool changes agent behavior. A five-pair agent pilot compared control against a prompt offering the RepoGraph CLI: both arms were perfect on grep-solvable rename tasks, and session transcripts show no treatment run actually invoked the tool, so the pilot measured prompt wording rather than graph access. Missing edges remain the main risk, not wrong ones. The competitive field is crowded, including projects already claiming evidence/confidence and impact analysis.
 
@@ -63,13 +63,13 @@ The **product claim is still only partly validated**. There is no user study and
 ### Tests
 
 ```
-60 passed
+62 passed
 ```
 
 Coverage (direct in-process measurement):
 
 ```
-TOTAL 2182 statements, 677 missed, 69%
+TOTAL 2256 statements, 678 missed, 70%
 ```
 
 The CLI and MCP server show 0% direct coverage because they are tested through subprocesses (`python -m repograph`, stdio MCP client). Their behavior is exercised; the coverage tool does not attribute it to those modules. Core modules: `impact.py` 93%, `indexer.py` 96%, `store.py` 94%, `resolve.py` 90%, `extract.py` 89%.
@@ -95,7 +95,7 @@ Measured 2026-10-27, Linux x86_64, Python 3.14.8, one run per repository. Raw JS
 
 Impact is the highest-inbound file at depth 2. Express (63 symbols from 142 JS files) and two Vue parse errors are documented weaknesses, not hidden.
 
-Self-index: 22 Python files, 217 symbols, 1,898 refs, 50 resolved edges (0 unresolved, 0 dynamic), 0 parse errors, 0.22 s, 280 KiB.
+Self-index: 22 Python files, 224 symbols, 1,972 refs, 50 resolved edges (0 unresolved, 0 dynamic), 0 parse errors, 0.38 s cold (CLI, interpreter start included), 288 KiB.
 
 ### Edge accuracy
 
@@ -111,7 +111,7 @@ Pre-registered protocol, two independent AI labelers per round. Round 5 used rep
 - Wilson 95%: precision 94.1%–99.5%, recall 88.0%–96.8%. Weighted: 99.5% / 98.5%.
 - Labeler agreement 94.09% (12/203 disagreements), all adjudicated: 10 asset rows `unresolved_ok`, 2 zustand example rows `not_internal`, 8 mocha JSON `require`s `internal_missed`.
 - `confirmed` 90/90 correct; `inferred` 28/30.
-- Precision defect (open): the root `tsconfig` alias is applied to `examples/*`, which pin the registry `zustand` package; both errors are that. The root config includes only `src/**` and `tests/**`. Fix scoped to the config's `include` is pending, then a within-sample recheck.
+- Precision defect (fixed, rechecked): the root `tsconfig` alias was applied to `examples/*`, which pin the registry `zustand` package. Aliases now follow the config's `include`, and cross-package bare names resolve only for a package's own files or inside a declared workspace. Re-index: 2/2 audited errors now external, 118/118 correct sampled rows unchanged, zustand internal edges 72 → 69 (the third is the same mechanism, outside the sample), httpx/mocha counts unchanged.
 - zustand has 5 parse errors in core files (`src/react.ts`, `src/vanilla.ts`, `src/traditional.ts`, `src/middleware/subscribeWithSelector.ts`, `tests/ssr.test.tsx`) from advanced type syntax; those files contribute no edges. mocha's 3 are intentionally broken fixtures.
 - mocha's 8 misses are all JSON `require`s; mocha recall is reported separately rather than hidden by pooling.
 - Round 4 (flask, vite, svelte, measured on 2026-10-27) recorded 100% precision (150/150) and 94.3% recall, after which twelve resolver fixes were tuned on its misses. Those numbers describe that build, not the current one.

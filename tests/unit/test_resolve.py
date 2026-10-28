@@ -354,6 +354,9 @@ def test_ts_exports_dist_entry_maps_to_source_entry(tmp_path: Path):
     (tmp_path / "packages/vite/src/node").mkdir(parents=True)
     (tmp_path / "packages/vite/package.json").write_text(json.dumps({
         "name": "vite", "exports": {".": "./dist/node/index.js"}}))
+    # Vite is a pnpm workspace; without a workspace declaration a playground is
+    # a separate install and the bare name belongs to the registry.
+    (tmp_path / "pnpm-workspace.yaml").write_text("packages:\n  - packages/*\n")
     for rel in ("packages/vite/src/node/index.ts", "playground/config.ts"):
         (tmp_path / rel).parent.mkdir(parents=True, exist_ok=True)
         (tmp_path / rel).write_text("")
@@ -366,3 +369,50 @@ def test_ts_exports_dist_entry_maps_to_source_entry(tmp_path: Path):
         "playground/config.ts", imp)}
     assert ("vite", "packages/vite/src/node/index.ts", "inferred",
             "workspace-package") in got
+
+
+def test_ts_alias_scope_excludes_example_app(tmp_path: Path):
+    """A root tsconfig's `include` bounds its aliases (measured zustand defect)."""
+    (tmp_path / "tsconfig.json").write_text(json.dumps({
+        "compilerOptions": {"paths": {"zustand": ["./src/index.ts"]}},
+        "include": ["src/**/*", "tests/**/*"],
+    }))
+    (tmp_path / "package.json").write_text(json.dumps({"name": "zustand"}))
+    (tmp_path / "examples/demo").mkdir(parents=True)
+    (tmp_path / "examples/demo/package.json").write_text(json.dumps({
+        "name": "demo", "dependencies": {"zustand": "^5.0.2"}}))
+    for rel in ("src/index.ts", "src/use.ts", "examples/demo/App.jsx"):
+        (tmp_path / rel).parent.mkdir(parents=True, exist_ok=True)
+        (tmp_path / rel).write_text("")
+    files = [("src/index.ts", "typescript"), ("src/use.ts", "tsx"),
+             ("examples/demo/App.jsx", "jsx")]
+    r = Resolver(tmp_path, files)
+
+    inside = extract("src/use.ts", "typescript", b'import { x } from "zustand";\n').imports
+    assert ("zustand", "src/index.ts", "tsconfig-path-alias") in {
+        (x.module, x.target, x.method) for x in r.resolve("src/use.ts", inside)}
+
+    outside = extract("examples/demo/App.jsx", "jsx", b'import { x } from "zustand";\n').imports
+    assert all(x.kind != "internal" for x in r.resolve("examples/demo/App.jsx", outside))
+
+
+def test_ts_package_self_reference_needs_workspaces_for_cross_package(tmp_path: Path):
+    """Nested apps without workspace linking do not resolve into the root package."""
+    (tmp_path / "package.json").write_text(json.dumps({"name": "zustand"}))
+    (tmp_path / "src/index.ts").parent.mkdir(parents=True)
+    (tmp_path / "src/index.ts").write_text("")
+    (tmp_path / "examples/starter").mkdir(parents=True)
+    (tmp_path / "examples/starter/package.json").write_text(json.dumps({
+        "name": "starter", "dependencies": {"zustand": "^5.0.2"}}))
+    (tmp_path / "examples/starter/index.tsx").write_text("")
+    files = [("src/index.ts", "typescript"), ("examples/starter/index.tsx", "tsx")]
+    r = Resolver(tmp_path, files)
+    imp = extract("examples/starter/index.tsx", "tsx", b'import { x } from "zustand";\n').imports
+    assert all(x.kind != "internal" for x in r.resolve("examples/starter/index.tsx", imp))
+
+    # The package's own files still resolve the name to its source.
+    (tmp_path / "src/use.ts").write_text("")
+    r2 = Resolver(tmp_path, [("src/index.ts", "typescript"), ("src/use.ts", "typescript")])
+    imp2 = extract("src/use.ts", "typescript", b'import { x } from "zustand";\n').imports
+    assert ("zustand", "src/index.ts", "workspace-package") in {
+        (x.module, x.target, x.method) for x in r2.resolve("src/use.ts", imp2)}

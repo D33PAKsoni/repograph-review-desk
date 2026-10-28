@@ -17,6 +17,50 @@ from pathlib import Path, PurePosixPath
 from .extract import Import
 
 
+def _ts_scope_patterns(data: dict) -> list[str]:
+    """`include`/`files` of a tsconfig, i.e. the files the config applies to.
+
+    A root tsconfig commonly declares `include: ["src/**/*"]`; its `paths`
+    aliases do not apply to a sibling example app that is compiled by its own
+    config (or by none). Applying them anyway produced a false internal edge in
+    zustand's examples.
+    """
+    out: list[str] = []
+    for key in ("include", "files"):
+        value = data.get(key)
+        if isinstance(value, str):
+            out.append(value)
+        elif isinstance(value, list):
+            out.extend(v for v in value if isinstance(v, str))
+    return out
+
+
+def _glob_match(pattern: str, path: str) -> bool:
+    """Match a tsconfig include pattern against a repo-relative path."""
+    pat = pattern[2:] if pattern.startswith("./") else pattern
+    out: list[str] = []
+    i = 0
+    while i < len(pat):
+        if pat.startswith("**/", i):
+            out.append("(?:.*/)?")
+            i += 3
+        elif pat.startswith("**", i):
+            out.append(".*")
+            i += 2
+        elif pat[i] == "*":
+            out.append("[^/]*")
+            i += 1
+        elif pat[i] == "?":
+            out.append("[^/]")
+            i += 1
+        else:
+            out.append(re.escape(pat[i]))
+            i += 1
+    rx = "".join(out)
+    # A bare directory (`src`) covers everything below it.
+    return re.fullmatch(rx, path) is not None or re.fullmatch(rx + "/.*", path) is not None
+
+
 @dataclass
 class ResolvedImport:
     raw: str
@@ -96,6 +140,13 @@ class Resolver:
         self.packages: dict[str, str] = {}
         self.package_dirs: dict[str, str] = {}
         self.package_imports: dict[str, dict] = {}
+        # Every directory holding a package.json. Used to tell a package's own
+        # self-reference from a nested app importing the same name from the
+        # registry (measured zustand defect: examples pin `zustand ^5`).
+        self.pkg_dirs: set[str] = set()
+        # Package dirs that declare workspaces. Bare-name resolution may only
+        # cross package boundaries inside one of these.
+        self.workspace_roots: set[str] = set()
         self._dirs = {str(PurePosixPath(p).parent) for p in self.files}
         self._build_python_modules()
         self._build_python_roots()
@@ -241,9 +292,51 @@ class Resolver:
                 "dir": "" if rel_dir == "." else rel_dir,
                 "baseurl": str(opts.get("baseUrl", ".")),
                 "paths": entries,
+                "scope": _ts_scope_patterns(data),
             })
         # Most specific config (deepest directory) wins.
         self.ts_configs.sort(key=lambda c: len(c["dir"]), reverse=True)
+
+    @staticmethod
+    def _ts_covers(cfg: dict, rel: str) -> bool:
+        """Whether a tsconfig's `include`/`files` covers this file.
+
+        No include/files means the project's default include (everything under
+        the config directory), so aliases keep applying.
+        """
+        scope = cfg.get("scope") or []
+        if not scope:
+            return True
+        sub = rel[len(cfg["dir"]) + 1:] if cfg["dir"] else rel
+        return any(_glob_match(pattern, sub) for pattern in scope)
+
+    def _nearest_pkg_dir(self, rel: str) -> str:
+        d = posixpath.dirname(rel)
+        while True:
+            if d in self.pkg_dirs:
+                return d
+            if not d:
+                return ""
+            d = posixpath.dirname(d)
+
+    def _package_visible_from(self, rel: str, name: str) -> bool:
+        """Can `rel` see this package's source as `name`?
+
+        True for a package importing itself, and across package boundaries only
+        when the repository declares workspaces (npm/yarn `workspaces` or a
+        pnpm workspace file). Nested demo apps that list the registry package in
+        their own `dependencies` are otherwise a separate install.
+        """
+        target = self.package_dirs.get(name)
+        if target is None:
+            return False
+        importer = self._nearest_pkg_dir(rel)
+        if importer == target:
+            return True
+        for root in self.workspace_roots:
+            if root == "" or importer == root or importer.startswith(root + "/"):
+                return True
+        return False
 
     @staticmethod
     def _condition_target(value, prefer_types: bool = False) -> str | None:
@@ -296,6 +389,20 @@ class Resolver:
     def _build_packages(self) -> None:
         import os
 
+        # pnpm declares workspaces in pnpm-workspace.yaml, but the file also
+        # exists for settings only (zustand). Without a `packages:` key there
+        # are no workspace members, so nested apps stay separate installs.
+        for name in ("pnpm-workspace.yaml", "pnpm-workspace.yml"):
+            ws = self.root / name
+            if ws.is_file():
+                try:
+                    text = ws.read_text(encoding="utf-8", errors="replace")
+                except OSError:
+                    continue
+                if re.search(r"^\s*packages\s*:", text, re.MULTILINE):
+                    self.workspace_roots.add("")
+                break
+
         for dirpath, dirnames, filenames in os.walk(self.root):
             dirnames[:] = [d for d in dirnames if d not in WALK_SKIP]
             rel_dir = Path(dirpath).relative_to(self.root).as_posix()
@@ -311,6 +418,9 @@ class Resolver:
             except (OSError, ValueError):
                 continue
             base = posixpath.dirname(rel)
+            self.pkg_dirs.add(base)
+            if data.get("workspaces"):
+                self.workspace_roots.add(base)
             imports = data.get("imports")
             if isinstance(imports, dict) and imports:
                 self.package_imports[base] = imports
@@ -540,7 +650,8 @@ class Resolver:
                 return self._resolve_package_import(rel, spec, imp)
             cfg = next(
                 (c for c in self.ts_configs
-                 if c["dir"] == "" or rel == c["dir"] or rel.startswith(c["dir"] + "/")),
+                 if (c["dir"] == "" or rel == c["dir"] or rel.startswith(c["dir"] + "/"))
+                 and self._ts_covers(c, rel)),
                 {"dir": "", "baseurl": ".", "paths": []},
             )
             baseurl_dir = posixpath.normpath(posixpath.join(cfg["dir"], cfg["baseurl"]))
@@ -577,7 +688,8 @@ class Resolver:
                     pkg_name = parts[0]
                     subpath = "/".join(parts[1:])
                 pkg_dir = self.package_dirs.get(pkg_name)
-                if pkg_dir and subpath:
+                visible = pkg_dir is not None and self._package_visible_from(rel, pkg_name)
+                if visible and subpath:
                     for probe in (posixpath.join(pkg_dir, subpath),
                                   posixpath.join(pkg_dir, "src", subpath)):
                         found = self._ts_candidates(posixpath.normpath(probe))
@@ -585,9 +697,16 @@ class Resolver:
                             targets = found
                             method = "workspace-package"
                             break
-                elif self.packages.get(pkg_name):
+                elif visible and self.packages.get(pkg_name):
                     targets = [self.packages[pkg_name]]
                     method = "workspace-package"
+                elif pkg_dir is not None:
+                    # A nested app that pins the registry package, in a repo
+                    # without workspace linking. Not an edge into this source.
+                    return [ResolvedImport(imp.raw, spec, imp.line, None, "external",
+                                           "bare-specifier", "external", imp.names,
+                                           f"package {pkg_name!r} is not visible from "
+                                           f"{self._nearest_pkg_dir(rel) or '.'}")]
             if not targets:
                 return [ResolvedImport(imp.raw, spec, imp.line, None, "external",
                                        "bare-specifier", "external", imp.names,

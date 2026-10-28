@@ -27,7 +27,7 @@ RepoGraph reports what static parsing can establish. It does not prove safety.
 ### Measured accuracy caveats
 
 - The current unseen test (round 5: httpx, zustand, mocha) measured 98.3% precision (118/120 resolved edges; Wilson 94.1%–99.5%) and 93.7% estimated recall (118/126; Wilson 88.0%–96.8%). Round 4 (flask, vite, svelte) measured 100% precision and 94.3% recall on the earlier build.
-- Two zustand edges are false internals: a root `tsconfig` alias is applied to example apps that pin the registry package. The fix is scoped to the config's `include` and is pending.
+- Two zustand edges are false internals: a root `tsconfig` alias is applied to example apps that pin the registry package. Fixed after reporting: aliases now follow the config's `include`, cross-package bare names need a workspace declaration, and the within-sample recheck leaves every previously correct sampled edge unchanged.
 - Known recall gaps: JSON/config imports (all 8 round-5 misses), bundler-virtual specifiers and fixture packages nested below the package-discovery depth bound. Python bare imports from test/example roots and Node `#imports` maps were measured defects and are now resolved as `inferred` (see `research/EDGE_ACCURACY_RESULTS.md`, "Post-fix recheck"). Conditional `exports` targets beyond the package entry are still only approximated by path probing.
 - Non-code assets (CSS, images, JSON), `.vue` SFCs and bundler-virtual specifiers (`?raw`, `?worker`, `?url`) are outside the code graph. They are reported unresolved, not silently dropped.
 - Labelers were AI agents, not humans. Two independent labelers agreed on 94.09% of the round-5 sample and 91.5% of the round-4 sample; disagreements were adjudicated against the source.

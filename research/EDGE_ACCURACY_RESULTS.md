@@ -75,7 +75,7 @@ Wilson 95% intervals: precision **94.1%–99.5%**; recall **88.0%–96.8%**. Pop
 
 `zustand-0011` (`examples/starter/src/index.tsx:3`) and `zustand-0075` (`examples/demo/src/App.jsx:1`) both `import ... from 'zustand'`. RepoGraph resolved that to the repository's own `src/index.ts` through the root `tsconfig.json` path alias. The examples are standalone apps with their own `package.json` pinning `zustand ^5.0.2` and `^4.3.9`, so the import is external. The root config's `include` is only `src/**` and `tests/**`; the alias was applied outside the files the config covers.
 
-This is a precision defect, not a labeling dispute: a false internal edge is the failure mode that matters most. It is **not fixed in this round** because D-011 forbids resolver changes before the round is reported. The fix (apply a config's aliases only inside its `include` scope) will be verified as a within-sample recheck and reported as such, not as a new estimate.
+This is a precision defect, not a labeling dispute: a false internal edge is the failure mode that matters most. It was **not fixed in the measured round** because D-011 forbids resolver changes before the round is reported. The fix is below; it is a within-sample recheck, not a new estimate.
 
 **2. JSX/TS advanced syntax parse errors (zustand, 5 files; contributes no edges).**
 
@@ -95,10 +95,29 @@ This is a precision defect, not a labeling dispute: a false internal edge is the
 
 Adjudication was done by reading the source and the config/`package.json` files named above. The adjudicated labels are `labels-round5-adjudicated.jsonl`; raw labels and the two-labeler report are kept beside them.
 
+### Fix and within-sample recheck (not a new estimate)
+
+Two resolver rules were changed after the round was reported:
+
+| Rule | Before | After |
+| --- | --- | --- |
+| `tsconfig` alias scope | any file below the config directory | only files matched by the config's `include`/`files`; no `include` still means the whole project |
+| Cross-package bare names | any package name in the repo resolves to its source | only a package's own files, or repositories that declare workspaces (`workspaces`, or a pnpm workspace file with a `packages:` key) |
+
+The second rule is what separates zustand's examples from real monorepo apps: `pnpm-workspace.yaml` exists there but lists no packages, and each example pins `zustand ^5.0.2`/`^4.3.9`.
+
+All three repositories were re-indexed from scratch and every sampled row was looked up again in the stored index:
+
+- **2 of 2** audited false edges are now `external` (`bare-specifier`, note names the importer package).
+- **201 of 203** rows are unchanged; the two changed rows are exactly the two adjudicated errors. **118 of 118** previously correct resolved edges kept their target, confidence and method.
+- zustand internal edges dropped 72 → 69. The third edge is the same mechanism in `examples/demo/src/components/CodePreview.jsx:1`, outside the sample; httpx (124) and mocha (321) are unchanged.
+
+The measured figures stay 118/120 and 118/126. A recheck on the data that exposed the defect cannot replace them; it only shows the fix did what it claimed and broke nothing sampled.
+
 ### What this round does and does not show
 
 - It supports the pre-registered claim: precision ≥95% and recall ≥85% both pass, and the precision lower bound (94.1%) stays above the 90% "do not market as reliable" floor.
-- The two zustand errors are a real resolver defect. Precision is a measured 98.3%, not 100%, and the fix is pending.
+- The two zustand errors are a real resolver defect. Precision is a measured 98.3%, not 100%; the fix and its within-sample recheck are reported below.
 - zustand's core files are partly unparsed, so its recall of 100% applies to the sample drawn, not to the whole repository.
 - mocha's 78.9% recall is the lowest per-repository number measured so far and is entirely JSON imports; a repository that imports config files heavily will see similar missing edges.
 - Three repositories, 203 rows and AI labelers are still a small, deliberate corpus.
@@ -265,7 +284,7 @@ No repository-level precision failure. mocha's 78.9% recall is disclosed rather 
 
 **Supported claim:** advisory impact analysis on Python/TypeScript/JavaScript repositories, with residual misses listed above and an explicit instruction to re-index and verify before relying on absence of dependents. **Not supported:** using the result as a blocking CI gate, claiming complete dependency coverage, or treating an empty dependent list as safety.
 
-Two false internal edges in round 5 are the main trust result: the failure mode is now measured, not assumed absent. The remaining risk is still mostly missing edges, but precision is 98.3%, not 100%, and the fix is pending.
+Two false internal edges in round 5 are the main trust result: the failure mode is now measured, not assumed absent. The remaining risk is still mostly missing edges, but precision is 98.3%, not 100%. The fix resolves both audited rows without changing any previously correct sampled edge; the 98.3% figure stands until a new round measures the fixed build.
 
 ## Reproduce
 
