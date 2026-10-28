@@ -63,13 +63,13 @@ The **product claim is still only partly validated**. There is no user study and
 ### Tests
 
 ```
-56 passed
+60 passed
 ```
 
 Coverage (direct in-process measurement):
 
 ```
-TOTAL 2144 statements, 671 missed, 69%
+TOTAL 2182 statements, 677 missed, 69%
 ```
 
 The CLI and MCP server show 0% direct coverage because they are tested through subprocesses (`python -m repograph`, stdio MCP client). Their behavior is exercised; the coverage tool does not attribute it to those modules. Core modules: `impact.py` 93%, `indexer.py` 96%, `store.py` 94%, `resolve.py` 90%, `extract.py` 89%.
@@ -95,7 +95,7 @@ Measured 2026-10-27, Linux x86_64, Python 3.14.8, one run per repository. Raw JS
 
 Impact is the highest-inbound file at depth 2. Express (63 symbols from 142 JS files) and two Vue parse errors are documented weaknesses, not hidden.
 
-Self-index: 21 Python files, 182 symbols, 1,497 refs, 0 parse errors, 0.15 s, 248 KiB.
+Self-index: 22 Python files, 217 symbols, 1,898 refs, 50 resolved edges (0 unresolved, 0 dynamic), 0 parse errors, 0.22 s, 280 KiB.
 
 ### Edge accuracy
 
