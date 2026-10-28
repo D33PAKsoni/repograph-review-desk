@@ -8,7 +8,7 @@
 
 RepoGraph is a working local tool: it indexes real Python/TypeScript/JavaScript repositories, exposes a CLI and six MCP tools, and produces evidence-backed impact reports with explicit blind spots. The engineering baseline is tested, and **edge accuracy is measured**: 100% precision on 150 sampled resolved edges across three unseen repositories, with 94.3% estimated recall for that measured build. A later post-fix recheck resolved 25 of the 29 known misses on the same sample with no regression on previously correct sampled edges; that recheck is not a new recall estimate.
 
-The **product claim is still only partly validated**. There is no user study and no evidence that the tool changes agent behavior. A five-pair agent pilot hit a ceiling: both control and RepoGraph arms were perfect on word-search-solvable rename tasks, so it neither supports nor rules out a benefit. Missing edges remain the main risk, not wrong ones. The competitive field is crowded, including projects already claiming evidence/confidence and impact analysis.
+The **product claim is still only partly validated**. There is no user study and no evidence that the tool changes agent behavior. A five-pair agent pilot compared control against a prompt offering the RepoGraph CLI: both arms were perfect on grep-solvable rename tasks, and session transcripts show no treatment run actually invoked the tool, so the pilot measured prompt wording rather than graph access. Missing edges remain the main risk, not wrong ones. The competitive field is crowded, including projects already claiming evidence/confidence and impact analysis.
 
 ## Implemented
 
@@ -114,7 +114,7 @@ Pre-registered protocol, two independent AI labelers per round. Final test repos
 - Residual recall gaps: JSON/config imports, bundler-virtual specifiers, deep fixture packages, and conditional `exports` beyond the package entry.
 - Post-fix recheck: Python project/conftest import roots and Node `#imports`/`exports` maps corrected 25 of the 29 final-test misses with no change to the 150 previously correct sampled edges. Not a new estimate.
 - Audit of the new inferred methods (Amendment 2): 38/40 correct, 95.0% (Wilson 83.5%–98.6%). The two wrong edges were type-only `#compiler` imports; the `types` condition is now preferred for `import type`, rechecked within the sample.
-- Agent behavior: five paired rename tasks, control versus RepoGraph CLI, both arms perfect. Ceiling effect; no behavioral claim. See `research/AGENT_BEHAVIOR_PILOT.md`.
+- Agent behavior: five paired rename tasks, both arms perfect. Transcripts show 0 of 5 treatment runs invoked RepoGraph and both arms used grep, so the pilot tested prompt wording, not graph access. No behavioral claim. See `research/AGENT_BEHAVIOR_PILOT.md`.
 
 Full method and threats to validity: `research/EDGE_ACCURACY_RESULTS.md`. Raw artifacts: `benchmarks/eval/`.
 
@@ -194,4 +194,4 @@ cd /home/darion-dev/repograph
 
 ## Next action
 
-Run Phase 2 of `research/VALIDATION_PLAN.md` with tasks that are not word-search-solvable and a harness that records tokens and tool calls. The rename-based pilot produced a ceiling and is not sufficient. Before any new accuracy claim, collect a fresh unseen corpus; the post-fix recheck was within-sample. Do not add languages until then.
+Run Phase 2 of `research/VALIDATION_PLAN.md` with tasks that are not word-search-solvable, a treatment that requires the tool's use, and transcript verification that it was used. Token and tool-call counts are recoverable from session exports. The rename-based pilot never invoked the tool and is not sufficient. Before any new accuracy claim, collect a fresh unseen corpus; the post-fix recheck was within-sample. Do not add languages until then.

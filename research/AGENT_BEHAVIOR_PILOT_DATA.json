@@ -1,0 +1,268 @@
+{
+ "note": "Recovered from `opencode session export` for each pilot cell. Duration is wall-clock for the session. `repograph_calls` counts tool inputs matching a real repograph subcommand (grep --exclude-dir=.repograph is not counted).",
+ "cells": {
+  "t1c": {
+   "task": "t1",
+   "arm": "control",
+   "input_tokens": 2969,
+   "cache_read_tokens": 182144,
+   "cache_write_tokens": 0,
+   "output_tokens": 415,
+   "reasoning_tokens": 21,
+   "tool_calls": 4,
+   "tools": {
+    "shell": 4
+   },
+   "repograph_calls": 0,
+   "outcome": "succeeded",
+   "duration_s": 14.9,
+   "session": "ses_e83246b6bffePj5NE4cM3HmZxL",
+   "model": "deepseek-v4.1-flash-free"
+  },
+  "t1t": {
+   "task": "t1",
+   "arm": "treatment",
+   "input_tokens": 4081,
+   "cache_read_tokens": 300800,
+   "cache_write_tokens": 0,
+   "output_tokens": 1228,
+   "reasoning_tokens": 540,
+   "tool_calls": 12,
+   "tools": {
+    "edit": 5,
+    "execute": 1,
+    "grep": 5,
+    "read": 1
+   },
+   "repograph_calls": 0,
+   "outcome": "succeeded",
+   "duration_s": 24.9,
+   "session": "ses_e83216075ffecrHP4u3D3lU1OP",
+   "model": "deepseek-v4.1-flash-free"
+  },
+  "t2c": {
+   "task": "t2",
+   "arm": "control",
+   "input_tokens": 2077,
+   "cache_read_tokens": 147200,
+   "cache_write_tokens": 0,
+   "output_tokens": 354,
+   "reasoning_tokens": 652,
+   "tool_calls": 3,
+   "tools": {
+    "grep": 1,
+    "shell": 2
+   },
+   "repograph_calls": 0,
+   "outcome": "succeeded",
+   "duration_s": 16.4,
+   "session": "ses_e832371ecffeJcvUAkGPYp3gGA",
+   "model": "deepseek-v4.1-flash-free"
+  },
+  "t2t": {
+   "task": "t2",
+   "arm": "treatment",
+   "input_tokens": 3530,
+   "cache_read_tokens": 186240,
+   "cache_write_tokens": 0,
+   "output_tokens": 482,
+   "reasoning_tokens": 542,
+   "tool_calls": 5,
+   "tools": {
+    "shell": 5
+   },
+   "repograph_calls": 0,
+   "outcome": "succeeded",
+   "duration_s": 15.9,
+   "session": "ses_e832243f6ffeKGfKrqEtIqVZcv",
+   "model": "deepseek-v4.1-flash-free"
+  },
+  "t3c": {
+   "task": "t3",
+   "arm": "control",
+   "input_tokens": 2864,
+   "cache_read_tokens": 187264,
+   "cache_write_tokens": 0,
+   "output_tokens": 519,
+   "reasoning_tokens": 621,
+   "tool_calls": 4,
+   "tools": {
+    "grep": 1,
+    "shell": 3
+   },
+   "repograph_calls": 0,
+   "outcome": "succeeded",
+   "duration_s": 19.7,
+   "session": "ses_e832371e9ffej5nTeo4cPWvg6o",
+   "model": "deepseek-v4.1-flash-free"
+  },
+  "t3t": {
+   "task": "t3",
+   "arm": "treatment",
+   "input_tokens": 18371,
+   "cache_read_tokens": 417664,
+   "cache_write_tokens": 0,
+   "output_tokens": 1552,
+   "reasoning_tokens": 1008,
+   "tool_calls": 17,
+   "tools": {
+    "edit": 9,
+    "execute": 3,
+    "grep": 3,
+    "read": 2
+   },
+   "repograph_calls": 0,
+   "outcome": "succeeded",
+   "duration_s": 36.4,
+   "session": "ses_e832243f3ffevzB7FsydUTlwsh",
+   "model": "deepseek-v4.1-flash-free"
+  },
+  "t4c": {
+   "task": "t4",
+   "arm": "control",
+   "input_tokens": 2130,
+   "cache_read_tokens": 185216,
+   "cache_write_tokens": 0,
+   "output_tokens": 406,
+   "reasoning_tokens": 248,
+   "tool_calls": 4,
+   "tools": {
+    "grep": 1,
+    "shell": 3
+   },
+   "repograph_calls": 0,
+   "outcome": "succeeded",
+   "duration_s": 15.5,
+   "session": "ses_e832371e6ffeBku6rqWbDprMSb",
+   "model": "deepseek-v4.1-flash-free"
+  },
+  "t4t": {
+   "task": "t4",
+   "arm": "treatment",
+   "input_tokens": 3634,
+   "cache_read_tokens": 187776,
+   "cache_write_tokens": 0,
+   "output_tokens": 517,
+   "reasoning_tokens": 461,
+   "tool_calls": 5,
+   "tools": {
+    "shell": 5
+   },
+   "repograph_calls": 0,
+   "outcome": "succeeded",
+   "duration_s": 18.1,
+   "session": "ses_e832243f0ffeZuLomH3GPMO31F",
+   "model": "deepseek-v4.1-flash-free"
+  },
+  "t5c": {
+   "task": "t5",
+   "arm": "control",
+   "input_tokens": 1048,
+   "cache_read_tokens": 109824,
+   "cache_write_tokens": 0,
+   "output_tokens": 262,
+   "reasoning_tokens": 190,
+   "tool_calls": 2,
+   "tools": {
+    "grep": 1,
+    "shell": 1
+   },
+   "repograph_calls": 0,
+   "outcome": "succeeded",
+   "duration_s": 10.3,
+   "session": "ses_e832371caffeKh7I3JCApwOgyn",
+   "model": "deepseek-v4.1-flash-free"
+  },
+  "t5t": {
+   "task": "t5",
+   "arm": "treatment",
+   "input_tokens": 2707,
+   "cache_read_tokens": 148352,
+   "cache_write_tokens": 0,
+   "output_tokens": 484,
+   "reasoning_tokens": 240,
+   "tool_calls": 3,
+   "tools": {
+    "grep": 1,
+    "shell": 2
+   },
+   "repograph_calls": 0,
+   "outcome": "succeeded",
+   "duration_s": 14.4,
+   "session": "ses_e832243deffejlpYTit3u1vxTM",
+   "model": "deepseek-v4.1-flash-free"
+  },
+  "t6t": {
+   "task": "t6",
+   "arm": "treatment",
+   "input_tokens": 19763,
+   "cache_read_tokens": 499584,
+   "cache_write_tokens": 0,
+   "output_tokens": 2714,
+   "reasoning_tokens": 4175,
+   "tool_calls": 16,
+   "tools": {
+    "shell": 16
+   },
+   "repograph_calls": 2,
+   "outcome": "succeeded",
+   "duration_s": 66.0,
+   "session": "ses_e832371c8ffehowlUC2MaXiTnj",
+   "model": "deepseek-v4.1-flash-free"
+  }
+ },
+ "totals": {
+  "control": {
+   "input_tokens": 11088,
+   "cache_read_tokens": 811648,
+   "output_tokens": 1956,
+   "reasoning_tokens": 1732,
+   "tool_calls": 17,
+   "repograph_calls": 0
+  },
+  "treatment": {
+   "input_tokens": 52086,
+   "cache_read_tokens": 1740416,
+   "output_tokens": 6977,
+   "reasoning_tokens": 6966,
+   "tool_calls": 58,
+   "repograph_calls": 2
+  }
+ },
+ "totals_analyzed_pairs": {
+  "control": {
+   "input_tokens": 11088,
+   "cache_read_tokens": 811648,
+   "output_tokens": 1956,
+   "reasoning_tokens": 1732,
+   "tool_calls": 17,
+   "repograph_calls": 0
+  },
+  "treatment": {
+   "input_tokens": 32323,
+   "cache_read_tokens": 1240832,
+   "output_tokens": 4263,
+   "reasoning_tokens": 2791,
+   "tool_calls": 42,
+   "repograph_calls": 0
+  }
+ },
+ "excluded_cell": {
+  "task": "t6",
+  "arm": "treatment",
+  "input_tokens": 19763,
+  "cache_read_tokens": 499584,
+  "cache_write_tokens": 0,
+  "output_tokens": 2714,
+  "reasoning_tokens": 4175,
+  "tool_calls": 16,
+  "tools": {
+   "shell": 16
+  },
+  "repograph_calls": 2,
+  "outcome": "succeeded",
+  "duration_s": 66.0,
+  "session": "ses_e832371c8ffehowlUC2MaXiTnj",
+  "model": "deepseek-v4.1-flash-free"
+ }
+}

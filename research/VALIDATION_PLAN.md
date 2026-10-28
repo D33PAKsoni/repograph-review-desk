@@ -41,18 +41,20 @@ Artifacts: `tests/`, `benchmarks/results/`, `docs/LIMITATIONS.md`.
 
 **Question:** Does the MCP server change what an agent does?
 
-**Pilot result (2026-10-27):** five paired rename tasks in isolated Flask
-copies, control versus RepoGraph CLI. Both arms were perfect on every pair
-(recall 1.0, no stray edits, no parse failures). The task family was
-word-search-solvable and hit a ceiling, so it produced no useful comparison.
-No behavioral claim is supported. A sixth task was excluded because its
-mechanical ground truth collided with Werkzeug's `Request`. See
+**Pilot result (2026-10-27, resource data recovered 2026-10-28):** five paired
+rename tasks in isolated Flask copies, control versus RepoGraph CLI. Both arms
+were perfect on every pair (recall 1.0, no stray edits, no parse failures).
+Session transcripts show that **no treatment run invoked RepoGraph** and that
+both arms solved the tasks with grep, so the pilot compared prompt wording, not
+graph access. No behavioral claim is supported. A sixth task was excluded
+because its mechanical ground truth collided with Werkzeug's `Request`. See
 `AGENT_BEHAVIOR_PILOT.md`.
 
 **What the pilot changed:** the plan below is necessary but not sufficient.
 Rename tasks must be replaced by changes that require judgement, and the
-harness must expose token and tool-call counts before the phase can pass or
-fail.
+treatment must *require* the tool's use (or ask something the text cannot
+answer), with the transcript verifying the call. Token and tool-call counts are
+recoverable from session exports, so that harness gap is closed.
 
 **Method (required):**
 
