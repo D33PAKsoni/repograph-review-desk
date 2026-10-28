@@ -84,7 +84,9 @@ def test_missing_index_fails_cleanly(repo: Path):
 
 
 def test_impact_ambiguous_symbol_exits_2(repo: Path):
+    extra = repo / "src" / "shop" / "extra.py"
+    extra.write_text("class Subscription:\n    pass\n", encoding="utf-8")
     assert run_cli(repo, "index", str(repo)).returncode == 0
-    out = run_cli(repo, "impact", "--symbol", "cancel", "--root", str(repo), "--json")
+    out = run_cli(repo, "impact", "--symbol", "Subscription", "--root", str(repo), "--json")
     assert out.returncode == 2
     assert "ambiguous" in json.loads(out.stdout)["error"]

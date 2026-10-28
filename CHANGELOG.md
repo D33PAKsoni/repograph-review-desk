@@ -11,6 +11,9 @@ All notable changes to this project are documented here. The format is based on 
 
 ### Fixed
 
+- `impact --symbol` prefers a top-level definition over a nested test-local symbol with the same name; two top-level matches stay ambiguous.
+- `related_tests` lists only runnable test modules (`test_*`, `*_test.*`, `*.test.*`, `*.spec.*`, `conftest.py`), so fixture apps under `tests/` are no longer predicted as tests.
+- Test files that reach a change through intermediate modules are disclosed in the `test-selection-reachability` blind spot (up to 50 paths) instead of being silently omitted or merged into the selection.
 - Python bare imports of example/test applications now resolve through project roots (`pyproject.toml`, `setup.py`, `setup.cfg`, including `src` layouts) and `conftest` `syspath_prepend` directories, as `inferred`; ambiguous names stay unresolved.
 - Node `#private` specifiers resolve from the nearest `package.json` `imports` map, including `*` keys and condition objects.
 - Package entries that point at unbuilt `dist/…` output map back to `src/…`, so a package self-reference (for example `import "vite"` inside Vite) resolves.

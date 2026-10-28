@@ -124,6 +124,7 @@ Measured against pytest outcomes, not against the tool's own logic: 12 symbols d
 - Counting test files reached through direct/transitive dependents raises recall to 15/25 (60%), so the misses are a test-rule limitation, not a missing graph edge.
 - Two defects identified: `--symbol` cannot disambiguate a name reused by tests (3 of 12 names), and `--symbol` analyses the whole defining file.
 - This fails the pre-registered test-selection bar (recall ≥ 80%). Docs now state the list is incomplete and the suite is ground truth. See `research/TEST_SELECTION_RESULTS.md`.
+- Fixes (symbol tie-break, test-module filter, reachability blind spot) leave recall at 24% but raise precision to 6/14 (42.9%) and disclose 15/15 missed failing files. Within-sample recheck, not a new estimate.
 
 Full method and threats to validity: `research/EDGE_ACCURACY_RESULTS.md`. Raw artifacts: `benchmarks/eval/`.
 

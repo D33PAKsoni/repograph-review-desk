@@ -111,6 +111,20 @@ def _stem(path: str) -> str:
     return base
 
 
+def _is_test_module(path: str) -> bool:
+    """True only for a runnable test module, not every file under `tests/`.
+
+    `is_test_path` treats fixture apps such as `tests/test_apps/cliapp/app.py`
+    as tests; those are application code that pytest does not collect.
+    """
+    base = posixpath.basename(path)
+    if base == "conftest.py":
+        return True
+    if base.startswith("test_") or base.endswith("_test" + posixpath.splitext(base)[1]):
+        return True
+    return any(f".{kind}." in base for kind in ("test", "spec"))
+
+
 def _find_symbol(store: Store, name: str) -> tuple[dict | None, list[dict]]:
     rows = [dict(r) for r in store.conn.execute(
         """SELECT s.*, f.path FROM symbols s JOIN files f ON f.id=s.file_id
@@ -119,10 +133,18 @@ def _find_symbol(store: Store, name: str) -> tuple[dict | None, list[dict]]:
     ).fetchall()]
     if not rows:
         return None, []
-    if len(rows) == 1:
-        return rows[0], []
+    # A bare name also matches nested symbols (a test-local `class View` has the
+    # qualified name `test_x.View`). Prefer a top-level definition so a fixture or
+    # test class cannot shadow the real one; several top-level matches stay
+    # ambiguous.
+    exact = [r for r in rows if r["qualified_name"] == name]
+    if len(exact) == 1:
+        return exact[0], []
+    candidates = exact or rows
+    if len(candidates) == 1:
+        return candidates[0], []
     return None, [{"name": r["name"], "qualified_name": r["qualified_name"], "path": r["path"],
-                   "kind": r["kind"]} for r in rows][:20]
+                   "kind": r["kind"]} for r in candidates][:20]
 
 
 def _symbols_in_files(store: Store, paths: list[str]) -> list[dict]:
@@ -297,16 +319,39 @@ def analyze_impact(
     transitive_list = [t for t in transitive_list if t["path"] not in direct]
 
     related_tests: list[dict] = []
+    reach: dict[str, dict] = {}
     if include_tests:
         test_rows = [dict(r) for r in store.conn.execute(
             "SELECT path FROM files WHERE is_test=1 ORDER BY path"
         ).fetchall()]
+        test_rows = [r for r in test_rows if _is_test_module(r["path"])]
         changed_stems = {_stem(p) for p in target_paths if _stem(p)}
         dependent_stems = {_stem(d["path"]) for d in direct_list}
         included: dict[str, dict] = {}
         importer_map: dict[str, list[dict]] = defaultdict(list)
         for e in edges:
             importer_map[e["dst"]].append(e)
+        test_paths = {row["path"] for row in test_rows}
+        # A test often reaches a changed file through intermediate modules: the
+        # test imports the package, the package imports the changed file. Direct
+        # import rules miss that. Follow importers up to a bounded depth for test
+        # files only: tests are the leaves a user runs, and --depth controls the
+        # dependent listing, not test discovery.
+        seen_reach = set(target_paths)
+        frontier = list(target_paths)
+        for hop in range(1, 6):
+            next_frontier: list[str] = []
+            for dst in frontier:
+                for e in importer_map.get(dst, []):
+                    src = e["src"]
+                    if src in test_paths and src not in reach:
+                        reach[src] = {"depth": hop, "line": e["line"], "via": dst}
+                    if src not in seen_reach:
+                        seen_reach.add(src)
+                        next_frontier.append(src)
+            frontier = next_frontier
+            if not frontier:
+                break
         for row in test_rows:
             tp = row["path"]
             entry = included.setdefault(tp, {"path": tp, "rules": [], "confidences": set()})
@@ -420,6 +465,16 @@ def analyze_impact(
             blind.append({"kind": "parse-errors", "count": len(errs),
                           "message": "Files that failed to parse contribute no symbols or edges.",
                           "items": [{"file": r["path"], "error": r["parse_error"]} for r in errs]})
+        unreached_tests = sorted(set(reach) - {t["path"] for t in related_tests})
+        if unreached_tests:
+            blind.append({
+                "kind": "test-selection-reachability",
+                "count": len(unreached_tests),
+                "message": ("Test files reachable through dependent modules but not in the "
+                            "selected list. The list is a selection, not the full impact; run "
+                            "these or the suite before trusting it."),
+                "items": unreached_tests[:50],
+            })
         no_dep = [p for p in target_paths if not _importers(store, p)]
         if no_dep:
             blind.append({"kind": "no-static-dependents", "count": len(no_dep),

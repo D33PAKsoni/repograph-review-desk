@@ -124,16 +124,58 @@ would not know to run.
   scores 0 recall because no prediction was produced. It is counted in the
   pooled number to avoid hiding the failure.
 
+## Fix and within-sample recheck
+
+Three code changes were made after the measurement. They were **not** used to
+produce the numbers above, and the recheck below is on the *same* six mutations
+and the same ground truth. It is a within-sample recheck, not a new estimate.
+
+1. **Symbol tie-break.** A bare name now prefers a top-level definition, so a
+   test-local `class View` no longer makes `--symbol View` fail.
+2. **Test-module filter.** `related_tests` only lists files pytest collects
+   (`test_*`, `*_test.*`, `*.test.*`, `*.spec.*`, `conftest.py`). Fixture apps
+   such as `tests/test_apps/cliapp/app.py` were being predicted as tests.
+3. **Reachability disclosure.** The bounded (5-hop) reverse reachability of test
+   files is reported as the blind spot `test-selection-reachability` (count plus
+   up to 50 paths) instead of being merged into `related_tests`. Merging selected
+   44 of ~40 test files — the whole suite is not a selection.
+
+| Metric | Measured | Post-fix recheck |
+| --- | ---: | ---: |
+| Pooled file recall | 6/25 = 24.0% | 6/25 = 24.0% |
+| Pooled file precision | 6/36 = 16.7% | 6/14 = 42.9% |
+| Median per-mutation recall | 0.57 | 0.57 |
+| Missed failing files disclosed in the blind spot | 2/15 | **15/15** |
+
+What changed and what did not:
+
+- **Recall did not improve.** The selected list is still direct-import based, so
+  it still misses tests that reach the change through another module. Precision
+  rose because the filter removed fixture apps from the predicted set.
+- **The misses are now visible.** Every one of the 15 missed failing test files
+  appears in `test-selection-reachability`, so a user who reads the blind spots
+  can see that the selection is incomplete and which files to run.
+- `Blueprint` remains ambiguous: `src/flask/blueprints.py` and
+  `src/flask/sansio/blueprints.py` both define a top-level `Blueprint`. That is a
+  genuine ambiguity, not a lookup defect.
+
+The product statement is unchanged: **test selection is a heuristic and the
+suite is the ground truth.** The recheck raises disclosure quality, not recall.
+
+Predictions for the recheck: `benchmarks/test_selection/predictions_postfix.json`;
+per-cell numbers under `postfix_recheck` in `score.json`.
+
 ## Decision
 
 - Do **not** claim that `find_related_tests` reliably finds the tests a change
   affects. The measured numbers say the opposite for this corpus.
 - Docs and MCP tool descriptions must state that test selection is heuristic and
   that the suite is the ground truth.
-- Two defects are now measured and have clear fixes: symbol-name disambiguation
-  (prefer a top-level definition) and transitive test reachability (include test
-  files reached through dependents). Both must be fixed and rechecked
-  **outside** this result, then measured again on a fresh sample.
+- Two defects were measured: symbol-name ambiguity (fixed by preferring a
+  top-level definition) and transitive test reachability (now disclosed as a
+  blind spot rather than merged into the list). The within-sample recheck above
+  leaves recall at 24%, so the capability still needs a fresh sample before any
+  reliability claim.
 - The edge-accuracy claims are unaffected: this run did not test the graph's
   import edges, only the test-selection heuristic built on them.
 

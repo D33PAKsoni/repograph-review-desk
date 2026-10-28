@@ -51,6 +51,48 @@ def test_related_tests_use_import_and_naming(indexed: Path):
     assert "test-imports-changed-file" in rules
 
 
+def test_reachable_tests_are_disclosed_not_listed(repo: Path):
+    """A test that reaches the change through another module is disclosed as a blind spot.
+
+    tests/test_deep.py imports shop.api.routes, which imports subscription.py.
+    No direct import edge exists from the test file to the changed file, so it
+    must not be silently omitted: it appears in test-selection-reachability.
+    """
+    deep = repo / "tests" / "test_deep.py"
+    deep.write_text("from shop.api.routes import refund\n\n"
+                    "def test_refund() -> None:\n    assert refund()\n", encoding="utf-8")
+    index_repository(repo)
+    result = _impact(repo, paths=["src/shop/services/subscription.py"])
+    tests = {t["path"] for t in result["related_tests"]}
+    assert "tests/test_deep.py" not in tests
+    blind = {b["kind"]: b for b in result["blind_spots"]}
+    assert "tests/test_deep.py" in blind["test-selection-reachability"]["items"]
+    assert blind["test-selection-reachability"]["count"] >= 1
+
+
+def test_fixture_app_under_tests_is_not_a_selected_test(repo: Path):
+    """`is_test_path` marks `tests/test_apps/**`, but pytest collects none of it."""
+    app = repo / "tests" / "test_apps" / "cliapp" / "app.py"
+    app.parent.mkdir(parents=True)
+    app.write_text("from shop.services.subscription import cancel\n", encoding="utf-8")
+    index_repository(repo)
+    result = _impact(repo, paths=["src/shop/services/subscription.py"])
+    assert "tests/test_apps/cliapp/app.py" not in {t["path"] for t in result["related_tests"]}
+    assert "tests/test_subscription.py" in {t["path"] for t in result["related_tests"]}
+
+
+def test_top_level_symbol_is_not_shadowed_by_a_test_local_class(repo: Path):
+    """A test-local `class Subscription` must not make `--symbol Subscription` ambiguous."""
+    shadow = repo / "tests" / "test_shadow.py"
+    shadow.write_text("def test_local() -> None:\n"
+                      "    class Subscription:\n        pass\n"
+                      "    assert Subscription\n", encoding="utf-8")
+    index_repository(repo)
+    result = _impact(repo, symbol="Subscription")
+    assert "error" not in result, result.get("candidates")
+    assert result["target"]["paths"] == ["src/shop/models.py"]
+
+
 def test_unresolved_external_and_parse_error_blind_spots(indexed: Path):
     result = _impact(indexed, paths=["src/shop/api/routes.py"])
     kinds = {b["kind"] for b in result["blind_spots"]}
@@ -72,11 +114,23 @@ def test_no_static_dependents_is_not_safety(indexed: Path):
 def test_symbol_target_and_ambiguity(indexed: Path):
     unambiguous = _impact(indexed, symbol="SubscriptionService.cancel")
     assert unambiguous["target"]["paths"] == ["web/src/domain/subscription.ts"]
-    ambiguous = _impact(indexed, symbol="cancel")
-    assert "error" in ambiguous
-    assert ambiguous["candidates"]
+    # A bare name prefers the top-level definition over a nested method with the
+    # same name; this is the documented tie-break.
+    bare = _impact(indexed, symbol="cancel")
+    assert "error" not in bare
+    assert bare["target"]["paths"] == ["src/shop/services/subscription.py"]
     missing = _impact(indexed, symbol="does_not_exist")
     assert "not found" in missing["error"]
+
+
+def test_two_top_level_definitions_stay_ambiguous(repo: Path):
+    """The tie-break only favours top level; two top-level matches still fail closed."""
+    extra = repo / "src" / "shop" / "extra.py"
+    extra.write_text("class Subscription:\n    pass\n", encoding="utf-8")
+    index_repository(repo)
+    result = _impact(repo, symbol="Subscription")
+    assert "ambiguous" in result["error"]
+    assert {c["path"] for c in result["candidates"]} == {"src/shop/models.py", "src/shop/extra.py"}
 
 
 def test_file_cycles_are_visible_in_graph(indexed: Path):

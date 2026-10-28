@@ -101,8 +101,10 @@ def build_server(root: str | Path) -> MCPServer:
                 return result
             return {"tests": result["related_tests"],
                     "blind_spots": [b for b in result["blind_spots"] if b["kind"] in
-                                    ("parse-errors", "no-static-dependents")],
-                    "note": "Test selection is heuristic; run the listed tests and inspect coverage."}
+                                    ("parse-errors", "no-static-dependents",
+                                     "test-selection-reachability")],
+                    "note": ("Test selection is heuristic; the suite is the ground truth. "
+                             "Test files in test-selection-reachability can also be affected.")}
         except Exception as exc:
             return {"error": f"{type(exc).__name__}: {exc}"}
 

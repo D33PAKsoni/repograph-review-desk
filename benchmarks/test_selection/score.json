@@ -561,5 +561,167 @@
   "recall": 0.24,
   "secondary_hits": 15,
   "median_recall": 0.5666666666666667
+ },
+ "postfix_recheck": {
+  "note": "same 6 mutations and ground truth; new predictions after symbol tie-break, test-module filter and reachability disclosure; not a new estimate",
+  "usable": [
+   {
+    "name": "prepare_import",
+    "failed": [
+     "tests/test_cli.py"
+    ],
+    "predicted": [
+     "tests/test_blueprints.py",
+     "tests/test_cli.py",
+     "tests/test_testing.py"
+    ],
+    "hit": 1,
+    "missed": [],
+    "reachability_count": 27,
+    "missed_in_reachability": []
+   },
+   {
+    "name": "DebugFilesKeyError",
+    "failed": [
+     "tests/test_basic.py",
+     "tests/test_templating.py"
+    ],
+    "predicted": [
+     "tests/test_basic.py",
+     "tests/test_templating.py"
+    ],
+    "hit": 2,
+    "missed": [],
+    "reachability_count": 28,
+    "missed_in_reachability": []
+   },
+   {
+    "name": "get_load_dotenv",
+    "failed": [
+     "tests/test_cli.py"
+    ],
+    "predicted": [
+     "tests/test_blueprints.py",
+     "tests/test_cli.py",
+     "tests/test_helpers.py",
+     "tests/test_templating.py"
+    ],
+    "hit": 1,
+    "missed": [],
+    "reachability_count": 26,
+    "missed_in_reachability": []
+   },
+   {
+    "name": "Blueprint",
+    "failed": [
+     "tests/test_blueprints.py"
+    ],
+    "predicted": [],
+    "hit": 0,
+    "missed": [
+     "tests/test_blueprints.py"
+    ],
+    "reachability_count": 0,
+    "missed_in_reachability": []
+   },
+   {
+    "name": "SessionInterface",
+    "failed": [
+     "tests/test_appctx.py",
+     "tests/test_basic.py",
+     "tests/test_blueprints.py",
+     "tests/test_converters.py",
+     "tests/test_helpers.py",
+     "tests/test_json.py",
+     "tests/test_logging.py",
+     "tests/test_regression.py",
+     "tests/test_reqctx.py",
+     "tests/test_request.py",
+     "tests/test_signals.py",
+     "tests/test_templating.py",
+     "tests/test_testing.py",
+     "tests/test_user_error_handler.py",
+     "tests/test_views.py"
+    ],
+    "predicted": [
+     "tests/test_reqctx.py",
+     "tests/test_session_interface.py",
+     "tests/test_testing.py"
+    ],
+    "hit": 2,
+    "missed": [
+     "tests/test_appctx.py",
+     "tests/test_basic.py",
+     "tests/test_blueprints.py",
+     "tests/test_converters.py",
+     "tests/test_helpers.py",
+     "tests/test_json.py",
+     "tests/test_logging.py",
+     "tests/test_regression.py",
+     "tests/test_request.py",
+     "tests/test_signals.py",
+     "tests/test_templating.py",
+     "tests/test_user_error_handler.py",
+     "tests/test_views.py"
+    ],
+    "reachability_count": 27,
+    "missed_in_reachability": [
+     "tests/test_appctx.py",
+     "tests/test_basic.py",
+     "tests/test_blueprints.py",
+     "tests/test_converters.py",
+     "tests/test_helpers.py",
+     "tests/test_json.py",
+     "tests/test_logging.py",
+     "tests/test_regression.py",
+     "tests/test_request.py",
+     "tests/test_signals.py",
+     "tests/test_templating.py",
+     "tests/test_user_error_handler.py",
+     "tests/test_views.py"
+    ]
+   },
+   {
+    "name": "Request",
+    "failed": [
+     "tests/test_basic.py",
+     "tests/test_json.py",
+     "tests/test_reqctx.py",
+     "tests/test_request.py",
+     "tests/test_testing.py"
+    ],
+    "predicted": [
+     "tests/test_blueprints.py",
+     "tests/test_helpers.py"
+    ],
+    "hit": 0,
+    "missed": [
+     "tests/test_basic.py",
+     "tests/test_json.py",
+     "tests/test_reqctx.py",
+     "tests/test_request.py",
+     "tests/test_testing.py"
+    ],
+    "reachability_count": 28,
+    "missed_in_reachability": [
+     "tests/test_basic.py",
+     "tests/test_json.py",
+     "tests/test_reqctx.py",
+     "tests/test_request.py",
+     "tests/test_testing.py"
+    ]
+   }
+  ],
+  "pooled": {
+   "hits": 6,
+   "failed": 25,
+   "predicted": 14,
+   "recall": 0.24,
+   "precision": 0.42857142857142855,
+   "median_recall": 0.5666666666666667
+  },
+  "missed_disclosed": 15,
+  "missed_total": 15,
+  "still_hidden": []
  }
 }
