@@ -159,3 +159,24 @@ Architecture and product decisions, newest context first. Status values: **accep
 **Decision:** Pre-register an edge-accuracy protocol, label samples with two independent agents, fix measured defects before launch claims, and hold out unseen repositories for the final number. Prefer source entries over unbuilt publish shims for workspace packages.
 
 **Consequences:** The final test measured 150/150 correct resolved edges and 94.3% estimated recall. Residual gaps are Python `tests/`/`examples/` import roots, Node `#imports`, JSON/config assets, conditional `exports`, and non-code assets. Language breadth is deferred until those gaps and agent-behavior validation are addressed.
+
+---
+
+## D-011 — Fresh unseen round after tuning on the final test
+
+**Date:** 2026-10-28 · **Status:** accepted, pre-registered before sampling
+
+**Context:** The final test (flask, vite, svelte) measured 100% precision and 94.3% recall, but twelve resolver fixes were then tuned on its misses. A number measured on data used for tuning is a within-sample recheck, not an estimate. The claimable accuracy figure therefore needs a corpus that has never been indexed, sampled or labelled.
+
+**Decision:** Run a fifth round on repositories not used in any earlier round or for development: `encode/httpx` (Python), `pmndrs/zustand` (TypeScript) and `mochajs/mocha` (JavaScript). Pin the commits recorded in `benchmarks/eval/sample-round5.meta.json`. Use sample seed `20261029` and the existing protocol (`EDGE_ACCURACY_PROTOCOL.md`) unchanged: stratified resolved sample, unresolved and external samples, two independent AI labelers, adjudication of disagreements, weighted metrics with Wilson intervals.
+
+**Rules fixed before sampling:**
+
+- No resolver, extractor or indexer change may be made after looking at round-5 labels until the round is reported. Any later fix is a separate within-sample recheck.
+- Round-5 repositories may be read to label edges; they may not be used to justify resolver changes before the report is written.
+- Precision and recall are reported both weighted and unweighted, per repository and per confidence class.
+- If precision is below 90% or recall below 85% (90% precision lower bound is the launch threshold already in the protocol), the advisory-impact claim is withdrawn until a further round.
+
+**Consequences:** A clean estimate or a measured regression, either of which is acceptable; a number measured on tuned data is not.
+
+**Outcome (2026-10-28, after the round was reported):** 118/120 resolved edges correct (98.3% precision, Wilson 94.1%–99.5%) and 118/126 recall (93.7%, Wilson 88.0%–96.8%); weighted 99.5% / 98.5%. Both precision errors are the root `tsconfig` alias leaking into `examples/*`; all 8 agreed misses are mocha JSON `require`s. The advisory claim holds. The resolver change (scope aliases to the config's `include`) is now permitted and will be reported as a within-sample recheck. See `EDGE_ACCURACY_RESULTS.md`, "Round 5 results".

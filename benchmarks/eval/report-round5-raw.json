@@ -1,0 +1,256 @@
+{
+  "sample": "benchmarks/eval/sample-round5.jsonl",
+  "labelers": [
+    "benchmarks/eval/labels-round5-a.jsonl",
+    "benchmarks/eval/labels-round5-b.jsonl"
+  ],
+  "n": 203,
+  "agreement": 0.9409,
+  "disagreements": [
+    {
+      "id": "zustand-0011",
+      "reason": "label-disagreement",
+      "labels": [
+        "correct",
+        "not_internal"
+      ],
+      "file": "examples/starter/src/index.tsx",
+      "line": 3,
+      "module": "zustand",
+      "target": "src/index.ts"
+    },
+    {
+      "id": "zustand-0025",
+      "reason": "label-disagreement",
+      "labels": [
+        "unresolved_ok",
+        "internal_missed"
+      ],
+      "file": "examples/demo/src/components/Scene.jsx",
+      "line": 16,
+      "module": "../resources/leaves1.png",
+      "target": null
+    },
+    {
+      "id": "zustand-0026",
+      "reason": "label-disagreement",
+      "labels": [
+        "unresolved_ok",
+        "internal_missed"
+      ],
+      "file": "examples/starter/src/index.tsx",
+      "line": 5,
+      "module": "./assets/zustand-mascot.svg",
+      "target": null
+    },
+    {
+      "id": "zustand-0038",
+      "reason": "label-disagreement",
+      "labels": [
+        "unresolved_ok",
+        "internal_missed"
+      ],
+      "file": "examples/demo/src/components/Scene.jsx",
+      "line": 14,
+      "module": "../resources/ground.png",
+      "target": null
+    },
+    {
+      "id": "zustand-0075",
+      "reason": "label-disagreement",
+      "labels": [
+        "correct",
+        "not_internal"
+      ],
+      "file": "examples/demo/src/App.jsx",
+      "line": 1,
+      "module": "zustand",
+      "target": "src/index.ts"
+    },
+    {
+      "id": "zustand-0110",
+      "reason": "label-disagreement",
+      "labels": [
+        "unresolved_ok",
+        "internal_missed"
+      ],
+      "file": "examples/starter/src/index.tsx",
+      "line": 7,
+      "module": "./index.css",
+      "target": null
+    },
+    {
+      "id": "zustand-0113",
+      "reason": "label-disagreement",
+      "labels": [
+        "unresolved_ok",
+        "internal_missed"
+      ],
+      "file": "examples/demo/src/main.jsx",
+      "line": 3,
+      "module": "./pmndrs.css",
+      "target": null
+    },
+    {
+      "id": "zustand-0118",
+      "reason": "label-disagreement",
+      "labels": [
+        "unresolved_ok",
+        "internal_missed"
+      ],
+      "file": "examples/demo/src/components/Scene.jsx",
+      "line": 13,
+      "module": "../resources/stars.png",
+      "target": null
+    },
+    {
+      "id": "zustand-0127",
+      "reason": "label-disagreement",
+      "labels": [
+        "unresolved_ok",
+        "internal_missed"
+      ],
+      "file": "examples/demo/src/components/Scene.jsx",
+      "line": 12,
+      "module": "../resources/bg.jpg",
+      "target": null
+    },
+    {
+      "id": "zustand-0128",
+      "reason": "label-disagreement",
+      "labels": [
+        "unresolved_ok",
+        "internal_missed"
+      ],
+      "file": "examples/demo/src/components/Scene.jsx",
+      "line": 15,
+      "module": "../resources/bear.png",
+      "target": null
+    },
+    {
+      "id": "zustand-0140",
+      "reason": "label-disagreement",
+      "labels": [
+        "unresolved_ok",
+        "internal_missed"
+      ],
+      "file": "examples/demo/src/main.jsx",
+      "line": 2,
+      "module": "./styles.css",
+      "target": null
+    },
+    {
+      "id": "zustand-0166",
+      "reason": "label-disagreement",
+      "labels": [
+        "unresolved_ok",
+        "internal_missed"
+      ],
+      "file": "examples/demo/src/components/Scene.jsx",
+      "line": 17,
+      "module": "../resources/leaves2.png",
+      "target": null
+    }
+  ],
+  "disagreement_count": 12,
+  "overall": {
+    "group": "all",
+    "resolved_sample": 120,
+    "resolved_labeled": 120,
+    "miss_sample": 83,
+    "weighted_estimated_edges": {
+      "correct": 514.6,
+      "wrong_target": 0.0,
+      "not_internal": 0.0,
+      "uncertain": 2.4,
+      "internal_missed": 8.0
+    },
+    "precision": 1.0,
+    "precision_conservative": 0.9954,
+    "recall_estimate": 0.9847,
+    "precision_unweighted": 1.0,
+    "by_confidence": {
+      "confirmed": {
+        "n": 90,
+        "precision": 1.0
+      },
+      "inferred": {
+        "n": 28,
+        "precision": 1.0
+      }
+    }
+  },
+  "httpx": {
+    "group": "httpx",
+    "resolved_sample": 30,
+    "resolved_labeled": 30,
+    "miss_sample": 20,
+    "weighted_estimated_edges": {
+      "correct": 124.0,
+      "wrong_target": 0.0,
+      "not_internal": 0.0,
+      "uncertain": 0.0,
+      "internal_missed": 0.0
+    },
+    "precision": 1.0,
+    "precision_conservative": 1.0,
+    "recall_estimate": 1.0,
+    "precision_unweighted": 1.0,
+    "by_confidence": {
+      "confirmed": {
+        "n": 30,
+        "precision": 1.0
+      }
+    }
+  },
+  "mocha": {
+    "group": "mocha",
+    "resolved_sample": 30,
+    "resolved_labeled": 30,
+    "miss_sample": 33,
+    "weighted_estimated_edges": {
+      "correct": 321.0,
+      "wrong_target": 0.0,
+      "not_internal": 0.0,
+      "uncertain": 0.0,
+      "internal_missed": 8.0
+    },
+    "precision": 1.0,
+    "precision_conservative": 1.0,
+    "recall_estimate": 0.9757,
+    "precision_unweighted": 1.0,
+    "by_confidence": {
+      "confirmed": {
+        "n": 30,
+        "precision": 1.0
+      }
+    }
+  },
+  "zustand": {
+    "group": "zustand",
+    "resolved_sample": 60,
+    "resolved_labeled": 60,
+    "miss_sample": 30,
+    "weighted_estimated_edges": {
+      "correct": 69.6,
+      "wrong_target": 0.0,
+      "not_internal": 0.0,
+      "uncertain": 2.4,
+      "internal_missed": 0.0
+    },
+    "precision": 1.0,
+    "precision_conservative": 0.9667,
+    "recall_estimate": 1.0,
+    "precision_unweighted": 1.0,
+    "by_confidence": {
+      "confirmed": {
+        "n": 30,
+        "precision": 1.0
+      },
+      "inferred": {
+        "n": 28,
+        "precision": 1.0
+      }
+    }
+  }
+}

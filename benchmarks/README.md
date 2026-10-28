@@ -81,7 +81,7 @@ Speed is not accuracy. The edge evaluation is separate:
 - Harness: `benchmarks/edge_accuracy.py` (`sample`, `report`)
 - Artifacts: `benchmarks/eval/` (samples, independent labels, weighted reports)
 
-Final unseen test (flask, vite, svelte): 150/150 sampled resolved edges correct; estimated recall 94.3%. Development rounds and the pre-fix baseline are in the results document. The harness never labels anything; labels come from independent reviewers.
+Round 5 (httpx, zustand, mocha — never indexed or tuned against): 118/120 sampled resolved edges correct (98.3% precision) and 93.7% estimated recall. Round 4 (flask, vite, svelte) recorded 150/150 and 94.3% on the earlier build. Development rounds and the pre-fix baseline are in the results document. The harness never labels anything; labels come from independent reviewers.
 
 ```bash
 .venv/bin/python benchmarks/edge_accuracy.py sample \

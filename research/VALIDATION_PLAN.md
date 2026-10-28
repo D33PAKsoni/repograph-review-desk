@@ -33,7 +33,7 @@ Artifacts: `tests/`, `benchmarks/results/`, `docs/LIMITATIONS.md`.
 
 **Pass:** ≥95% precision on resolved internal edges and ≥85% recall on static internal imports. If precision is below 90%, do not market the analysis as reliable.
 
-**Result (2026-10-27):** pass. Final unseen test: 100% precision (150/150; Wilson 95% lower bound 97.5%) and 94.3% estimated recall (flask 94.9%, vite 85.5%, svelte 97.6%). Baseline had 98.97% pooled precision but 53.7% `inferred` precision and 32.4% Express recall; those defects were fixed. Not measured: false-positive/false-negative impact for 20 changes. See `EDGE_ACCURACY_RESULTS.md`.
+**Result (2026-10-28):** pass on the fresh round 5 corpus. Unseen test (httpx, zustand, mocha, seed `20261029`): 98.3% precision (118/120; Wilson 94.1%–99.5%) and 93.7% estimated recall (118/126; Wilson 88.0%–96.8%); weighted 99.5% / 98.5%. Both precision errors are a root `tsconfig` alias leaking into zustand example apps (fix pending, then a within-sample recheck); all 8 agreed misses are mocha JSON `require`s, so mocha recall is 78.9% and is reported per repository. Round 4 (2026-10-27, flask/vite/svelte) measured 100% precision and 94.3% recall on the earlier build, then drove twelve fixes. Not measured: false-positive/false-negative impact for 20 changes. See `EDGE_ACCURACY_RESULTS.md`.
 
 **Kill:** Precision cannot be raised without a language server or a much larger effort. Re-scope to a visualization tool or stop.
 

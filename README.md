@@ -1,6 +1,21 @@
-# RepoGraph
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/assets/logo-dark.svg">
+    <img src="docs/assets/logo.svg" alt="RepoGraph" width="440">
+  </picture>
+</p>
 
-Local-first codebase intelligence for AI coding agents.
+<p align="center">
+  <a href="https://github.com/INDEX0-RESEARCH-LABS/repograph/actions/workflows/ci.yml"><img src="https://github.com/INDEX0-RESEARCH-LABS/repograph/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
+  <a href="https://www.python.org/downloads/"><img src="https://img.shields.io/badge/python-3.10%2B-3776AB" alt="Python 3.10+"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-Apache--2.0-blue" alt="Apache-2.0"></a>
+  <a href="STATUS.md"><img src="https://img.shields.io/badge/status-alpha-orange" alt="alpha"></a>
+</p>
+
+<p align="center">
+  <b>Change impact you can audit.</b><br>
+  Local-first codebase intelligence for AI coding agents.
+</p>
 
 RepoGraph indexes a repository with tree-sitter, stores symbols, imports, references, routes and models in SQLite, and exposes the result through a CLI and an MCP server. Its focus is **change impact you can audit**: every relationship returns a source location, extraction method and confidence, and every analysis lists its blind spots.
 
@@ -9,22 +24,35 @@ repograph index .
 repograph impact src/payments/refund.py
 ```
 
-Illustrative output (paths abbreviated):
+Output from the repository's own fixture (`tests/fixtures/shop`), unedited:
 
 ```
-direct dependents (3):
-  [confirmed] src/payments/api.py  (imports-changed-file at line 4)
-  [confirmed] tests/test_refund.py  (imports-changed-file at line 2)
-  [inferred]  src/payments/worker.py  (references-changed-symbol at line 31)
+changed files (1): src/shop/services/subscription.py
+changed symbols: 1
+  function  cancel  src/shop/services/subscription.py:6
+
+direct dependents (4):
+  [confirmed] src/shop/__init__.py  (imports-changed-file at line 1)
+  [confirmed] src/shop/api/routes.py  (imports-changed-file at line 3)
+  [confirmed] src/shop/services/billing.py  (imports-changed-file at line 1)
+  [confirmed] tests/test_subscription.py  (imports-changed-file at line 1)
+transitive dependents: 1
+  [confirmed] depth 2 src/shop/app.py
+
+related tests (1):
+  [inferred] tests/test_subscription.py  (test-imports-changed-file, test-name-matches-changed-file, test-name-matches-dependent)
+
+affected routes:
+  POST /subscriptions/{subscription_id}/cancel  src/shop/api/routes.py:8
 
 blind spots:
-  - external-imports (2): External packages were not analyzed...
-  - repo-parse-errors (1): Files with parse errors contribute no symbols or edges...
+  - repo-dynamic-imports (2): Dynamic imports exist in the repository; their runtime targets may include the changed files.
+  - repo-parse-errors (1): Files with parse errors contribute no symbols or edges anywhere in the index.
 
 note: absence of static evidence is not evidence of safety.
 ```
 
-> **Status: 0.1.0 alpha.** Python, TypeScript, JavaScript and TSX only. Static analysis only. The benchmark numbers below are from one machine and one run; reproduce them with `benchmarks/benchmark.py`.
+> **Status: 0.1.0 alpha.** Python, TypeScript, JavaScript, JSX and TSX only. Static analysis only. The benchmark numbers below are from one machine and one run; reproduce them with `benchmarks/benchmark.py`. Current evidence state, including what is *not* yet validated, is in [STATUS.md](STATUS.md).
 
 ## Why another code graph?
 
@@ -122,6 +150,10 @@ The HTTP mode has **no authentication**. It binds to localhost by default and pr
 
 ## How it works
 
+<p align="center">
+  <img src="docs/assets/architecture.svg" alt="RepoGraph pipeline: source bytes are scanned, parsed with tree-sitter, resolved statically into a local SQLite index, and queried through the CLI or MCP tools" width="820">
+</p>
+
 1. **Scan** — walk the repository with default and user exclusions, skip symlinks, binaries, oversized files and an optional file cap.
 2. **Parse** — tree-sitter extracts symbols, imports, calls, attributes, routes and model classes. Source is read as bytes; nothing is imported.
 3. **Resolve** — static resolver handles Python relative/absolute imports and `src` layouts, TypeScript `tsconfig` aliases and workspace packages, CommonJS `require`, and syntactic dynamic imports. External and unresolved imports are kept distinct.
@@ -157,23 +189,23 @@ These numbers measure RepoGraph, not the quality of its answers. Express shows a
 
 ## Measured accuracy
 
-Edge accuracy was measured with a pre-registered protocol and two independent AI labelers. The final test used three repositories not used to develop the resolver: flask, vite and svelte.
+Edge accuracy is measured with a pre-registered protocol and two independent AI labelers. Round 5 used three repositories that had never been indexed or tuned against: httpx, zustand and mocha.
 
 | Repository | Precision | Recall |
 | --- | ---: | ---: |
-| flask (Python) | 100% | 94.9% |
-| vite (TypeScript monorepo) | 100% | 85.5% |
-| svelte (JS/TS compiler) | 100% | 97.6% |
-| **overall** | **100%** (150/150) | **94.3%** |
+| [httpx](https://github.com/encode/httpx) (Python) | 100% (30/30) | 100% (30/30) |
+| [zustand](https://github.com/pmndrs/zustand) (TypeScript) | 96.7% (58/60) | 100% (58/58) |
+| [mocha](https://github.com/mochajs/mocha) (JavaScript) | 100% (30/30) | 78.9% (30/38) |
+| **overall** | **98.3%** (118/120) | **93.7%** (118/126) |
 
-- No false resolved edge appeared in the final sample (Wilson 95% lower bound 97.5%).
-- `confirmed` and `inferred` edges were both 100% precise in that sample.
-- Those numbers describe the measured build. Later resolver fixes were verified by a within-sample recheck (25 of 29 known misses resolved, no previously correct sampled edge changed); that recheck is not a new recall estimate. See `research/EDGE_ACCURACY_RESULTS.md`.
-- The edges those fixes add were audited separately: 38/40 correct (95.0%, Wilson 83.5%–98.6%). Both wrong edges were one type-only `#compiler` defect, fixed and rechecked within the sample.
-- Recall is an estimate, not a census. The largest known gaps: Python apps imported by bare name from `tests/`/`examples/`, Node `#imports` aliases, JSON/config imports, and package self-references. Non-code assets, `.vue` SFCs and bundler-virtual modules (`?raw`, `?worker`) are reported as unresolved or external, not guessed.
-- Earlier rounds found and fixed 12 measured defects, including false stdlib edges, missed CommonJS root imports, broken `tsconfig` globs and `.d.ts` resolution. The baseline Express recall was 32%.
+- Precision 95% interval: **94.1%–99.5%**; recall **88.0%–96.8%** (Wilson, 120 and 126 rows). Weighted for population size: 99.5% precision, 98.5% recall.
+- Both precision errors are one defect: a root `tsconfig` alias applied to zustand example apps that pin the registry package. The fix is scoped to the config's `include` and is not yet folded into these numbers.
+- All eight agreed misses are JSON `require`s in mocha, a documented non-code blind spot. That is why mocha's recall is below the pooled figure; the per-repository number is the honest one.
+- `confirmed` edges were 90/90 correct; `inferred` edges 28/30.
+- An earlier round on flask, vite and svelte measured 150/150 precision and 94.3% recall, and its misses drove twelve resolver fixes. Those numbers describe that build, not this one.
+- Recall is an estimate, not a census. Known gaps: Python apps imported by bare name from `tests/`/`examples/`, Node `#imports` aliases, JSON/config imports, and package self-references. Non-code assets, `.vue` SFCs and bundler-virtual modules (`?raw`, `?worker`) are reported as unresolved or external, not guessed.
 
-Full method, per-repository tables, disagreements and threats to validity: [`research/EDGE_ACCURACY_RESULTS.md`](research/EDGE_ACCURACY_RESULTS.md). Precision does not make an empty dependent list safe: re-index and verify before relying on absence.
+Method, adjudication log and threats to validity: [`research/EDGE_ACCURACY_RESULTS.md`](research/EDGE_ACCURACY_RESULTS.md). Precision does not make an empty dependent list safe: re-index and verify before relying on absence.
 
 ## Limitations
 
@@ -192,6 +224,8 @@ Full method, per-repository tables, disagreements and threats to validity: [`res
 .venv/bin/python -m pytest --cov=repograph --cov-report=term-missing
 .venv/bin/python benchmarks/benchmark.py --repo . --name repograph
 ```
+
+60 tests run in a few seconds. CI runs them on Python 3.10, 3.12 and 3.13, then smoke-tests `repograph arch --root .`. Direct coverage is 69%; the CLI and MCP server are exercised through subprocesses, so the coverage tool attributes none of that to their modules.
 
 Contribution rules, test expectations and the security model are in [CONTRIBUTING.md](CONTRIBUTING.md) and [SECURITY.md](SECURITY.md).
 

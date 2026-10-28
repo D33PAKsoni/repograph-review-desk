@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-label="RepoGraph">
+  <title>RepoGraph</title>
+  <g fill="none" stroke="#000000" stroke-width="14" stroke-linecap="butt" stroke-linejoin="miter">
+    <path d="M64 200 L64 56 L144 56 L144 120 L64 120"/>
+    <path d="M144 120 L196 172"/>
+  </g>
+  <circle cx="64" cy="56" r="12" fill="#000000"/>
+  <circle cx="144" cy="56" r="12" fill="#000000"/>
+  <circle cx="144" cy="120" r="12" fill="#000000"/>
+  <circle cx="196" cy="172" r="11" fill="#000000"/>
+</svg>
