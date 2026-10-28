@@ -37,6 +37,22 @@ Artifacts: `tests/`, `benchmarks/results/`, `docs/LIMITATIONS.md`.
 
 **Kill:** Precision cannot be raised without a language server or a much larger effort. Re-scope to a visualization tool or stop.
 
+## Phase 1b — Test selection (measured, failed its bar)
+
+**Question:** Does `find_related_tests` name the tests a change breaks?
+
+**Method:** 12 symbols drawn by seed from Flask at `d086db8`; one literal
+mutation each; ground truth from pytest outcomes, not from the index.
+
+**Result:** 6 mutations produced failures; pooled file recall **24%** (60% if
+test files reached through dependents are counted). Pre-registered bar was 80%
+recall. Two defects found: symbol-name ambiguity when tests reuse a name, and
+`--symbol` analysing the whole defining file. Docs now say the list is
+incomplete. See `TEST_SELECTION_RESULTS.md`.
+
+**Next:** fix both defects, then re-measure on a fresh sample (the current 12
+symbols are used up). Do not claim reliable test selection before that.
+
 ## Phase 2 — Agent behavior (pilot run, still blocking)
 
 **Question:** Does the MCP server change what an agent does?

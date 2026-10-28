@@ -1,0 +1,187 @@
+{
+ "corpus": "pallets/flask",
+ "commit": "d086db8",
+ "results": [
+  {
+   "name": "Flask",
+   "module": "src/flask/app.py",
+   "status": "ran",
+   "literal_line": 207,
+   "old": "'DEBUG'",
+   "new": "'DEBUGXX'",
+   "package_imports": true,
+   "pytest_rc": 0,
+   "failed_test_files": [],
+   "failed_nodes": 0,
+   "summary": "494 passed in 2.43s",
+   "duration_s": 3.0
+  },
+  {
+   "name": "AppGroup",
+   "module": "src/flask/cli.py",
+   "status": "ran",
+   "literal_line": 420,
+   "old": "'with_appcontext'",
+   "new": "'with_appcontextXX'",
+   "package_imports": true,
+   "pytest_rc": 0,
+   "failed_test_files": [],
+   "failed_nodes": 0,
+   "summary": "494 passed in 2.38s",
+   "duration_s": 3.0
+  },
+  {
+   "name": "CertParamType",
+   "module": "src/flask/cli.py",
+   "status": "ran",
+   "literal_line": 786,
+   "old": "'path'",
+   "new": "'pathXX'",
+   "package_imports": true,
+   "pytest_rc": 0,
+   "failed_test_files": [],
+   "failed_nodes": 0,
+   "summary": "494 passed in 2.43s",
+   "duration_s": 3.0
+  },
+  {
+   "name": "prepare_import",
+   "module": "src/flask/cli.py",
+   "status": "ran",
+   "literal_line": 207,
+   "old": "'.py'",
+   "new": "'.pyXX'",
+   "package_imports": true,
+   "pytest_rc": 1,
+   "failed_test_files": [
+    "tests/test_cli.py"
+   ],
+   "failed_nodes": 3,
+   "summary": "3 failed, 491 passed in 2.40s",
+   "duration_s": 3.0
+  },
+  {
+   "name": "DebugFilesKeyError",
+   "module": "src/flask/debughelpers.py",
+   "status": "ran",
+   "literal_line": 31,
+   "old": "'You tried to access the file '",
+   "new": "'You tried to access the file XX'",
+   "package_imports": true,
+   "pytest_rc": 1,
+   "failed_test_files": [
+    "tests/test_basic.py",
+    "tests/test_templating.py"
+   ],
+   "failed_nodes": 4,
+   "summary": "4 failed, 490 passed in 2.44s",
+   "duration_s": 3.1
+  },
+  {
+   "name": "get_load_dotenv",
+   "module": "src/flask/helpers.py",
+   "status": "ran",
+   "literal_line": 43,
+   "old": "'FLASK_SKIP_DOTENV'",
+   "new": "'FLASK_SKIP_DOTENVXX'",
+   "package_imports": true,
+   "pytest_rc": 1,
+   "failed_test_files": [
+    "tests/test_cli.py"
+   ],
+   "failed_nodes": 1,
+   "summary": "1 failed, 493 passed in 2.40s",
+   "duration_s": 3.0
+  },
+  {
+   "name": "Blueprint",
+   "module": "src/flask/sansio/blueprints.py",
+   "status": "ran",
+   "literal_line": 198,
+   "old": "'.'",
+   "new": "'.XX'",
+   "package_imports": true,
+   "pytest_rc": 1,
+   "failed_test_files": [
+    "tests/test_blueprints.py"
+   ],
+   "failed_nodes": 1,
+   "summary": "1 failed, 493 passed in 2.41s",
+   "duration_s": 3.0
+  },
+  {
+   "name": "SecureCookieSession",
+   "module": "src/flask/sessions.py",
+   "status": "not_mutable"
+  },
+  {
+   "name": "SessionInterface",
+   "module": "src/flask/sessions.py",
+   "status": "ran",
+   "literal_line": 173,
+   "old": "'SESSION_COOKIE_NAME'",
+   "new": "'SESSION_COOKIE_NAMEXX'",
+   "package_imports": true,
+   "pytest_rc": 1,
+   "failed_test_files": [
+    "tests/test_appctx.py",
+    "tests/test_basic.py",
+    "tests/test_blueprints.py",
+    "tests/test_converters.py",
+    "tests/test_helpers.py",
+    "tests/test_json.py",
+    "tests/test_logging.py",
+    "tests/test_regression.py",
+    "tests/test_reqctx.py",
+    "tests/test_request.py",
+    "tests/test_signals.py",
+    "tests/test_templating.py",
+    "tests/test_testing.py",
+    "tests/test_user_error_handler.py",
+    "tests/test_views.py"
+   ],
+   "failed_nodes": 274,
+   "summary": "211 failed, 261 passed, 63 errors in 2.71s",
+   "duration_s": 3.3
+  },
+  {
+   "name": "Environment",
+   "module": "src/flask/templating.py",
+   "status": "ran",
+   "literal_line": 43,
+   "old": "'loader'",
+   "new": "'loaderXX'",
+   "package_imports": true,
+   "pytest_rc": 0,
+   "failed_test_files": [],
+   "failed_nodes": 0,
+   "summary": "494 passed in 2.40s",
+   "duration_s": 3.0
+  },
+  {
+   "name": "View",
+   "module": "src/flask/views.py",
+   "status": "not_mutable"
+  },
+  {
+   "name": "Request",
+   "module": "src/flask/wrappers.py",
+   "status": "ran",
+   "literal_line": 86,
+   "old": "'MAX_CONTENT_LENGTH'",
+   "new": "'MAX_CONTENT_LENGTHXX'",
+   "package_imports": true,
+   "pytest_rc": 1,
+   "failed_test_files": [
+    "tests/test_basic.py",
+    "tests/test_json.py",
+    "tests/test_reqctx.py",
+    "tests/test_request.py",
+    "tests/test_testing.py"
+   ],
+   "failed_nodes": 18,
+   "summary": "18 failed, 476 passed in 2.45s",
+   "duration_s": 3.1
+  }
+ ]
+}

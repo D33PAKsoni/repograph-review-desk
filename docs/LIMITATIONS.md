@@ -15,6 +15,7 @@ RepoGraph reports what static parsing can establish. It does not prove safety.
 | Re-exports | Some chain re-exports can stop at the re-exporting file | `inferred`/`unresolved` |
 | Framework routing | Only recognized decorator/call patterns | `heuristic` route or absent |
 | Tests | Tests selected by imports/naming, not execution traces | `inferred` or absent |
+| Test selection | Measured 24% file recall on 6 Flask mutations (60% counting transitive dependents); direct-import only | `inferred` list, incomplete |
 | Parsing | Syntax errors, unsupported language features, huge files | `parse_errors` blind spot |
 
 ### Known language gaps

@@ -1,0 +1,218 @@
+{
+ "corpus": "pallets/flask",
+ "commit": "d086db8",
+ "results": [
+  {
+   "name": "Flask",
+   "module": "src/flask/app.py",
+   "kind": "ClassDef",
+   "deleted_lines": [
+    109,
+    1625
+   ],
+   "package_imports": false,
+   "import_error": "ImportError: cannot import name 'Flask' from 'flask.app' (/tmp/opencode/mutation/flask/src/flask/app.py)",
+   "pytest_rc": 4,
+   "suite_ran": false,
+   "duration_s": 0.5,
+   "failed_test_files": [],
+   "failed_nodes": 0,
+   "summary": ""
+  },
+  {
+   "name": "AppGroup",
+   "module": "src/flask/cli.py",
+   "kind": "ClassDef",
+   "deleted_lines": [
+    405,
+    437
+   ],
+   "package_imports": false,
+   "import_error": "NameError: name 'AppGroup' is not defined",
+   "pytest_rc": 4,
+   "suite_ran": false,
+   "duration_s": 0.5,
+   "failed_test_files": [],
+   "failed_nodes": 0,
+   "summary": ""
+  },
+  {
+   "name": "CertParamType",
+   "module": "src/flask/cli.py",
+   "kind": "ClassDef",
+   "deleted_lines": [
+    780,
+    825
+   ],
+   "package_imports": false,
+   "import_error": "NameError: name 'CertParamType' is not defined",
+   "pytest_rc": 4,
+   "suite_ran": false,
+   "duration_s": 0.5,
+   "failed_test_files": [],
+   "failed_nodes": 0,
+   "summary": ""
+  },
+  {
+   "name": "prepare_import",
+   "module": "src/flask/cli.py",
+   "kind": "FunctionDef",
+   "deleted_lines": [
+    200,
+    226
+   ],
+   "package_imports": true,
+   "import_error": "",
+   "pytest_rc": 1,
+   "suite_ran": true,
+   "duration_s": 2.8,
+   "failed_test_files": [
+    "tests/test_cli.py"
+   ],
+   "failed_nodes": 1,
+   "summary": "436 passed, 1 error in 2.18s"
+  },
+  {
+   "name": "DebugFilesKeyError",
+   "module": "src/flask/debughelpers.py",
+   "kind": "ClassDef",
+   "deleted_lines": [
+    23,
+    47
+   ],
+   "package_imports": true,
+   "import_error": "",
+   "pytest_rc": 1,
+   "suite_ran": true,
+   "duration_s": 3.0,
+   "failed_test_files": [
+    "tests/test_basic.py"
+   ],
+   "failed_nodes": 1,
+   "summary": "1 failed, 493 passed in 2.41s"
+  },
+  {
+   "name": "get_load_dotenv",
+   "module": "src/flask/helpers.py",
+   "kind": "FunctionDef",
+   "deleted_lines": [
+    36,
+    48
+   ],
+   "package_imports": false,
+   "import_error": "ImportError: cannot import name 'get_load_dotenv' from 'flask.helpers' (/tmp/opencode/mutation/flask/src/flask/helpers.py)",
+   "pytest_rc": 4,
+   "suite_ran": false,
+   "duration_s": 0.5,
+   "failed_test_files": [],
+   "failed_nodes": 0,
+   "summary": ""
+  },
+  {
+   "name": "Blueprint",
+   "module": "src/flask/sansio/blueprints.py",
+   "kind": "ClassDef",
+   "deleted_lines": [
+    119,
+    692
+   ],
+   "package_imports": false,
+   "import_error": "ImportError: cannot import name 'Blueprint' from 'flask.sansio.blueprints' (/tmp/opencode/mutation/flask/src/flask/sansio/blueprints.py)",
+   "pytest_rc": 4,
+   "suite_ran": false,
+   "duration_s": 0.5,
+   "failed_test_files": [],
+   "failed_nodes": 0,
+   "summary": ""
+  },
+  {
+   "name": "SecureCookieSession",
+   "module": "src/flask/sessions.py",
+   "kind": "ClassDef",
+   "deleted_lines": [
+    57,
+    80
+   ],
+   "package_imports": false,
+   "import_error": "NameError: name 'SecureCookieSession' is not defined",
+   "pytest_rc": 4,
+   "suite_ran": false,
+   "duration_s": 0.5,
+   "failed_test_files": [],
+   "failed_nodes": 0,
+   "summary": ""
+  },
+  {
+   "name": "SessionInterface",
+   "module": "src/flask/sessions.py",
+   "kind": "ClassDef",
+   "deleted_lines": [
+    100,
+    270
+   ],
+   "package_imports": false,
+   "import_error": "NameError: name 'SessionInterface' is not defined",
+   "pytest_rc": 4,
+   "suite_ran": false,
+   "duration_s": 0.5,
+   "failed_test_files": [],
+   "failed_nodes": 0,
+   "summary": ""
+  },
+  {
+   "name": "Environment",
+   "module": "src/flask/templating.py",
+   "kind": "ClassDef",
+   "deleted_lines": [
+    36,
+    46
+   ],
+   "package_imports": false,
+   "import_error": "ImportError: cannot import name 'Environment' from 'flask.templating' (/tmp/opencode/mutation/flask/src/flask/templating.py)",
+   "pytest_rc": 4,
+   "suite_ran": false,
+   "duration_s": 0.5,
+   "failed_test_files": [],
+   "failed_nodes": 0,
+   "summary": ""
+  },
+  {
+   "name": "View",
+   "module": "src/flask/views.py",
+   "kind": "ClassDef",
+   "deleted_lines": [
+    16,
+    135
+   ],
+   "package_imports": true,
+   "import_error": "",
+   "pytest_rc": 1,
+   "suite_ran": true,
+   "duration_s": 2.9,
+   "failed_test_files": [
+    "tests/test_async.py",
+    "tests/test_helpers.py",
+    "tests/test_views.py"
+   ],
+   "failed_nodes": 3,
+   "summary": "1 failed, 470 passed, 2 errors in 2.26s"
+  },
+  {
+   "name": "Request",
+   "module": "src/flask/wrappers.py",
+   "kind": "ClassDef",
+   "deleted_lines": [
+    18,
+    219
+   ],
+   "package_imports": false,
+   "import_error": "ImportError: cannot import name 'Request' from 'flask.wrappers' (/tmp/opencode/mutation/flask/src/flask/wrappers.py)",
+   "pytest_rc": 4,
+   "suite_ran": false,
+   "duration_s": 0.5,
+   "failed_test_files": [],
+   "failed_nodes": 0,
+   "summary": ""
+  }
+ ]
+}

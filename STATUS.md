@@ -116,6 +116,15 @@ Pre-registered protocol, two independent AI labelers per round. Final test repos
 - Audit of the new inferred methods (Amendment 2): 38/40 correct, 95.0% (Wilson 83.5%–98.6%). The two wrong edges were type-only `#compiler` imports; the `types` condition is now preferred for `import type`, rechecked within the sample.
 - Agent behavior: five paired rename tasks, both arms perfect. Transcripts show 0 of 5 treatment runs invoked RepoGraph and both arms used grep, so the pilot tested prompt wording, not graph access. No behavioral claim. See `research/AGENT_BEHAVIOR_PILOT.md`.
 
+### Test selection
+
+Measured against pytest outcomes, not against the tool's own logic: 12 symbols drawn by seed from Flask at `d086db8`, one literal-constant mutation each.
+
+- 6 mutations produced failing tests; pooled **file recall 6/25 (24%)**, median 0.57, precision 6/36.
+- Counting test files reached through direct/transitive dependents raises recall to 15/25 (60%), so the misses are a test-rule limitation, not a missing graph edge.
+- Two defects identified: `--symbol` cannot disambiguate a name reused by tests (3 of 12 names), and `--symbol` analyses the whole defining file.
+- This fails the pre-registered test-selection bar (recall ≥ 80%). Docs now state the list is incomplete and the suite is ground truth. See `research/TEST_SELECTION_RESULTS.md`.
+
 Full method and threats to validity: `research/EDGE_ACCURACY_RESULTS.md`. Raw artifacts: `benchmarks/eval/`.
 
 ## Research conclusions

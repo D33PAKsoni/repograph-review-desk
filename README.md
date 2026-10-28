@@ -181,7 +181,7 @@ Full method, per-repository tables, disagreements and threats to validity: [`res
 - Python and TypeScript/JavaScript are the only supported languages today.
 - Symbol names are lexical, not semantic. `search` does not understand intent.
 - Impact analysis is file- and symbol-oriented. It does not perform data-flow or type analysis.
-- Test selection is heuristic. It can miss tests and include irrelevant ones.
+- Test selection is heuristic. It can miss tests and include irrelevant ones. A measured run on Flask found **24% file recall** on six behaviour-changing mutations (60% if transitive dependents are counted); see `research/TEST_SELECTION_RESULTS.md`. Always run the suite; do not treat the list as complete.
 - Route/model extraction is framework-specific and incomplete.
 - Diff analysis uses symbols already in the index; re-index before analyzing a fresh edit.
 
