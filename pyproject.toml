@@ -10,7 +10,7 @@ readme = "README.md"
 requires-python = ">=3.10"
 license = {text = "Apache-2.0"}
 authors = [{name = "RepoGraph contributors"}]
-keywords = ["code-intelligence", "mcp", "change-impact", "tree-sitter", "ai-agents"]
+keywords = ["code-intelligence", "code-graph", "mcp", "change-impact", "dependency-graph", "static-analysis", "tree-sitter", "ai-agents"]
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Environment :: Console",

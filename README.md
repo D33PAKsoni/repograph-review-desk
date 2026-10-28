@@ -1,9 +1,9 @@
-<p align="center">
+<h1 align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="docs/assets/hero-dark.svg">
-    <img src="docs/assets/hero.svg" alt="RepoGraph — change impact you can audit" width="620">
+    <img src="docs/assets/hero.svg" alt="RepoGraph — local code graph and change impact analysis for AI coding agents" width="620">
   </picture>
-</p>
+</h1>
 
 <p align="center">
   <a href="https://github.com/INDEX0-RESEARCH-LABS/repograph/actions/workflows/ci.yml"><img src="https://github.com/INDEX0-RESEARCH-LABS/repograph/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
@@ -17,7 +17,7 @@
   Runs on your machine. No account, no API key, no code execution.
 </p>
 
-RepoGraph is a map of your project. It reads your files and works out what imports what. Then you can ask:
+**RepoGraph is a local-first code graph and change impact analysis tool for AI coding agents.** It reads your repository, records what imports what, and answers one question:
 
 > **"If I change this file, what else might break?"**
 
@@ -193,7 +193,7 @@ Cycles are shown as cycles. They are not treated as errors.
 
 ## How accurate is it?
 
-Measured with a pre-registered protocol and two independent AI labelers, on three repositories never used to build the tool.
+Measured in October 2026 with a pre-registered protocol and two independent AI labelers, on three repositories never used to build the tool.
 
 | Repository | Correct links (precision) | Links found (recall) |
 | --- | ---: | ---: |
@@ -211,7 +211,7 @@ Full method, raw samples and threats to validity: [research/EDGE_ACCURACY_RESULT
 
 ## How fast is it?
 
-One machine, one run per project (Linux x86_64, Python 3.14.8). Times are for the index step, not for your whole CI pipeline.
+One machine, one run per project (Linux x86_64, Python 3.14.8, October 2026). Times are for the index step, not for your whole CI pipeline.
 
 | Repository | Files | Symbols | First index | Update (no changes) | Index size | Impact query |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |
