@@ -94,3 +94,24 @@ def test_impact_ambiguous_symbol_exits_2(repo: Path):
     out = run_cli(repo, "impact", "--symbol", "Subscription", "--root", str(repo), "--json")
     assert out.returncode == 2
     assert "ambiguous" in json.loads(out.stdout)["error"]
+
+
+def test_setup_records_a_working_command(repo: Path, tmp_path: Path):
+    out = run_cli(repo, "setup", str(repo), "--yes")
+    assert out.returncode == 0, out.stderr
+
+    entry = json.loads((repo / ".mcp.json").read_text())["mcpServers"]["repograph"]
+    assert "serve" in entry["args"]
+    assert str(repo.resolve()) in entry["args"]
+    assert (repo / ".claude" / "skills" / "repograph" / "SKILL.md").is_file()
+
+    # The recorded launch must work from any working directory.
+    check = subprocess.run(
+        [entry["command"], *entry["args"], "--help"],
+        cwd=tmp_path, capture_output=True, text=True, timeout=60,
+    )
+    assert check.returncode == 0, check.stderr
+    assert "--root" in check.stdout
+
+    again = run_cli(repo, "setup", str(repo), "--yes")
+    assert "already configured" in again.stdout

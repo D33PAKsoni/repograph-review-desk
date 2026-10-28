@@ -8,7 +8,7 @@
 
 RepoGraph is a working local tool: it indexes real Python/TypeScript/JavaScript repositories, exposes a CLI and six MCP tools, and produces evidence-backed impact reports with explicit blind spots. The engineering baseline is tested, and **edge accuracy is measured on a fresh corpus**: round 5 (httpx, zustand, mocha — never indexed or tuned against) measured **98.3% precision on 120 resolved edges** (Wilson 94.1%–99.5%) and **93.7% estimated recall** (118/126; Wilson 88.0%–96.8%). Both precision errors are one resolver defect (a root `tsconfig` alias leaking into example apps); it is fixed, and the within-sample recheck resolves both audited rows with no change to any previously correct sampled edge, so the estimate itself is unchanged.
 
-The **product claim is still only partly validated**. There is no user study and no evidence that the tool changes agent behavior. A five-pair agent pilot compared control against a prompt offering the RepoGraph CLI: both arms were perfect on grep-solvable rename tasks, and session transcripts show no treatment run actually invoked the tool, so the pilot measured prompt wording rather than graph access. Missing edges remain the main risk, not wrong ones. The competitive field is crowded, including projects already claiming evidence/confidence and impact analysis.
+The **product claim is still only partly validated**. There is no user study and no evidence that the tool changes agent behavior. A five-pair agent pilot compared control against a prompt offering the RepoGraph CLI: both arms were perfect on grep-solvable rename tasks, and session transcripts show no treatment run actually invoked the tool, so the pilot measured prompt wording rather than graph access. Missing edges remain the main risk, not wrong ones. Setup now ships the agent instructions alongside the server, but whether that closes the 0/5 invocation gap is untested. The competitive field is crowded, including projects already claiming evidence/confidence and impact analysis.
 
 ## Implemented
 
@@ -43,11 +43,14 @@ The **product claim is still only partly validated**. There is no user study and
 
 ### Interfaces
 
-- Typer CLI: `init`, `index`, `status`, `search`, `impact`, `graph`, `refs`, `arch`, `serve`, `version`.
+- Typer CLI: `init`, `setup`, `index`, `status`, `search`, `impact`, `graph`, `refs`, `arch`, `serve`, `version`.
 - JSON output for read commands.
 - MCP stdio server and optional streamable HTTP (localhost default, no auth).
 - Six tools: `search_symbols`, `find_references`, `get_dependency_graph`, `analyze_change_impact`, `find_related_tests`, `get_architecture_summary`.
 - `REPOGRAPH_ROOT` support for `python -m repograph.mcp_server`.
+- `repograph setup` registers the server with Claude Code, Cursor or Codex and installs the agent
+  instructions that make the tool get called: diff before writing, one-time `.bak`, idempotent
+  re-runs, and a launch command verified to work from an unrelated working directory.
 
 ### Safety
 
@@ -63,16 +66,16 @@ The **product claim is still only partly validated**. There is no user study and
 ### Tests
 
 ```
-62 passed
+69 passed
 ```
 
 Coverage (direct in-process measurement):
 
 ```
-TOTAL 2256 statements, 678 missed, 70%
+TOTAL 2408 statements, 740 missed, 69%
 ```
 
-The CLI and MCP server show 0% direct coverage because they are tested through subprocesses (`python -m repograph`, stdio MCP client). Their behavior is exercised; the coverage tool does not attribute it to those modules. Core modules: `impact.py` 93%, `indexer.py` 96%, `store.py` 94%, `resolve.py` 90%, `extract.py` 89%.
+The CLI and MCP server show 0% direct coverage because they are tested through subprocesses (`python -m repograph`, stdio MCP client). Their behavior is exercised; the coverage tool does not attribute it to those modules. Core modules: `impact.py` 93%, `indexer.py` 96%, `store.py` 94%, `resolve.py` 91%, `extract.py` 89%, `agent_setup.py` 80%.
 
 Reproduce:
 

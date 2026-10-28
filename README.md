@@ -84,7 +84,22 @@ If `repograph` is not found, activate the venv (`source .venv/bin/activate`). Th
 
 ## Give it to your agent
 
-RepoGraph speaks MCP, so an agent can query the graph instead of grepping. Index the project, then start the server:
+One command registers the server **and** installs the instructions that make the agent actually use it:
+
+```bash
+repograph setup .
+```
+
+It writes a project `.mcp.json` plus a Claude Code skill (and a Cursor rule when `.cursor/` exists), shows the diff first, and backs up any file it changes. Add `--client codex` to register it in `~/.codex/config.toml`; `--dry-run` writes nothing.
+
+Restart your agent, then ask:
+
+> What breaks if I change the refund calculation?
+
+Without the instructions an agent tends to keep grepping — a measured failure mode, not a guess. The skill tells it when the graph is the cheaper answer, in what order to call the tools, and to read `blind_spots` before acting.
+
+<details>
+<summary><b>Manual MCP config</b></summary>
 
 ```bash
 repograph serve --root /path/to/your/project
@@ -101,9 +116,9 @@ repograph serve --root /path/to/your/project
 }
 ```
 
-Claude Code and Cursor accept this JSON shape. Then ask in plain words:
+Claude Code and Cursor accept this JSON shape. Use an absolute `--root` and put `repograph` on the client's `PATH`.
 
-> Before you change a file, call `analyze_change_impact` and use the result to check what else needs updating. If it reports a blind spot, say so.
+</details>
 
 | Tool | What it returns |
 | --- | --- |
@@ -180,6 +195,7 @@ It is not a compiler, a type checker, a semantic search engine, or a replacement
 | `repograph graph [path]` | Imports in, out or both. `--depth 1-5`, `--format dot`, `--cycles`. |
 | `repograph arch` | Languages, layers, hubs, entry points, routes, models. |
 | `repograph impact <paths>` | Dependents, tests, routes, blind spots. `--symbol`, `--diff`, `--depth`, `--tests/--no-tests`. |
+| `repograph setup [path]` | Register the MCP server and install agent instructions. `--client`, `--yes`, `--dry-run`, `--no-skill`. |
 | `repograph serve` | MCP server. `--http`, `--host`, `--port`. |
 
 Every read command accepts `--json`.
@@ -195,6 +211,7 @@ Every read command accepts `--json`.
 | Fewer symbols than expected | The code may use a pattern the parser does not cover. Check `status` and `arch` for parse errors. |
 | A dependency is missing | It may be dynamic, unresolved, or in another language. Check the blind spots block. |
 | MCP client cannot connect | Use an absolute `--root`, and put `repograph` on the client's `PATH`. |
+| Agent never calls the tools | Re-run `repograph setup .`, restart the agent, and confirm the skill landed in `.claude/skills/repograph/SKILL.md`. |
 
 </details>
 
@@ -211,6 +228,6 @@ Every read command accepts `--json`.
 .venv/bin/python -m pytest
 ```
 
-62 tests, 70% direct coverage, CI on Python 3.10, 3.12 and 3.13. The CLI and MCP server are tested through subprocesses, so coverage does not attribute those runs to their modules.
+69 tests, 69% direct coverage, CI on Python 3.10, 3.12 and 3.13. The CLI and MCP server are tested through subprocesses, so coverage does not attribute those runs to their modules.
 
 Apache-2.0. See [LICENSE](LICENSE).

@@ -311,6 +311,67 @@ def arch(
 
 
 @app.command()
+def setup(
+    path: Optional[Path] = typer.Argument(None, help="Repository root (default: cwd)."),
+    client: Optional[list[str]] = typer.Option(
+        None, "--client", "-c", help="claude, cursor, codex. Repeatable. Default: detected."
+    ),
+    yes: bool = typer.Option(False, "--yes", "-y", help="Apply without asking."),
+    dry_run: bool = typer.Option(False, "--dry-run", help="Show changes and write nothing."),
+    no_skill: bool = typer.Option(
+        False, "--no-skill", help="Register the server but skip agent instructions."
+    ),
+) -> None:
+    """Register the MCP server with your agent and install its usage instructions."""
+    from pathlib import Path as _Path
+
+    from .agent_setup import apply, detect_clients, plan
+
+    root = _root(path)
+    clients = client or detect_clients(root, _Path.home())
+    try:
+        changes = plan(root, clients, include_skill=not no_skill)
+    except ValueError as exc:
+        typer.echo(f"error: {exc}", err=True)
+        raise typer.Exit(1) from exc
+
+    typer.echo(f"clients: {', '.join(clients)}")
+    if "codex" not in clients and (_Path.home() / ".codex").is_dir():
+        typer.echo("note: Codex detected; add --client codex to register it in ~/.codex/config.toml")
+    for change in changes:
+        typer.echo(f"  {change.kind:<9} {change.path}  ({change.note})")
+
+    pending = [c for c in changes if c.kind != "unchanged"]
+    if not pending:
+        typer.echo("already configured; nothing to write.")
+    else:
+        for change in pending:
+            typer.echo("")
+            typer.echo(change.diff().rstrip("\n"))
+
+    if dry_run:
+        typer.echo("\ndry run: nothing written.")
+        raise typer.Exit(0)
+
+    if pending:
+        if not yes:
+            typer.confirm("Apply these changes?", abort=True)
+        try:
+            written = apply(changes)
+        except (OSError, ValueError) as exc:
+            typer.echo(f"error: {exc}", err=True)
+            raise typer.Exit(1) from exc
+        typer.echo("")
+        for item in written:
+            typer.echo(f"wrote {item}")
+
+    settings = load_settings(root)
+    if not settings.db_path.exists():
+        typer.echo(f"\nnext: repograph index {root}")
+    typer.echo("next: restart your agent, then ask \"what breaks if I change <symbol>?\"")
+
+
+@app.command()
 def serve(
     path: Optional[Path] = typer.Option(None, "--root", help="Repository root to expose."),
     http: bool = typer.Option(False, "--http", help="Use Streamable HTTP instead of stdio."),
