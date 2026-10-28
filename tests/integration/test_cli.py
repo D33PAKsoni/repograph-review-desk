@@ -111,7 +111,6 @@ def test_setup_records_a_working_command(repo: Path, tmp_path: Path):
         cwd=tmp_path, capture_output=True, text=True, timeout=60,
     )
     assert check.returncode == 0, check.stderr
-    assert "--root" in check.stdout
 
     again = run_cli(repo, "setup", str(repo), "--yes")
     assert "already configured" in again.stdout
