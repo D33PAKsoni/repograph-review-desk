@@ -295,6 +295,9 @@ def arch(
         _emit(data, True)
         return
     typer.echo(f"files: {data['files']}  symbols: {data['symbols']}  internal edges: {data['internal_edges']}")
+    typer.echo(f"unresolved imports: {data['unresolved_imports']}  dynamic imports: {data['dynamic_imports']}"
+               "  (a resolved-edge count is not a census)")
+    typer.echo(f"parse errors: {len(data['parse_errors'])}")
     typer.echo("languages: " + ", ".join(f"{k}={v}" for k, v in data["languages"].items()))
     typer.echo("layers:    " + ", ".join(f"{k}={v}" for k, v in data["layers"].items()))
     typer.echo("top directories:")

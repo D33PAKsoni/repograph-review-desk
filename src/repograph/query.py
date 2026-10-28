@@ -384,6 +384,13 @@ def architecture_summary(store: Store, root: Path) -> dict:
     stats = store.stats()
     files = store.all_files()
     edges = store.file_edges()
+    # The edge count is only as complete as the resolved imports. Report the
+    # imports that were classified but not turned into edges, so the summary
+    # does not read as a census.
+    unresolved = store.conn.execute(
+        "SELECT COUNT(*) FROM imports WHERE kind='unresolved'").fetchone()[0]
+    dynamic = store.conn.execute(
+        "SELECT COUNT(*) FROM imports WHERE kind='dynamic'").fetchone()[0]
     in_deg: dict[str, int] = defaultdict(int)
     out_deg: dict[str, int] = defaultdict(int)
     for e in edges:
@@ -427,6 +434,8 @@ def architecture_summary(store: Store, root: Path) -> dict:
         "files": stats["files"],
         "symbols": stats["symbols"],
         "internal_edges": len(edges),
+        "unresolved_imports": unresolved,
+        "dynamic_imports": dynamic,
         "languages": stats["languages"],
         "symbol_kinds": stats["symbol_kinds"],
         "layers": dict(sorted(layers.items(), key=lambda kv: -kv[1])),
@@ -453,6 +462,7 @@ def architecture_summary(store: Store, root: Path) -> dict:
             "Layer names are path heuristics, not framework semantics.",
             "Routes and models are detected from decorator/base-class patterns; other frameworks are not recognized.",
             "Only statically resolvable imports are counted. Dynamic imports, reflection and runtime DI are not.",
+            "`internal_edges` is a resolved-import count, not a census: unresolved and dynamic imports are reported separately and can hide real dependencies.",
         ],
     }
 

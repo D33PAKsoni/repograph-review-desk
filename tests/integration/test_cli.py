@@ -74,6 +74,10 @@ def test_impact_refs_graph_arch_json(repo: Path):
     arch = json.loads(out.stdout)
     assert arch["files"] == 20
     assert arch["database_models"]
+    # Architecture counts must disclose what the edge count omits.
+    assert arch["dynamic_imports"] == 2
+    assert arch["unresolved_imports"] == 0
+    assert any("not a census" in line for line in arch["limitations"])
 
 
 def test_missing_index_fails_cleanly(repo: Path):
