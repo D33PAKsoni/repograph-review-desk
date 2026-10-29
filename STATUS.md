@@ -148,7 +148,7 @@ Full method and threats to validity: `research/EDGE_ACCURACY_RESULTS.md`. Raw ar
 - `docs/MCP.md` — tool contracts and agent policy.
 - `docs/LIMITATIONS.md` — analysis gaps, benchmark caveats, threat model.
 - `SECURITY.md`, `CONTRIBUTING.md`, `ROADMAP.md`, `CHANGELOG.md`, `LICENSE`.
-- `research/` — evidence, competitive analysis, technical landscape, opportunity analysis, hypotheses, validation plan, decision log, edge-accuracy protocol and results, agent-behavior pilot, market red-team (`MARKET_DEBATE.md`) the 2026-10 direction review (`DIRECTION_2026-10.md`) the growth teardown of comparable repositories (`GROWTH_TEARDOWN.md`), and the `morluto/rea` teardown (`REA_TEARDOWN.md`), which amends the 30-day plan: installer-with-skill before registry publish.
+- `research/` — evidence, competitive analysis, technical landscape, opportunity analysis, hypotheses, validation plan, decision log, edge-accuracy protocol and results, agent-behavior pilot, market red-team (`MARKET_DEBATE.md`) the 2026-10 direction review (`DIRECTION_2026-10.md`) the growth teardown of comparable repositories (`GROWTH_TEARDOWN.md`), the `morluto/rea` teardown (`REA_TEARDOWN.md`), which amends the 30-day plan: installer-with-skill before registry publish, and the 2026-10-29 multi-agent review (`BRUTAL_REVIEW.md`), which finds the PR-comment positioning indefensible and recommends the affected-tests gate as the surviving direction.
 - `benchmarks/` — reproducible script, raw results, method.
 - `launch/` — strategy and draft announcement (not published).
 - `.github/` — CI, issue templates, PR template.
