@@ -15,7 +15,9 @@ FIXTURE = Path(__file__).parent / "fixtures" / "shop"
 @pytest.fixture()
 def repo(tmp_path: Path) -> Path:
     dst = tmp_path / "shop"
-    shutil.copytree(FIXTURE, dst)
+    # The fixture ships its config (an excluded directory) but never an index;
+    # a local `repograph index` on the fixture must not leak into test state.
+    shutil.copytree(FIXTURE, dst, ignore=shutil.ignore_patterns("index.db"))
     return dst
 
 
