@@ -82,6 +82,32 @@ That is the loop. Re-index after you edit: `repograph index . && repograph impac
 
 If `repograph` is not found, activate the venv (`source .venv/bin/activate`). These commands only read files.
 
+## Run only the tests a change needs
+
+```bash
+repograph tests --diff
+```
+
+```
+changed files (2):
+  src/shop/services/subscription.py
+  tests/test_dynamic.py
+
+run these (1, 33% of 3):
+  [inferred] tests/test_subscription.py  (test-imports-changed-file, test-name-matches-changed-file)
+
+cannot rule out (1):
+  tests/test_dynamic.py  (unresolved-import)
+
+next: python -m pytest -q tests/test_subscription.py
+```
+
+`--command` prints only the pytest line, for CI. `--strict` exits `3` when a test cannot be ruled out or nothing was selected, so a gate fails closed instead of silently skipping coverage.
+
+The report has three buckets and no fourth: tests selected from the import graph and naming conventions, tests that **cannot be ruled out** because a file did not parse, an internal import did not resolve, or a `conftest.py` changed, and everything else. Confidence is a ceiling, the selected set is a lower bound, and the caveat is printed with the answer.
+
+This is the part you can check. Run the selection, run the full suite, subtract: the difference is the tool's recall measured by pytest, not by us.
+
 ## Give it to your agent
 
 One command registers the server **and** installs the instructions that make the agent actually use it:
@@ -195,6 +221,7 @@ It is not a compiler, a type checker, a semantic search engine, or a replacement
 | `repograph graph [path]` | Imports in, out or both. `--depth 1-5`, `--format dot`, `--cycles`. |
 | `repograph arch` | Languages, layers, hubs, entry points, routes, models. |
 | `repograph impact <paths>` | Dependents, tests, routes, blind spots. `--symbol`, `--diff`, `--depth`, `--tests/--no-tests`. |
+| `repograph tests [paths]` | Tests to run and tests that cannot be ruled out. `--diff`, `--base`, `--strict`, `--command`. |
 | `repograph setup [path]` | Register the MCP server and install agent instructions. `--client`, `--yes`, `--dry-run`, `--no-skill`. |
 | `repograph serve` | MCP server. `--http`, `--host`, `--port`. |
 
@@ -228,6 +255,6 @@ Every read command accepts `--json`.
 .venv/bin/python -m pytest
 ```
 
-69 tests, 69% direct coverage, CI on Python 3.10, 3.12 and 3.13. The CLI and MCP server are tested through subprocesses, so coverage does not attribute those runs to their modules.
+75 tests, 69% direct coverage, CI on Python 3.10, 3.12 and 3.13. The CLI and MCP server are tested through subprocesses, so coverage does not attribute those runs to their modules.
 
 Apache-2.0. See [LICENSE](LICENSE).

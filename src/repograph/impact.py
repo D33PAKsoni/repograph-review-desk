@@ -13,7 +13,7 @@ from collections import defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
 
-from .config import safe_path
+from .config import INDEX_DIR, safe_path
 from .query import _doc_mentions, _classify_layer
 from .store import Store
 
@@ -36,17 +36,17 @@ def _git(root: Path, *args: str) -> subprocess.CompletedProcess:
     )
 
 
-def git_changes(root: Path) -> dict:
+def git_changes(root: Path, base: str = "HEAD") -> dict:
     """Changed paths plus added-line ranges from the current worktree.
 
-    Includes staged and unstaged edits against HEAD and untracked files.
+    Includes staged and unstaged edits against ``base`` and untracked files.
     Deleted files are reported separately because they have no current symbols.
     """
     probe = _git(root, "rev-parse", "--is-inside-work-tree")
     if probe.returncode != 0:
         return {"available": False, "error": "not a git repository", "paths": [], "lines": {},
                 "deleted": [], "untracked": []}
-    diff = _git(root, "diff", "--unified=0", "--no-color", "--no-prefix", "HEAD", "--")
+    diff = _git(root, "diff", "--unified=0", "--no-color", "--no-prefix", base, "--")
     if diff.returncode != 0:
         return {"available": False, "error": diff.stderr.strip()[:300] or "git diff failed",
                 "paths": [], "lines": {}, "deleted": [], "untracked": []}
@@ -75,6 +75,12 @@ def git_changes(root: Path) -> dict:
     untracked = [
         p for p in _git(root, "ls-files", "--others", "--exclude-standard", "-z").stdout.split("\0") if p
     ]
+    # The index directory is our own artifact. Users who have not gitignored it
+    # would otherwise see it reported as a changed file, and the SQLite WAL adds
+    # a new path on every index run.
+    own = (INDEX_DIR + "/", INDEX_DIR)
+    untracked = [p for p in untracked if not p.startswith(own)]
+    lines = {k: v for k, v in lines.items() if not k.startswith(own)}
     paths = sorted(set(lines) | set(untracked))
     return {
         "available": True,

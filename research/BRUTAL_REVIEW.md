@@ -112,6 +112,16 @@ A is falsifiable in 30 days. If any of these fail, the honest move is to stop, n
 - **Stop adding languages.** Five frontends already cost more than one person can maintain, and the marginal language adds no new evidence about the thesis.
 - **Stop quoting 98.3% as if it were a product metric.** It is 118 audited edges on three small repos with a self-labeled sample.
 
+## 7a. Decision (2026-10-29)
+
+Pivot **A** was chosen and built: `repograph tests --diff` returns the selected tests, the tests it
+cannot rule out, and a pytest command; `--strict` exits `3` so a gate fails closed. The undetermined
+set is computed, not narrated: a test file that did not parse, that has an unresolved internal
+import, that is downstream of a changed `conftest.py`, or a changed file absent from the index.
+
+No recall claim is made yet. The kill criteria in §6 are the measurement to run next, and they are
+the whole point of the pivot.
+
 ## 8. One-paragraph answer
 
 RepoGraph does not currently matter, and the direction should change. The tool is real and unusually honest, but "impact analysis for AI PRs" is a bundled feature of the review products the target user already pays for, delivered through a channel the literature shows is ignored. The asset worth keeping is a deterministic, offline, cross-language graph that is cheap per query and can be scored against ground truth. Point it at the one question with a hard oracle — *which tests must run for this diff, and which can't you rule out* — publish the measured recall and the runtime saving, and let the number do the marketing. If that measurement fails, the project should end rather than pivot a fourth time.

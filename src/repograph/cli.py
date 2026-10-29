@@ -220,6 +220,65 @@ def impact(
 
 
 @app.command()
+def tests(
+    paths: Optional[list[str]] = typer.Argument(None, help="Changed files (repo-relative)."),
+    path: Optional[Path] = typer.Option(None, "--root", help="Repository root."),
+    diff: bool = typer.Option(False, "--diff", help="Use the git diff instead of paths."),
+    base: str = typer.Option("HEAD", "--base", help="Git ref to diff against."),
+    strict: bool = typer.Option(
+        False, "--strict", help="Exit 3 when a test cannot be ruled out or none was selected."
+    ),
+    command_only: bool = typer.Option(
+        False, "--command", help="Print only the pytest command to run."
+    ),
+    as_json: bool = typer.Option(False, "--json"),
+) -> None:
+    """Select the tests a change needs, and list the ones it cannot rule out."""
+    from .test_gate import select
+
+    if not paths and not diff:
+        typer.echo("error: provide paths or --diff", err=True)
+        raise typer.Exit(2)
+    root = _root(path)
+    store, _ = _open_store(root)
+    with store:
+        data = select(store, root, paths=list(paths or []), diff=diff, base=base, strict=strict)
+
+    if "error" in data:
+        typer.echo(f"error: {data['error']}", err=True)
+        raise typer.Exit(2)
+    if as_json:
+        _emit(data, True)
+        raise typer.Exit(data["exit_code"])
+    if command_only:
+        typer.echo(data["command"])
+        raise typer.Exit(data["exit_code"])
+
+    sel = data["selection"]
+    typer.echo(f"changed files ({len(data['changed_files'])}):")
+    for p in data["changed_files"][:20]:
+        typer.echo(f"  {p}")
+    for p in data["unindexed_changed_files"]:
+        typer.echo(f"  {p}  (not in the index: run `repograph index .`)")
+
+    fraction = f"{sel['fraction']:.0%} of {sel['total_tests']}" if sel["fraction"] is not None else "no tests"
+    typer.echo(f"\nrun these ({sel['run']}, {fraction}):")
+    for t in data["run"]:
+        typer.echo(f"  [{t['confidence']}] {t['path']}  ({', '.join(t['rules'])})")
+    if not data["run"]:
+        typer.echo("  - nothing: no test reaches this change. That is not evidence of safety.")
+
+    typer.echo(f"\ncannot rule out ({sel['undetermined']}):")
+    for u in data["undetermined"][:20]:
+        typer.echo(f"  {u['path']}  ({u['reason']})")
+    for c in data["caveats"]:
+        typer.echo(f"  note: {c}")
+
+    typer.echo(f"\nnext: {data['command']}")
+    raise typer.Exit(data["exit_code"])
+
+
+@app.command()
 def graph(
     target: Optional[str] = typer.Argument(None, help="Focus file (default: whole repo)."),
     path: Optional[Path] = typer.Option(None, "--root"),

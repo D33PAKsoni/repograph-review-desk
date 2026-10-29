@@ -43,11 +43,14 @@ The **product claim is still only partly validated**. There is no user study and
 
 ### Interfaces
 
-- Typer CLI: `init`, `setup`, `index`, `status`, `search`, `impact`, `graph`, `refs`, `arch`, `serve`, `version`.
+- Typer CLI: `init`, `setup`, `index`, `status`, `search`, `impact`, `tests`, `graph`, `refs`, `arch`, `serve`, `version`.
 - JSON output for read commands.
 - MCP stdio server and optional streamable HTTP (localhost default, no auth).
 - Six tools: `search_symbols`, `find_references`, `get_dependency_graph`, `analyze_change_impact`, `find_related_tests`, `get_architecture_summary`.
 - `REPOGRAPH_ROOT` support for `python -m repograph.mcp_server`.
+- `repograph tests --diff` selects the tests a change needs and reports the tests it cannot rule
+  out (unparsed file, unresolved internal import, changed `conftest.py`, changed file not indexed);
+  `--strict` exits 3, and `--command` emits the pytest line for CI.
 - `repograph setup` registers the server with Claude Code, Cursor or Codex and installs the agent
   instructions that make the tool get called: diff before writing, one-time `.bak`, idempotent
   re-runs, and a launch command verified to work from an unrelated working directory.
@@ -66,16 +69,16 @@ The **product claim is still only partly validated**. There is no user study and
 ### Tests
 
 ```
-69 passed
+75 passed
 ```
 
 Coverage (direct in-process measurement):
 
 ```
-TOTAL 2408 statements, 740 missed, 69%
+TOTAL 2510 statements, 780 missed, 69%
 ```
 
-The CLI and MCP server show 0% direct coverage because they are tested through subprocesses (`python -m repograph`, stdio MCP client). Their behavior is exercised; the coverage tool does not attribute it to those modules. Core modules: `impact.py` 93%, `indexer.py` 96%, `store.py` 94%, `resolve.py` 91%, `extract.py` 89%, `agent_setup.py` 80%.
+The CLI and MCP server show 0% direct coverage because they are tested through subprocesses (`python -m repograph`, stdio MCP client). Their behavior is exercised; the coverage tool does not attribute it to those modules. Core modules: `impact.py` 93%, `indexer.py` 96%, `store.py` 94%, `resolve.py` 91%, `extract.py` 89%, `agent_setup.py` 80%, `test_gate.py` 93%.
 
 Reproduce:
 
