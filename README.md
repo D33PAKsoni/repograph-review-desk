@@ -82,31 +82,37 @@ That is the loop. Re-index after you edit: `repograph index . && repograph impac
 
 If `repograph` is not found, activate the venv (`source .venv/bin/activate`). These commands only read files.
 
-## Run only the tests a change needs
+## Find the tests a change reaches
 
 ```bash
 repograph tests --diff
 ```
 
+On `pallets/click` (44 test files), changing `src/click/core.py`:
+
 ```
-changed files (2):
-  src/shop/services/subscription.py
-  tests/test_dynamic.py
+run these (6, 14% of 44):
+  [inferred] tests/test_context.py  (test-imports-changed-file, test-name-matches-dependent)
+  [inferred] tests/test_defaults.py  (test-imports-changed-file, test-name-matches-dependent)
+  [inferred] tests/test_deprecations.py  (test-imports-changed-file, test-name-matches-dependent)
+  [inferred] tests/test_parser.py  (test-name-matches-dependent)
+  [inferred] tests/test_shell_completion.py  (test-imports-changed-file, test-name-matches-dependent)
+  [inferred] tests/test_testing.py  (test-name-matches-dependent)
 
-run these (1, 33% of 3):
-  [inferred] tests/test_subscription.py  (test-imports-changed-file, test-name-matches-changed-file)
+cannot rule out (0):
 
-cannot rule out (1):
-  tests/test_dynamic.py  (unresolved-import)
-
-next: python -m pytest -q tests/test_subscription.py
+reachable but not selected (37):
+  tests/conftest.py
+  tests/test_abort_interrupt.py
+  tests/test_arguments.py
+  ...
 ```
 
-`--command` prints only the pytest line, for CI. `--strict` exits `3` when a test cannot be ruled out or nothing was selected, so a gate fails closed instead of silently skipping coverage.
+`--command` prints only the pytest line, for CI. `--strict` exits `3` when a test cannot be ruled out or nothing was selected.
 
-The report has three buckets and no fourth: tests selected from the import graph and naming conventions, tests that **cannot be ruled out** because a file did not parse, an internal import did not resolve, or a `conftest.py` changed, and everything else. Confidence is a ceiling, the selected set is a lower bound, and the caveat is printed with the answer.
+**Measured, and the number is bad.** On 22 one-function mutations across click, Flask and packaging, the selected set caught **41 of 180 failing test files (pooled recall 0.23, median 0.38)** while selecting a median 6.7% of test files. Adding every disclosed "reachable but not selected" file catches 179/180 — but that is 98.9% of the suite, i.e. no saving. Details: `research/TEST_SELECTION_GATE_RESULTS.md`.
 
-This is the part you can check. Run the selection, run the full suite, subtract: the difference is the tool's recall measured by pytest, not by us.
+So treat this command as **a disclosure aid, not a gate**: it tells you some files a change reaches, and it names the ones it cannot justify selecting. It does not know which tests exercise which behaviour, and it will omit files that fail. **Run the suite before trusting it.**
 
 ## Give it to your agent
 
@@ -221,7 +227,7 @@ It is not a compiler, a type checker, a semantic search engine, or a replacement
 | `repograph graph [path]` | Imports in, out or both. `--depth 1-5`, `--format dot`, `--cycles`. |
 | `repograph arch` | Languages, layers, hubs, entry points, routes, models. |
 | `repograph impact <paths>` | Dependents, tests, routes, blind spots. `--symbol`, `--diff`, `--depth`, `--tests/--no-tests`. |
-| `repograph tests [paths]` | Tests to run and tests that cannot be ruled out. `--diff`, `--base`, `--strict`, `--command`. |
+| `repograph tests [paths]` | Test files a change reaches, files that cannot be ruled out, and reachable files not selected (heuristic; measured recall 0.23). `--diff`, `--base`, `--strict`, `--command`. |
 | `repograph setup [path]` | Register the MCP server and install agent instructions. `--client`, `--yes`, `--dry-run`, `--no-skill`. |
 | `repograph serve` | MCP server. `--http`, `--host`, `--port`. |
 

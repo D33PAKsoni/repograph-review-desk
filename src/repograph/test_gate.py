@@ -85,6 +85,7 @@ def select(
 
     run: list[dict] = []
     caveats: list[str] = []
+    reachable: list[str] = []
     if analysable:
         impact = analyze_impact(store, root, paths=analysable, depth=2)
         if "error" in impact:
@@ -95,9 +96,17 @@ def select(
             run.append({
                 "path": t["path"],
                 "confidence": t["confidence"],
-                "rules": [r["rule"] for r in t["rules"]],
+                "rules": list(dict.fromkeys(r["rule"] for r in t["rules"])),
                 "evidence": t["evidence"],
             })
+        for b in impact.get("blind_spots", []):
+            if b["kind"] == "test-selection-reachability":
+                reachable = [p for p in b.get("items") or [] if _is_pytest_file(p)]
+        if reachable:
+            caveats.append(
+                f"{len(reachable)} more test files reach this change through dependent "
+                "modules but are not selected; run them or the full suite"
+            )
     else:
         caveats.append("no changed file is in the index; nothing can be selected")
 
@@ -142,6 +151,7 @@ def select(
         "changed_files": changed,
         "unindexed_changed_files": unindexed,
         "run": run,
+        "reachable_not_selected": reachable,
         "undetermined": undetermined,
         "selection": {
             "run": selected,

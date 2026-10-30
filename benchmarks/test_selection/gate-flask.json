@@ -1,0 +1,445 @@
+{
+ "repo": "flask",
+ "src": "src/flask",
+ "python": "/tmp/opencode/sel/flask/.venv/bin/python",
+ "index_s": 0.07,
+ "baseline": {
+  "returncode": 0,
+  "duration_s": 2.1,
+  "total": 494,
+  "failed_files": {}
+ },
+ "mutations": [
+  {
+   "name": "remove_ctx",
+   "file": "src/flask/app.py",
+   "lines": [
+    85,
+    91
+   ],
+   "pytest_rc": 0,
+   "failed_files": {},
+   "unmapped": [],
+   "suite_s": 2.1,
+   "status": "unobserved"
+  },
+  {
+   "name": "prepare_import",
+   "file": "src/flask/cli.py",
+   "lines": [
+    201,
+    226
+   ],
+   "pytest_rc": 1,
+   "failed_files": {
+    "tests/test_cli.py": 13
+   },
+   "unmapped": [],
+   "suite_s": 1.8,
+   "status": "measured",
+   "undetermined_disclosed": 0,
+   "direct": {
+    "selected": 3,
+    "hit": 1,
+    "recall": 1.0,
+    "precision": 0.3333,
+    "fraction": 0.1,
+    "missed": []
+   },
+   "closure": {
+    "selected": 30,
+    "hit": 1,
+    "recall": 1.0,
+    "precision": 0.0333,
+    "fraction": 1.0,
+    "missed": []
+   }
+  },
+  {
+   "name": "show_server_banner",
+   "file": "src/flask/cli.py",
+   "lines": [
+    767,
+    777
+   ],
+   "pytest_rc": 1,
+   "failed_files": {
+    "tests/test_basic.py": 34,
+    "tests/test_templating.py": 1
+   },
+   "unmapped": [],
+   "suite_s": 1.9,
+   "status": "measured",
+   "undetermined_disclosed": 0,
+   "direct": {
+    "selected": 3,
+    "hit": 0,
+    "recall": 0.0,
+    "precision": 0.0,
+    "fraction": 0.1,
+    "missed": [
+     "tests/test_basic.py",
+     "tests/test_templating.py"
+    ]
+   },
+   "closure": {
+    "selected": 30,
+    "hit": 2,
+    "recall": 1.0,
+    "precision": 0.0667,
+    "fraction": 1.0,
+    "missed": []
+   }
+  },
+  {
+   "name": "after_this_request",
+   "file": "src/flask/ctx.py",
+   "lines": [
+    121,
+    148
+   ],
+   "pytest_rc": 1,
+   "failed_files": {
+    "tests/test_basic.py": 1
+   },
+   "unmapped": [],
+   "suite_s": 1.9,
+   "status": "measured",
+   "undetermined_disclosed": 0,
+   "direct": {
+    "selected": 1,
+    "hit": 0,
+    "recall": 0.0,
+    "precision": 0.0,
+    "fraction": 0.0333,
+    "missed": [
+     "tests/test_basic.py"
+    ]
+   },
+   "closure": {
+    "selected": 30,
+    "hit": 1,
+    "recall": 1.0,
+    "precision": 0.0333,
+    "fraction": 1.0,
+    "missed": []
+   }
+  },
+  {
+   "name": "explain_template_loading_attempts",
+   "file": "src/flask/debughelpers.py",
+   "lines": [
+    135,
+    179
+   ],
+   "pytest_rc": 1,
+   "failed_files": {
+    "tests/test_templating.py": 1
+   },
+   "unmapped": [],
+   "suite_s": 1.8,
+   "status": "measured",
+   "undetermined_disclosed": 0,
+   "direct": {
+    "selected": 2,
+    "hit": 1,
+    "recall": 1.0,
+    "precision": 0.5,
+    "fraction": 0.0667,
+    "missed": []
+   },
+   "closure": {
+    "selected": 30,
+    "hit": 1,
+    "recall": 1.0,
+    "precision": 0.0333,
+    "fraction": 1.0,
+    "missed": []
+   }
+  },
+  {
+   "name": "url_for",
+   "file": "src/flask/helpers.py",
+   "lines": [
+    209,
+    251
+   ],
+   "pytest_rc": 1,
+   "failed_files": {
+    "tests/test_appctx.py": 1,
+    "tests/test_basic.py": 11,
+    "tests/test_blueprints.py": 4,
+    "tests/test_converters.py": 1,
+    "tests/test_helpers.py": 6,
+    "tests/test_regression.py": 1,
+    "tests/test_reqctx.py": 1,
+    "tests/test_testing.py": 2
+   },
+   "unmapped": [],
+   "suite_s": 1.7,
+   "status": "measured",
+   "undetermined_disclosed": 0,
+   "direct": {
+    "selected": 4,
+    "hit": 2,
+    "recall": 0.25,
+    "precision": 0.5,
+    "fraction": 0.1333,
+    "missed": [
+     "tests/test_appctx.py",
+     "tests/test_basic.py",
+     "tests/test_converters.py",
+     "tests/test_regression.py",
+     "tests/test_reqctx.py",
+     "tests/test_testing.py"
+    ]
+   },
+   "closure": {
+    "selected": 30,
+    "hit": 8,
+    "recall": 1.0,
+    "precision": 0.2667,
+    "fraction": 1.0,
+    "missed": []
+   }
+  },
+  {
+   "name": "flash",
+   "file": "src/flask/helpers.py",
+   "lines": [
+    327,
+    357
+   ],
+   "pytest_rc": 1,
+   "failed_files": {
+    "tests/test_basic.py": 2,
+    "tests/test_signals.py": 1
+   },
+   "unmapped": [],
+   "suite_s": 1.9,
+   "status": "measured",
+   "undetermined_disclosed": 0,
+   "direct": {
+    "selected": 4,
+    "hit": 0,
+    "recall": 0.0,
+    "precision": 0.0,
+    "fraction": 0.1333,
+    "missed": [
+     "tests/test_basic.py",
+     "tests/test_signals.py"
+    ]
+   },
+   "closure": {
+    "selected": 30,
+    "hit": 2,
+    "recall": 1.0,
+    "precision": 0.0667,
+    "fraction": 1.0,
+    "missed": []
+   }
+  },
+  {
+   "name": "dumps",
+   "file": "src/flask/json/__init__.py",
+   "lines": [
+    14,
+    44
+   ],
+   "pytest_rc": 1,
+   "failed_files": {
+    "tests/test_appctx.py": 5,
+    "tests/test_basic.py": 76,
+    "tests/test_blueprints.py": 45,
+    "tests/test_converters.py": 2,
+    "tests/test_helpers.py": 14,
+    "tests/test_json.py": 28,
+    "tests/test_json_tag.py": 11,
+    "tests/test_logging.py": 2,
+    "tests/test_regression.py": 1,
+    "tests/test_reqctx.py": 16,
+    "tests/test_request.py": 2,
+    "tests/test_signals.py": 5,
+    "tests/test_templating.py": 17,
+    "tests/test_testing.py": 21,
+    "tests/test_user_error_handler.py": 8,
+    "tests/test_views.py": 15
+   },
+   "unmapped": [],
+   "suite_s": 2.2,
+   "status": "measured",
+   "undetermined_disclosed": 0,
+   "direct": {
+    "selected": 2,
+    "hit": 2,
+    "recall": 0.125,
+    "precision": 1.0,
+    "fraction": 0.0667,
+    "missed": [
+     "tests/test_appctx.py",
+     "tests/test_basic.py",
+     "tests/test_blueprints.py",
+     "tests/test_converters.py",
+     "tests/test_helpers.py",
+     "tests/test_json_tag.py",
+     "tests/test_logging.py",
+     "tests/test_regression.py",
+     "tests/test_reqctx.py",
+     "tests/test_request.py",
+     "tests/test_signals.py",
+     "tests/test_templating.py",
+     "tests/test_user_error_handler.py",
+     "tests/test_views.py"
+    ]
+   },
+   "closure": {
+    "selected": 30,
+    "hit": 16,
+    "recall": 1.0,
+    "precision": 0.5333,
+    "fraction": 1.0,
+    "missed": []
+   }
+  },
+  {
+   "name": "jsonify",
+   "file": "src/flask/json/__init__.py",
+   "lines": [
+    139,
+    170
+   ],
+   "pytest_rc": 1,
+   "failed_files": {
+    "tests/test_appctx.py": 1,
+    "tests/test_basic.py": 3,
+    "tests/test_json.py": 16,
+    "tests/test_testing.py": 1
+   },
+   "unmapped": [],
+   "suite_s": 1.7,
+   "status": "measured",
+   "undetermined_disclosed": 0,
+   "direct": {
+    "selected": 2,
+    "hit": 2,
+    "recall": 0.5,
+    "precision": 1.0,
+    "fraction": 0.0667,
+    "missed": [
+     "tests/test_appctx.py",
+     "tests/test_basic.py"
+    ]
+   },
+   "closure": {
+    "selected": 30,
+    "hit": 4,
+    "recall": 1.0,
+    "precision": 0.1333,
+    "fraction": 1.0,
+    "missed": []
+   }
+  },
+  {
+   "name": "find_package",
+   "file": "src/flask/sansio/scaffold.py",
+   "lines": [
+    763,
+    800
+   ],
+   "pytest_rc": 1,
+   "failed_files": {
+    "tests/test_appctx.py": 14,
+    "tests/test_async.py": 8,
+    "tests/test_basic.py": 133,
+    "tests/test_blueprints.py": 60,
+    "tests/test_cli.py": 27,
+    "tests/test_config.py": 19,
+    "tests/test_converters.py": 2,
+    "tests/test_helpers.py": 28,
+    "tests/test_instance_config.py": 6,
+    "tests/test_json.py": 26,
+    "tests/test_logging.py": 5,
+    "tests/test_regression.py": 1,
+    "tests/test_reqctx.py": 10,
+    "tests/test_request.py": 3,
+    "tests/test_session_interface.py": 1,
+    "tests/test_signals.py": 7,
+    "tests/test_subclassing.py": 1,
+    "tests/test_templating.py": 32,
+    "tests/test_testing.py": 26,
+    "tests/test_user_error_handler.py": 9,
+    "tests/test_views.py": 15
+   },
+   "unmapped": [],
+   "suite_s": 1.8,
+   "status": "measured",
+   "undetermined_disclosed": 0,
+   "direct": {
+    "selected": 2,
+    "hit": 2,
+    "recall": 0.0952,
+    "precision": 1.0,
+    "fraction": 0.0667,
+    "missed": [
+     "tests/test_appctx.py",
+     "tests/test_async.py",
+     "tests/test_basic.py",
+     "tests/test_cli.py",
+     "tests/test_config.py",
+     "tests/test_converters.py",
+     "tests/test_helpers.py",
+     "tests/test_instance_config.py",
+     "tests/test_json.py",
+     "tests/test_logging.py",
+     "tests/test_regression.py",
+     "tests/test_reqctx.py",
+     "tests/test_request.py",
+     "tests/test_session_interface.py",
+     "tests/test_signals.py",
+     "tests/test_subclassing.py",
+     "tests/test_testing.py",
+     "tests/test_user_error_handler.py",
+     "tests/test_views.py"
+    ]
+   },
+   "closure": {
+    "selected": 30,
+    "hit": 21,
+    "recall": 1.0,
+    "precision": 0.7,
+    "fraction": 1.0,
+    "missed": []
+   }
+  }
+ ],
+ "pooled": {
+  "direct": {
+   "mutations": 9,
+   "unobserved": 1,
+   "unusable": 0,
+   "failing_test_files": 56,
+   "hits": 10,
+   "selected": 23,
+   "recall": 0.1786,
+   "precision": 0.4348,
+   "median_recall": 0.125,
+   "median_fraction": 0.0667,
+   "disclosed_of_missed": 0,
+   "unmapped_testcases": 0
+  },
+  "closure": {
+   "mutations": 9,
+   "unobserved": 1,
+   "unusable": 0,
+   "failing_test_files": 56,
+   "hits": 56,
+   "selected": 270,
+   "recall": 1.0,
+   "precision": 0.2074,
+   "median_recall": 1.0,
+   "median_fraction": 1.0,
+   "disclosed_of_missed": 0,
+   "unmapped_testcases": 0
+  }
+ }
+}

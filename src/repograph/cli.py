@@ -271,6 +271,10 @@ def tests(
     typer.echo(f"\ncannot rule out ({sel['undetermined']}):")
     for u in data["undetermined"][:20]:
         typer.echo(f"  {u['path']}  ({u['reason']})")
+    if data["reachable_not_selected"]:
+        typer.echo(f"\nreachable but not selected ({len(data['reachable_not_selected'])}):")
+        for p in data["reachable_not_selected"][:20]:
+            typer.echo(f"  {p}")
     for c in data["caveats"]:
         typer.echo(f"  note: {c}")
 

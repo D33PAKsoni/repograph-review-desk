@@ -1,6 +1,6 @@
 .venv/
 /.repograph/
-.repograph/index.db
+**/.repograph/index.db
 __pycache__/
 *.pyc
 .pytest_cache/

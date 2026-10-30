@@ -1,6 +1,6 @@
 # Status report
 
-**Date:** 2026-10-28
+**Date:** 2026-10-31
 **Version:** 0.1.0 alpha
 **Repository:** `/home/darion-dev/repograph` — published source at `https://github.com/INDEX0-RESEARCH-LABS/repograph` (no release, package publication or announcement)
 
@@ -9,6 +9,8 @@
 RepoGraph is a working local tool: it indexes real Python/TypeScript/JavaScript repositories, exposes a CLI and six MCP tools, and produces evidence-backed impact reports with explicit blind spots. The engineering baseline is tested, and **edge accuracy is measured on a fresh corpus**: round 5 (httpx, zustand, mocha — never indexed or tuned against) measured **98.3% precision on 120 resolved edges** (Wilson 94.1%–99.5%) and **93.7% estimated recall** (118/126; Wilson 88.0%–96.8%). Both precision errors are one resolver defect (a root `tsconfig` alias leaking into example apps); it is fixed, and the within-sample recheck resolves both audited rows with no change to any previously correct sampled edge, so the estimate itself is unchanged.
 
 The **product claim is still only partly validated**. There is no user study and no evidence that the tool changes agent behavior. A five-pair agent pilot compared control against a prompt offering the RepoGraph CLI: both arms were perfect on grep-solvable rename tasks, and session transcripts show no treatment run actually invoked the tool, so the pilot measured prompt wording rather than graph access. Missing edges remain the main risk, not wrong ones. Setup now ships the agent instructions alongside the server, but whether that closes the 0/5 invocation gap is untested. The competitive field is crowded, including projects already claiming evidence/confidence and impact analysis.
+
+The **affected-tests gate failed its own pre-registered bar**. On 22 one-function mutations in click, Flask and packaging, `repograph tests` caught 41 of 180 failing test files (pooled recall 0.23, median 0.38) while selecting a median 6.7% of files. Unioned with every file it disclosed as reachable-but-unselected, recall reaches 179/180 — at 98.9% of the suite, so there is no saving. Static import-graph test selection is not viable as a gate here; the command is documented and shipped as a disclosure aid that must be backed by a full suite run (`research/TEST_SELECTION_GATE_RESULTS.md`).
 
 ## Implemented
 
@@ -48,9 +50,12 @@ The **product claim is still only partly validated**. There is no user study and
 - MCP stdio server and optional streamable HTTP (localhost default, no auth).
 - Six tools: `search_symbols`, `find_references`, `get_dependency_graph`, `analyze_change_impact`, `find_related_tests`, `get_architecture_summary`.
 - `REPOGRAPH_ROOT` support for `python -m repograph.mcp_server`.
-- `repograph tests --diff` selects the tests a change needs and reports the tests it cannot rule
-  out (unparsed file, unresolved internal import, changed `conftest.py`, changed file not indexed);
+- `repograph tests --diff` reports the test files a change reaches, the tests it cannot rule
+  out (unparsed file, unresolved internal import, changed `conftest.py`, changed file not indexed),
+  and the test files reachable through dependent modules that it did **not** select;
   `--strict` exits 3, and `--command` emits the pytest line for CI.
+  It is a disclosure aid, not a gate: `research/TEST_SELECTION_GATE_RESULTS.md` measured pooled
+  file recall of 0.23 (41/180) at a median 6.7% of files selected.
 - `repograph setup` registers the server with Claude Code, Cursor or Codex and installs the agent
   instructions that make the tool get called: diff before writing, one-time `.bak`, idempotent
   re-runs, and a launch command verified to work from an unrelated working directory.
@@ -69,16 +74,16 @@ The **product claim is still only partly validated**. There is no user study and
 ### Tests
 
 ```
-75 passed
+76 passed
 ```
 
 Coverage (direct in-process measurement):
 
 ```
-TOTAL 2510 statements, 780 missed, 69%
+TOTAL 2520 statements, 784 missed, 69%
 ```
 
-The CLI and MCP server show 0% direct coverage because they are tested through subprocesses (`python -m repograph`, stdio MCP client). Their behavior is exercised; the coverage tool does not attribute it to those modules. Core modules: `impact.py` 93%, `indexer.py` 96%, `store.py` 94%, `resolve.py` 91%, `extract.py` 89%, `agent_setup.py` 80%, `test_gate.py` 93%.
+The CLI and MCP server show 0% direct coverage because they are tested through subprocesses (`python -m repograph`, stdio MCP client). Their behavior is exercised; the coverage tool does not attribute it to those modules. Core modules: `impact.py` 94%, `indexer.py` 96%, `store.py` 94%, `resolve.py` 91%, `extract.py` 89%, `agent_setup.py` 80%, `test_gate.py` 94%.
 
 Reproduce:
 
@@ -185,7 +190,7 @@ Full method and threats to validity: `research/EDGE_ACCURACY_RESULTS.md`. Raw ar
 
 ## Launch readiness
 
-**Ready for an experimental, feedback-seeking release if the maintainer authorizes it.** Not ready for a "complete dependency coverage" or blocking-CI claim.
+**Ready for an experimental, feedback-seeking release if the maintainer authorizes it.** Not ready for a "complete dependency coverage" or blocking-CI claim. The affected-tests gate is explicitly not a blocking-CI product: it measured 0.23 pooled recall.
 
 Done:
 

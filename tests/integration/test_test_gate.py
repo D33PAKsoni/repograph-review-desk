@@ -86,6 +86,19 @@ def test_git_diff_and_unindexed_change(indexed: Path):
     assert data["exit_code"] == 0
 
 
+def test_reachable_tests_are_disclosed_not_silently_dropped(indexed: Path):
+    # tests/test_deep.py -> shop/api/routes.py -> shop/services/subscription.py
+    deep = indexed / "tests" / "test_deep.py"
+    deep.write_text("from shop.api.routes import refund\n\n"
+                    "def test_refund() -> None:\n    assert refund()\n", encoding="utf-8")
+    index_repository(indexed)
+
+    data = _select(indexed, paths=["src/shop/services/subscription.py"])
+
+    assert "tests/test_deep.py" not in {t["path"] for t in data["run"]}
+    assert "tests/test_deep.py" in data["reachable_not_selected"]
+
+
 def test_cli_json_and_strict_exit(indexed: Path):
     out = subprocess.run(
         [sys.executable, "-m", "repograph", "tests",
