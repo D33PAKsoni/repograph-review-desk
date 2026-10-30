@@ -16,6 +16,11 @@ No dates. Items move when they are tested, not when they are announced.
 - [x] Unit, integration, CLI, MCP and security tests.
 - [x] Reproducible benchmarks on five public repositories.
 - [x] Edge-accuracy evaluation on development and unseen repositories (`research/EDGE_ACCURACY_RESULTS.md`).
+- [x] Affected-tests gate measured against real pytest outcomes and **rejected**: 0.23 pooled file recall at 6.7% selected (`research/TEST_SELECTION_GATE_RESULTS.md`). The command ships as a disclosure aid that names the files it did not select.
+
+## Not planned (measured and rejected)
+
+- [ ] Static-graph test selection as a CI gate. Measured 0.23 pooled recall; running the disclosed reachable files instead selects 98.9% of the suite. Revisit only with an execution-trace or coverage-measured oracle, not another import-graph heuristic.
 
 ## 0.2 — precision before breadth
 

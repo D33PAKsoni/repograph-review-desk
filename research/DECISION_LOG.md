@@ -180,3 +180,17 @@ Architecture and product decisions, newest context first. Status values: **accep
 **Consequences:** A clean estimate or a measured regression, either of which is acceptable; a number measured on tuned data is not.
 
 **Outcome (2026-10-28, after the round was reported):** 118/120 resolved edges correct (98.3% precision, Wilson 94.1%–99.5%) and 118/126 recall (93.7%, Wilson 88.0%–96.8%); weighted 99.5% / 98.5%. Both precision errors are the root `tsconfig` alias leaking into `examples/*`; all 8 agreed misses are mocha JSON `require`s. The advisory claim holds. The resolver change is now permitted and was made: `tsconfig` aliases follow the config's `include`, and cross-package bare names resolve only for a package's own files or inside a declared workspace. Within-sample recheck: both audited errors become `external`, 118/118 correct rows unchanged, 201/203 rows unchanged; the estimate stays at 98.3%. See `EDGE_ACCURACY_RESULTS.md`, "Round 5 results".
+
+---
+
+## D-012 — Reject the affected-tests gate on measured recall
+
+**Date:** 2026-10-31 · **Status:** accepted, measurement complete, claim withdrawn
+
+**Context:** Pivot A (§7 of `BRUTAL_REVIEW.md`) was built and its kill criteria fixed in advance: pooled file recall ≥ 0.80 and median ≥ 0.75, with a ≤ 25% median cost target. The gate remains the only part of the project with an objective oracle, so a negative result here is decisive rather than provisional.
+
+**Decision:** Measure `repograph tests` against real pytest outcomes on one-function mutations in click, flask and packaging; report the selection alone and the selection unioned with every file the tool discloses as reachable. Ship the disclosed set in the command's output. Stop claiming test selection works, stop pivoting, and document the measured number next to the feature.
+
+**Outcome:** 22 scored mutations, 180 failing test files. Selection alone: 41/180 = 0.228 pooled, median 0.381, median 6.7% of files selected. Selection ∪ disclosed reachability: 179/180 = 0.994 at 98.9% of the suite. No operating point satisfies both recall and cost. The pre-registered bar is not met; the §6 recall threshold (≥ 95%) is missed by the cheap arm and the cost threshold (≤ 25%) by the safe arm.
+
+**Consequences:** `repograph tests` is a disclosure aid, documented as heuristic, with "run the suite" next to it. The remaining open question is distribution, not engineering: the project needs users or it should end. A future attempt at test selection needs a different oracle (execution traces, coverage from a prior run, or failure history), and a fresh pre-registration — not another import-graph heuristic.

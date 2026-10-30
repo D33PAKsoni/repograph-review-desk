@@ -6,8 +6,14 @@ All notable changes to this project are documented here. The format is based on 
 
 ### Added
 
+- `repograph tests` prints `reachable but not selected`: test files that reach the change through dependent modules but are not in the selection. `select()` returns the same list as `reachable_not_selected` (`--json`).
+- `benchmarks/test_selection/gate_measure.py` and `research/TEST_SELECTION_GATE_RESULTS.md`: 22 one-function mutations across click, flask and packaging scored against real pytest outcomes.
 - Pre-registered edge-accuracy protocol, deterministic stratified sampler/reporter (`benchmarks/edge_accuracy.py`), independent labels and weighted precision/recall reports in `benchmarks/eval/`.
 - `research/EDGE_ACCURACY_RESULTS.md`: baseline, development rounds and an unseen final test (flask, vite, svelte) with threats to validity.
+
+### Changed
+
+- Test selection is documented and shipped as a disclosure aid, not a gate: pooled file recall measured 0.23 (41/180) at a median 6.7% of files selected, below the pre-registered 0.80 bar. README, `STATUS.md`, `ROADMAP.md` and `docs/LIMITATIONS.md` now state the number and say to run the suite.
 
 ### Fixed
 
