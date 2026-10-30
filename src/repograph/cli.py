@@ -233,7 +233,7 @@ def tests(
     ),
     as_json: bool = typer.Option(False, "--json"),
 ) -> None:
-    """Select the tests a change needs, and list the ones it cannot rule out."""
+    """Test files a change reaches, and the ones that cannot be ruled out (heuristic)."""
     from .test_gate import select
 
     if not paths and not diff:
