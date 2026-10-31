@@ -9,3 +9,6 @@ htmlcov/
 dist/
 build/
 *.egg-info/
+
+service/.env
+.env
