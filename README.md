@@ -60,12 +60,11 @@ Python, TypeScript, JavaScript, JSX and TSX. Static analysis only. **Alpha.**
 Python 3.10 or newer. Nothing else — no database server, no Docker, no cloud.
 
 ```bash
-git clone https://github.com/INDEX0-RESEARCH-LABS/repograph.git
-cd repograph && python -m venv .venv && .venv/bin/pip install -e .
-.venv/bin/repograph version
+pip install repograph-codeintel
+repograph version
 ```
 
-Not on PyPI yet. `pipx install --editable .` works too. Linux is tested in CI; macOS and Windows should work but are untested.
+Or isolated: `pipx install repograph-codeintel`. From source instead: clone the repository and `pip install -e .`. Linux is tested in CI; macOS and Windows should work but are untested.
 
 ## Use
 

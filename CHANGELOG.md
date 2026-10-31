@@ -4,6 +4,8 @@ All notable changes to this project are documented here. The format is based on 
 
 ## [Unreleased]
 
+Published as `repograph-codeintel` **0.1.0** on PyPI on 2026-10-31; this section lists what shipped in that artifact on top of the initial alpha below.
+
 ### Added
 
 - `repograph tests` prints `reachable but not selected`: test files that reach the change through dependent modules but are not in the selection. `select()` returns the same list as `reachable_not_selected` (`--json`).
