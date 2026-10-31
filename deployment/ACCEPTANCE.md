@@ -63,7 +63,7 @@ Manual reproduction: start with `npm start`; Tab to the skip link, press Enter, 
 
 | Requirement | Status |
 | --- | --- |
-| Team repository/branch/commit verified and pushed | Companion repository verified empty; local Git initialized; initial push being prepared |
+| Team repository/branch/commit verified and pushed | PASS: companion `main` pushed; initial source `a7231b9aa5c1c16d33abf81c397f6a3192ca182a` independently verified through GitHub |
 | Cloudways Velocity deployment | Access confirmed by user; public deployment pending |
 | Public mock URL and observed public health | PENDING |
 | Real Member 1 generated bundle and source availability | PENDING handoff |

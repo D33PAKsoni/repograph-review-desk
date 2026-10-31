@@ -16,6 +16,7 @@ Updated: 31 October 2026 (IST), Velocity access confirmed and companion reposito
 - [x] Audit 5 UI states at 2 widths for accessibility; fix low contrast; all 10 scans have zero detected A/AA violations.
 - [x] Add offline mock/production preflight and verify explicit production blockers without inference or secret output.
 - [x] Prepare and generate the owned-file handoff archive (39 entries, about 3.5 MB); inventory/read-back verification and SHA-256 checksum pass; repository instructions in HANDOFF.md.
+- [x] Publish the complete companion starter/UI to `D33PAKsoni/repograph-review-desk` on `main`; verify GitHub head matches source commit `a7231b9aa5c1c16d33abf81c397f6a3192ca182a`.
 - [ ] Publish labeled mock and record public URL, deployment commit and observed health.
 - [ ] Integrate Member 1 generated bundle and Member 2 real service; verify public live Gemma briefing.
 
@@ -54,7 +55,7 @@ The user confirmed they can sign in and perform Cloudways deployment. Instructio
 
 ## Blockers and external dependencies
 
-- Local Git checkout initialized and linked to `https://github.com/D33PAKsoni/repograph-review-desk.git`; initial commit/push being prepared. Remote confirmed empty before initialization.
+- Local Git checkout initialized and linked to `https://github.com/D33PAKsoni/repograph-review-desk.git`. Initial complete source commit `a7231b9aa5c1c16d33abf81c397f6a3192ca182a` pushed to `main` and independently verified through GitHub. Initial snapshot has 55 files; no dependencies, private `.env`, traces, archive output or `web/dist` are tracked.
 - User now has Velocity access. Account-access blocker is resolved; public URL, actual runtime settings and deployed health remain unverified.
 - Existing core fork stays at `https://github.com/D33PAKsoni/repograph`. New companion repository is `https://github.com/D33PAKsoni/repograph-review-desk`; no original fork files were changed.
 - `data/production/artifact-bundle.json` and `service/api-handler.mjs` have not been supplied. Final integration depends on those handoffs; local UI work does not.
@@ -63,7 +64,7 @@ The user confirmed they can sign in and perform Cloudways deployment. Instructio
 
 ## Next actions
 
-1. Publish the verified complete starter/UI snapshot to companion `main`, verify the remote commit, and establish `feature/web-deploy`. Team should add Members 1/2 as collaborators on the companion repository.
+1. Continue Member 3 work on `feature/web-deploy` from the published shared base. Team should add Members 1/2 as collaborators on the companion repository.
 2. User: connect the companion repository's `main` in Velocity and deploy the labeled mock using RUNBOOK; record public URL and exact deployment commit.
 3. Run `node deployment/smoke.mjs PUBLIC_URL --record`; verify logged-out public access and record actual account settings/health.
 4. At integration, consume Member 1/2 handoff manifests and fixed files, run production preflight and their checks, switch production environment and redeploy.

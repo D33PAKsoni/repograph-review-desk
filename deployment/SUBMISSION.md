@@ -4,7 +4,7 @@
 
 ## Links and ownership
 
-- Companion source URL: [D33PAKsoni/repograph-review-desk](https://github.com/D33PAKsoni/repograph-review-desk); initial push/final integration SHA pending verification.
+- Companion source URL: [D33PAKsoni/repograph-review-desk](https://github.com/D33PAKsoni/repograph-review-desk); initial source `a7231b9aa5c1c16d33abf81c397f6a3192ca182a` pushed and verified. Final production integration/deployment SHA remains pending.
 - Public Cloudways URL / deployed SHA: **PENDING deployment**; user now has Velocity access.
 - Baseline RepoGraph: [INDEX0-RESEARCH-LABS/repograph](https://github.com/INDEX0-RESEARCH-LABS/repograph), commit `3449061d736ef72845701e0c4bf3a6ce8c916d73`.
 - Member 3 implemented UI and deployment assets; Members 1/2 own real tool artifacts and live API/Gemma. Frozen starter components are not claimed as new team work.

@@ -45,6 +45,6 @@ This validates Member 1's generated bundle and checks the Member 2 handler file 
 ## Remaining external checkpoints
 
 - User now has Velocity access; public application deployment and health pending.
-- Companion repository confirmed: `https://github.com/D33PAKsoni/repograph-review-desk`; first verified pushed commit pending.
+- Companion repository published: `https://github.com/D33PAKsoni/repograph-review-desk`; initial source `a7231b9aa5c1c16d33abf81c397f6a3192ca182a` verified on GitHub. Final production integration/deployed commit pending.
 - Member 1 generated bundle and Member 2 real API/live-model handoffs.
 - Public real-data/live-inference smoke and live demo.

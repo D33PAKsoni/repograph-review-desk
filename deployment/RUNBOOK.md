@@ -1,6 +1,6 @@
 # Cloudways deployment and local operation
 
-Status, 31 October 2026 IST: user now has Velocity access. Companion repository: [D33PAKsoni/repograph-review-desk](https://github.com/D33PAKsoni/repograph-review-desk). The verified starter/UI are being prepared for the initial `main` push; public application URL and health remain pending. The original `repograph` fork remains the analysis source.
+Status, 31 October 2026 IST: user now has Velocity access. Companion repository: [D33PAKsoni/repograph-review-desk](https://github.com/D33PAKsoni/repograph-review-desk). Complete starter/UI published to `main`; initial source commit `a7231b9aa5c1c16d33abf81c397f6a3192ca182a` verified on GitHub. Public application URL and health remain pending. The original `repograph` fork remains the analysis source.
 
 ## Local commands in VS Code
 
@@ -27,7 +27,7 @@ node deployment/smoke.mjs http://127.0.0.1:3000 --record
 
 ## GitHub preparation — manual steps
 
-The companion checkout is initialized and linked to `https://github.com/D33PAKsoni/repograph-review-desk.git`. Initial `main` will contain the complete shared starter and Member 3 UI; deploy this branch for the initial mock. Continue UI work on `feature/web-deploy`, and have Members 1/2 branch from the shared base for their owned directories. Do not overwrite teammates' work.
+The companion checkout is initialized and linked to `https://github.com/D33PAKsoni/repograph-review-desk.git`. Published `main` contains the complete shared starter and Member 3 UI; deploy this branch for the initial mock. Continue UI work on `feature/web-deploy`, and have Members 1/2 branch from the shared base for their owned directories. Do not overwrite teammates' work.
 
 Stage `web/` source/config/lockfile, `deployment/`, root package/lockfile and project documentation. The existing `.gitignore` excludes `web/dist`, `node_modules`, private `.env` files and logs; `web/.gitignore` excludes browser traces/results. Source deployment builds `dist` on Cloudways. Preserve all starter files in the deployable repository. Record the exact pushed commit in the deployment record below.
 
@@ -42,6 +42,23 @@ Stage `web/` source/config/lockfile, `deployment/`, root package/lockfile and pr
 7. Deploy once local checks pass. Watch build/start logs, then copy the temporary public application URL and exact deployment commit. Do not copy credentials or key values into logs/screenshots/chat.
 8. In a private/incognito browser window, open the public URL and `/api/v1/health`. The UI must say **Synthetic fixture**, **Mock API**, and **Fixture / no model called**. Complete a briefing, inspect GF001/RG001, and download Markdown.
 9. From the local project terminal run `node deployment/smoke.mjs https://YOUR-PUBLIC-HOST --record`. Copy its observed health into the record below. A mock smoke proves hosting/contract compatibility only.
+
+### Exact initial Velocity settings
+
+| Field | Value |
+| --- | --- |
+| Repository | `D33PAKsoni/repograph-review-desk` |
+| Branch | `main` |
+| Framework | Other/custom Node.js where available; preserve Node startup if React is detected |
+| Node | `24` (or 22.12+) |
+| Root directory | `/` (repository root) |
+| Package manager | npm |
+| Build command | `npm run build` |
+| Start command / Entry command | `npm start` |
+| Build output, if requested | `web/dist`; still serve through the Node launcher |
+| Health path, if configurable | `/api/v1/health` |
+
+Initial variables: `WEB_DIST=web/dist`, `ARTIFACT_BUNDLE=fixtures/artifact-bundle.fixture.json`, `AI_MODE=fixture`, `NPM_CONFIG_INCLUDE=dev`. The final setting ensures the build installs Vite/TypeScript even if the platform sets production npm behavior. Leave `API_HANDLER_MODULE` and `GEMMA_API_KEY` absent; preserve the platform's `PORT`.
 
 Cloudways settings are documented in the official [launch guide](https://support.cloudways.com/en/articles/15550368-how-to-launch-an-application-on-cloudways-velocity) and [deployment management guide](https://support.cloudways.com/en/articles/16187473-how-to-manage-deployments-for-your-application-on-cloudways-velocity), consulted 31 October 2026. Account controls may differ. Node start-command override is required even if React is detected automatically.
 
@@ -75,6 +92,7 @@ This makes a real inference request. It checks health, built UI, generated artif
 
 - Public URL: **PENDING**.
 - Repository URL/branch: `https://github.com/D33PAKsoni/repograph-review-desk`, `main` for initial deployment.
+- Initial verified source commit: `a7231b9aa5c1c16d33abf81c397f6a3192ca182a`; later documentation-only commits may follow it. Record the exact commit Velocity deploys below.
 - Deployment commit: **PENDING**.
 - Account preset/Node version: **PENDING account verification**; configuration prepared for custom Node 22/24.
 - Build: `npm run build`; start: `npm start`.
