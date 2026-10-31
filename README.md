@@ -1,15 +1,15 @@
 <h1 align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="docs/assets/hero-dark.svg">
-    <img src="docs/assets/hero.svg" alt="RepoGraph — local code graph and change impact analysis for AI coding agents" width="620">
+    <img src="https://raw.githubusercontent.com/INDEX0-RESEARCH-LABS/repograph/main/docs/assets/hero.svg" alt="RepoGraph — local code graph and change impact analysis for AI coding agents" width="620">
   </picture>
 </h1>
 
 <p align="center">
   <a href="https://github.com/INDEX0-RESEARCH-LABS/repograph/actions/workflows/ci.yml"><img src="https://github.com/INDEX0-RESEARCH-LABS/repograph/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
   <a href="https://www.python.org/downloads/"><img src="https://img.shields.io/badge/python-3.10%2B-3776AB" alt="Python 3.10+"></a>
-  <a href="LICENSE"><img src="https://img.shields.io/badge/license-Apache--2.0-blue" alt="Apache-2.0"></a>
-  <a href="STATUS.md"><img src="https://img.shields.io/badge/status-alpha-orange" alt="alpha"></a>
+  <a href="https://github.com/INDEX0-RESEARCH-LABS/repograph/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-Apache--2.0-blue" alt="Apache-2.0"></a>
+  <a href="https://github.com/INDEX0-RESEARCH-LABS/repograph/blob/main/STATUS.md"><img src="https://img.shields.io/badge/status-alpha-orange" alt="alpha"></a>
 </p>
 
 <p align="center">

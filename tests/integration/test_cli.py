@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import subprocess
 import sys
 from pathlib import Path
@@ -17,9 +18,12 @@ def run_cli(repo: Path, *args: str) -> subprocess.CompletedProcess:
 
 
 def test_version_and_init(repo: Path):
+    from repograph import __version__
+
     out = run_cli(repo, "version")
     assert out.returncode == 0
-    assert out.stdout.strip() == "0.1.0"
+    assert out.stdout.strip() == __version__
+    assert re.fullmatch(r"\d+\.\d+\.\d+", __version__)
 
     out = run_cli(repo, "init", str(repo))
     assert out.returncode == 0

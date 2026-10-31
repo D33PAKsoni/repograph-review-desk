@@ -4,7 +4,16 @@ All notable changes to this project are documented here. The format is based on 
 
 ## [Unreleased]
 
-Published as `repograph-codeintel` **0.1.0** on PyPI on 2026-10-31; this section lists what shipped in that artifact on top of the initial alpha below.
+Nothing yet.
+
+## [0.1.1] — 2026-10-31
+
+Packaging fix only: the README rendered on PyPI pointed its hero image and two links at
+relative paths, which do not resolve there. No code change.
+
+## [0.1.0] — 2026-10-31
+
+First public release (`repograph-codeintel` on PyPI).
 
 ### Added
 
@@ -35,11 +44,11 @@ Published as `repograph-codeintel` **0.1.0** on PyPI on 2026-10-31; this section
 - Directories named `env` are no longer excluded (`lib/env/data.js`).
 - `from . import mod` no longer emits a duplicate package edge, while attribute imports keep the `__init__` edge.
 
-## [0.1.0] — 2026-10-27
+#### Initial alpha (never published, 2026-10-27)
 
-First alpha. Local-only, read-only analysis.
+Local-only, read-only analysis.
 
-### Added
+#### Added
 
 - Incremental SQLite index in `.repograph/index.db`, with SHA-256 checking, WAL mode and per-file transactions.
 - tree-sitter extraction for Python, TypeScript, TSX, JavaScript, JSX and Prisma: symbols, imports, references, decorators, routes and model tags.
@@ -54,7 +63,7 @@ First alpha. Local-only, read-only analysis.
 - Tests covering extraction, resolution, scanning, incremental indexing, impact, CLI subprocess behavior, MCP stdio behavior and non-execution.
 - Reproducible benchmark script and measured results for express, click, requests, vue-core and fastapi.
 
-### Known limitations
+#### Known limitations
 
 - Static analysis only; dynamic targets, reflection, runtime DI and external consumers are not modeled.
 - Only Python and TypeScript/JavaScript have first-class support. Express-style CommonJS exports are weakly extracted.
