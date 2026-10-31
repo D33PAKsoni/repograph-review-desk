@@ -10,7 +10,7 @@ Member 3's implementation uses only relative `/api/v1/...` URLs. No changes to t
 - [x] Explicit analysis/inference labels, original confidence labels, null-source explanation.
 - [x] Public deployment instructions, acceptance report and submission draft.
 - [x] Accessibility A/AA scans, offline preflight and owned-file handoff packager.
-- [ ] Shared repository branch/commit/remote verified.
+- [x] Shared repository and remote verified: initial source `a7231b9`, documentation head `0b18955`, with `feature/web-deploy` created from the published shared base.
 - [ ] Public mock health and URL recorded.
 
 ## Member 1 checkpoint (await handoff; do not create substitute data)

@@ -12,6 +12,9 @@ async function get(path, body) {
     signal: AbortSignal.timeout(90000),
     ...(body ? { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) } : {}),
   });
+  if (!response.headers.get('content-type')?.includes('application/json')) {
+    throw new Error(`HTTP ${response.status} from ${path}; expected API JSON, received ${response.headers.get('content-type') ?? 'unknown content type'}`);
+  }
   const envelope = await response.json();
   assert.equal(response.ok, true, `HTTP ${response.status} (${envelope.error?.code ?? 'unexpected response'})`);
   assert.equal(envelope.schemaVersion, '1.0.0');

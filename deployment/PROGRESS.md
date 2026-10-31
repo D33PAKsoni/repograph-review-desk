@@ -49,6 +49,16 @@ Final local verification:
 - `npm run package:handoff`: PASS; `deployment/handoff/member-3-overlay.tar.gz` contains 39 entries. Archive read-back matches the owned-file allowlist; `MANIFEST.json` records per-file hashes and `SHA256SUMS.txt` records the archive checksum. Excludes frozen files, teammate directories, credentials, installed dependencies and build output.
 - Refreshed fixture demo and desktop/mobile screenshots after accessibility fixes. Upstream baseline LICENSE verified read-only as Apache-2.0; companion attribution clarified.
 
+## First public runtime check and startup fix
+
+- User reported build success and supplied `https://nodejs-1684692-6760452.cloudwaysnodeapps.com/`.
+- Direct HTTP checks and independent browser navigation both observed **502 Bad Gateway**. Homepage and `/api/v1/health` return Cloudflare HTML; no healthy public UI/API or briefing is claimed. Public smoke record now contains the actual failed result.
+- Reproduced a hosting compatibility issue: importing frozen `bootstrap/server.mjs` starts no listener because of its direct-CLI guard. PM2's official ESM loader uses import. Actual account runtime logs have been requested to confirm the deployed failure cause.
+- Added owned `deployment/cloudways-entry.mjs`, which explicitly starts the unchanged launcher factory, honors `PORT`/`0.0.0.0`, sends PM2 ready notification and closes gracefully.
+- Three hosting checks pass: ESM-import startup and fixture health from a different cwd, invalid PORT rejection, and explicitly missing handler failure without fallback. No frozen files edited.
+- Full verification after the adapter change: **37 checks pass** (14 starter + 3 hosting + 20 browser/accessibility), plus strict TypeScript. User-provided proxy logs confirm connection refused to upstream `127.0.0.1:3000`; raw logs/client addresses are not copied into the repository.
+- Updated smoke diagnostics to identify non-JSON HTTP failures clearly. Awaiting successful redeploy using hosting Entry File `deployment/cloudways-entry.mjs`; public health and actual deployment commit remain pending.
+
 ## Manual steps already supplied to the user
 
 The user confirmed they can sign in and perform Cloudways deployment. Instructions provided: open Velocity rather than the PHP/WordPress wizard; connect team repository; select custom Node 22/24; use root `npm run build` and `npm start`; set fixture environment with `API_HANDLER_MODULE` absent; deploy after passing checks; return URL and deployment commit. Full VS Code, account and browser steps are in RUNBOOK.
@@ -56,7 +66,7 @@ The user confirmed they can sign in and perform Cloudways deployment. Instructio
 ## Blockers and external dependencies
 
 - Local Git checkout initialized and linked to `https://github.com/D33PAKsoni/repograph-review-desk.git`. Initial complete source commit `a7231b9aa5c1c16d33abf81c397f6a3192ca182a` pushed to `main` and independently verified through GitHub. Initial snapshot has 55 files; no dependencies, private `.env`, traces, archive output or `web/dist` are tracked.
-- User now has Velocity access. Account-access blocker is resolved; public URL, actual runtime settings and deployed health remain unverified.
+- Public build reportedly succeeded, but runtime verification returned 502. Configure/redeploy the PM2-compatible hosting entry and inspect logs; healthy public startup remains blocked.
 - Existing core fork stays at `https://github.com/D33PAKsoni/repograph`. New companion repository is `https://github.com/D33PAKsoni/repograph-review-desk`; no original fork files were changed.
 - `data/production/artifact-bundle.json` and `service/api-handler.mjs` have not been supplied. Final integration depends on those handoffs; local UI work does not.
 - Live model, public deployment and real analysis are not yet verified. The recorded local backup is synthetic-fixture/canned-inference only. Synthetic fixtures and canned inference remain visibly labeled.
@@ -65,7 +75,7 @@ The user confirmed they can sign in and perform Cloudways deployment. Instructio
 ## Next actions
 
 1. Continue Member 3 work on `feature/web-deploy` from the published shared base. Team should add Members 1/2 as collaborators on the companion repository.
-2. User: connect the companion repository's `main` in Velocity and deploy the labeled mock using RUNBOOK; record public URL and exact deployment commit.
-3. Run `node deployment/smoke.mjs PUBLIC_URL --record`; verify logged-out public access and record actual account settings/health.
+2. User: set Velocity Entry File to `deployment/cloudways-entry.mjs` after the adapter is published, save/redeploy, and supply runtime logs if 502 persists.
+3. Rerun public smoke and browser journey after startup recovers; record actual account settings, deployed SHA and health.
 4. At integration, consume Member 1/2 handoff manifests and fixed files, run production preflight and their checks, switch production environment and redeploy.
 5. Run the production smoke with actual model; verify real source links, live response/export and public demo; fill final links/SHA in submission documents.

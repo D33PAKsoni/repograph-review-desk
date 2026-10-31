@@ -1,17 +1,7 @@
 {
-  "checkedAt": "2026-10-31T06:49:57.692Z",
-  "baseUrl": "http://127.0.0.1:3000",
+  "checkedAt": "2026-10-31T07:46:09.681Z",
+  "baseUrl": "https://nodejs-1684692-6760452.cloudwaysnodeapps.com/",
   "verification": "mock",
-  "passed": true,
-  "health": {
-    "status": "ok",
-    "apiMode": "mock",
-    "aiMode": "fixture",
-    "artifactKind": "fixture",
-    "gemmaConfigured": false
-  },
-  "caseId": "subscription-change",
-  "commitSha": "0000000000000000000000000000000000000000",
-  "model": null,
-  "inferenceMode": "fixture"
+  "passed": false,
+  "error": "HTTP 502 from /api/v1/health; expected API JSON, received text/html; charset=UTF-8"
 }

@@ -8,6 +8,7 @@ Verified 31 October 2026 (IST), including follow-up checks while hosting credits
 | --- | --- | --- |
 | Supplied bundle + briefing validation | PASS | `node contracts/validate.mjs --bundle fixtures/artifact-bundle.fixture.json --briefing fixtures/briefing.fixture.json` |
 | Supplied starter checks | 14 / 14 PASS | `npm run test:starter` (also included in `npm test`) |
+| Hosting startup checks | 3 / 3 PASS | `npm run test:hosting`; entry imported as ESM, non-project cwd, invalid port and missing handler |
 | Clean locked-dependency build | PASS | Root `npm run build`: frontend `npm ci`, TypeScript, Vite; `web/dist/index.html` produced |
 | Strict TypeScript | PASS | `npm --prefix web run check` |
 | Production-build browser journey + accessibility | 20 / 20 PASS | `npm test`; isolated launcher, port 4310 |
@@ -65,7 +66,7 @@ Manual reproduction: start with `npm start`; Tab to the skip link, press Enter, 
 | --- | --- |
 | Team repository/branch/commit verified and pushed | PASS: companion `main` pushed; initial source `a7231b9aa5c1c16d33abf81c397f6a3192ca182a` independently verified through GitHub |
 | Cloudways Velocity deployment | Access confirmed by user; public deployment pending |
-| Public mock URL and observed public health | PENDING |
+| Public mock URL and observed public health | URL supplied; homepage and health both return HTTP 502. Runtime not accepted; hosting adapter and redeploy pending. |
 | Real Member 1 generated bundle and source availability | PENDING handoff |
 | Member 2 production API and actual live Gemma model | PENDING handoff/account verification |
 | Public real-data/live-model briefing, source links, Markdown | PENDING |

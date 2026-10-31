@@ -1,6 +1,6 @@
 # Cloudways deployment and local operation
 
-Status, 31 October 2026 IST: user now has Velocity access. Companion repository: [D33PAKsoni/repograph-review-desk](https://github.com/D33PAKsoni/repograph-review-desk). Complete starter/UI published to `main`; initial source commit `a7231b9aa5c1c16d33abf81c397f6a3192ca182a` verified on GitHub. Public application URL and health remain pending. The original `repograph` fork remains the analysis source.
+Status, 31 October 2026 IST: public URL is `https://nodejs-1684692-6760452.cloudwaysnodeapps.com/`. Initial external verification returned HTTP 502 for both homepage and health. Build success is reported by the user; public runtime is not yet healthy. A process-manager-compatible entry has been prepared; account logs and successful redeploy remain pending. Companion source is [D33PAKsoni/repograph-review-desk](https://github.com/D33PAKsoni/repograph-review-desk).
 
 ## Local commands in VS Code
 
@@ -37,7 +37,7 @@ Stage `web/` source/config/lockfile, `deployment/`, root package/lockfile and pr
 2. Prefer an existing Velocity server with capacity. If a new paid server is required, have the account owner review plan, region, and billing before provisioning. Account availability/terms are not verified here.
 3. Add an application and connect GitHub. Authorize only `D33PAKsoni/repograph-review-desk`, then select its pushed `main` branch for the initial mock. This is the companion app, not the original analysis fork.
 4. Use **Other/custom Node** where available; verify the actual account UI. Choose Node **24** or **22** and npm. Application root is the folder containing the root `package.json` and `bootstrap/`, usually `/` if this folder's contents form the repository root. If the repository contains a parent folder, select that subdirectory.
-5. Set **Build command** to `npm run build`. Set **Entry File or Start Command** to `npm start`. The custom Node process must serve the app; a frontend-only preset that only publishes `web/dist` will not serve the API.
+5. Set **Build command** to `npm run build`. For an **Entry File** field use `deployment/cloudways-entry.mjs`; for a separate **Start Command** use `node deployment/cloudways-entry.mjs`. This entry explicitly starts the frozen launcher's `createAppServer`, including when PM2 imports it as ESM. A frontend-only preset that only publishes `web/dist` will not serve the API. Local `npm start` remains the supplied direct CLI launcher.
 6. Set the mock environment below, leave `API_HANDLER_MODULE` absent, and save. Keep platform-provided `PORT`; the supplied launcher binds to `0.0.0.0`.
 7. Deploy once local checks pass. Watch build/start logs, then copy the temporary public application URL and exact deployment commit. Do not copy credentials or key values into logs/screenshots/chat.
 8. In a private/incognito browser window, open the public URL and `/api/v1/health`. The UI must say **Synthetic fixture**, **Mock API**, and **Fixture / no model called**. Complete a briefing, inspect GF001/RG001, and download Markdown.
@@ -54,9 +54,14 @@ Stage `web/` source/config/lockfile, `deployment/`, root package/lockfile and pr
 | Root directory | `/` (repository root) |
 | Package manager | npm |
 | Build command | `npm run build` |
-| Start command / Entry command | `npm start` |
+| Hosting Entry File | `deployment/cloudways-entry.mjs` |
+| Hosting Start Command, if a separate command field exists | `node deployment/cloudways-entry.mjs` |
 | Build output, if requested | `web/dist`; still serve through the Node launcher |
 | Health path, if configurable | `/api/v1/health` |
+
+Observed account setup: selecting SSR shows npm, Build Command and an Entry File field initially containing `server.js`. Initial guidance used `bootstrap/server.mjs`; investigation after public 502 showed that its direct-CLI guard does not start listening when the file is imported. PM2's ESM loader imports application entry files. Use the new `deployment/cloudways-entry.mjs` instead, then save/redeploy and inspect runtime logs for `Review Desk hosting entry listening on 0.0.0.0:PORT`. This is a reproduced compatibility issue and a likely explanation for the public failure; the exact account process failure has not yet been confirmed by logs.
+
+The user supplied proxy logs confirming refused connections to `127.0.0.1:3000`. Keep the application on port 3000 unless the account provides a different coordinated proxy/runtime configuration. The frozen launcher's default is already 3000. Reference: [PM2 ESM process loader](https://github.com/Unitech/pm2/blob/master/lib/ProcessContainerFork.js). Three automated startup checks verify the hosting entry can listen when imported and still fails on invalid port/explicitly missing handler. Full suite after the change: 14 starter + 3 hosting + 20 browser checks pass.
 
 Initial variables: `WEB_DIST=web/dist`, `ARTIFACT_BUNDLE=fixtures/artifact-bundle.fixture.json`, `AI_MODE=fixture`, `NPM_CONFIG_INCLUDE=dev`. The final setting ensures the build installs Vite/TypeScript even if the platform sets production npm behavior. Leave `API_HANDLER_MODULE` and `GEMMA_API_KEY` absent; preserve the platform's `PORT`.
 
@@ -90,13 +95,13 @@ This makes a real inference request. It checks health, built UI, generated artif
 
 ## Deployment record
 
-- Public URL: **PENDING**.
+- Public URL: `https://nodejs-1684692-6760452.cloudwaysnodeapps.com/`.
 - Repository URL/branch: `https://github.com/D33PAKsoni/repograph-review-desk`, `main` for initial deployment.
 - Initial verified source commit: `a7231b9aa5c1c16d33abf81c397f6a3192ca182a`; later documentation-only commits may follow it. Record the exact commit Velocity deploys below.
 - Deployment commit: **PENDING**.
 - Account preset/Node version: **PENDING account verification**; configuration prepared for custom Node 22/24.
-- Build: `npm run build`; start: `npm start`.
-- Actual public health JSON: **NOT OBSERVED**.
+- Build: `npm run build`; recommended hosting Entry File: `deployment/cloudways-entry.mjs`. Local CLI: `npm start`.
+- Actual public health: HTTP **502**, HTML Cloudflare host error rather than contract JSON (initial check 31 October 2026, 13:14–13:16 IST). Record: `verification/mock-smoke.json`.
 - Expected mock health (expectation only): `{"status":"ok","apiMode":"mock","aiMode":"fixture","artifactKind":"fixture","gemmaConfigured":false}` in the v1 success envelope.
 - Actual production health/live briefing: **NOT OBSERVED**.
 
@@ -107,5 +112,6 @@ This makes a real inference request. It checks health, built UI, generated artif
 - API returns HTML: frontend-only hosting is selected or a reverse-proxy rule swallows `/api`; use the Node launcher for both.
 - `npm ci` fails: verify both lockfiles are committed, Node 22/24 is selected and registry access is available.
 - Startup fails after integration: inspect the module path, Member 2 dependencies, bundle validation and private runtime configuration. Keep the failure visible.
+- Build succeeds but homepage and API return 502: inspect PM2/application logs, configured Entry File and the proxy's expected port. Use the explicit hosting entry, confirm its listening message, and keep the platform's `PORT`. Do not infer runtime health from build success.
 - 422: inspect missing evidence; retrying the same empty fixture cannot create evidence.
 - 429/502/503/504: UI shows a safe explanation and offers retry only when the service marks it retryable. Do not expose provider diagnostics.
