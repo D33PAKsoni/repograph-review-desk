@@ -64,6 +64,12 @@ pip install repograph-codeintel
 repograph version
 ```
 
+Or with no install at all (needs [uv](https://docs.astral.sh/uv/)):
+
+```bash
+uvx --from repograph-codeintel repograph index .
+```
+
 Or isolated: `pipx install repograph-codeintel`. From source instead: clone the repository and `pip install -e .`. Linux is tested in CI; macOS and Windows should work but are untested.
 
 ## Use
