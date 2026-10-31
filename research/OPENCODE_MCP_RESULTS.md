@@ -103,6 +103,17 @@ port-based server in the same configuration is `open-design`, which listens on
 `http://127.0.0.1:7456` and failed once exactly as a port-based server should — its daemon was not
 running (`exited with code 0`).
 
+**4. A failed server stays failed for that directory until the client restarts.** After installing
+the fixed build, `opencode mcp list` still reported the old `exited with code 1` text in the home
+directory — a message produced by a binary that no longer exists on disk — while fresh directories
+connected. OpenCode keeps one MCP client per project for the life of its background service and
+does not retry a failed start. This is client behaviour, not a RepoGraph defect, and it is the
+reason an upgrade can look like it did nothing.
+
+After the fixes, behaviour is: unindexed directory → warning on stderr, process stays up, tools
+return `no index …`; invalid arguments → in-band tool error, connection intact; six concurrent
+tool calls → all answered, next call fine.
+
 ## What the tool contributed
 
 Run C1 quoted the graph rather than restating grep:
