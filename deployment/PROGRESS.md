@@ -17,7 +17,8 @@ Updated: 31 October 2026 (IST), Velocity access confirmed and companion reposito
 - [x] Add offline mock/production preflight and verify explicit production blockers without inference or secret output.
 - [x] Prepare and generate the owned-file handoff archive (39 entries, about 3.5 MB); inventory/read-back verification and SHA-256 checksum pass; repository instructions in HANDOFF.md.
 - [x] Publish the complete companion starter/UI to `D33PAKsoni/repograph-review-desk` on `main`; verify GitHub head matches source commit `a7231b9aa5c1c16d33abf81c397f6a3192ca182a`.
-- [ ] Publish labeled mock and record public URL, deployment commit and observed health.
+- [x] Publish labeled mock and verify public URL, health, hosted briefing, citations, exact Markdown download and desktop/mobile layouts.
+- [ ] Record the exact deployed SHA from Velocity's successful deployment history (source startup fix is `a3140b5`; public API does not expose application-source SHA).
 - [ ] Integrate Member 1 generated bundle and Member 2 real service; verify public live Gemma briefing.
 
 ## Verification
@@ -59,6 +60,16 @@ Final local verification:
 - Full verification after the adapter change: **37 checks pass** (14 starter + 3 hosting + 20 browser/accessibility), plus strict TypeScript. User-provided proxy logs confirm connection refused to upstream `127.0.0.1:3000`; raw logs/client addresses are not copied into the repository.
 - Updated smoke diagnostics to identify non-JSON HTTP failures clearly. Awaiting successful redeploy using hosting Entry File `deployment/cloudways-entry.mjs`; public health and actual deployment commit remain pending.
 
+## Public mock acceptance — recovered
+
+- At 13:22–13:24 IST, 31 October 2026, public smoke and an independent fresh-browser session passed at `https://nodejs-1684692-6760452.cloudwaysnodeapps.com/`.
+- Observed health: `status=ok`, `apiMode=mock`, `aiMode=fixture`, `artifactKind=fixture`, `gemmaConfigured=false`. Homepage and API return success after the startup adapter was published in `a3140b5`.
+- **9 public browser checks pass**, with no authentication, mocked responses, route interception or mock-only query controls: health, built UI/provenance, actual hosted briefing, GF001 navigation/focus, exact UTF-8 Markdown download, partial warnings/briefing clearing, real empty-case 422, 1366 px and 390 px overflow/layout.
+- Records: `verification/mock-smoke.json`, `verification/public-browser.json`, `verification/public-fixture-briefing.md`, and `verification/public-dashboard-1366.png` / `public-dashboard-390.png`. Desktop screenshot inspected. Reproduce with `node deployment/verify-public.mjs PUBLIC_URL`.
+- This accepts hosting and the fixture reviewer journey. It does not prove generated analysis or live inference. The exact platform-deployed SHA still needs the Velocity deployment record; the evidence repository commit in fixture responses remains the synthetic zero SHA.
+- Repository discovery found Member 2 candidate `feature/gemma` at `1bafe1857f6d5029a2995c2c96913ad8d53f43e1`, including service implementation, tests and handoff documentation. Read-only inspection of its smoke report says 18 offline tests pass but live Gemma smoke has not yet run. No candidate files were merged or independently service-tested in this public-hosting check.
+- Untracked `service/` work appeared in the shared local folder during public verification. Those files belong to Member 2 and are left untouched and excluded from Member 3's verification commit.
+
 ## Manual steps already supplied to the user
 
 The user confirmed they can sign in and perform Cloudways deployment. Instructions provided: open Velocity rather than the PHP/WordPress wizard; connect team repository; select custom Node 22/24; use root `npm run build` and `npm start`; set fixture environment with `API_HANDLER_MODULE` absent; deploy after passing checks; return URL and deployment commit. Full VS Code, account and browser steps are in RUNBOOK.
@@ -66,16 +77,16 @@ The user confirmed they can sign in and perform Cloudways deployment. Instructio
 ## Blockers and external dependencies
 
 - Local Git checkout initialized and linked to `https://github.com/D33PAKsoni/repograph-review-desk.git`. Initial complete source commit `a7231b9aa5c1c16d33abf81c397f6a3192ca182a` pushed to `main` and independently verified through GitHub. Initial snapshot has 55 files; no dependencies, private `.env`, traces, archive output or `web/dist` are tracked.
-- Public build reportedly succeeded, but runtime verification returned 502. Configure/redeploy the PM2-compatible hosting entry and inspect logs; healthy public startup remains blocked.
+- Public mock hosting is now verified healthy; the initial 502 is resolved. Exact Velocity deployment SHA/settings should still be copied into the deployment record.
 - Existing core fork stays at `https://github.com/D33PAKsoni/repograph`. New companion repository is `https://github.com/D33PAKsoni/repograph-review-desk`; no original fork files were changed.
-- `data/production/artifact-bundle.json` and `service/api-handler.mjs` have not been supplied. Final integration depends on those handoffs; local UI work does not.
-- Live model, public deployment and real analysis are not yet verified. The recorded local backup is synthetic-fixture/canned-inference only. Synthetic fixtures and canned inference remain visibly labeled.
+- Generated `data/production/artifact-bundle.json` is not present locally. Member 2 service exists on candidate branch `feature/gemma` but has not been integrated; its live smoke is unverified. Final integration requires those handoffs and actual model access.
+- Live model and real analysis remain unverified. Public hosting and fixture workflow are verified. The recorded local backup and public screenshots remain synthetic-fixture/canned-inference only.
 - Human screen-reader/physical-device review remains optional manual verification; browser keyboard and responsive checks passed.
 
 ## Next actions
 
 1. Continue Member 3 work on `feature/web-deploy` from the published shared base. Team should add Members 1/2 as collaborators on the companion repository.
-2. User: set Velocity Entry File to `deployment/cloudways-entry.mjs` after the adapter is published, save/redeploy, and supply runtime logs if 502 persists.
-3. Rerun public smoke and browser journey after startup recovers; record actual account settings, deployed SHA and health.
+2. Copy the successful deployment's exact SHA/Node settings from Velocity to complete the hosting provenance record.
+3. Review and independently verify the Member 2 `feature/gemma` handoff, including its outstanding live-model smoke, at the integration checkpoint.
 4. At integration, consume Member 1/2 handoff manifests and fixed files, run production preflight and their checks, switch production environment and redeploy.
 5. Run the production smoke with actual model; verify real source links, live response/export and public demo; fill final links/SHA in submission documents.

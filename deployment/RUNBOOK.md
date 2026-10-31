@@ -1,6 +1,6 @@
 # Cloudways deployment and local operation
 
-Status, 31 October 2026 IST: public URL is `https://nodejs-1684692-6760452.cloudwaysnodeapps.com/`. Initial external verification returned HTTP 502 for both homepage and health. Build success is reported by the user; public runtime is not yet healthy. A process-manager-compatible entry has been prepared; account logs and successful redeploy remain pending. Companion source is [D33PAKsoni/repograph-review-desk](https://github.com/D33PAKsoni/repograph-review-desk).
+Status, 31 October 2026 IST: public mock is healthy at `https://nodejs-1684692-6760452.cloudwaysnodeapps.com/`. After the PM2 startup adapter, public API smoke and 9 independent browser checks pass. The initial 502 is resolved. Actual Velocity deployed SHA remains to be recorded; generated evidence/live inference remain pending. Companion source is [D33PAKsoni/repograph-review-desk](https://github.com/D33PAKsoni/repograph-review-desk).
 
 ## Local commands in VS Code
 
@@ -98,12 +98,14 @@ This makes a real inference request. It checks health, built UI, generated artif
 - Public URL: `https://nodejs-1684692-6760452.cloudwaysnodeapps.com/`.
 - Repository URL/branch: `https://github.com/D33PAKsoni/repograph-review-desk`, `main` for initial deployment.
 - Initial verified source commit: `a7231b9aa5c1c16d33abf81c397f6a3192ca182a`; later documentation-only commits may follow it. Record the exact commit Velocity deploys below.
-- Deployment commit: **PENDING**.
+- Deployment commit: **PENDING exact platform record**. Startup adapter source is `a3140b5fffa6ee730cb509fa9b4aabcccd6e4c61`; public health does not expose application-source SHA.
 - Account preset/Node version: **PENDING account verification**; configuration prepared for custom Node 22/24.
 - Build: `npm run build`; recommended hosting Entry File: `deployment/cloudways-entry.mjs`. Local CLI: `npm start`.
-- Actual public health: HTTP **502**, HTML Cloudflare host error rather than contract JSON (initial check 31 October 2026, 13:14–13:16 IST). Record: `verification/mock-smoke.json`.
+- Actual public health, 31 October 2026 at 13:22–13:24 IST: HTTP **200**, `{"schemaVersion":"1.0.0","data":{"status":"ok","apiMode":"mock","aiMode":"fixture","artifactKind":"fixture","gemmaConfigured":false}}`. Records: `verification/mock-smoke.json`, `verification/public-browser.json`. Earlier 13:14–13:16 IST checks returned 502 before the startup correction.
 - Expected mock health (expectation only): `{"status":"ok","apiMode":"mock","aiMode":"fixture","artifactKind":"fixture","gemmaConfigured":false}` in the v1 success envelope.
 - Actual production health/live briefing: **NOT OBSERVED**.
+
+Public browser reproduction: `node deployment/verify-public.mjs https://nodejs-1684692-6760452.cloudwaysnodeapps.com/`. This fixture-specific checker uses a fresh unauthenticated browser, real hosted requests and no test-only query controls. It records 9 checks, screenshots and the exact service-provided Markdown. Run it only against the fixture deployment; use the production smoke plus real-scenario browser checks after final integration.
 
 ## Troubleshooting
 

@@ -1,0 +1,54 @@
+{
+  "checkedAt": "2026-10-31T07:53:38.931Z",
+  "baseUrl": "https://nodejs-1684692-6760452.cloudwaysnodeapps.com",
+  "verification": "public-fixture-browser",
+  "authenticated": false,
+  "simulatedResponses": false,
+  "passed": true,
+  "checks": [
+    {
+      "name": "public health: mock API, synthetic artifacts and canned inference",
+      "passed": true
+    },
+    {
+      "name": "built public dashboard and provenance load without authentication",
+      "passed": true
+    },
+    {
+      "name": "actual hosted briefing request returns a labeled fixture with citations",
+      "passed": true
+    },
+    {
+      "name": "citation navigation focuses the original evidence record",
+      "passed": true
+    },
+    {
+      "name": "downloaded Markdown exactly matches hosted service bytes",
+      "passed": true
+    },
+    {
+      "name": "partial case preserves warnings and clears the old briefing",
+      "passed": true
+    },
+    {
+      "name": "empty evidence produces a real hosted 422 explanation",
+      "passed": true
+    },
+    {
+      "name": "public layout 1366px fits the viewport",
+      "passed": true
+    },
+    {
+      "name": "public layout 390px fits the viewport",
+      "passed": true
+    }
+  ],
+  "health": {
+    "status": "ok",
+    "apiMode": "mock",
+    "aiMode": "fixture",
+    "artifactKind": "fixture",
+    "gemmaConfigured": false
+  },
+  "exportSha256": "fd06b85fc3b6ade65ebc3f668f0b023096fe537cca1351447622f7a09237d43f"
+}

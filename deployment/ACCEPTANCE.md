@@ -1,6 +1,6 @@
 # Member 3 acceptance record
 
-Verified 31 October 2026 (IST), including follow-up checks while hosting credits await approval. Local Windows / Node 24.19.0 / Chromium via Playwright 1.64.1. This record establishes mock-backed UI compatibility. Public hosting, generated evidence and live inference are not verified.
+Verified 31 October 2026 (IST), including public mock acceptance at 13:22–13:24 IST. Local Windows / Node 24.19.0 / Chromium via Playwright 1.64.1. Public hosting and the fixture reviewer journey are verified. Generated evidence and live inference are not verified.
 
 ## Automated results
 
@@ -17,6 +17,8 @@ Verified 31 October 2026 (IST), including follow-up checks while hosting credits
 | Production offline preflight | Expected blocked result | Missing real bundle, handler and production environment; `verification/preflight-production.json` |
 | Owned-file handoff package | PASS | `npm run package:handoff`; 39 archive entries read back and matched; SHA-256 inventory/checksum in `handoff/` |
 | Local built UI + mock smoke | PASS | `node deployment/smoke.mjs http://127.0.0.1:3000 --record`; `verification/mock-smoke.json` |
+| Public HTTP/API smoke | PASS | Public URL, observed fixture health and actual hosted briefing; current `verification/mock-smoke.json` supersedes the earlier local/failed runs |
+| Public browser journey | 9 / 9 PASS | `node deployment/verify-public.mjs PUBLIC_URL`; fresh session, real hosted responses, exact download, empty/partial and two layouts |
 | Fixture backup demo | CREATED | `node deployment/record-demo.mjs`; `demo/fixture-walkthrough.webm` (~3.5 MB) |
 | Direct dependency install audit | 0 reported vulnerabilities | npm install/clean npm ci output; not a source-code security audit |
 
@@ -66,9 +68,10 @@ Manual reproduction: start with `npm start`; Tab to the skip link, press Enter, 
 | --- | --- |
 | Team repository/branch/commit verified and pushed | PASS: companion `main` pushed; initial source `a7231b9aa5c1c16d33abf81c397f6a3192ca182a` independently verified through GitHub |
 | Cloudways Velocity deployment | Access confirmed by user; public deployment pending |
-| Public mock URL and observed public health | URL supplied; homepage and health both return HTTP 502. Runtime not accepted; hosting adapter and redeploy pending. |
+| Public mock URL and observed public health | PASS: public homepage/health and fixture journey work after startup correction; 9 browser checks pass |
+| Exact platform-deployed SHA | PENDING deployment-history record; expected startup source `a3140b5` is published, but not attested by public health |
 | Real Member 1 generated bundle and source availability | PENDING handoff |
-| Member 2 production API and actual live Gemma model | PENDING handoff/account verification |
+| Member 2 production API and actual live Gemma model | Candidate `feature/gemma` at `1bafe185`; smoke report says live call not yet run; independent service integration/verification pending |
 | Public real-data/live-model briefing, source links, Markdown | PENDING |
 | Public live demo recording and final remote `main` | PENDING |
 

@@ -11,7 +11,8 @@ Member 3's implementation uses only relative `/api/v1/...` URLs. No changes to t
 - [x] Public deployment instructions, acceptance report and submission draft.
 - [x] Accessibility A/AA scans, offline preflight and owned-file handoff packager.
 - [x] Shared repository and remote verified: initial source `a7231b9`, documentation head `0b18955`, with `feature/web-deploy` created from the published shared base.
-- [ ] Public mock health and URL recorded.
+- [x] Public mock health and URL recorded; public API smoke and 9 real-browser checks pass after the PM2 startup fix.
+- [ ] Exact deployed SHA copied from Velocity deployment history.
 
 ## Member 1 checkpoint (await handoff; do not create substitute data)
 
@@ -22,6 +23,8 @@ Member 3's implementation uses only relative `/api/v1/...` URLs. No changes to t
 - [ ] All source URLs open at the pinned commit and original paths/lines.
 
 ## Member 2 checkpoint (await handoff; do not implement inside their directory)
+
+Candidate discovered read-only: `feature/gemma` at `1bafe1857f6d5029a2995c2c96913ad8d53f43e1`. It contains the service and handoff docs. Its smoke report states live inference has not yet been run; the checks below remain pending independent integration/verification.
 
 - [ ] `service/api-handler.mjs` exports `createApiHandler({projectRoot, bundlePath})`.
 - [ ] Member 2's dependency install instructions and offline checks pass.

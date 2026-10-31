@@ -5,7 +5,7 @@
 ## Links and ownership
 
 - Companion source URL: [D33PAKsoni/repograph-review-desk](https://github.com/D33PAKsoni/repograph-review-desk); initial source `a7231b9aa5c1c16d33abf81c397f6a3192ca182a` pushed and verified. Final production integration/deployment SHA remains pending.
-- Public Cloudways URL: `https://nodejs-1684692-6760452.cloudwaysnodeapps.com/`; **initial check returns 502**. Deployed SHA and working-hosting proof remain pending; do not present this as a working public demo yet.
+- Public Cloudways URL: [RepoGraph Review Desk](https://nodejs-1684692-6760452.cloudwaysnodeapps.com/); public fixture workflow is verified after the PM2 startup correction, with API smoke and 9 browser checks passing. Exact platform-deployed SHA remains pending. This is a **synthetic-fixture/canned-inference demo**, not real analysis/live Gemma evidence.
 - Baseline RepoGraph: [INDEX0-RESEARCH-LABS/repograph](https://github.com/INDEX0-RESEARCH-LABS/repograph), commit `3449061d736ef72845701e0c4bf3a6ce8c916d73`.
 - Member 3 implemented UI and deployment assets; Members 1/2 own real tool artifacts and live API/Gemma. Frozen starter components are not claimed as new team work.
 - License: root MIT for companion code; retain upstream notices. See `ATTRIBUTION.md`.
@@ -29,7 +29,7 @@
 | RepoGraph | Static impact evidence and candidate tests from pinned source | UI renders synthetic original labels and citations; no real analysis by Member 3 | Member 1 builder/provenance, generated bundle, real source links |
 | Graphify | Architecture relationship context used by UI and briefing | Synthetic GF001 context/citation rendered and browser-tested | Actual Graphify command/version/output, cited generated relationship |
 | Open Gemma model | Explain supplied bounded evidence with validated citations | Fixture briefing journey verified; no model inference occurred | Member 2 live smoke, actual account model, public live response |
-| Cloudways Velocity | Host one Node app for assets plus API | Clean build/start configuration, runbook and local launcher verification | Public URL, deployed commit, observed public health, incognito demo |
+| Cloudways Velocity | Host one Node app for assets plus API | Public URL, observed fixture health, real hosted briefing/export and 9 unauthenticated browser checks | Exact deployed commit and final public generated-data/live-model demo |
 
 These explanations are not proof of sponsor eligibility; claim only the categories actually demonstrated and verify the event's current rules separately.
 
