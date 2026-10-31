@@ -3,11 +3,11 @@
   "artifactKind": "generated",
   "repository": {
     "id": "repograph",
-    "name": "D33PAKsoni/repograph",
-    "url": "https://github.com/D33PAKsoni/repograph",
+    "name": "INDEX0-RESEARCH-LABS/repograph",
+    "url": "https://github.com/INDEX0-RESEARCH-LABS/repograph",
     "commitSha": "3449061d736ef72845701e0c4bf3a6ce8c916d73"
   },
-  "generatedAt": "2026-10-31T07:40:00Z",
+  "generatedAt": "2026-10-31T10:18:58Z",
   "tools": [
     {
       "name": "repograph",
@@ -31,71 +31,311 @@
       "impact": {
         "directDependents": [
           {
+            "path": "benchmarks/benchmark.py",
+            "evidenceIds": [
+              "RG-DEP-001"
+            ]
+          },
+          {
+            "path": "benchmarks/test_selection/gate_measure.py",
+            "evidenceIds": [
+              "RG-DEP-002"
+            ]
+          },
+          {
             "path": "src/repograph/cli.py",
             "evidenceIds": [
-              "RG001"
+              "RG-DEP-003"
             ]
-          }
-        ],
-        "transitiveDependents": [],
-        "relatedTests": [
+          },
+          {
+            "path": "src/repograph/mcp_server.py",
+            "evidenceIds": [
+              "RG-DEP-004"
+            ]
+          },
+          {
+            "path": "src/repograph/test_gate.py",
+            "evidenceIds": [
+              "RG-DEP-005"
+            ]
+          },
           {
             "path": "tests/integration/test_impact.py",
             "evidenceIds": [
-              "RG002"
+              "RG-DEP-006"
+            ]
+          }
+        ],
+        "transitiveDependents": [
+          {
+            "path": "src/repograph/__main__.py",
+            "evidenceIds": [
+              "RG-TRANS-001"
+            ]
+          },
+          {
+            "path": "tests/integration/test_test_gate.py",
+            "evidenceIds": [
+              "RG-TRANS-002"
+            ]
+          }
+        ],
+        "relatedTests": [
+          {
+            "path": "src/repograph/test_gate.py",
+            "evidenceIds": [
+              "RG-TEST-001"
+            ]
+          },
+          {
+            "path": "tests/integration/test_cli.py",
+            "evidenceIds": [
+              "RG-TEST-002"
+            ]
+          },
+          {
+            "path": "tests/integration/test_impact.py",
+            "evidenceIds": [
+              "RG-TEST-003"
             ]
           }
         ],
         "blindSpots": [
-          "Dynamic imports, reflection, and runtime dependency injection are omitted by static analysis.",
-          "Downstream external consumers outside the repository root are not monitored."
+          "External packages were not analyzed; only their local import sites are known.",
+          "Test files reachable through dependent modules but not in the selected list. The list is a selection, not the full impact; run these or the suite before trusting it."
         ]
       },
       "architecture": {
-        "summary": "CLI interface routes command invocations to the impact analysis engine.",
-        "contextText": "Graphify topology records call edge from cli.impact to impact.analyze_impact.",
+        "summary": "CLI interface, MCP server, and test selection gate invoke the shared impact analysis engine.",
+        "contextText": "Graphify AST topology maps inbound call edges from CLI commands (cli.py:176), MCP tools (mcp_server.py:90), and test gate selection (test_gate.py:90) to the core analyze_impact function.",
         "evidenceIds": [
-          "GF001"
+          "GF-ARCH-001",
+          "GF-ARCH-002",
+          "GF-ARCH-003",
+          "GF-ARCH-004"
         ]
       },
       "evidence": [
         {
-          "id": "RG001",
+          "id": "RG-DEP-001",
           "producer": "repograph",
-          "path": "src/repograph/cli.py",
-          "startLine": 14,
-          "endLine": 14,
+          "path": "benchmarks/benchmark.py",
+          "startLine": 1,
+          "endLine": 1,
           "relation": "imports",
           "confidence": "confirmed",
-          "excerpt": "from .impact import analyze_impact",
-          "sourceUrl": "https://github.com/D33PAKsoni/repograph/blob/3449061d736ef72845701e0c4bf3a6ce8c916d73/src/repograph/cli.py#L14"
+          "excerpt": "#!/usr/bin/env python3",
+          "sourceUrl": "https://github.com/INDEX0-RESEARCH-LABS/repograph/blob/3449061d736ef72845701e0c4bf3a6ce8c916d73/benchmarks/benchmark.py#L1"
         },
         {
-          "id": "RG002",
+          "id": "RG-DEP-002",
+          "producer": "repograph",
+          "path": "benchmarks/test_selection/gate_measure.py",
+          "startLine": 1,
+          "endLine": 1,
+          "relation": "imports",
+          "confidence": "confirmed",
+          "excerpt": "\"\"\"Measure test selection against real pytest outcomes.",
+          "sourceUrl": "https://github.com/INDEX0-RESEARCH-LABS/repograph/blob/3449061d736ef72845701e0c4bf3a6ce8c916d73/benchmarks/test_selection/gate_measure.py#L1"
+        },
+        {
+          "id": "RG-DEP-003",
+          "producer": "repograph",
+          "path": "src/repograph/cli.py",
+          "startLine": 1,
+          "endLine": 1,
+          "relation": "imports",
+          "confidence": "confirmed",
+          "excerpt": "\"\"\"Command line interface.\"\"\"",
+          "sourceUrl": "https://github.com/INDEX0-RESEARCH-LABS/repograph/blob/3449061d736ef72845701e0c4bf3a6ce8c916d73/src/repograph/cli.py#L1"
+        },
+        {
+          "id": "RG-DEP-004",
+          "producer": "repograph",
+          "path": "src/repograph/mcp_server.py",
+          "startLine": 1,
+          "endLine": 1,
+          "relation": "imports",
+          "confidence": "confirmed",
+          "excerpt": "\"\"\"MCP server exposing RepoGraph's read-only intelligence tools.\"\"\"",
+          "sourceUrl": "https://github.com/INDEX0-RESEARCH-LABS/repograph/blob/3449061d736ef72845701e0c4bf3a6ce8c916d73/src/repograph/mcp_server.py#L1"
+        },
+        {
+          "id": "RG-DEP-005",
+          "producer": "repograph",
+          "path": "src/repograph/test_gate.py",
+          "startLine": 1,
+          "endLine": 1,
+          "relation": "imports",
+          "confidence": "confirmed",
+          "excerpt": "\"\"\"Select the tests a change needs, and say what cannot be ruled out.",
+          "sourceUrl": "https://github.com/INDEX0-RESEARCH-LABS/repograph/blob/3449061d736ef72845701e0c4bf3a6ce8c916d73/src/repograph/test_gate.py#L1"
+        },
+        {
+          "id": "RG-DEP-006",
+          "producer": "repograph",
+          "path": "tests/integration/test_impact.py",
+          "startLine": 1,
+          "endLine": 1,
+          "relation": "imports",
+          "confidence": "confirmed",
+          "excerpt": "from __future__ import annotations",
+          "sourceUrl": "https://github.com/INDEX0-RESEARCH-LABS/repograph/blob/3449061d736ef72845701e0c4bf3a6ce8c916d73/tests/integration/test_impact.py#L1"
+        },
+        {
+          "id": "RG-TRANS-001",
+          "producer": "repograph",
+          "path": "src/repograph/__main__.py",
+          "startLine": 1,
+          "endLine": 1,
+          "relation": "transitive-import",
+          "confidence": "confirmed",
+          "excerpt": "from .cli import main",
+          "sourceUrl": "https://github.com/INDEX0-RESEARCH-LABS/repograph/blob/3449061d736ef72845701e0c4bf3a6ce8c916d73/src/repograph/__main__.py#L1"
+        },
+        {
+          "id": "RG-TRANS-002",
+          "producer": "repograph",
+          "path": "tests/integration/test_test_gate.py",
+          "startLine": 1,
+          "endLine": 1,
+          "relation": "transitive-import",
+          "confidence": "confirmed",
+          "excerpt": "from __future__ import annotations",
+          "sourceUrl": "https://github.com/INDEX0-RESEARCH-LABS/repograph/blob/3449061d736ef72845701e0c4bf3a6ce8c916d73/tests/integration/test_test_gate.py#L1"
+        },
+        {
+          "id": "RG-TEST-001",
+          "producer": "repograph",
+          "path": "src/repograph/test_gate.py",
+          "startLine": 20,
+          "endLine": 20,
+          "relation": "tests",
+          "confidence": "inferred",
+          "excerpt": "from .impact import _is_test_module, analyze_impact, git_changes",
+          "sourceUrl": "https://github.com/INDEX0-RESEARCH-LABS/repograph/blob/3449061d736ef72845701e0c4bf3a6ce8c916d73/src/repograph/test_gate.py#L20"
+        },
+        {
+          "id": "RG-TEST-002",
+          "producer": "repograph",
+          "path": "tests/integration/test_cli.py",
+          "startLine": 1,
+          "endLine": 1,
+          "relation": "tests",
+          "confidence": "inferred",
+          "excerpt": "from __future__ import annotations",
+          "sourceUrl": "https://github.com/INDEX0-RESEARCH-LABS/repograph/blob/3449061d736ef72845701e0c4bf3a6ce8c916d73/tests/integration/test_cli.py#L1"
+        },
+        {
+          "id": "RG-TEST-003",
           "producer": "repograph",
           "path": "tests/integration/test_impact.py",
           "startLine": 7,
           "endLine": 7,
-          "relation": "imports",
-          "confidence": "confirmed",
+          "relation": "tests",
+          "confidence": "inferred",
           "excerpt": "from repograph.impact import analyze_impact, git_changes",
-          "sourceUrl": "https://github.com/D33PAKsoni/repograph/blob/3449061d736ef72845701e0c4bf3a6ce8c916d73/tests/integration/test_impact.py#L7"
+          "sourceUrl": "https://github.com/INDEX0-RESEARCH-LABS/repograph/blob/3449061d736ef72845701e0c4bf3a6ce8c916d73/tests/integration/test_impact.py#L7"
         },
         {
-          "id": "GF001",
+          "id": "GF-ARCH-001",
+          "producer": "graphify",
+          "path": "benchmarks/benchmark.py",
+          "startLine": 90,
+          "endLine": 90,
+          "relation": "calls",
+          "confidence": "EXTRACTED",
+          "excerpt": "_, dt = timed(lambda: analyze_impact(store, repo, paths=[hub], depth=2))",
+          "sourceUrl": "https://github.com/INDEX0-RESEARCH-LABS/repograph/blob/3449061d736ef72845701e0c4bf3a6ce8c916d73/benchmarks/benchmark.py#L90"
+        },
+        {
+          "id": "GF-ARCH-002",
+          "producer": "graphify",
+          "path": "benchmarks/test_selection/gate_measure.py",
+          "startLine": 201,
+          "endLine": 201,
+          "relation": "calls",
+          "confidence": "EXTRACTED",
+          "excerpt": "impact = analyze_impact(store, repo, paths=[rel], depth=2)",
+          "sourceUrl": "https://github.com/INDEX0-RESEARCH-LABS/repograph/blob/3449061d736ef72845701e0c4bf3a6ce8c916d73/benchmarks/test_selection/gate_measure.py#L201"
+        },
+        {
+          "id": "GF-ARCH-003",
           "producer": "graphify",
           "path": "src/repograph/cli.py",
           "startLine": 176,
           "endLine": 176,
           "relation": "calls",
           "confidence": "EXTRACTED",
-          "excerpt": "data = analyze_impact(store, root, paths=list(paths or []), symbol=symbol)",
-          "sourceUrl": "https://github.com/D33PAKsoni/repograph/blob/3449061d736ef72845701e0c4bf3a6ce8c916d73/src/repograph/cli.py#L176"
+          "excerpt": "data = analyze_impact(store, root, paths=list(paths or []), symbol=symbol,",
+          "sourceUrl": "https://github.com/INDEX0-RESEARCH-LABS/repograph/blob/3449061d736ef72845701e0c4bf3a6ce8c916d73/src/repograph/cli.py#L176"
+        },
+        {
+          "id": "GF-ARCH-004",
+          "producer": "graphify",
+          "path": "src/repograph/mcp_server.py",
+          "startLine": 90,
+          "endLine": 90,
+          "relation": "calls",
+          "confidence": "EXTRACTED",
+          "excerpt": "return analyze_impact(store, root, paths=paths, symbol=symbol, diff=diff,",
+          "sourceUrl": "https://github.com/INDEX0-RESEARCH-LABS/repograph/blob/3449061d736ef72845701e0c4bf3a6ce8c916d73/src/repograph/mcp_server.py#L90"
+        },
+        {
+          "id": "GF-ARCH-005",
+          "producer": "graphify",
+          "path": "src/repograph/mcp_server.py",
+          "startLine": 90,
+          "endLine": 90,
+          "relation": "calls",
+          "confidence": "EXTRACTED",
+          "excerpt": "return analyze_impact(store, root, paths=paths, symbol=symbol, diff=diff,",
+          "sourceUrl": "https://github.com/INDEX0-RESEARCH-LABS/repograph/blob/3449061d736ef72845701e0c4bf3a6ce8c916d73/src/repograph/mcp_server.py#L90"
+        },
+        {
+          "id": "GF-ARCH-006",
+          "producer": "graphify",
+          "path": "src/repograph/mcp_server.py",
+          "startLine": 100,
+          "endLine": 100,
+          "relation": "calls",
+          "confidence": "EXTRACTED",
+          "excerpt": "result = analyze_impact(store, root, paths=paths, depth=max(1, min(int(depth), 3)))",
+          "sourceUrl": "https://github.com/INDEX0-RESEARCH-LABS/repograph/blob/3449061d736ef72845701e0c4bf3a6ce8c916d73/src/repograph/mcp_server.py#L100"
+        },
+        {
+          "id": "GF-ARCH-007",
+          "producer": "graphify",
+          "path": "src/repograph/test_gate.py",
+          "startLine": 90,
+          "endLine": 90,
+          "relation": "calls",
+          "confidence": "EXTRACTED",
+          "excerpt": "impact = analyze_impact(store, root, paths=analysable, depth=2)",
+          "sourceUrl": "https://github.com/INDEX0-RESEARCH-LABS/repograph/blob/3449061d736ef72845701e0c4bf3a6ce8c916d73/src/repograph/test_gate.py#L90"
+        },
+        {
+          "id": "GF-ARCH-008",
+          "producer": "graphify",
+          "path": "tests/integration/test_impact.py",
+          "startLine": 14,
+          "endLine": 14,
+          "relation": "calls",
+          "confidence": "EXTRACTED",
+          "excerpt": "return analyze_impact(store, repo, **kwargs)",
+          "sourceUrl": "https://github.com/INDEX0-RESEARCH-LABS/repograph/blob/3449061d736ef72845701e0c4bf3a6ce8c916d73/tests/integration/test_impact.py#L14"
         }
       ],
       "limitations": [
-        "Static evidence is computed from pinned repository commit 3449061d736ef72845701e0c4bf3a6ce8c916d73.",
-        "Absence of detected dependents does not certify absence of behavioral regressions."
+        "This is a static analysis of statically resolvable relationships; absence of a relationship does not prove safety.",
+        "Dynamic imports, runtime reflection, and downstream consumer dependencies are not captured by AST inspection.",
+        "Full test suite execution remains necessary to verify behavioral correctness.",
+        "This is a static analysis of statically resolvable relationships. Absence of a relationship is not evidence that a change is safe.",
+        "Dynamic imports, reflection, runtime dependency injection, generated code and external consumers are not modeled.",
+        "Test selection uses import edges and naming conventions, not execution traces; it can miss tests and include irrelevant ones.",
+        "Route and database-model detection use framework-specific heuristics and may produce false positives or miss frameworks.",
+        "Confidence levels describe extraction certainty, not the risk of the change itself."
       ]
     }
   ]

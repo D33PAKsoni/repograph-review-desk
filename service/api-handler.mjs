@@ -185,12 +185,14 @@ async function generateBriefing(bundle, selected, changeIntent) {
 
   const findings = [];
   for (const record of repographRecords) {
+    if (findings.length >= 12) break;
     findings.push({
       text: `RepoGraph detects ${record.relation} relationship from ${record.path} (line ${record.startLine}) with confidence '${record.confidence}'.`,
       evidenceIds: [record.id],
     });
   }
   for (const record of graphifyRecords) {
+    if (findings.length >= 12) break;
     findings.push({
       text: `Graphify architecture topology notes ${record.relation} coupling at ${record.path}:${record.startLine}.`,
       evidenceIds: [record.id],

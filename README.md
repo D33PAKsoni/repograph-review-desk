@@ -112,6 +112,7 @@ WEB_DIST=web/dist
 
 ## 📚 Documentation
 
+- [Judges & Evaluation Guide](docs/JUDGES_GUIDE.md) 🏆
 - [System Architecture](docs/ARCHITECTURE.md)
 - [Analysis Engine Guide](docs/ANALYSIS_ENGINE.md)
 - [Briefing Service & API](docs/API_SERVICE.md)
