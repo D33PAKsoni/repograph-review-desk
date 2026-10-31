@@ -1,0 +1,48 @@
+{
+  "checkedAt": "2026-10-31T07:09:25.544Z",
+  "mode": "mock",
+  "passed": true,
+  "checks": [
+    {
+      "name": "Node runtime",
+      "passed": true,
+      "detail": "v24.19.0"
+    },
+    {
+      "name": "Root build/start commands",
+      "passed": true,
+      "detail": "Clean frontend install/build; supplied Node launcher."
+    },
+    {
+      "name": "Frontend dependency lock",
+      "passed": true,
+      "detail": {
+        "path": "web/package-lock.json",
+        "bytes": 43067,
+        "sha256": "94b5e336d98162ae0dea8beef721c6faec3be588e67587259a6a3daa1e0418c6"
+      }
+    },
+    {
+      "name": "Built frontend",
+      "passed": true,
+      "detail": {
+        "path": "web/dist/index.html",
+        "bytes": 605,
+        "sha256": "51e6419c1b474b4840b9d3435a06070b8de7caccb120cd418f703719150f5a77"
+      }
+    },
+    {
+      "name": "Supplied fixture bundle and briefing",
+      "passed": true,
+      "detail": {
+        "path": "fixtures/artifact-bundle.fixture.json",
+        "bytes": 6610,
+        "sha256": "5329060e2f8d3ac8be3a7c3f44f0cbfc051c701c9febe0fc3aa1e16849bda35b",
+        "artifactKind": "fixture",
+        "commitSha": "0000000000000000000000000000000000000000",
+        "cases": 3
+      }
+    }
+  ],
+  "limitations": "Offline preflight only. Does not certify handler behavior, source availability, hosting or live model access."
+}

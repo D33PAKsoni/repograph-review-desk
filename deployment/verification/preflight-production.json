@@ -1,0 +1,51 @@
+{
+  "checkedAt": "2026-10-31T07:00:43.693Z",
+  "mode": "production",
+  "passed": false,
+  "checks": [
+    {
+      "name": "Node runtime",
+      "passed": true,
+      "detail": "v24.19.0"
+    },
+    {
+      "name": "Root build/start commands",
+      "passed": true,
+      "detail": "Clean frontend install/build; supplied Node launcher."
+    },
+    {
+      "name": "Frontend dependency lock",
+      "passed": true,
+      "detail": {
+        "path": "web/package-lock.json",
+        "bytes": 43067,
+        "sha256": "94b5e336d98162ae0dea8beef721c6faec3be588e67587259a6a3daa1e0418c6"
+      }
+    },
+    {
+      "name": "Built frontend",
+      "passed": true,
+      "detail": {
+        "path": "web/dist/index.html",
+        "bytes": 605,
+        "sha256": "51e6419c1b474b4840b9d3435a06070b8de7caccb120cd418f703719150f5a77"
+      }
+    },
+    {
+      "name": "Member 1 generated bundle",
+      "passed": false,
+      "detail": "Missing or unreadable data/production/artifact-bundle.json. Await Member 1 handoff."
+    },
+    {
+      "name": "Member 2 handler file",
+      "passed": false,
+      "detail": "Missing service/api-handler.mjs. Await Member 2 handoff; factory behavior still requires service checks."
+    },
+    {
+      "name": "Production process environment",
+      "passed": false,
+      "detail": "Configure these production process variables privately: ARTIFACT_BUNDLE, API_HANDLER_MODULE, WEB_DIST, AI_MODE, GEMMA_MODEL, GEMMA_API_KEY. Values are not printed."
+    }
+  ],
+  "limitations": "Offline preflight only. Does not certify handler behavior, source availability, hosting or live model access."
+}

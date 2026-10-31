@@ -1,0 +1,149 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": {
+      "const": "1.0.0"
+    },
+    "artifactKind": {
+      "enum": [
+        "fixture",
+        "generated"
+      ]
+    },
+    "repositoryId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 80,
+      "pattern": "^[a-z0-9][a-z0-9-]*$"
+    },
+    "commitSha": {
+      "type": "string",
+      "minLength": 40,
+      "maxLength": 40,
+      "pattern": "^[a-f0-9]{40}$"
+    },
+    "caseId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 80,
+      "pattern": "^[a-z0-9][a-z0-9-]*$"
+    },
+    "mode": {
+      "enum": [
+        "fixture",
+        "live"
+      ]
+    },
+    "model": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 2500
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "text": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2000
+          },
+          "evidenceIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 80,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$"
+            },
+            "minItems": 1,
+            "maxItems": 60
+          }
+        },
+        "required": [
+          "text",
+          "evidenceIds"
+        ]
+      },
+      "minItems": 0,
+      "maxItems": 12
+    },
+    "reviewChecklist": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "text": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2000
+          },
+          "evidenceIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 80,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$"
+            },
+            "minItems": 0,
+            "maxItems": 60
+          }
+        },
+        "required": [
+          "text",
+          "evidenceIds"
+        ]
+      },
+      "minItems": 0,
+      "maxItems": 12
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 1000
+      },
+      "minItems": 2,
+      "maxItems": 60
+    },
+    "generatedAt": {
+      "type": "string",
+      "minLength": 20,
+      "maxLength": 40
+    },
+    "markdown": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 30000
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "artifactKind",
+    "repositoryId",
+    "commitSha",
+    "caseId",
+    "mode",
+    "model",
+    "summary",
+    "findings",
+    "reviewChecklist",
+    "limitations",
+    "generatedAt",
+    "markdown"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Review Desk validated briefing v1.0.0"
+}

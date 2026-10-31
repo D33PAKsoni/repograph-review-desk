@@ -1,0 +1,44 @@
+{
+  "schemaVersion": "1.0.0",
+  "artifactKind": "fixture",
+  "repositoryId": "fixture-shop",
+  "commitSha": "0000000000000000000000000000000000000000",
+  "caseId": "subscription-change",
+  "mode": "fixture",
+  "model": null,
+  "summary": "Fixture response: inspect the API caller and cancellation tests before changing the service.",
+  "findings": [
+    {
+      "text": "The API route imports cancellation behavior from the subscription service.",
+      "evidenceIds": [
+        "RG001"
+      ]
+    },
+    {
+      "text": "The architecture context includes a route-to-cancellation call.",
+      "evidenceIds": [
+        "GF001"
+      ]
+    }
+  ],
+  "reviewChecklist": [
+    {
+      "text": "Inspect the cancellation tests and update relevant expectations.",
+      "evidenceIds": [
+        "RG002"
+      ]
+    },
+    {
+      "text": "Run the full test suite; the suggested test list is incomplete.",
+      "evidenceIds": []
+    }
+  ],
+  "limitations": [
+    "This is static file-impact analysis; absence of a relationship is not evidence that a change is safe.",
+    "Suggested tests are incomplete; run the full test suite before relying on a change.",
+    "This synthetic fixture is for development and is not analysis of a real repository.",
+    "Dynamic imports and runtime dependency injection are not resolved."
+  ],
+  "generatedAt": "2026-10-31T04:00:01Z",
+  "markdown": "# Fixture briefing\n\nSynthetic data; canned response; no model called.\n\nInspect the API caller [RG001], architecture context [GF001], and related tests [RG002].\n\n- This is static file-impact analysis; absence of a relationship is not evidence that a change is safe.\n- Suggested tests are incomplete; run the full test suite before relying on a change.\n- This synthetic fixture is for development and is not analysis of a real repository.\n- Dynamic imports and runtime dependency injection are not resolved.\n"
+}

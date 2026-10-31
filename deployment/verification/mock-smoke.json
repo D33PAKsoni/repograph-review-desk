@@ -1,0 +1,17 @@
+{
+  "checkedAt": "2026-10-31T06:49:57.692Z",
+  "baseUrl": "http://127.0.0.1:3000",
+  "verification": "mock",
+  "passed": true,
+  "health": {
+    "status": "ok",
+    "apiMode": "mock",
+    "aiMode": "fixture",
+    "artifactKind": "fixture",
+    "gemmaConfigured": false
+  },
+  "caseId": "subscription-change",
+  "commitSha": "0000000000000000000000000000000000000000",
+  "model": null,
+  "inferenceMode": "fixture"
+}

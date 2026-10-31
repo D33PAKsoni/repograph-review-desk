@@ -1,0 +1,208 @@
+{
+  "schemaVersion": "1.0.0",
+  "artifactKind": "fixture",
+  "repository": {
+    "id": "fixture-shop",
+    "name": "Synthetic shop (development fixture)",
+    "url": "https://github.com/example/review-desk-fixture",
+    "commitSha": "0000000000000000000000000000000000000000"
+  },
+  "generatedAt": "2026-10-31T04:00:00Z",
+  "tools": [
+    {
+      "name": "repograph",
+      "version": "fixture-not-executed",
+      "mode": "static"
+    },
+    {
+      "name": "graphify",
+      "version": "fixture-not-executed",
+      "mode": "code-only"
+    }
+  ],
+  "cases": [
+    {
+      "id": "subscription-change",
+      "title": "Change subscription cancellation behavior",
+      "scenarioType": "file-impact",
+      "changedFiles": [
+        "src/shop/services/subscription.py"
+      ],
+      "impact": {
+        "directDependents": [
+          {
+            "path": "src/shop/api/routes.py",
+            "evidenceIds": [
+              "RG001"
+            ]
+          }
+        ],
+        "transitiveDependents": [],
+        "relatedTests": [
+          {
+            "path": "tests/test_subscription.py",
+            "evidenceIds": [
+              "RG002"
+            ]
+          }
+        ],
+        "blindSpots": [
+          "Dynamic imports and runtime dependency injection are not resolved."
+        ]
+      },
+      "architecture": {
+        "summary": "The API layer calls the subscription service.",
+        "contextText": "Synthetic Graphify-style relationship: cancel_subscription_route calls cancel.",
+        "evidenceIds": [
+          "GF001"
+        ]
+      },
+      "evidence": [
+        {
+          "id": "RG001",
+          "producer": "repograph",
+          "confidence": "confirmed",
+          "relation": "imports",
+          "path": "src/shop/api/routes.py",
+          "startLine": 3,
+          "endLine": 3,
+          "excerpt": "from shop.services.subscription import cancel",
+          "sourceUrl": null
+        },
+        {
+          "id": "RG002",
+          "producer": "repograph",
+          "confidence": "inferred",
+          "relation": "test-imports-changed-file",
+          "path": "tests/test_subscription.py",
+          "startLine": 1,
+          "endLine": 1,
+          "excerpt": "from shop.services.subscription import cancel",
+          "sourceUrl": null
+        },
+        {
+          "id": "GF001",
+          "producer": "graphify",
+          "confidence": "EXTRACTED",
+          "relation": "calls",
+          "path": "src/shop/api/routes.py",
+          "startLine": 8,
+          "endLine": 8,
+          "excerpt": "return cancel(subscription_id)",
+          "sourceUrl": null
+        }
+      ],
+      "limitations": [
+        "This is static file-impact analysis; absence of a relationship is not evidence that a change is safe.",
+        "Suggested tests are incomplete; run the full test suite before relying on a change.",
+        "This synthetic fixture is for development and is not analysis of a real repository."
+      ]
+    },
+    {
+      "id": "empty-result",
+      "title": "No usable static evidence",
+      "scenarioType": "file-impact",
+      "changedFiles": [
+        "src/shop/isolated.py"
+      ],
+      "impact": {
+        "directDependents": [],
+        "transitiveDependents": [],
+        "relatedTests": [],
+        "blindSpots": [
+          "No static dependents found; this does not establish safety."
+        ]
+      },
+      "architecture": {
+        "summary": "",
+        "contextText": "",
+        "evidenceIds": []
+      },
+      "evidence": [],
+      "limitations": [
+        "This is static file-impact analysis; absence of a relationship is not evidence that a change is safe.",
+        "Suggested tests are incomplete; run the full test suite before relying on a change.",
+        "This synthetic fixture is for development and is not analysis of a real repository."
+      ]
+    },
+    {
+      "id": "partial-analysis",
+      "title": "Partial analysis with unresolved wiring",
+      "scenarioType": "file-impact",
+      "changedFiles": [
+        "src/shop/services/subscription.py"
+      ],
+      "impact": {
+        "directDependents": [
+          {
+            "path": "src/shop/api/routes.py",
+            "evidenceIds": [
+              "RG001"
+            ]
+          }
+        ],
+        "transitiveDependents": [],
+        "relatedTests": [
+          {
+            "path": "tests/test_subscription.py",
+            "evidenceIds": [
+              "RG002"
+            ]
+          }
+        ],
+        "blindSpots": [
+          "Dynamic imports and runtime dependency injection are not resolved.",
+          "One source file could not be parsed; results are incomplete."
+        ]
+      },
+      "architecture": {
+        "summary": "The API-to-service relationship is inferred and needs inspection.",
+        "contextText": "Synthetic Graphify-style relationship: cancel_subscription_route calls cancel.",
+        "evidenceIds": [
+          "GF001"
+        ]
+      },
+      "evidence": [
+        {
+          "id": "RG001",
+          "producer": "repograph",
+          "confidence": "unresolved",
+          "relation": "imports",
+          "path": "src/shop/api/routes.py",
+          "startLine": 3,
+          "endLine": 3,
+          "excerpt": "from shop.services.subscription import cancel",
+          "sourceUrl": null
+        },
+        {
+          "id": "RG002",
+          "producer": "repograph",
+          "confidence": "inferred",
+          "relation": "test-imports-changed-file",
+          "path": "tests/test_subscription.py",
+          "startLine": 1,
+          "endLine": 1,
+          "excerpt": "from shop.services.subscription import cancel",
+          "sourceUrl": null
+        },
+        {
+          "id": "GF001",
+          "producer": "graphify",
+          "confidence": "INFERRED",
+          "relation": "calls",
+          "path": "src/shop/api/routes.py",
+          "startLine": 8,
+          "endLine": 8,
+          "excerpt": "return cancel(subscription_id)",
+          "sourceUrl": null
+        }
+      ],
+      "limitations": [
+        "This is static file-impact analysis; absence of a relationship is not evidence that a change is safe.",
+        "Suggested tests are incomplete; run the full test suite before relying on a change.",
+        "This synthetic fixture is for development and is not analysis of a real repository.",
+        "Partial analysis: at least one file was not parsed."
+      ]
+    }
+  ]
+}

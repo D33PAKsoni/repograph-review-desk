@@ -1,0 +1,374 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": {
+      "const": "1.0.0"
+    },
+    "artifactKind": {
+      "enum": [
+        "fixture",
+        "generated"
+      ]
+    },
+    "repository": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80,
+          "pattern": "^[a-z0-9][a-z0-9-]*$"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160
+        },
+        "url": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        },
+        "commitSha": {
+          "type": "string",
+          "minLength": 40,
+          "maxLength": 40,
+          "pattern": "^[a-f0-9]{40}$"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "url",
+        "commitSha"
+      ]
+    },
+    "generatedAt": {
+      "type": "string",
+      "minLength": 20,
+      "maxLength": 40
+    },
+    "tools": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "enum": [
+              "repograph",
+              "graphify"
+            ]
+          },
+          "version": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 50
+          },
+          "mode": {
+            "enum": [
+              "static",
+              "code-only"
+            ]
+          }
+        },
+        "required": [
+          "name",
+          "version",
+          "mode"
+        ]
+      },
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "cases": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 80,
+            "pattern": "^[a-z0-9][a-z0-9-]*$"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          },
+          "scenarioType": {
+            "const": "file-impact"
+          },
+          "changedFiles": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 300
+            },
+            "minItems": 1,
+            "maxItems": 3
+          },
+          "impact": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "directDependents": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "path": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 300
+                    },
+                    "evidenceIds": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 80,
+                        "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$"
+                      },
+                      "minItems": 1,
+                      "maxItems": 60
+                    }
+                  },
+                  "required": [
+                    "path",
+                    "evidenceIds"
+                  ]
+                },
+                "minItems": 0,
+                "maxItems": 60
+              },
+              "transitiveDependents": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "path": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 300
+                    },
+                    "evidenceIds": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 80,
+                        "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$"
+                      },
+                      "minItems": 1,
+                      "maxItems": 60
+                    }
+                  },
+                  "required": [
+                    "path",
+                    "evidenceIds"
+                  ]
+                },
+                "minItems": 0,
+                "maxItems": 60
+              },
+              "relatedTests": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "path": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 300
+                    },
+                    "evidenceIds": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 80,
+                        "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$"
+                      },
+                      "minItems": 1,
+                      "maxItems": 60
+                    }
+                  },
+                  "required": [
+                    "path",
+                    "evidenceIds"
+                  ]
+                },
+                "minItems": 0,
+                "maxItems": 60
+              },
+              "blindSpots": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 1000
+                },
+                "minItems": 0,
+                "maxItems": 30
+              }
+            },
+            "required": [
+              "directDependents",
+              "transitiveDependents",
+              "relatedTests",
+              "blindSpots"
+            ]
+          },
+          "architecture": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "summary": {
+                "type": "string",
+                "minLength": 0,
+                "maxLength": 1500
+              },
+              "contextText": {
+                "type": "string",
+                "minLength": 0,
+                "maxLength": 6000
+              },
+              "evidenceIds": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 80,
+                  "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$"
+                },
+                "minItems": 0,
+                "maxItems": 60
+              }
+            },
+            "required": [
+              "summary",
+              "contextText",
+              "evidenceIds"
+            ]
+          },
+          "evidence": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 80,
+                  "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$"
+                },
+                "producer": {
+                  "enum": [
+                    "repograph",
+                    "graphify"
+                  ]
+                },
+                "confidence": {
+                  "enum": [
+                    "confirmed",
+                    "inferred",
+                    "heuristic",
+                    "unresolved",
+                    "external",
+                    "EXTRACTED",
+                    "INFERRED",
+                    "AMBIGUOUS"
+                  ]
+                },
+                "relation": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 120
+                },
+                "path": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 300
+                },
+                "startLine": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "endLine": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "excerpt": {
+                  "type": "string",
+                  "minLength": 0,
+                  "maxLength": 1200
+                },
+                "sourceUrl": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              },
+              "required": [
+                "id",
+                "producer",
+                "confidence",
+                "relation",
+                "path",
+                "startLine",
+                "endLine",
+                "excerpt",
+                "sourceUrl"
+              ]
+            },
+            "minItems": 0,
+            "maxItems": 60
+          },
+          "limitations": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1000
+            },
+            "minItems": 2,
+            "maxItems": 30
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "scenarioType",
+          "changedFiles",
+          "impact",
+          "architecture",
+          "evidence",
+          "limitations"
+        ]
+      },
+      "minItems": 1,
+      "maxItems": 3
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "artifactKind",
+    "repository",
+    "generatedAt",
+    "tools",
+    "cases"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Review Desk artifact bundle v1.0.0"
+}

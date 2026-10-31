@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1360" height="850" viewBox="0 0 1360 850" role="img" aria-labelledby="title desc">
+  <title id="title">RepoGraph Review Desk system flow</title>
+  <desc id="desc">Member 1 produces pinned JSON evidence from RepoGraph and Graphify offline. On Cloudways, Member 3's dashboard calls Member 2's API, which loads the evidence, requests a Gemma explanation, validates citations, and returns a briefing for viewing and export.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="#64748b"/></marker>
+    <style>
+      text {font-family:Arial,Helvetica,sans-serif;fill:#17263c}
+      .title {font-size:28px;font-weight:700}
+      .section {font-size:18px;font-weight:700}
+      .label {font-size:19px;font-weight:700}
+      .body {font-size:16px;fill:#46566d}
+      .small {font-size:14px;fill:#53647a}
+      .edge {fill:none;stroke:#64748b;stroke-width:2.5;marker-end:url(#arrow)}
+      .box {stroke-width:1.5;rx:14}
+    </style>
+  </defs>
+  <rect width="1360" height="850" fill="#f8fafc"/>
+  <text x="40" y="43" class="title">RepoGraph Review Desk</text>
+  <text x="40" y="72" class="body">One source-linked review briefing, built through three independent workstreams</text>
+  <rect x="30" y="92" width="1300" height="262" rx="20" fill="#edf5ff" stroke="#c6ddf8"/>
+  <text x="52" y="123" class="section">OFFLINE GENERATION · MEMBER 1</text>
+  <rect x="52" y="175" width="220" height="100" class="box" fill="white" stroke="#9bbbe2"/>
+  <text x="162" y="211" text-anchor="middle" class="label">Public repository</text>
+  <text x="162" y="240" text-anchor="middle" class="body">Pinned commit</text>
+  <rect x="350" y="150" width="280" height="75" class="box" fill="white" stroke="#9bbbe2"/>
+  <text x="490" y="180" text-anchor="middle" class="label">RepoGraph</text>
+  <text x="490" y="205" text-anchor="middle" class="body">Impact evidence + blind spots</text>
+  <rect x="350" y="250" width="280" height="75" class="box" fill="white" stroke="#9bbbe2"/>
+  <text x="490" y="280" text-anchor="middle" class="label">Graphify</text>
+  <text x="490" y="305" text-anchor="middle" class="body">Architecture context</text>
+  <rect x="820" y="180" width="450" height="100" class="box" fill="#dbeafe" stroke="#7fa7da"/>
+  <text x="1045" y="214" text-anchor="middle" class="label">Validated JSON artifact bundle</text>
+  <text x="1045" y="242" text-anchor="middle" class="body">Source links · confidence · limitations</text>
+  <path d="M272 205H310V187H350" class="edge"/>
+  <path d="M272 245H310V287H350" class="edge"/>
+  <path d="M630 187H740V210H820" class="edge"/>
+  <path d="M630 287H740V250H820" class="edge"/>
+  <rect x="30" y="380" width="1300" height="410" rx="20" fill="#f0f4f8" stroke="#d3dee9"/>
+  <text x="52" y="414" class="section">HOSTED ON CLOUDWAYS · ONE NODE APPLICATION</text>
+  <path d="M1045 280V448H625V500" class="edge"/>
+  <rect x="758" y="432" width="276" height="30" fill="#f0f4f8"/>
+  <text x="765" y="452" class="small">Prepared snapshot; no Python server</text>
+  <rect x="90" y="500" width="250" height="100" class="box" fill="#e2f4e9" stroke="#91bea3"/>
+  <text x="215" y="530" text-anchor="middle" class="small">MEMBER 3</text>
+  <text x="215" y="557" text-anchor="middle" class="label">Reviewer dashboard</text>
+  <text x="215" y="581" text-anchor="middle" class="body">Select a supported file</text>
+  <rect x="490" y="500" width="270" height="100" class="box" fill="#eee7fa" stroke="#b69bd5"/>
+  <text x="625" y="530" text-anchor="middle" class="small">MEMBER 2</text>
+  <text x="625" y="557" text-anchor="middle" class="label">Node API</text>
+  <text x="625" y="581" text-anchor="middle" class="body">Validate input + citations</text>
+  <rect x="995" y="500" width="270" height="100" class="box" fill="white" stroke="#b69bd5"/>
+  <text x="1130" y="532" text-anchor="middle" class="label">Gemma 4</text>
+  <text x="1130" y="558" text-anchor="middle" class="body">Explain supplied evidence</text>
+  <text x="1130" y="581" text-anchor="middle" class="small">Key stays server-side</text>
+  <path d="M340 533H490" class="edge"/>
+  <text x="415" y="522" text-anchor="middle" class="small">Request</text>
+  <path d="M490 575H340" class="edge"/>
+  <text x="415" y="619" text-anchor="middle" class="small">Validated briefing</text>
+  <path d="M760 533H995" class="edge"/>
+  <text x="877" y="522" text-anchor="middle" class="small">Bounded evidence</text>
+  <path d="M995 575H760" class="edge"/>
+  <text x="877" y="619" text-anchor="middle" class="small">Structured explanation</text>
+  <path d="M215 600V675" class="edge"/>
+  <rect x="90" y="675" width="430" height="85" class="box" fill="#e2f4e9" stroke="#91bea3"/>
+  <text x="305" y="709" text-anchor="middle" class="label">Evidence view + Markdown export</text>
+  <text x="305" y="736" text-anchor="middle" class="body">Source references and caveats stay visible</text>
+  <text x="660" y="701" class="body">Shared starting pack for all members:</text>
+  <text x="660" y="730" class="body">Frozen schemas + synthetic fixtures + mock API + launcher</text>
+  <text x="40" y="825" class="small">Prepared file-impact scenarios · Live AI is labeled separately from data provenance · Review guidance, not a safety verdict</text>
+</svg>

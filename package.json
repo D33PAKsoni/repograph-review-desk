@@ -1,0 +1,21 @@
+{
+  "name": "repograph-review-desk-handoff",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": "^22.12.0 || ^24.0.0"
+  },
+  "scripts": {
+    "build": "npm --prefix web ci && npm --prefix web run build",
+    "start": "node bootstrap/server.mjs",
+    "check:starter": "node --test bootstrap/starter.test.mjs",
+    "test:starter": "node --test bootstrap/starter.test.mjs",
+    "test": "npm run test:starter && npm --prefix web run check && npm --prefix web test",
+    "dev:web": "npm --prefix web run dev",
+    "check:ready": "node deployment/preflight.mjs --record",
+    "check:production": "node deployment/preflight.mjs --production --record",
+    "package:handoff": "node deployment/package-handoff.mjs",
+    "validate:fixture": "node contracts/validate.mjs --bundle fixtures/artifact-bundle.fixture.json"
+  }
+}
