@@ -94,6 +94,12 @@ Reproduce:
 
 ### Benchmarks
 
+**Competitor head-to-head (2026-10-31).** On the same 22 mutations and 180 known-failing test
+files, Graphify 0.9.99's `affected` (file seed, their best arm) caught 158/180 with 22 failing
+files undisclosed; RepoGraph's impact caught 179/180 with 1 undisclosed, at a higher context
+cost (median 90% vs 74% of test files named). Bare-name seeds at matched depth were close
+(0.700 vs 0.711 pooled). Protocol and limits: `research/H2H_GRAPHIFY_VS_IMPACT.md`.
+
 Measured 2026-10-27, Linux x86_64, Python 3.14.8, one run per repository. Raw JSON in `benchmarks/results/`.
 
 | Repo | Files | Symbols | Internal imports | Parse errors | Cold | Incremental | DB | Impact |

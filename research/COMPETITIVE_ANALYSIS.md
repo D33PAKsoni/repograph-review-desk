@@ -8,7 +8,7 @@ The "code graph + MCP for agents" category already has many entrants across main
 
 | Competitor | Verified metadata | Claimed overlap |
 | --- | --- | --- |
-| Graphify | Python, Apache-2.0, 136k stars (snapshot) | Deterministic AST graph, every edge explained, no vector store |
+| Graphify | Python, Apache-2.0, 139.5k stars (2026-10-31 snapshot) | Deterministic AST graph, every edge explained, no vector store, blast radius (`affected`) |
 | codebase-memory-mcp | C, MIT, 47.6k stars | Persistent graph, change-aware test selection |
 | code-review-graph | Python, MIT, 32.4k stars | Local-first graph, review context reduction |
 | SocratiCode | TypeScript, AGPL-3.0, 3.3k stars | Symbol-level impact analysis and call-flow |
@@ -20,6 +20,11 @@ The "code graph + MCP for agents" category already has many entrants across main
 | fallow | Rust, MIT, 5.2k stars | TS/JS architecture boundaries, cycles, unused code |
 
 "Evidence + confidence" and "impact analysis" are **not unique**. Any positioning that implies otherwise would be false.
+
+One capability has since been measured rather than assumed: Graphify's `affected` blast radius
+against our impact on 22 mutations with 180 known-failing test files. Best arms were 158/180
+recall at a median 74% of test files (theirs) and 179/180 at 90% (ours); theirs left 22 failing
+files undisclosed, ours 1. Protocol and limits: `H2H_GRAPHIFY_VS_IMPACT.md`.
 
 ## Adjacent, non-competing foundations
 
@@ -47,7 +52,7 @@ The "code graph + MCP for agents" category already has many entrants across main
 
 These are hypotheses, not proven advantages. Each needs a head-to-head test.
 
-1. **Uncertainty is a first-class output, not a footnote.** Four confidence classes, separate unresolved/external classes, and structured `blind_spots` in every impact report.
+1. **Uncertainty is a first-class output, not a footnote.** Four confidence classes, separate unresolved/external classes, and structured `blind_spots` in every impact report. Measured against Graphify's `affected` on 22 mutations: 1 undisclosed failing file vs 22 (`H2H_GRAPHIFY_VS_IMPACT.md`).
 2. **"No dependents" is explicitly not "safe."** The output states the limitation instead of returning an empty list.
 3. **Auditable implementation.** ~1,900 statements of Python, one SQLite file, no embeddings, no LLM, no network. A reviewer can trace every edge to an extractor branch.
 4. **Read-only by construction.** Indexing parses bytes; there is no write path to the analyzed repository.
