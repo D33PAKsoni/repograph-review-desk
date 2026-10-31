@@ -1,0 +1,557 @@
+{
+ "repo": "click",
+ "src": "src/click",
+ "python": "/tmp/opencode/sel/click/.venv/bin/python",
+ "index_s": 0.05,
+ "baseline": {
+  "returncode": 0,
+  "duration_s": 8.5,
+  "total": 2287,
+  "failed_files": {}
+ },
+ "mutations": [
+  {
+   "name": "is_ascii_encoding",
+   "file": "src/click/_compat.py",
+   "lines": [
+    44,
+    48
+   ],
+   "pytest_rc": 1,
+   "failed_files": {
+    "tests/test_abort_interrupt.py": 1,
+    "tests/test_arguments.py": 97,
+    "tests/test_basic.py": 79,
+    "tests/test_chain.py": 15,
+    "tests/test_command_decorators.py": 4,
+    "tests/test_commands.py": 33,
+    "tests/test_context.py": 9,
+    "tests/test_defaults.py": 34,
+    "tests/test_formatting.py": 23,
+    "tests/test_imports.py": 1,
+    "tests/test_normalization.py": 3,
+    "tests/test_options.py": 582,
+    "tests/test_shell_completion.py": 17,
+    "tests/test_stream_lifecycle.py": 14,
+    "tests/test_termui.py": 152,
+    "tests/test_testing.py": 31,
+    "tests/test_utils/test_confirm.py": 2,
+    "tests/test_utils/test_echo.py": 4,
+    "tests/test_utils/test_echo_via_pager.py": 49,
+    "tests/test_utils/test_open_file.py": 2,
+    "tests/test_utils/test_prompt.py": 2
+   },
+   "unmapped": [],
+   "suite_s": 9.5,
+   "status": "measured",
+   "undetermined_disclosed": 0,
+   "direct": {
+    "selected": 9,
+    "hit": 8,
+    "recall": 0.381,
+    "precision": 0.8889,
+    "fraction": 0.2045,
+    "missed": [
+     "tests/test_abort_interrupt.py",
+     "tests/test_arguments.py",
+     "tests/test_basic.py",
+     "tests/test_chain.py",
+     "tests/test_command_decorators.py",
+     "tests/test_commands.py",
+     "tests/test_context.py",
+     "tests/test_defaults.py",
+     "tests/test_normalization.py",
+     "tests/test_options.py",
+     "tests/test_shell_completion.py",
+     "tests/test_stream_lifecycle.py",
+     "tests/test_utils/test_confirm.py"
+    ]
+   },
+   "closure": {
+    "selected": 44,
+    "hit": 21,
+    "recall": 1.0,
+    "precision": 0.4773,
+    "fraction": 1.0,
+    "missed": []
+   }
+  },
+  {
+   "name": "get_text_stdout",
+   "file": "src/click/_compat.py",
+   "lines": [
+    348,
+    351
+   ],
+   "pytest_rc": 1,
+   "failed_files": {
+    "tests/test_abort_interrupt.py": 1,
+    "tests/test_arguments.py": 73,
+    "tests/test_basic.py": 72,
+    "tests/test_chain.py": 15,
+    "tests/test_command_decorators.py": 4,
+    "tests/test_commands.py": 25,
+    "tests/test_context.py": 9,
+    "tests/test_defaults.py": 34,
+    "tests/test_formatting.py": 11,
+    "tests/test_imports.py": 1,
+    "tests/test_normalization.py": 3,
+    "tests/test_options.py": 528,
+    "tests/test_shell_completion.py": 17,
+    "tests/test_stream_lifecycle.py": 13,
+    "tests/test_termui.py": 151,
+    "tests/test_testing.py": 28,
+    "tests/test_utils/test_confirm.py": 2,
+    "tests/test_utils/test_echo.py": 4,
+    "tests/test_utils/test_echo_via_pager.py": 49,
+    "tests/test_utils/test_open_file.py": 2,
+    "tests/test_utils/test_prompt.py": 2
+   },
+   "unmapped": [],
+   "suite_s": 9.5,
+   "status": "measured",
+   "undetermined_disclosed": 0,
+   "direct": {
+    "selected": 9,
+    "hit": 8,
+    "recall": 0.381,
+    "precision": 0.8889,
+    "fraction": 0.2045,
+    "missed": [
+     "tests/test_abort_interrupt.py",
+     "tests/test_arguments.py",
+     "tests/test_basic.py",
+     "tests/test_chain.py",
+     "tests/test_command_decorators.py",
+     "tests/test_commands.py",
+     "tests/test_context.py",
+     "tests/test_defaults.py",
+     "tests/test_normalization.py",
+     "tests/test_options.py",
+     "tests/test_shell_completion.py",
+     "tests/test_stream_lifecycle.py",
+     "tests/test_utils/test_confirm.py"
+    ]
+   },
+   "closure": {
+    "selected": 44,
+    "hit": 21,
+    "recall": 1.0,
+    "precision": 0.4773,
+    "fraction": 1.0,
+    "missed": []
+   }
+  },
+  {
+   "name": "augment_usage_errors",
+   "file": "src/click/core.py",
+   "lines": [
+    157,
+    169
+   ],
+   "pytest_rc": 1,
+   "failed_files": {
+    "tests/test_abort_interrupt.py": 8,
+    "tests/test_arguments.py": 106,
+    "tests/test_basic.py": 105,
+    "tests/test_chain.py": 15,
+    "tests/test_command_decorators.py": 4,
+    "tests/test_commands.py": 54,
+    "tests/test_context.py": 24,
+    "tests/test_custom_classes.py": 2,
+    "tests/test_defaults.py": 35,
+    "tests/test_formatting.py": 23,
+    "tests/test_normalization.py": 3,
+    "tests/test_options.py": 590,
+    "tests/test_shell_completion.py": 47,
+    "tests/test_stream_lifecycle.py": 13,
+    "tests/test_termui.py": 135,
+    "tests/test_testing.py": 38,
+    "tests/test_types/test_Path.py": 4,
+    "tests/test_utils/test_confirm.py": 2,
+    "tests/test_utils/test_echo.py": 1,
+    "tests/test_utils/test_open_file.py": 7
+   },
+   "unmapped": [],
+   "suite_s": 11.1,
+   "status": "measured",
+   "undetermined_disclosed": 0,
+   "direct": {
+    "selected": 6,
+    "hit": 4,
+    "recall": 0.2,
+    "precision": 0.6667,
+    "fraction": 0.1364,
+    "missed": [
+     "tests/test_abort_interrupt.py",
+     "tests/test_arguments.py",
+     "tests/test_basic.py",
+     "tests/test_chain.py",
+     "tests/test_command_decorators.py",
+     "tests/test_commands.py",
+     "tests/test_custom_classes.py",
+     "tests/test_formatting.py",
+     "tests/test_normalization.py",
+     "tests/test_options.py",
+     "tests/test_stream_lifecycle.py",
+     "tests/test_termui.py",
+     "tests/test_types/test_Path.py",
+     "tests/test_utils/test_confirm.py",
+     "tests/test_utils/test_echo.py",
+     "tests/test_utils/test_open_file.py"
+    ]
+   },
+   "closure": {
+    "selected": 43,
+    "hit": 20,
+    "recall": 1.0,
+    "precision": 0.4651,
+    "fraction": 0.9773,
+    "missed": []
+   }
+  },
+  {
+   "name": "command",
+   "file": "src/click/decorators.py",
+   "lines": [
+    173,
+    255
+   ],
+   "pytest_rc": 1,
+   "failed_files": {
+    "tests/test_abort_interrupt.py": 8,
+    "tests/test_arguments.py": 111,
+    "tests/test_basic.py": 97,
+    "tests/test_chain.py": 15,
+    "tests/test_command_decorators.py": 9,
+    "tests/test_commands.py": 53,
+    "tests/test_context.py": 24,
+    "tests/test_custom_classes.py": 4,
+    "tests/test_defaults.py": 35,
+    "tests/test_formatting.py": 21,
+    "tests/test_info_dict.py": 1,
+    "tests/test_normalization.py": 3,
+    "tests/test_options.py": 607,
+    "tests/test_shell_completion.py": 1,
+    "tests/test_stream_lifecycle.py": 16,
+    "tests/test_termui.py": 141,
+    "tests/test_testing.py": 39,
+    "tests/test_utils/test_confirm.py": 1,
+    "tests/test_utils/test_echo.py": 1,
+    "tests/test_utils/test_open_file.py": 8,
+    "tests/test_utils/test_prompt.py": 1
+   },
+   "unmapped": [],
+   "suite_s": 8.5,
+   "status": "measured",
+   "undetermined_disclosed": 0,
+   "direct": {
+    "selected": 1,
+    "hit": 1,
+    "recall": 0.0476,
+    "precision": 1.0,
+    "fraction": 0.0227,
+    "missed": [
+     "tests/test_abort_interrupt.py",
+     "tests/test_arguments.py",
+     "tests/test_basic.py",
+     "tests/test_chain.py",
+     "tests/test_command_decorators.py",
+     "tests/test_commands.py",
+     "tests/test_custom_classes.py",
+     "tests/test_defaults.py",
+     "tests/test_formatting.py",
+     "tests/test_info_dict.py",
+     "tests/test_normalization.py",
+     "tests/test_options.py",
+     "tests/test_shell_completion.py",
+     "tests/test_stream_lifecycle.py",
+     "tests/test_termui.py",
+     "tests/test_testing.py",
+     "tests/test_utils/test_confirm.py",
+     "tests/test_utils/test_echo.py",
+     "tests/test_utils/test_open_file.py",
+     "tests/test_utils/test_prompt.py"
+    ]
+   },
+   "closure": {
+    "selected": 43,
+    "hit": 21,
+    "recall": 1.0,
+    "precision": 0.4884,
+    "fraction": 0.9773,
+    "missed": []
+   }
+  },
+  {
+   "name": "version_option",
+   "file": "src/click/decorators.py",
+   "lines": [
+    429,
+    558
+   ],
+   "pytest_rc": 1,
+   "failed_files": {
+    "tests/test_basic.py": 3
+   },
+   "unmapped": [],
+   "suite_s": 7.6,
+   "status": "measured",
+   "undetermined_disclosed": 0,
+   "direct": {
+    "selected": 1,
+    "hit": 0,
+    "recall": 0.0,
+    "precision": 0.0,
+    "fraction": 0.0227,
+    "missed": [
+     "tests/test_basic.py"
+    ]
+   },
+   "closure": {
+    "selected": 43,
+    "hit": 1,
+    "recall": 1.0,
+    "precision": 0.0233,
+    "fraction": 0.9773,
+    "missed": []
+   }
+  },
+  {
+   "name": "get_current_context",
+   "file": "src/click/globals.py",
+   "lines": [
+    21,
+    41
+   ],
+   "pytest_rc": 1,
+   "failed_files": {
+    "tests/test_abort_interrupt.py": 8,
+    "tests/test_arguments.py": 99,
+    "tests/test_basic.py": 79,
+    "tests/test_chain.py": 15,
+    "tests/test_command_decorators.py": 4,
+    "tests/test_commands.py": 53,
+    "tests/test_context.py": 22,
+    "tests/test_custom_classes.py": 1,
+    "tests/test_defaults.py": 35,
+    "tests/test_exceptions/test_FileError.py": 1,
+    "tests/test_formatting.py": 23,
+    "tests/test_imports.py": 1,
+    "tests/test_normalization.py": 3,
+    "tests/test_options.py": 593,
+    "tests/test_shell_completion.py": 17,
+    "tests/test_stream_lifecycle.py": 14,
+    "tests/test_termui.py": 190,
+    "tests/test_testing.py": 31,
+    "tests/test_types/test_File.py": 2,
+    "tests/test_types/test_FloatRange.py": 2,
+    "tests/test_types/test_FuncParamType.py": 2,
+    "tests/test_types/test_IntRange.py": 5,
+    "tests/test_types/test_Path.py": 2,
+    "tests/test_types/test_convert_type.py": 1,
+    "tests/test_utils/test_confirm.py": 2,
+    "tests/test_utils/test_echo.py": 5,
+    "tests/test_utils/test_echo_via_pager.py": 49,
+    "tests/test_utils/test_open_file.py": 2,
+    "tests/test_utils/test_prompt.py": 8
+   },
+   "unmapped": [],
+   "suite_s": 8.5,
+   "status": "measured",
+   "undetermined_disclosed": 0,
+   "direct": {
+    "selected": 1,
+    "hit": 1,
+    "recall": 0.0345,
+    "precision": 1.0,
+    "fraction": 0.0227,
+    "missed": [
+     "tests/test_abort_interrupt.py",
+     "tests/test_arguments.py",
+     "tests/test_basic.py",
+     "tests/test_chain.py",
+     "tests/test_command_decorators.py",
+     "tests/test_commands.py",
+     "tests/test_context.py",
+     "tests/test_custom_classes.py",
+     "tests/test_defaults.py",
+     "tests/test_exceptions/test_FileError.py",
+     "tests/test_formatting.py",
+     "tests/test_imports.py",
+     "tests/test_normalization.py",
+     "tests/test_options.py",
+     "tests/test_shell_completion.py",
+     "tests/test_stream_lifecycle.py",
+     "tests/test_testing.py",
+     "tests/test_types/test_File.py",
+     "tests/test_types/test_FloatRange.py",
+     "tests/test_types/test_FuncParamType.py",
+     "tests/test_types/test_IntRange.py",
+     "tests/test_types/test_Path.py",
+     "tests/test_types/test_convert_type.py",
+     "tests/test_utils/test_confirm.py",
+     "tests/test_utils/test_echo.py",
+     "tests/test_utils/test_echo_via_pager.py",
+     "tests/test_utils/test_open_file.py",
+     "tests/test_utils/test_prompt.py"
+    ]
+   },
+   "closure": {
+    "selected": 43,
+    "hit": 28,
+    "recall": 0.9655,
+    "precision": 0.6512,
+    "fraction": 0.9773,
+    "missed": [
+     "tests/test_imports.py"
+    ]
+   }
+  },
+  {
+   "name": "get_completion_class",
+   "file": "src/click/shell_completion.py",
+   "lines": [
+    594,
+    600
+   ],
+   "pytest_rc": 1,
+   "failed_files": {
+    "tests/test_shell_completion.py": 18
+   },
+   "unmapped": [],
+   "suite_s": 8.5,
+   "status": "measured",
+   "undetermined_disclosed": 0,
+   "direct": {
+    "selected": 3,
+    "hit": 1,
+    "recall": 1.0,
+    "precision": 0.3333,
+    "fraction": 0.0682,
+    "missed": []
+   },
+   "closure": {
+    "selected": 43,
+    "hit": 1,
+    "recall": 1.0,
+    "precision": 0.0233,
+    "fraction": 0.9773,
+    "missed": []
+   }
+  },
+  {
+   "name": "echo_via_pager",
+   "file": "src/click/termui.py",
+   "lines": [
+    371,
+    399
+   ],
+   "pytest_rc": 1,
+   "failed_files": {
+    "tests/test_termui.py": 8,
+    "tests/test_testing.py": 1,
+    "tests/test_utils/test_echo_via_pager.py": 49
+   },
+   "unmapped": [],
+   "suite_s": 7.6,
+   "status": "measured",
+   "undetermined_disclosed": 0,
+   "direct": {
+    "selected": 2,
+    "hit": 2,
+    "recall": 0.6667,
+    "precision": 1.0,
+    "fraction": 0.0455,
+    "missed": [
+     "tests/test_utils/test_echo_via_pager.py"
+    ]
+   },
+   "closure": {
+    "selected": 43,
+    "hit": 3,
+    "recall": 1.0,
+    "precision": 0.0698,
+    "fraction": 0.9773,
+    "missed": []
+   }
+  },
+  {
+   "name": "edit",
+   "file": "src/click/termui.py",
+   "lines": [
+    859,
+    920
+   ],
+   "pytest_rc": 1,
+   "failed_files": {
+    "tests/test_termui.py": 4
+   },
+   "unmapped": [],
+   "suite_s": 7.8,
+   "status": "measured",
+   "undetermined_disclosed": 0,
+   "direct": {
+    "selected": 2,
+    "hit": 1,
+    "recall": 1.0,
+    "precision": 0.5,
+    "fraction": 0.0455,
+    "missed": []
+   },
+   "closure": {
+    "selected": 43,
+    "hit": 1,
+    "recall": 1.0,
+    "precision": 0.0233,
+    "fraction": 0.9773,
+    "missed": []
+   }
+  },
+  {
+   "name": "convert_type",
+   "file": "src/click/types.py",
+   "lines": [
+    1359,
+    1397
+   ],
+   "pytest_rc": 2,
+   "failed_files": {},
+   "unmapped": [
+    "?"
+   ],
+   "suite_s": 3.3,
+   "status": "unusable-suite"
+  }
+ ],
+ "pooled": {
+  "direct": {
+   "mutations": 9,
+   "unobserved": 0,
+   "unusable": 1,
+   "failing_test_files": 118,
+   "hits": 26,
+   "selected": 34,
+   "recall": 0.2203,
+   "precision": 0.7647,
+   "median_recall": 0.381,
+   "median_fraction": 0.0455,
+   "disclosed_of_missed": 0,
+   "unmapped_testcases": 0
+  },
+  "closure": {
+   "mutations": 9,
+   "unobserved": 0,
+   "unusable": 1,
+   "failing_test_files": 118,
+   "hits": 117,
+   "selected": 389,
+   "recall": 0.9915,
+   "precision": 0.3008,
+   "median_recall": 1.0,
+   "median_fraction": 0.9773,
+   "disclosed_of_missed": 0,
+   "unmapped_testcases": 0
+  }
+ }
+}

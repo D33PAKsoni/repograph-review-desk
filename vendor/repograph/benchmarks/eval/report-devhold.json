@@ -1,0 +1,176 @@
+{
+  "sample": "benchmarks/eval/sample-devhold.jsonl",
+  "labelers": [
+    "benchmarks/eval/labels-devhold-a.jsonl",
+    "benchmarks/eval/labels-devhold-b.jsonl"
+  ],
+  "n": 217,
+  "agreement": 0.977,
+  "disagreements": [
+    {
+      "id": "zod-0026",
+      "reason": "label-disagreement",
+      "labels": [
+        "internal_missed",
+        "unresolved_ok"
+      ],
+      "file": "packages/docs/app/layout.tsx",
+      "line": 4,
+      "module": "./global.css",
+      "target": null
+    },
+    {
+      "id": "axios-0051",
+      "reason": "label-disagreement",
+      "labels": [
+        "internal_missed",
+        "unresolved_ok"
+      ],
+      "file": "docs/.vitepress/theme/index.ts",
+      "line": 6,
+      "module": "./style.css",
+      "target": null
+    },
+    {
+      "id": "axios-0058",
+      "reason": "label-disagreement",
+      "labels": [
+        "wrong_target",
+        "correct"
+      ],
+      "file": "tests/module/esm/tests/helpers/declaration-consumer.ts",
+      "line": 1,
+      "module": "axios",
+      "target": "index.js"
+    },
+    {
+      "id": "axios-0148",
+      "reason": "label-disagreement",
+      "labels": [
+        "internal_missed",
+        "unresolved_ok"
+      ],
+      "file": "rollup.config.js",
+      "line": 12,
+      "module": "./package.json",
+      "target": null
+    },
+    {
+      "id": "axios-0195",
+      "reason": "label-disagreement",
+      "labels": [
+        "internal_missed",
+        "unresolved_ok"
+      ],
+      "file": "docs/.vitepress/theme/index.ts",
+      "line": 5,
+      "module": "./SecurityUpdatesBanner.vue",
+      "target": null
+    }
+  ],
+  "disagreement_count": 5,
+  "overall": {
+    "group": "all",
+    "resolved_sample": 150,
+    "resolved_labeled": 150,
+    "miss_sample": 67,
+    "weighted_estimated_edges": {
+      "correct": 1559.0,
+      "wrong_target": 0.0,
+      "not_internal": 0.0,
+      "uncertain": 2.0,
+      "internal_missed": 1.0
+    },
+    "precision": 1.0,
+    "precision_conservative": 0.9987,
+    "recall_estimate": 0.9994,
+    "precision_unweighted": 1.0,
+    "by_confidence": {
+      "confirmed": {
+        "n": 90,
+        "precision": 1.0
+      },
+      "inferred": {
+        "n": 59,
+        "precision": 1.0
+      }
+    }
+  },
+  "axios": {
+    "group": "axios",
+    "resolved_sample": 60,
+    "resolved_labeled": 60,
+    "miss_sample": 24,
+    "weighted_estimated_edges": {
+      "correct": 435.0,
+      "wrong_target": 0.0,
+      "not_internal": 0.0,
+      "uncertain": 2.0,
+      "internal_missed": 0.0
+    },
+    "precision": 1.0,
+    "precision_conservative": 0.9954,
+    "recall_estimate": 1.0,
+    "precision_unweighted": 1.0,
+    "by_confidence": {
+      "confirmed": {
+        "n": 30,
+        "precision": 1.0
+      },
+      "inferred": {
+        "n": 29,
+        "precision": 1.0
+      }
+    }
+  },
+  "requests": {
+    "group": "requests",
+    "resolved_sample": 30,
+    "resolved_labeled": 30,
+    "miss_sample": 22,
+    "weighted_estimated_edges": {
+      "correct": 119.0,
+      "wrong_target": 0.0,
+      "not_internal": 0.0,
+      "uncertain": 0.0,
+      "internal_missed": 1.0
+    },
+    "precision": 1.0,
+    "precision_conservative": 1.0,
+    "recall_estimate": 0.9917,
+    "precision_unweighted": 1.0,
+    "by_confidence": {
+      "confirmed": {
+        "n": 30,
+        "precision": 1.0
+      }
+    }
+  },
+  "zod": {
+    "group": "zod",
+    "resolved_sample": 60,
+    "resolved_labeled": 60,
+    "miss_sample": 21,
+    "weighted_estimated_edges": {
+      "correct": 1005.0,
+      "wrong_target": 0.0,
+      "not_internal": 0.0,
+      "uncertain": 0.0,
+      "internal_missed": 0.0
+    },
+    "precision": 1.0,
+    "precision_conservative": 1.0,
+    "recall_estimate": 1.0,
+    "precision_unweighted": 1.0,
+    "by_confidence": {
+      "confirmed": {
+        "n": 30,
+        "precision": 1.0
+      },
+      "inferred": {
+        "n": 30,
+        "precision": 1.0
+      }
+    }
+  }
+}

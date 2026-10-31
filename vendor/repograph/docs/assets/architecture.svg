@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 380" width="920" height="380" role="img" aria-label="RepoGraph pipeline: repository bytes, scan and parse, static resolution, SQLite index, CLI and MCP tools">
+  <title>RepoGraph pipeline</title>
+  <rect x="0" y="0" width="920" height="380" rx="22" fill="#0f172a"/>
+  <text x="34" y="46" fill="#f8fafc" font-family="ui-sans-serif, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="19" font-weight="600">How RepoGraph works</text>
+  <text x="34" y="70" fill="#94a3b8" font-family="ui-sans-serif, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="13">One pass over bytes, one local index, no code execution</text>
+
+  <g font-family="ui-sans-serif, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+    <g>
+      <rect x="30" y="104" width="140" height="86" rx="12" fill="#1e293b" stroke="#334155"/>
+      <text x="100" y="136" fill="#e2e8f0" font-size="13" font-weight="600" text-anchor="middle">Repository</text>
+      <text x="100" y="156" fill="#94a3b8" font-size="11.5" text-anchor="middle">source bytes</text>
+      <text x="100" y="173" fill="#94a3b8" font-size="11.5" text-anchor="middle">read, never imported</text>
+    </g>
+    <g>
+      <rect x="210" y="104" width="140" height="86" rx="12" fill="#1e293b" stroke="#334155"/>
+      <text x="280" y="136" fill="#e2e8f0" font-size="13" font-weight="600" text-anchor="middle">Scan + parse</text>
+      <text x="280" y="156" fill="#94a3b8" font-size="11.5" text-anchor="middle">tree-sitter</text>
+      <text x="280" y="173" fill="#94a3b8" font-size="11.5" text-anchor="middle">symbols, calls, routes</text>
+    </g>
+    <g>
+      <rect x="390" y="104" width="140" height="86" rx="12" fill="#1e293b" stroke="#334155"/>
+      <text x="460" y="136" fill="#e2e8f0" font-size="13" font-weight="600" text-anchor="middle">Static resolver</text>
+      <text x="460" y="156" fill="#94a3b8" font-size="11.5" text-anchor="middle">import → file</text>
+      <text x="460" y="173" fill="#94a3b8" font-size="11.5" text-anchor="middle">aliases, workspaces</text>
+    </g>
+    <g>
+      <rect x="570" y="104" width="140" height="86" rx="12" fill="#1c2a44" stroke="#4338ca"/>
+      <text x="640" y="136" fill="#e2e8f0" font-size="13" font-weight="600" text-anchor="middle">SQLite index</text>
+      <text x="640" y="156" fill="#94a3b8" font-size="11.5" text-anchor="middle">symbols, imports, refs</text>
+      <text x="640" y="173" fill="#94a3b8" font-size="11.5" text-anchor="middle">incremental by hash</text>
+    </g>
+    <g>
+      <rect x="750" y="104" width="140" height="86" rx="12" fill="#1e293b" stroke="#334155"/>
+      <text x="820" y="136" fill="#e2e8f0" font-size="13" font-weight="600" text-anchor="middle">CLI + MCP</text>
+      <text x="820" y="156" fill="#94a3b8" font-size="11.5" text-anchor="middle">6 read-only tools</text>
+      <text x="820" y="173" fill="#94a3b8" font-size="11.5" text-anchor="middle">JSON with evidence</text>
+    </g>
+  </g>
+
+  <g stroke="#475569" stroke-width="2" fill="none">
+    <path d="M170 147 H206" marker-end="url(#arrow)"/>
+    <path d="M350 147 H386" marker-end="url(#arrow)"/>
+    <path d="M530 147 H566" marker-end="url(#arrow)"/>
+    <path d="M710 147 H746" marker-end="url(#arrow)"/>
+  </g>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#475569"/>
+    </marker>
+  </defs>
+
+  <g font-family="ui-sans-serif, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+    <rect x="30" y="232" width="420" height="60" rx="12" fill="#131c2f" stroke="#334155"/>
+    <text x="48" y="258" fill="#cbd5e1" font-size="12.5" font-weight="600">Kept and reported</text>
+    <text x="48" y="277" fill="#94a3b8" font-size="11.5">unresolved · external · dynamic · parse errors · missing tests</text>
+
+    <rect x="470" y="232" width="420" height="60" rx="12" fill="#131c2f" stroke="#334155"/>
+    <text x="488" y="258" fill="#cbd5e1" font-size="12.5" font-weight="600">Never happens</text>
+    <text x="488" y="277" fill="#94a3b8" font-size="11.5">no code execution · no model calls · no data leaves the machine</text>
+
+    <text x="34" y="336" fill="#64748b" font-size="11.5">Every edge carries file, line, extraction method and one of four confidence classes.</text>
+    <text x="34" y="354" fill="#64748b" font-size="11.5">Absence of a static edge is reported as a blind spot, not as proof of safety.</text>
+  </g>
+</svg>

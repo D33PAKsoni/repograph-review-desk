@@ -1,21 +1,13 @@
-# Analysis Engine Documentation
+# Prepared analysis bundle
 
-The Analysis Engine parses codebases deterministically and outputs standard impact and architecture topology artifacts.
+`analysis/build_dataset.py` serializes the fixed `CASES` and `REPO_META` constants to `data/production/artifact-bundle.json`. It does not invoke RepoGraph, Graphify, Tree-sitter, or a repository indexer. The supplied bundle declares `artifactKind: generated`; that declaration and its tool-version fields have not been independently established by captured tool output.
 
-## Components
+```sh
+python analysis/build_dataset.py
+python analysis/check_dataset.py
+node contracts/validate.mjs --bundle data/production/artifact-bundle.json
+```
 
-- `analysis/build_dataset.py`: Main executable script for running AST analysis, indexing, and generating the production bundle `data/production/artifact-bundle.json`.
-- `analysis/check_dataset.py`: Comprehensive test and validation suite for evidence integrity, ID uniqueness, and source range correctness.
-- `analysis/requirements.txt`: Python package requirements, including `repograph-codeintel` and `graphifyy`.
+The builder updates the timestamp when run. The Python checker checks basic metadata, unique evidence IDs, and reference/producer consistency. The shared Node validator checks the contract. Neither checks source contents at the cited commit or proves execution of an analysis tool. Treat source ranges and producer labels as supplied scenario metadata until independently verified.
 
-## Workflow
-
-1. **Repository Indexing**:
-   ```bash
-   python3 analysis/build_dataset.py
-   ```
-2. **Schema & Integrity Verification**:
-   ```bash
-   python3 analysis/check_dataset.py
-   node contracts/validate.mjs --bundle data/production/artifact-bundle.json
-   ```
+Upstream RepoGraph source is preserved under `vendor/repograph/`, including its original installation instructions and license. A reproducible pipeline that derives these artifacts from actual RepoGraph and Graphify outputs remains separate work.

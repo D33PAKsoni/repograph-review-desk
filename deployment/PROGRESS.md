@@ -1,5 +1,10 @@
 # Member 3 progress
 
+## Combined branch status — 31 October 2026
+
+The analysis, Gemma, and web/deployment branches are integrated. See [the branch integration record](../docs/BRANCH_INTEGRATION.md) for conflict decisions and current verification. Entries below are historical records from the individual workstreams; their pending handoff statements no longer describe the merged source. Live provider access, deployment of the merged application, and analysis tool provenance remain unverified.
+
+
 Updated: 31 October 2026 (IST), Velocity access confirmed and companion repository supplied. Scope: `web/`, `deployment/`, root build/project documentation only.
 
 ## Checklist

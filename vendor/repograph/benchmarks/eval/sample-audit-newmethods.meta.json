@@ -1,0 +1,11 @@
+{
+  "seed": 20261027,
+  "sample_size": 40,
+  "population": 241,
+  "methods": [
+    "python-project-root",
+    "python-syspath-root",
+    "package-imports-map"
+  ],
+  "purpose": "precision audit of new inferred resolution methods; not a recall estimate"
+}

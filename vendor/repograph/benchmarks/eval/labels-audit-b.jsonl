@@ -1,0 +1,40 @@
+{"id": "audit-0001", "label": "correct", "note": "'#compiler/builders' maps to packages/svelte/src/compiler/utils/builders.js; import line matches and b.* is used"}
+{"id": "audit-0002", "label": "correct", "note": "'#client/constants' maps to internal/client/constants.js; all imported names are exported there"}
+{"id": "audit-0003", "label": "correct", "note": "'#compiler/builders' maps to packages/svelte/src/compiler/utils/builders.js; import line matches and b.* is used"}
+{"id": "audit-0004", "label": "correct", "note": "conftest test_apps fixture prepends tests/test_apps; blueprintapp/__init__.py defines app"}
+{"id": "audit-0005", "label": "correct", "note": "'#compiler/builders' maps to packages/svelte/src/compiler/utils/builders.js; import line matches and b.* is used"}
+{"id": "audit-0006", "label": "correct", "note": "'#types/hmrPayload' matches vite package.json imports map to the given file, which exports the imported names"}
+{"id": "audit-0007", "label": "correct", "note": "'#client/constants' maps to internal/client/constants.js; all imported names are exported there"}
+{"id": "audit-0008", "label": "correct", "note": "'#dep-types/alias' matches vite package.json imports map to the given file, which exports the imported names"}
+{"id": "audit-0009", "label": "correct", "note": "'#compiler/builders' maps to packages/svelte/src/compiler/utils/builders.js; import line matches and b.* is used"}
+{"id": "audit-0010", "label": "correct", "note": "'#compiler/builders' maps to packages/svelte/src/compiler/utils/builders.js; import line matches and b.* is used"}
+{"id": "audit-0011", "label": "correct", "note": "'#types/importGlob' matches vite package.json imports map to the given file, which exports the imported names"}
+{"id": "audit-0012", "label": "correct", "note": "'#compiler/builders' maps to packages/svelte/src/compiler/utils/builders.js; import line matches and b.* is used"}
+{"id": "audit-0013", "label": "correct", "note": "'#types/internal/terserOptions' matches vite package.json imports map to the given file, which exports the imported names"}
+{"id": "audit-0014", "label": "correct", "note": "'#compiler/builders' maps to packages/svelte/src/compiler/utils/builders.js; import line matches and b.* is used"}
+{"id": "audit-0015", "label": "correct", "note": "'#types/hot' matches vite package.json imports map to the given file, which exports the imported names"}
+{"id": "audit-0016", "label": "correct", "note": "'#dep-types/connect' matches vite package.json imports map to the given file, which exports the imported names"}
+{"id": "audit-0017", "label": "correct", "note": "'#types/customEvent' matches vite package.json imports map to the given file, which exports the imported names"}
+{"id": "audit-0018", "label": "correct", "note": "'#compiler/builders' maps to packages/svelte/src/compiler/utils/builders.js; import line matches and b.* is used"}
+{"id": "audit-0019", "label": "correct", "note": "'#compiler/builders' maps to packages/svelte/src/compiler/utils/builders.js; import line matches and b.* is used"}
+{"id": "audit-0020", "label": "correct", "note": "'#compiler/builders' maps to packages/svelte/src/compiler/utils/builders.js; import line matches and b.* is used"}
+{"id": "audit-0021", "label": "wrong_target", "note": "'#compiler' has a types condition pointing to src/compiler/private.d.ts (which re-exports types/index.d.ts); AST/Namespace/ValidatedCompileOptions are declared there, not in compiler/index.js"}
+{"id": "audit-0022", "label": "correct", "note": "'#compiler/builders' maps to packages/svelte/src/compiler/utils/builders.js; import line matches and b.* is used"}
+{"id": "audit-0023", "label": "correct", "note": "'#types/internal/esbuildOptions' matches vite package.json imports map to the given file, which exports the imported names"}
+{"id": "audit-0024", "label": "correct", "note": "flaskr under examples/tutorial resolves to examples/tutorial/flaskr/db.py, which defines the imported name"}
+{"id": "audit-0025", "label": "correct", "note": "'#compiler/builders' maps to packages/svelte/src/compiler/utils/builders.js; import line matches and b.* is used"}
+{"id": "audit-0026", "label": "correct", "note": "flaskr under examples/tutorial resolves to examples/tutorial/flaskr/db.py, which defines the imported name"}
+{"id": "audit-0027", "label": "correct", "note": "'#types/internal/cssPreprocessorOptions' matches vite package.json imports map to the given file, which exports the imported names"}
+{"id": "audit-0028", "label": "correct", "note": "'#dep-types/anymatch' matches vite package.json imports map to the given file, which exports the imported names"}
+{"id": "audit-0029", "label": "correct", "note": "'#types/hmrPayload' matches vite package.json imports map to the given file, which exports the imported names"}
+{"id": "audit-0030", "label": "correct", "note": "'#compiler/builders' maps to packages/svelte/src/compiler/utils/builders.js; import line matches and b.* is used"}
+{"id": "audit-0031", "label": "correct", "note": "'#compiler/builders' maps to packages/svelte/src/compiler/utils/builders.js; import line matches and b.* is used"}
+{"id": "audit-0032", "label": "wrong_target", "note": "'#compiler' has a types condition pointing to src/compiler/private.d.ts (which re-exports types/index.d.ts); AST/Namespace/ValidatedCompileOptions are declared there, not in compiler/index.js"}
+{"id": "audit-0033", "label": "correct", "note": "'#types/customEvent' matches vite package.json imports map to the given file, which exports the imported names"}
+{"id": "audit-0034", "label": "correct", "note": "'#client/constants' maps to internal/client/constants.js; all imported names are exported there"}
+{"id": "audit-0035", "label": "correct", "note": "'#dep-types/chokidar' matches vite package.json imports map to the given file, which exports the imported names"}
+{"id": "audit-0036", "label": "correct", "note": "flaskr under examples/tutorial resolves to examples/tutorial/flaskr/__init__.py, which defines the imported name"}
+{"id": "audit-0037", "label": "correct", "note": "'#compiler/builders' maps to packages/svelte/src/compiler/utils/builders.js; import line matches and b.* is used"}
+{"id": "audit-0038", "label": "correct", "note": "'#compiler/builders' maps to packages/svelte/src/compiler/utils/builders.js; import line matches and b.* is used"}
+{"id": "audit-0039", "label": "correct", "note": "'#compiler/builders' maps to packages/svelte/src/compiler/utils/builders.js; import line matches and b.* is used"}
+{"id": "audit-0040", "label": "correct", "note": "'#shared' maps to internal/shared/types.d.ts, which exports MaybePromise"}

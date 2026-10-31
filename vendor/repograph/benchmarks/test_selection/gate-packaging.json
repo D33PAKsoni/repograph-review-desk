@@ -1,0 +1,206 @@
+{
+ "repo": "packaging",
+ "src": "src/packaging",
+ "python": "/tmp/opencode/sel/packaging/.venv/bin/python",
+ "index_s": 0.1,
+ "baseline": {
+  "returncode": 0,
+  "duration_s": 76.1,
+  "total": 63413,
+  "failed_files": {}
+ },
+ "mutations": [
+  {
+   "name": "platform_tags",
+   "file": "src/packaging/_manylinux.py",
+   "lines": [
+    236,
+    278
+   ],
+   "pytest_rc": 1,
+   "failed_files": {
+    "tests/test_pylock_select.py": 14,
+    "tests/test_tags.py": 27
+   },
+   "unmapped": [],
+   "suite_s": 82.5,
+   "status": "measured",
+   "undetermined_disclosed": 0,
+   "direct": {
+    "selected": 2,
+    "hit": 1,
+    "recall": 0.5,
+    "precision": 0.5,
+    "fraction": 0.0625,
+    "missed": [
+     "tests/test_pylock_select.py"
+    ]
+   },
+   "closure": {
+    "selected": 26,
+    "hit": 2,
+    "recall": 1.0,
+    "precision": 0.0769,
+    "fraction": 0.8125,
+    "missed": []
+   }
+  },
+  {
+   "name": "intersect_ranges",
+   "file": "src/packaging/_ranges.py",
+   "lines": [
+    591,
+    610
+   ],
+   "pytest_rc": 2,
+   "failed_files": {},
+   "unmapped": [
+    "?"
+   ],
+   "suite_s": 6.2,
+   "status": "unusable-suite"
+  },
+  {
+   "name": "intersect_specifier_bounds",
+   "file": "src/packaging/_ranges.py",
+   "lines": [
+    887,
+    904
+   ],
+   "pytest_rc": 2,
+   "failed_files": {},
+   "unmapped": [
+    "?"
+   ],
+   "suite_s": 6.3,
+   "status": "unusable-suite"
+  },
+  {
+   "name": "is_valid_pylock_path",
+   "file": "src/packaging/pylock.py",
+   "lines": [
+    86,
+    87
+   ],
+   "pytest_rc": 1,
+   "failed_files": {
+    "tests/test_pylock.py": 5
+   },
+   "unmapped": [],
+   "suite_s": 77.4,
+   "status": "measured",
+   "undetermined_disclosed": 0,
+   "direct": {
+    "selected": 2,
+    "hit": 1,
+    "recall": 1.0,
+    "precision": 0.5,
+    "fraction": 0.0625,
+    "missed": []
+   },
+   "closure": {
+    "selected": 2,
+    "hit": 1,
+    "recall": 1.0,
+    "precision": 0.5,
+    "fraction": 0.0625,
+    "missed": []
+   }
+  },
+  {
+   "name": "ios_platforms",
+   "file": "src/packaging/tags.py",
+   "lines": [
+    778,
+    836
+   ],
+   "pytest_rc": 1,
+   "failed_files": {
+    "tests/test_tags.py": 3
+   },
+   "unmapped": [],
+   "suite_s": 78.6,
+   "status": "measured",
+   "undetermined_disclosed": 0,
+   "direct": {
+    "selected": 4,
+    "hit": 1,
+    "recall": 1.0,
+    "precision": 0.25,
+    "fraction": 0.125,
+    "missed": []
+   },
+   "closure": {
+    "selected": 25,
+    "hit": 1,
+    "recall": 1.0,
+    "precision": 0.04,
+    "fraction": 0.7812,
+    "missed": []
+   }
+  },
+  {
+   "name": "create_compatible_tags_selector",
+   "file": "src/packaging/tags.py",
+   "lines": [
+    1026,
+    1066
+   ],
+   "pytest_rc": 1,
+   "failed_files": {
+    "tests/test_pylock_select.py": 29,
+    "tests/test_tags.py": 7
+   },
+   "unmapped": [],
+   "suite_s": 72.5,
+   "status": "measured",
+   "undetermined_disclosed": 0,
+   "direct": {
+    "selected": 4,
+    "hit": 2,
+    "recall": 1.0,
+    "precision": 0.5,
+    "fraction": 0.125,
+    "missed": []
+   },
+   "closure": {
+    "selected": 25,
+    "hit": 2,
+    "recall": 1.0,
+    "precision": 0.08,
+    "fraction": 0.7812,
+    "missed": []
+   }
+  }
+ ],
+ "pooled": {
+  "direct": {
+   "mutations": 4,
+   "unobserved": 0,
+   "unusable": 2,
+   "failing_test_files": 6,
+   "hits": 5,
+   "selected": 12,
+   "recall": 0.8333,
+   "precision": 0.4167,
+   "median_recall": 1.0,
+   "median_fraction": 0.125,
+   "disclosed_of_missed": 0,
+   "unmapped_testcases": 0
+  },
+  "closure": {
+   "mutations": 4,
+   "unobserved": 0,
+   "unusable": 2,
+   "failing_test_files": 6,
+   "hits": 6,
+   "selected": 78,
+   "recall": 1.0,
+   "precision": 0.0769,
+   "median_recall": 1.0,
+   "median_fraction": 0.7812,
+   "disclosed_of_missed": 0,
+   "unmapped_testcases": 0
+  }
+ }
+}

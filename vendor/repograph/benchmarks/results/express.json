@@ -1,0 +1,38 @@
+{
+  "name": "express",
+  "source": "https://github.com/expressjs/express",
+  "generated_at": "2026-10-27T08:23:04Z",
+  "environment": {
+    "python": "3.14.8",
+    "platform": "Linux-7.2.5-3-omarchy-x86_64-with-glibc2.44",
+    "machine": "x86_64"
+  },
+  "index": {
+    "files": 142,
+    "symbols": 63,
+    "internal_imports": 46,
+    "refs": 104,
+    "tests": 92,
+    "parse_errors": 0,
+    "languages": {
+      "javascript": 142
+    },
+    "cold_seconds": 0.2823,
+    "cold_added": 142,
+    "incremental_seconds": 0.0816,
+    "incremental_updated": 0,
+    "db_bytes": 180224,
+    "files_per_second": 503.0
+  },
+  "queries": {
+    "search_median_ms": 0.2,
+    "impact_median_ms": 2.1,
+    "architecture_ms": 1.8,
+    "graph_ms": 0.3,
+    "impact_hub": "test/support/utils.js",
+    "impact_hub_inbound": 8,
+    "graph_nodes": 69,
+    "graph_edges": 46,
+    "architecture_hubs": 10
+  }
+}

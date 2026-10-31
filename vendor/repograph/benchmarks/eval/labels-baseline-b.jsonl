@@ -1,0 +1,294 @@
+{"id": "vue-core-0001", "label": "correct", "note": "target is the declared package.json `main` CJS entry; repo tsconfig paths/vitest alias resolve this specifier to packages/runtime-core/src/index.ts, so the edge is the package entry rather than the source module."}
+{"id": "vue-core-0002", "label": "correct", "note": ""}
+{"id": "vue-core-0003", "label": "correct", "note": "target is the declared package.json `main` CJS entry; repo tsconfig paths/vitest alias resolve this specifier to packages/vue/src/index.ts, so the edge is the package entry rather than the source module."}
+{"id": "vue-core-0004", "label": "correct", "note": ""}
+{"id": "fastapi-0005", "label": "correct", "note": ""}
+{"id": "express-0006", "label": "internal_missed", "note": "relative require of the repo root directory (express package entry; no package.json `main`, so Node defaults to index.js). Statically resolvable.", "actual_target": "index.js"}
+{"id": "fastapi-0007", "label": "not_internal", "note": "stdlib `types` module; absolute `from types import ModuleType` never binds fastapi/types.py, which only shares the name."}
+{"id": "fastapi-0008", "label": "external_ok", "note": "third-party opentelemetry/playwright dependency, not part of the repository."}
+{"id": "vue-core-0009", "label": "correct", "note": ""}
+{"id": "fastapi-0010", "label": "external_ok", "note": "third-party opentelemetry/playwright dependency, not part of the repository."}
+{"id": "express-0011", "label": "correct", "note": ""}
+{"id": "vue-core-0012", "label": "correct", "note": "target is the declared package.json `main` CJS entry; repo tsconfig paths/vitest alias resolve this specifier to packages/runtime-test/src/index.ts, so the edge is the package entry rather than the source module."}
+{"id": "vue-core-0013", "label": "external_ok", "note": "external npm package or node builtin, not part of the repository."}
+{"id": "express-0014", "label": "correct", "note": ""}
+{"id": "vue-core-0015", "label": "unresolved_ok", "note": "imports a built bundle under packages/reactivity/dist, which is not present in the repo; requires a build."}
+{"id": "vue-core-0016", "label": "correct", "note": ""}
+{"id": "vue-core-0017", "label": "correct", "note": "target is the declared package.json `main` CJS entry; repo tsconfig paths/vitest alias resolve this specifier to packages/runtime-dom/src/index.ts, so the edge is the package entry rather than the source module."}
+{"id": "fastapi-0018", "label": "external_ok", "note": "third-party opentelemetry/playwright dependency, not part of the repository."}
+{"id": "express-0019", "label": "internal_missed", "note": "relative require of the repo root directory (express package entry; no package.json `main`, so Node defaults to index.js). Statically resolvable.", "actual_target": "index.js"}
+{"id": "express-0020", "label": "internal_missed", "note": "relative require of the repo root directory (express package entry; no package.json `main`, so Node defaults to index.js). Statically resolvable.", "actual_target": "index.js"}
+{"id": "express-0021", "label": "external_ok", "note": "external npm package or node builtin, not part of the repository."}
+{"id": "express-0022", "label": "external_ok", "note": "external npm package or node builtin, not part of the repository."}
+{"id": "express-0023", "label": "external_ok", "note": "external npm package or node builtin, not part of the repository."}
+{"id": "express-0024", "label": "correct", "note": ""}
+{"id": "fastapi-0025", "label": "correct", "note": ""}
+{"id": "vue-core-0026", "label": "correct", "note": ""}
+{"id": "fastapi-0027", "label": "correct", "note": ""}
+{"id": "express-0028", "label": "external_ok", "note": "external npm package or node builtin, not part of the repository."}
+{"id": "fastapi-0029", "label": "not_internal", "note": "stdlib `types` module; absolute `from types import ModuleType` never binds fastapi/types.py, which only shares the name."}
+{"id": "express-0030", "label": "correct", "note": ""}
+{"id": "fastapi-0031", "label": "correct", "note": ""}
+{"id": "express-0032", "label": "internal_missed", "note": "relative require of the repo root directory (express package entry; no package.json `main`, so Node defaults to index.js). Statically resolvable.", "actual_target": "index.js"}
+{"id": "fastapi-0033", "label": "not_internal", "note": "stdlib `types` module; absolute `import types` never binds fastapi/types.py, which only shares the name."}
+{"id": "express-0034", "label": "internal_missed", "note": "relative require of the repo root directory (express package entry; no package.json `main`, so Node defaults to index.js). Statically resolvable.", "actual_target": "index.js"}
+{"id": "fastapi-0035", "label": "external_ok", "note": "third-party opentelemetry/playwright dependency, not part of the repository."}
+{"id": "fastapi-0036", "label": "not_internal", "note": "stdlib `types` module; absolute `from types import GeneratorType` never binds fastapi/types.py, which only shares the name."}
+{"id": "vue-core-0037", "label": "correct", "note": "target is the declared package.json `main` CJS entry; repo tsconfig paths/vitest alias resolve this specifier to packages/shared/src/index.ts, so the edge is the package entry rather than the source module."}
+{"id": "vue-core-0038", "label": "external_ok", "note": "external npm package or node builtin, not part of the repository."}
+{"id": "vue-core-0039", "label": "correct", "note": "target is the declared package.json `main` CJS entry; repo tsconfig paths/vitest alias resolve this specifier to packages/compiler-dom/src/index.ts, so the edge is the package entry rather than the source module."}
+{"id": "express-0040", "label": "internal_missed", "note": "relative require of the repo root directory (express package entry; no package.json `main`, so Node defaults to index.js). Statically resolvable.", "actual_target": "index.js"}
+{"id": "vue-core-0041", "label": "internal_missed", "note": "`./utils` resolves to the sibling declaration module packages-private/dts-test/utils.d.ts, which exports describe/expectType etc.", "actual_target": "packages-private/dts-test/utils.d.ts"}
+{"id": "vue-core-0042", "label": "external_ok", "note": "external npm package or node builtin, not part of the repository."}
+{"id": "express-0043", "label": "external_ok", "note": "external npm package or node builtin, not part of the repository."}
+{"id": "express-0044", "label": "correct", "note": ""}
+{"id": "fastapi-0045", "label": "external_ok", "note": "third-party opentelemetry/playwright dependency, not part of the repository."}
+{"id": "express-0046", "label": "external_ok", "note": "external npm package or node builtin, not part of the repository."}
+{"id": "express-0047", "label": "internal_missed", "note": "relative require of the repo root directory (express package entry; no package.json `main`, so Node defaults to index.js). Statically resolvable.", "actual_target": "index.js"}
+{"id": "vue-core-0048", "label": "internal_missed", "note": "`./utils` resolves to the sibling declaration module packages-private/dts-test/utils.d.ts, which exports describe/expectType etc.", "actual_target": "packages-private/dts-test/utils.d.ts"}
+{"id": "vue-core-0049", "label": "internal_missed", "note": "`./App.vue` resolves to the sibling SFC; file exists, needs the vue plugin to compile but the target file is unambiguous.", "actual_target": "packages-private/sfc-playground/src/App.vue"}
+{"id": "vue-core-0050", "label": "correct", "note": ""}
+{"id": "vue-core-0051", "label": "correct", "note": ""}
+{"id": "fastapi-0052", "label": "correct", "note": ""}
+{"id": "express-0053", "label": "internal_missed", "note": "relative require of the repo root directory (express package entry; no package.json `main`, so Node defaults to index.js). Statically resolvable.", "actual_target": "index.js"}
+{"id": "fastapi-0054", "label": "not_internal", "note": "stdlib `types` module; absolute `from types import ModuleType` never binds fastapi/types.py, which only shares the name."}
+{"id": "fastapi-0055", "label": "correct", "note": ""}
+{"id": "fastapi-0056", "label": "external_ok", "note": "third-party opentelemetry/playwright dependency, not part of the repository."}
+{"id": "vue-core-0057", "label": "correct", "note": ""}
+{"id": "fastapi-0058", "label": "not_internal", "note": "stdlib `types` module; absolute `from types import ModuleType` never binds fastapi/types.py, which only shares the name."}
+{"id": "express-0059", "label": "internal_missed", "note": "relative require of the repo root directory (express package entry; no package.json `main`, so Node defaults to index.js). Statically resolvable.", "actual_target": "index.js"}
+{"id": "vue-core-0060", "label": "unresolved_ok", "note": "imports a built bundle under packages/reactivity/dist, which is not present in the repo; requires a build."}
+{"id": "express-0061", "label": "correct", "note": ""}
+{"id": "vue-core-0062", "label": "correct", "note": ""}
+{"id": "fastapi-0063", "label": "correct", "note": ""}
+{"id": "vue-core-0064", "label": "correct", "note": "target is the declared package.json `main` CJS entry; repo tsconfig paths/vitest alias resolve this specifier to packages/shared/src/index.ts, so the edge is the package entry rather than the source module."}
+{"id": "express-0065", "label": "external_ok", "note": "external npm package or node builtin, not part of the repository."}
+{"id": "vue-core-0066", "label": "external_ok", "note": "external npm package or node builtin, not part of the repository."}
+{"id": "fastapi-0067", "label": "correct", "note": ""}
+{"id": "express-0068", "label": "correct", "note": ""}
+{"id": "fastapi-0069", "label": "correct", "note": ""}
+{"id": "express-0070", "label": "correct", "note": ""}
+{"id": "express-0071", "label": "external_ok", "note": "external npm package or node builtin, not part of the repository."}
+{"id": "express-0072", "label": "external_ok", "note": "external npm package or node builtin, not part of the repository."}
+{"id": "fastapi-0073", "label": "external_ok", "note": "third-party opentelemetry/playwright dependency, not part of the repository."}
+{"id": "fastapi-0074", "label": "not_internal", "note": "stdlib `http` module; absolute `import http` does not bind fastapi/security/http.py."}
+{"id": "vue-core-0075", "label": "external_ok", "note": "external npm package or node builtin, not part of the repository."}
+{"id": "fastapi-0076", "label": "not_internal", "note": "stdlib `types` module; absolute `from types import ModuleType` never binds fastapi/types.py, which only shares the name."}
+{"id": "vue-core-0077", "label": "correct", "note": ""}
+{"id": "express-0078", "label": "correct", "note": ""}
+{"id": "fastapi-0079", "label": "not_internal", "note": "stdlib `types` module; absolute `from types import ModuleType` never binds fastapi/types.py, which only shares the name."}
+{"id": "fastapi-0080", "label": "external_ok", "note": "third-party opentelemetry/playwright dependency, not part of the repository."}
+{"id": "fastapi-0081", "label": "external_ok", "note": "third-party opentelemetry/playwright dependency, not part of the repository."}
+{"id": "express-0082", "label": "internal_missed", "note": "relative require of the repo root directory (express package entry; no package.json `main`, so Node defaults to index.js). Statically resolvable.", "actual_target": "index.js"}
+{"id": "fastapi-0083", "label": "not_internal", "note": "stdlib `types` module; absolute `from types import ModuleType` never binds fastapi/types.py, which only shares the name."}
+{"id": "fastapi-0084", "label": "correct", "note": ""}
+{"id": "vue-core-0085", "label": "correct", "note": ""}
+{"id": "vue-core-0086", "label": "unresolved_ok", "note": "`./App.vue` under the download/template fixture: no App.vue exists in that directory (template stub only lists index.html/main.js/vite.config.js/etc), so nothing to resolve."}
+{"id": "fastapi-0087", "label": "correct", "note": ""}
+{"id": "express-0088", "label": "correct", "note": ""}
+{"id": "vue-core-0089", "label": "internal_missed", "note": "`./utils` resolves to the sibling declaration module packages-private/dts-test/utils.d.ts, which exports describe/expectType etc.", "actual_target": "packages-private/dts-test/utils.d.ts"}
+{"id": "fastapi-0090", "label": "not_internal", "note": "stdlib `gzip` module; absolute `import gzip` does not bind fastapi/middleware/gzip.py."}
+{"id": "vue-core-0091", "label": "correct", "note": "target is the declared package.json `main` CJS entry; repo tsconfig paths/vitest alias resolve this specifier to packages/shared/src/index.ts, so the edge is the package entry rather than the source module."}
+{"id": "fastapi-0092", "label": "correct", "note": ""}
+{"id": "fastapi-0093", "label": "not_internal", "note": "stdlib `types` module; absolute `import types` never binds fastapi/types.py, which only shares the name."}
+{"id": "vue-core-0094", "label": "correct", "note": "target is the declared package.json `main` CJS entry; repo tsconfig paths/vitest alias resolve this specifier to packages/shared/src/index.ts, so the edge is the package entry rather than the source module."}
+{"id": "express-0095", "label": "internal_missed", "note": "relative require of the repo root directory (express package entry; no package.json `main`, so Node defaults to index.js). Statically resolvable.", "actual_target": "index.js"}
+{"id": "fastapi-0096", "label": "external_ok", "note": "third-party opentelemetry/playwright dependency, not part of the repository."}
+{"id": "fastapi-0097", "label": "not_internal", "note": "stdlib `types` module; absolute `from types import ModuleType` never binds fastapi/types.py, which only shares the name."}
+{"id": "vue-core-0098", "label": "external_ok", "note": "external npm package or node builtin, not part of the repository."}
+{"id": "vue-core-0099", "label": "correct", "note": ""}
+{"id": "fastapi-0100", "label": "external_ok", "note": "third-party opentelemetry/playwright dependency, not part of the repository."}
+{"id": "express-0101", "label": "external_ok", "note": "external npm package or node builtin, not part of the repository."}
+{"id": "vue-core-0102", "label": "correct", "note": "target is the declared package.json `main` CJS entry; repo tsconfig paths/vitest alias resolve this specifier to packages/runtime-dom/src/index.ts, so the edge is the package entry rather than the source module."}
+{"id": "fastapi-0103", "label": "external_ok", "note": "third-party opentelemetry/playwright dependency, not part of the repository."}
+{"id": "express-0104", "label": "correct", "note": ""}
+{"id": "fastapi-0105", "label": "external_ok", "note": "third-party opentelemetry/playwright dependency, not part of the repository."}
+{"id": "fastapi-0106", "label": "correct", "note": ""}
+{"id": "vue-core-0107", "label": "unresolved_ok", "note": "Vite `?raw` import; the query makes it a build-tool virtual module (string export), not the file module."}
+{"id": "express-0108", "label": "external_ok", "note": "external npm package or node builtin, not part of the repository."}
+{"id": "fastapi-0109", "label": "not_internal", "note": "self-edge: `import types` inside fastapi/types.py binds the stdlib `types` module, not the file itself."}
+{"id": "fastapi-0110", "label": "external_ok", "note": "third-party opentelemetry/playwright dependency, not part of the repository."}
+{"id": "express-0111", "label": "correct", "note": ""}
+{"id": "fastapi-0112", "label": "external_ok", "note": "third-party opentelemetry/playwright dependency, not part of the repository."}
+{"id": "fastapi-0113", "label": "external_ok", "note": "third-party opentelemetry/playwright dependency, not part of the repository."}
+{"id": "vue-core-0114", "label": "correct", "note": ""}
+{"id": "express-0115", "label": "correct", "note": ""}
+{"id": "vue-core-0116", "label": "internal_missed", "note": "`./utils` resolves to the sibling declaration module packages-private/dts-test/utils.d.ts, which exports describe/expectType etc.", "actual_target": "packages-private/dts-test/utils.d.ts"}
+{"id": "vue-core-0117", "label": "correct", "note": ""}
+{"id": "fastapi-0118", "label": "not_internal", "note": "stdlib `types` module; absolute `from types import ModuleType` never binds fastapi/types.py, which only shares the name."}
+{"id": "fastapi-0119", "label": "external_ok", "note": "third-party opentelemetry/playwright dependency, not part of the repository."}
+{"id": "fastapi-0120", "label": "external_ok", "note": "third-party opentelemetry/playwright dependency, not part of the repository."}
+{"id": "vue-core-0121", "label": "correct", "note": ""}
+{"id": "express-0122", "label": "external_ok", "note": "external npm package or node builtin, not part of the repository."}
+{"id": "vue-core-0123", "label": "correct", "note": "target is the declared package.json `main` CJS entry; repo tsconfig paths/vitest alias resolve this specifier to packages/compiler-dom/src/index.ts, so the edge is the package entry rather than the source module."}
+{"id": "fastapi-0124", "label": "correct", "note": ""}
+{"id": "vue-core-0125", "label": "external_ok", "note": "external npm package or node builtin, not part of the repository."}
+{"id": "fastapi-0126", "label": "not_internal", "note": "stdlib `http` module; absolute `import http` does not bind fastapi/security/http.py."}
+{"id": "vue-core-0127", "label": "internal_missed", "note": "`./utils` resolves to the sibling declaration module packages-private/dts-test/utils.d.ts, which exports describe/expectType etc.", "actual_target": "packages-private/dts-test/utils.d.ts"}
+{"id": "vue-core-0128", "label": "unresolved_ok", "note": "Vite `?raw` import; the query makes it a build-tool virtual module (string export), not the file module."}
+{"id": "express-0129", "label": "internal_missed", "note": "relative require of the repo root directory (express package entry; no package.json `main`, so Node defaults to index.js). Statically resolvable.", "actual_target": "index.js"}
+{"id": "vue-core-0130", "label": "external_ok", "note": "external npm package or node builtin, not part of the repository."}
+{"id": "fastapi-0131", "label": "external_ok", "note": "third-party opentelemetry/playwright dependency, not part of the repository."}
+{"id": "vue-core-0132", "label": "internal_missed", "note": "`./utils` resolves to the sibling declaration module packages-private/dts-test/utils.d.ts, which exports describe/expectType etc.", "actual_target": "packages-private/dts-test/utils.d.ts"}
+{"id": "express-0133", "label": "internal_missed", "note": "relative require of the repo root directory (express package entry; no package.json `main`, so Node defaults to index.js). Statically resolvable.", "actual_target": "index.js"}
+{"id": "fastapi-0134", "label": "external_ok", "note": "third-party opentelemetry/playwright dependency, not part of the repository."}
+{"id": "express-0135", "label": "internal_missed", "note": "relative require of the repo root directory (express package entry; no package.json `main`, so Node defaults to index.js). Statically resolvable.", "actual_target": "index.js"}
+{"id": "fastapi-0136", "label": "external_ok", "note": "third-party opentelemetry/playwright dependency, not part of the repository."}
+{"id": "fastapi-0137", "label": "correct", "note": ""}
+{"id": "fastapi-0138", "label": "not_internal", "note": "stdlib `types` module; absolute `from types import ModuleType` never binds fastapi/types.py, which only shares the name."}
+{"id": "express-0139", "label": "internal_missed", "note": "relative require of the repo root directory (express package entry; no package.json `main`, so Node defaults to index.js). Statically resolvable.", "actual_target": "index.js"}
+{"id": "vue-core-0140", "label": "unresolved_ok", "note": "imports a built bundle under packages/reactivity/dist, which is not present in the repo; requires a build."}
+{"id": "express-0141", "label": "correct", "note": ""}
+{"id": "vue-core-0142", "label": "correct", "note": "target is the declared package.json `main` CJS entry; repo tsconfig paths/vitest alias resolve this specifier to packages/runtime-core/src/index.ts, so the edge is the package entry rather than the source module."}
+{"id": "vue-core-0143", "label": "correct", "note": ""}
+{"id": "fastapi-0144", "label": "external_ok", "note": "third-party opentelemetry/playwright dependency, not part of the repository."}
+{"id": "express-0145", "label": "internal_missed", "note": "relative require of the repo root directory (express package entry; no package.json `main`, so Node defaults to index.js). Statically resolvable.", "actual_target": "index.js"}
+{"id": "fastapi-0146", "label": "correct", "note": ""}
+{"id": "vue-core-0147", "label": "correct", "note": ""}
+{"id": "vue-core-0148", "label": "correct", "note": ""}
+{"id": "vue-core-0149", "label": "external_ok", "note": "external npm package or node builtin, not part of the repository."}
+{"id": "vue-core-0150", "label": "correct", "note": "target is the declared package.json `main` CJS entry; repo tsconfig paths/vitest alias resolve this specifier to packages/shared/src/index.ts, so the edge is the package entry rather than the source module."}
+{"id": "fastapi-0151", "label": "not_internal", "note": "stdlib `gzip` module; absolute `import gzip` does not bind fastapi/middleware/gzip.py."}
+{"id": "vue-core-0152", "label": "correct", "note": "target is the declared package.json `main` CJS entry; repo tsconfig paths/vitest alias resolve this specifier to packages/runtime-dom/src/index.ts, so the edge is the package entry rather than the source module."}
+{"id": "fastapi-0153", "label": "external_ok", "note": "third-party opentelemetry/playwright dependency, not part of the repository."}
+{"id": "vue-core-0154", "label": "external_ok", "note": "external npm package or node builtin, not part of the repository."}
+{"id": "express-0155", "label": "external_ok", "note": "external npm package or node builtin, not part of the repository."}
+{"id": "fastapi-0156", "label": "correct", "note": ""}
+{"id": "express-0157", "label": "internal_missed", "note": "relative require of the repo root directory (express package entry; no package.json `main`, so Node defaults to index.js). Statically resolvable.", "actual_target": "index.js"}
+{"id": "vue-core-0158", "label": "unresolved_ok", "note": "imports a built bundle under packages/reactivity/dist, which is not present in the repo; requires a build."}
+{"id": "vue-core-0159", "label": "internal_missed", "note": "`./utils` resolves to the sibling declaration module packages-private/dts-test/utils.d.ts, which exports describe/expectType etc.", "actual_target": "packages-private/dts-test/utils.d.ts"}
+{"id": "vue-core-0160", "label": "correct", "note": ""}
+{"id": "vue-core-0161", "label": "external_ok", "note": "external npm package or node builtin, not part of the repository."}
+{"id": "vue-core-0162", "label": "correct", "note": "target is the declared package.json `main` CJS entry; repo tsconfig paths/vitest alias resolve this specifier to packages/compiler-core/src/index.ts, so the edge is the package entry rather than the source module."}
+{"id": "vue-core-0163", "label": "correct", "note": "target is the declared package.json `main` CJS entry; repo tsconfig paths/vitest alias resolve this specifier to packages/shared/src/index.ts, so the edge is the package entry rather than the source module."}
+{"id": "fastapi-0164", "label": "external_ok", "note": "third-party opentelemetry/playwright dependency, not part of the repository."}
+{"id": "vue-core-0165", "label": "external_ok", "note": "external npm package or node builtin, not part of the repository."}
+{"id": "vue-core-0166", "label": "internal_missed", "note": "`./utils` resolves to the sibling declaration module packages-private/dts-test/utils.d.ts, which exports describe/expectType etc.", "actual_target": "packages-private/dts-test/utils.d.ts"}
+{"id": "vue-core-0167", "label": "correct", "note": ""}
+{"id": "fastapi-0168", "label": "correct", "note": ""}
+{"id": "vue-core-0169", "label": "external_ok", "note": "external npm package or node builtin, not part of the repository."}
+{"id": "fastapi-0170", "label": "correct", "note": ""}
+{"id": "vue-core-0171", "label": "correct", "note": ""}
+{"id": "express-0172", "label": "internal_missed", "note": "relative require of the repo root directory (express package entry; no package.json `main`, so Node defaults to index.js). Statically resolvable.", "actual_target": "index.js"}
+{"id": "vue-core-0173", "label": "correct", "note": "target is the declared package.json `main` CJS entry; repo tsconfig paths/vitest alias resolve this specifier to packages/vue/src/index.ts, so the edge is the package entry rather than the source module."}
+{"id": "vue-core-0174", "label": "correct", "note": ""}
+{"id": "express-0175", "label": "correct", "note": ""}
+{"id": "fastapi-0176", "label": "external_ok", "note": "third-party opentelemetry/playwright dependency, not part of the repository."}
+{"id": "fastapi-0177", "label": "external_ok", "note": "third-party opentelemetry/playwright dependency, not part of the repository."}
+{"id": "vue-core-0178", "label": "internal_missed", "note": "`./utils` resolves to the sibling declaration module packages-private/dts-test/utils.d.ts, which exports describe/expectType etc.", "actual_target": "packages-private/dts-test/utils.d.ts"}
+{"id": "fastapi-0179", "label": "correct", "note": ""}
+{"id": "vue-core-0180", "label": "correct", "note": "target is the declared package.json `main` CJS entry; repo tsconfig paths/vitest alias resolve this specifier to packages/compiler-dom/src/index.ts, so the edge is the package entry rather than the source module."}
+{"id": "fastapi-0181", "label": "external_ok", "note": "third-party opentelemetry/playwright dependency, not part of the repository."}
+{"id": "vue-core-0182", "label": "correct", "note": "target is the declared package.json `main` CJS entry; repo tsconfig paths/vitest alias resolve this specifier to packages/compiler-core/src/index.ts, so the edge is the package entry rather than the source module."}
+{"id": "fastapi-0183", "label": "correct", "note": ""}
+{"id": "fastapi-0184", "label": "external_ok", "note": "third-party opentelemetry/playwright dependency, not part of the repository."}
+{"id": "express-0185", "label": "correct", "note": ""}
+{"id": "fastapi-0186", "label": "correct", "note": ""}
+{"id": "vue-core-0187", "label": "correct", "note": "target is the declared package.json `main` CJS entry; repo tsconfig paths/vitest alias resolve this specifier to packages/shared/src/index.ts, so the edge is the package entry rather than the source module."}
+{"id": "express-0188", "label": "internal_missed", "note": "relative require of the repo root directory (express package entry; no package.json `main`, so Node defaults to index.js). Statically resolvable.", "actual_target": "index.js"}
+{"id": "vue-core-0189", "label": "internal_missed", "note": "`./utils` resolves to the sibling declaration module packages-private/dts-test/utils.d.ts, which exports describe/expectType etc.", "actual_target": "packages-private/dts-test/utils.d.ts"}
+{"id": "fastapi-0190", "label": "external_ok", "note": "third-party opentelemetry/playwright dependency, not part of the repository."}
+{"id": "vue-core-0191", "label": "correct", "note": "target is the declared package.json `main` CJS entry; repo tsconfig paths/vitest alias resolve this specifier to packages/vue/src/index.ts, so the edge is the package entry rather than the source module."}
+{"id": "vue-core-0192", "label": "internal_missed", "note": "`./utils` resolves to the sibling declaration module packages-private/dts-test/utils.d.ts, which exports describe/expectType etc.", "actual_target": "packages-private/dts-test/utils.d.ts"}
+{"id": "vue-core-0193", "label": "unresolved_ok", "note": "imports a built bundle under packages/reactivity/dist, which is not present in the repo; requires a build."}
+{"id": "vue-core-0194", "label": "internal_missed", "note": "`./utils` resolves to the sibling declaration module packages-private/dts-test/utils.d.ts, which exports describe/expectType etc.", "actual_target": "packages-private/dts-test/utils.d.ts"}
+{"id": "vue-core-0195", "label": "correct", "note": ""}
+{"id": "fastapi-0196", "label": "correct", "note": ""}
+{"id": "express-0197", "label": "correct", "note": ""}
+{"id": "fastapi-0198", "label": "not_internal", "note": "stdlib `types` module; absolute `from types import ModuleType` never binds fastapi/types.py, which only shares the name."}
+{"id": "express-0199", "label": "internal_missed", "note": "relative require of the repo root directory (express package entry; no package.json `main`, so Node defaults to index.js). Statically resolvable.", "actual_target": "index.js"}
+{"id": "express-0200", "label": "correct", "note": ""}
+{"id": "express-0201", "label": "internal_missed", "note": "relative require of the repo root directory (express package entry; no package.json `main`, so Node defaults to index.js). Statically resolvable.", "actual_target": "index.js"}
+{"id": "fastapi-0202", "label": "correct", "note": ""}
+{"id": "fastapi-0203", "label": "external_ok", "note": "third-party opentelemetry/playwright dependency, not part of the repository."}
+{"id": "fastapi-0204", "label": "external_ok", "note": "third-party opentelemetry/playwright dependency, not part of the repository."}
+{"id": "fastapi-0205", "label": "external_ok", "note": "third-party opentelemetry/playwright dependency, not part of the repository."}
+{"id": "vue-core-0206", "label": "correct", "note": ""}
+{"id": "express-0207", "label": "internal_missed", "note": "relative require of the repo root directory (express package entry; no package.json `main`, so Node defaults to index.js). Statically resolvable.", "actual_target": "index.js"}
+{"id": "express-0208", "label": "external_ok", "note": "external npm package or node builtin, not part of the repository."}
+{"id": "fastapi-0209", "label": "not_internal", "note": "stdlib `types` module; absolute `from types import ModuleType` never binds fastapi/types.py, which only shares the name."}
+{"id": "vue-core-0210", "label": "external_ok", "note": "external npm package or node builtin, not part of the repository."}
+{"id": "fastapi-0211", "label": "external_ok", "note": "third-party opentelemetry/playwright dependency, not part of the repository."}
+{"id": "fastapi-0212", "label": "external_ok", "note": "third-party opentelemetry/playwright dependency, not part of the repository."}
+{"id": "vue-core-0213", "label": "correct", "note": ""}
+{"id": "express-0214", "label": "internal_missed", "note": "relative require of the repo root directory (express package entry; no package.json `main`, so Node defaults to index.js). Statically resolvable.", "actual_target": "index.js"}
+{"id": "express-0215", "label": "external_ok", "note": "external npm package or node builtin, not part of the repository."}
+{"id": "express-0216", "label": "internal_missed", "note": "relative require of the repo root directory (express package entry; no package.json `main`, so Node defaults to index.js). Statically resolvable.", "actual_target": "index.js"}
+{"id": "express-0217", "label": "correct", "note": ""}
+{"id": "fastapi-0218", "label": "external_ok", "note": "third-party opentelemetry/playwright dependency, not part of the repository."}
+{"id": "vue-core-0219", "label": "correct", "note": ""}
+{"id": "fastapi-0220", "label": "not_internal", "note": "stdlib `types` module; absolute `from types import ModuleType` never binds fastapi/types.py, which only shares the name."}
+{"id": "fastapi-0221", "label": "external_ok", "note": "third-party opentelemetry/playwright dependency, not part of the repository."}
+{"id": "vue-core-0222", "label": "external_ok", "note": "external npm package or node builtin, not part of the repository."}
+{"id": "express-0223", "label": "correct", "note": ""}
+{"id": "vue-core-0224", "label": "external_ok", "note": "external npm package or node builtin, not part of the repository."}
+{"id": "fastapi-0225", "label": "external_ok", "note": "third-party opentelemetry/playwright dependency, not part of the repository."}
+{"id": "vue-core-0226", "label": "correct", "note": ""}
+{"id": "vue-core-0227", "label": "correct", "note": ""}
+{"id": "express-0228", "label": "internal_missed", "note": "relative require of the repo root directory (express package entry; no package.json `main`, so Node defaults to index.js). Statically resolvable.", "actual_target": "index.js"}
+{"id": "vue-core-0229", "label": "external_ok", "note": "external npm package or node builtin, not part of the repository."}
+{"id": "vue-core-0230", "label": "wrong_target", "note": "`vue/server-renderer` is the vue package subpath entry, not the vue root entry; resolver matched the package name prefix and dropped the subpath.", "actual_target": "packages/vue/server-renderer/index.js"}
+{"id": "express-0231", "label": "internal_missed", "note": "relative require of the repo root directory (express package entry; no package.json `main`, so Node defaults to index.js). Statically resolvable.", "actual_target": "index.js"}
+{"id": "vue-core-0232", "label": "internal_missed", "note": "`./utils` resolves to the sibling declaration module packages-private/dts-test/utils.d.ts, which exports describe/expectType etc.", "actual_target": "packages-private/dts-test/utils.d.ts"}
+{"id": "express-0233", "label": "correct", "note": ""}
+{"id": "vue-core-0234", "label": "internal_missed", "note": "`./utils` resolves to the sibling declaration module packages-private/dts-test/utils.d.ts, which exports describe/expectType etc.", "actual_target": "packages-private/dts-test/utils.d.ts"}
+{"id": "vue-core-0235", "label": "correct", "note": "target is the declared package.json `main` CJS entry; repo tsconfig paths/vitest alias resolve this specifier to packages/runtime-core/src/index.ts, so the edge is the package entry rather than the source module."}
+{"id": "express-0236", "label": "correct", "note": ""}
+{"id": "express-0237", "label": "correct", "note": ""}
+{"id": "vue-core-0238", "label": "correct", "note": "target is the declared package.json `main` CJS entry; repo tsconfig paths/vitest alias resolve this specifier to packages/shared/src/index.ts, so the edge is the package entry rather than the source module."}
+{"id": "fastapi-0239", "label": "external_ok", "note": "third-party opentelemetry/playwright dependency, not part of the repository."}
+{"id": "vue-core-0240", "label": "correct", "note": ""}
+{"id": "fastapi-0241", "label": "external_ok", "note": "third-party opentelemetry/playwright dependency, not part of the repository."}
+{"id": "fastapi-0242", "label": "external_ok", "note": "third-party opentelemetry/playwright dependency, not part of the repository."}
+{"id": "vue-core-0243", "label": "unresolved_ok", "note": "Vite `?raw` import; the query makes it a build-tool virtual module (string export), not the file module."}
+{"id": "express-0244", "label": "internal_missed", "note": "relative require of the repo root directory (express package entry; no package.json `main`, so Node defaults to index.js). Statically resolvable.", "actual_target": "index.js"}
+{"id": "express-0245", "label": "internal_missed", "note": "relative require of the repo root directory (express package entry; no package.json `main`, so Node defaults to index.js). Statically resolvable.", "actual_target": "index.js"}
+{"id": "express-0246", "label": "external_ok", "note": "external npm package or node builtin, not part of the repository."}
+{"id": "vue-core-0247", "label": "correct", "note": "target is the declared package.json `main` CJS entry; repo tsconfig paths/vitest alias resolve this specifier to packages/compiler-core/src/index.ts, so the edge is the package entry rather than the source module."}
+{"id": "express-0248", "label": "external_ok", "note": "external npm package or node builtin, not part of the repository."}
+{"id": "express-0249", "label": "correct", "note": ""}
+{"id": "fastapi-0250", "label": "not_internal", "note": "stdlib `types` module; absolute `from types import ModuleType` never binds fastapi/types.py, which only shares the name."}
+{"id": "vue-core-0251", "label": "unresolved_ok", "note": "Vite `?raw` import; the query makes it a build-tool virtual module (string export), not the file module."}
+{"id": "vue-core-0252", "label": "correct", "note": "target is the declared package.json `main` CJS entry; repo tsconfig paths/vitest alias resolve this specifier to packages/shared/src/index.ts, so the edge is the package entry rather than the source module."}
+{"id": "express-0253", "label": "internal_missed", "note": "relative require of the repo root directory (express package entry; no package.json `main`, so Node defaults to index.js). Statically resolvable.", "actual_target": "index.js"}
+{"id": "fastapi-0254", "label": "external_ok", "note": "third-party opentelemetry/playwright dependency, not part of the repository."}
+{"id": "vue-core-0255", "label": "unresolved_ok", "note": "template literal `require(\\`../packages/${f}/package.json\\`)`; target is computed at runtime and is a JSON manifest."}
+{"id": "express-0256", "label": "correct", "note": ""}
+{"id": "vue-core-0257", "label": "internal_missed", "note": "`./utils` resolves to the sibling declaration module packages-private/dts-test/utils.d.ts, which exports describe/expectType etc.", "actual_target": "packages-private/dts-test/utils.d.ts"}
+{"id": "fastapi-0258", "label": "external_ok", "note": "third-party opentelemetry/playwright dependency, not part of the repository."}
+{"id": "vue-core-0259", "label": "external_ok", "note": "external npm package or node builtin, not part of the repository."}
+{"id": "vue-core-0260", "label": "correct", "note": "target is the declared package.json `main` CJS entry; repo tsconfig paths/vitest alias resolve this specifier to packages/compiler-core/src/index.ts, so the edge is the package entry rather than the source module."}
+{"id": "express-0261", "label": "internal_missed", "note": "relative require of the repo root directory (express package entry; no package.json `main`, so Node defaults to index.js). Statically resolvable.", "actual_target": "index.js"}
+{"id": "vue-core-0262", "label": "correct", "note": ""}
+{"id": "fastapi-0263", "label": "correct", "note": ""}
+{"id": "vue-core-0264", "label": "correct", "note": "target is the declared package.json `main` CJS entry; repo tsconfig paths/vitest alias resolve this specifier to packages/runtime-test/src/index.ts, so the edge is the package entry rather than the source module."}
+{"id": "vue-core-0265", "label": "external_ok", "note": "external npm package or node builtin, not part of the repository."}
+{"id": "fastapi-0266", "label": "not_internal", "note": "stdlib `types` module; absolute `from types import ModuleType` never binds fastapi/types.py, which only shares the name."}
+{"id": "fastapi-0267", "label": "correct", "note": ""}
+{"id": "vue-core-0268", "label": "correct", "note": "target is the declared package.json `main` CJS entry; repo tsconfig paths/vitest alias resolve this specifier to packages/shared/src/index.ts, so the edge is the package entry rather than the source module."}
+{"id": "express-0269", "label": "external_ok", "note": "external npm package or node builtin, not part of the repository."}
+{"id": "fastapi-0270", "label": "not_internal", "note": "stdlib `gzip` module; absolute `import gzip` does not bind fastapi/middleware/gzip.py."}
+{"id": "fastapi-0271", "label": "correct", "note": ""}
+{"id": "express-0272", "label": "correct", "note": ""}
+{"id": "fastapi-0273", "label": "correct", "note": ""}
+{"id": "express-0274", "label": "correct", "note": ""}
+{"id": "vue-core-0275", "label": "internal_missed", "note": "`./App.vue` resolves to the sibling SFC; file exists, needs the vue plugin to compile but the target file is unambiguous.", "actual_target": "packages-private/vite-debug/App.vue"}
+{"id": "fastapi-0276", "label": "external_ok", "note": "third-party opentelemetry/playwright dependency, not part of the repository."}
+{"id": "vue-core-0277", "label": "internal_missed", "note": "`./utils` resolves to the sibling declaration module packages-private/dts-test/utils.d.ts, which exports describe/expectType etc.", "actual_target": "packages-private/dts-test/utils.d.ts"}
+{"id": "vue-core-0278", "label": "internal_missed", "note": "`./utils` resolves to the sibling declaration module packages-private/dts-test/utils.d.ts, which exports describe/expectType etc.", "actual_target": "packages-private/dts-test/utils.d.ts"}
+{"id": "fastapi-0279", "label": "external_ok", "note": "third-party opentelemetry/playwright dependency, not part of the repository."}
+{"id": "express-0280", "label": "external_ok", "note": "external npm package or node builtin, not part of the repository."}
+{"id": "fastapi-0281", "label": "external_ok", "note": "third-party opentelemetry/playwright dependency, not part of the repository."}
+{"id": "fastapi-0282", "label": "external_ok", "note": "third-party opentelemetry/playwright dependency, not part of the repository."}
+{"id": "vue-core-0283", "label": "external_ok", "note": "external npm package or node builtin, not part of the repository."}
+{"id": "express-0284", "label": "correct", "note": ""}
+{"id": "vue-core-0285", "label": "correct", "note": ""}
+{"id": "express-0286", "label": "external_ok", "note": "external npm package or node builtin, not part of the repository."}
+{"id": "fastapi-0287", "label": "external_ok", "note": "third-party opentelemetry/playwright dependency, not part of the repository."}
+{"id": "fastapi-0288", "label": "correct", "note": ""}
+{"id": "fastapi-0289", "label": "external_ok", "note": "third-party opentelemetry/playwright dependency, not part of the repository."}
+{"id": "express-0290", "label": "correct", "note": ""}
+{"id": "fastapi-0291", "label": "correct", "note": ""}
+{"id": "fastapi-0292", "label": "external_ok", "note": "third-party opentelemetry/playwright dependency, not part of the repository."}
+{"id": "fastapi-0293", "label": "external_ok", "note": "third-party opentelemetry/playwright dependency, not part of the repository."}
+{"id": "express-0294", "label": "correct", "note": ""}

@@ -1,31 +1,19 @@
-# Deployment Guide — Cloudways by DigitalOcean
+# Cloudways deployment
 
-This guide covers deploying RepoGraph Review Desk to Cloudways by DigitalOcean.
+Use a Cloudways Velocity Node.js application with Node **22.12+ or 24** and this repository connected. The [runbook](../deployment/RUNBOOK.md) contains the platform steps and historical fixture acceptance.
 
-## Prerequisites
+Build with `npm run build`. For an importing process manager, set the entry file to `deployment/cloudways-entry.mjs`; direct local CLI startup uses `npm start`.
 
-1. Cloudways PHP/Custom application or Node.js application instance.
-2. Node.js 20.18+, 22.12+, or 24 installed.
-3. Pinned git repository linked to `https://github.com/D33PAKsoni/repograph-review-desk.git`.
+Configure process variables explicitly:
 
-## Environment Variables
-
-Configure the following variables in the Cloudways environment or application settings:
-
-```bash
-PORT=3000
-NODE_ENV=production
+```dotenv
+API_HANDLER_MODULE=service/api-handler.mjs
+ARTIFACT_BUNDLE=data/production/artifact-bundle.json
+WEB_DIST=web/dist
 AI_MODE=live
 GEMMA_MODEL=gemma-4-26b-a4b-it
-GEMMA_API_KEY=your_gemini_api_key_here
-ARTIFACT_BUNDLE=data/production/artifact-bundle.json
-API_HANDLER_MODULE=service/api-handler.mjs
-WEB_DIST=web/dist
 ```
 
-## Build and Start
+Enter `GEMMA_API_KEY` privately in the platform environment. The launcher honors the platform `PORT`. `.env` files are not automatically loaded.
 
-```bash
-npm run build
-npm start
-```
+Run `npm run check:production` in the configured environment before deploying, then run the public production smoke with the actual model. Offline preflight does not validate credentials, analysis provenance, or public behavior. The supplied analysis builder's evidence is hardcoded; see the [analysis limitations](ANALYSIS_ENGINE.md). Historical fixture acceptance does not establish deployment or live inference for this merged application.

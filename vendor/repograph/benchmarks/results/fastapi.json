@@ -1,0 +1,39 @@
+{
+  "name": "fastapi",
+  "source": "https://github.com/fastapi/fastapi",
+  "generated_at": "2026-10-27T08:22:58Z",
+  "environment": {
+    "python": "3.14.8",
+    "platform": "Linux-7.2.5-3-omarchy-x86_64-with-glibc2.44",
+    "machine": "x86_64"
+  },
+  "index": {
+    "files": 1223,
+    "symbols": 7125,
+    "internal_imports": 1939,
+    "refs": 17713,
+    "tests": 667,
+    "parse_errors": 0,
+    "languages": {
+      "python": 1219,
+      "javascript": 4
+    },
+    "cold_seconds": 5.2573,
+    "cold_added": 1223,
+    "incremental_seconds": 1.1013,
+    "incremental_updated": 0,
+    "db_bytes": 4145152,
+    "files_per_second": 232.6
+  },
+  "queries": {
+    "search_median_ms": 5.4,
+    "impact_median_ms": 82.1,
+    "architecture_ms": 29.7,
+    "graph_ms": 11.6,
+    "impact_hub": "fastapi/__init__.py",
+    "impact_hub_inbound": 662,
+    "graph_nodes": 1011,
+    "graph_edges": 1938,
+    "architecture_hubs": 10
+  }
+}

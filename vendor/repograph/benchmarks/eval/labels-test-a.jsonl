@@ -1,0 +1,270 @@
+{"id": "vite-0001", "label": "correct", "note": ""}
+{"id": "flask-0002", "label": "correct", "note": ""}
+{"id": "svelte-0003", "label": "correct", "note": "Repo tsconfig.json paths maps 'svelte' to ./src/index.d.ts; target matches that, though package.json runtime entry is ./src/index-client.js and published types are ./types/index.d.ts."}
+{"id": "svelte-0004", "label": "correct", "note": ""}
+{"id": "svelte-0005", "label": "unresolved_ok", "note": "templates/ is excluded from tsconfig and these are code-generation templates; ./state.js does not exist beside the template (generated output lives in src/compiler, where state.js exists)."}
+{"id": "svelte-0006", "label": "internal_missed", "note": "Node package subpath import: packages/svelte/package.json 'imports' maps '#compiler/builders' to ./src/compiler/utils/builders.js.", "actual_target": "packages/svelte/src/compiler/utils/builders.js"}
+{"id": "svelte-0007", "label": "correct", "note": "Repo tsconfig.json paths maps 'svelte' to ./src/index.d.ts; target matches that, though package.json runtime entry is ./src/index-client.js and published types are ./types/index.d.ts."}
+{"id": "flask-0008", "label": "internal_missed", "note": "blueprintapp is tests/test_apps/blueprintapp (tests/conftest.py prepends tests/test_apps to sys.path); __init__.py defines app.", "actual_target": "tests/test_apps/blueprintapp/__init__.py"}
+{"id": "vite-0009", "label": "correct", "note": ""}
+{"id": "vite-0010", "label": "correct", "note": ""}
+{"id": "vite-0011", "label": "internal_missed", "note": "Specifier resolves to the existing repository file playground/css/async/async-2.css (non-code asset); no runtime condition is needed to find it.", "actual_target": "playground/css/async/async-2.css"}
+{"id": "svelte-0012", "label": "external_ok", "note": "External package/standard-library import; no repository file implements it."}
+{"id": "vite-0013", "label": "correct", "note": ""}
+{"id": "vite-0014", "label": "correct", "note": ""}
+{"id": "vite-0015", "label": "external_ok", "note": "External package/standard-library import; no repository file implements it."}
+{"id": "svelte-0016", "label": "correct", "note": "Repo tsconfig.json paths maps 'svelte' to ./src/index.d.ts; target matches that, though package.json runtime entry is ./src/index-client.js and published types are ./types/index.d.ts."}
+{"id": "vite-0017", "label": "correct", "note": ""}
+{"id": "svelte-0018", "label": "correct", "note": ""}
+{"id": "vite-0019", "label": "correct", "note": ""}
+{"id": "svelte-0020", "label": "correct", "note": "Repo tsconfig.json paths maps 'svelte' to ./src/index.d.ts; target matches that, though package.json runtime entry is ./src/index-client.js and published types are ./types/index.d.ts."}
+{"id": "svelte-0021", "label": "correct", "note": ""}
+{"id": "vite-0022", "label": "correct", "note": ""}
+{"id": "svelte-0023", "label": "correct", "note": "Repo tsconfig.json paths maps 'svelte' to ./src/index.d.ts; target matches that, though package.json runtime entry is ./src/index-client.js and published types are ./types/index.d.ts."}
+{"id": "vite-0024", "label": "correct", "note": ""}
+{"id": "flask-0025", "label": "correct", "note": ""}
+{"id": "flask-0026", "label": "external_ok", "note": "External package/standard-library import; no repository file implements it."}
+{"id": "vite-0027", "label": "correct", "note": ""}
+{"id": "flask-0028", "label": "external_ok", "note": "External package/standard-library import; no repository file implements it."}
+{"id": "flask-0029", "label": "internal_missed", "note": "examples/javascript/js_example is an in-repo package; __init__.py defines app.", "actual_target": "examples/javascript/js_example/__init__.py"}
+{"id": "vite-0030", "label": "internal_missed", "note": "Specifier resolves to the existing repository file packages/create-vite/template-qwik-ts/src/index.css (non-code asset); no runtime condition is needed to find it.", "actual_target": "packages/create-vite/template-qwik-ts/src/index.css"}
+{"id": "vite-0031", "label": "correct", "note": ""}
+{"id": "svelte-0032", "label": "correct", "note": ""}
+{"id": "vite-0033", "label": "correct", "note": ""}
+{"id": "vite-0034", "label": "correct", "note": ""}
+{"id": "flask-0035", "label": "correct", "note": ""}
+{"id": "vite-0036", "label": "correct", "note": ""}
+{"id": "flask-0037", "label": "internal_missed", "note": "examples/tutorial/flaskr is an in-repo package; __init__.py defines create_app.", "actual_target": "examples/tutorial/flaskr/__init__.py"}
+{"id": "vite-0038", "label": "internal_missed", "note": "Specifier resolves to the existing repository file packages/vite/src/node/__tests__/fixtures/config/native-compat/json/data.json (non-code asset); no runtime condition is needed to find it.", "actual_target": "packages/vite/src/node/__tests__/fixtures/config/native-compat/json/data.json"}
+{"id": "svelte-0039", "label": "correct", "note": ""}
+{"id": "vite-0040", "label": "correct", "note": ""}
+{"id": "vite-0041", "label": "correct", "note": ""}
+{"id": "flask-0042", "label": "correct", "note": ""}
+{"id": "vite-0043", "label": "internal_missed", "note": "Specifier resolves to the existing repository file packages/create-vite/template-vanilla/src/style.css (non-code asset); no runtime condition is needed to find it.", "actual_target": "packages/create-vite/template-vanilla/src/style.css"}
+{"id": "vite-0044", "label": "internal_missed", "note": "Workspace package: 'vite' is packages/vite in this repo. Its package.json exports ./dist/node/index.js, a build shim whose source entry is packages/vite/src/node/index.ts.", "actual_target": "packages/vite/src/node/index.ts"}
+{"id": "svelte-0045", "label": "correct", "note": "Repo tsconfig.json paths maps 'svelte' to ./src/index.d.ts; target matches that, though package.json runtime entry is ./src/index-client.js and published types are ./types/index.d.ts."}
+{"id": "svelte-0046", "label": "correct", "note": ""}
+{"id": "vite-0047", "label": "unresolved_ok", "note": "Vite ?sharedworker import creates a virtual worker module; underlying source is playground/worker/my-shared-worker.ts, but the imported module identity requires build/runtime information."}
+{"id": "svelte-0048", "label": "external_ok", "note": "External package/standard-library import; no repository file implements it."}
+{"id": "svelte-0049", "label": "correct", "note": "Repo tsconfig.json paths maps 'svelte' to ./src/index.d.ts; target matches that, though package.json runtime entry is ./src/index-client.js and published types are ./types/index.d.ts."}
+{"id": "flask-0050", "label": "correct", "note": ""}
+{"id": "svelte-0051", "label": "external_ok", "note": "External package/standard-library import; no repository file implements it."}
+{"id": "svelte-0052", "label": "correct", "note": "Repo tsconfig.json paths maps 'svelte' to ./src/index.d.ts; target matches that, though package.json runtime entry is ./src/index-client.js and published types are ./types/index.d.ts."}
+{"id": "vite-0053", "label": "correct", "note": ""}
+{"id": "vite-0054", "label": "correct", "note": ""}
+{"id": "vite-0055", "label": "correct", "note": ""}
+{"id": "vite-0056", "label": "external_ok", "note": "External package/standard-library import; no repository file implements it."}
+{"id": "vite-0057", "label": "internal_missed", "note": "Specifier resolves to the existing repository file playground/hmr-ssr/logo-no-inline.svg (non-code asset); no runtime condition is needed to find it.", "actual_target": "playground/hmr-ssr/logo-no-inline.svg"}
+{"id": "svelte-0058", "label": "correct", "note": ""}
+{"id": "flask-0059", "label": "correct", "note": ""}
+{"id": "vite-0060", "label": "correct", "note": ""}
+{"id": "svelte-0061", "label": "correct", "note": ""}
+{"id": "vite-0062", "label": "correct", "note": ""}
+{"id": "vite-0063", "label": "correct", "note": ""}
+{"id": "flask-0064", "label": "correct", "note": ""}
+{"id": "vite-0065", "label": "internal_missed", "note": "Specifier resolves to the existing repository file playground/assets-sanitize/+circle.svg (non-code asset); no runtime condition is needed to find it.", "actual_target": "playground/assets-sanitize/+circle.svg"}
+{"id": "vite-0066", "label": "internal_missed", "note": "Specifier resolves to the existing repository file playground/css-codesplit-cjs/style.css (non-code asset); no runtime condition is needed to find it.", "actual_target": "playground/css-codesplit-cjs/style.css"}
+{"id": "svelte-0067", "label": "unresolved_ok", "note": "Intentionally non-existent .svelte module used in a type test to exercise ambient.d.ts; no repository file exists."}
+{"id": "svelte-0068", "label": "correct", "note": ""}
+{"id": "svelte-0069", "label": "external_ok", "note": "External package/standard-library import; no repository file implements it."}
+{"id": "vite-0070", "label": "correct", "note": ""}
+{"id": "svelte-0071", "label": "correct", "note": ""}
+{"id": "svelte-0072", "label": "correct", "note": "Repo tsconfig.json paths maps 'svelte/store' to ./src/store/public.d.ts; target matches that, though package.json publishes ./types/index.d.ts for types."}
+{"id": "flask-0073", "label": "internal_missed", "note": "flaskr.db is examples/tutorial/flaskr/db.py.", "actual_target": "examples/tutorial/flaskr/db.py"}
+{"id": "vite-0074", "label": "unresolved_ok", "note": "Fixture named has-invalid-import.js deliberately imports a non-existent module; there is no repository file to resolve to."}
+{"id": "svelte-0075", "label": "internal_missed", "note": "Node package subpath import: packages/svelte/package.json 'imports' maps '#compiler/builders' to ./src/compiler/utils/builders.js.", "actual_target": "packages/svelte/src/compiler/utils/builders.js"}
+{"id": "flask-0076", "label": "external_ok", "note": "External package/standard-library import; no repository file implements it."}
+{"id": "vite-0077", "label": "correct", "note": ""}
+{"id": "flask-0078", "label": "correct", "note": ""}
+{"id": "svelte-0079", "label": "external_ok", "note": "External package/standard-library import; no repository file implements it."}
+{"id": "flask-0080", "label": "external_ok", "note": "celery is a third-party dependency, not present in the repository."}
+{"id": "vite-0081", "label": "correct", "note": ""}
+{"id": "svelte-0082", "label": "external_ok", "note": "External package/standard-library import; no repository file implements it."}
+{"id": "vite-0083", "label": "internal_missed", "note": "Specifier resolves to the existing repository file playground/json/hmr.json (non-code asset); no runtime condition is needed to find it.", "actual_target": "playground/json/hmr.json"}
+{"id": "vite-0084", "label": "internal_missed", "note": "Specifier resolves to the existing repository file packages/create-vite/package.json (non-code asset); no runtime condition is needed to find it.", "actual_target": "packages/create-vite/package.json"}
+{"id": "flask-0085", "label": "internal_missed", "note": "Submodule import within the in-repo blueprintapp test package.", "actual_target": "tests/test_apps/blueprintapp/apps/frontend/__init__.py"}
+{"id": "svelte-0086", "label": "unresolved_ok", "note": "__CONFIG__ is a virtual module aliased per test to a _config.js file by packages/svelte/tests/runtime-browser/test.ts; not a resolvable package."}
+{"id": "flask-0087", "label": "correct", "note": ""}
+{"id": "flask-0088", "label": "internal_missed", "note": "js_example is an in-repo package; views is the submodule examples/javascript/js_example/views.py.", "actual_target": "examples/javascript/js_example/views.py"}
+{"id": "vite-0089", "label": "internal_missed", "note": "Specifier resolves to the existing repository file playground/hmr/logo-no-inline.svg (non-code asset); no runtime condition is needed to find it.", "actual_target": "playground/hmr/logo-no-inline.svg"}
+{"id": "vite-0090", "label": "unresolved_ok", "note": "Vite ?inline import creates a generated JS module from playground/css/postcss-caching/green-app/imported.css; the specifier is not a plain file path without Vite semantics."}
+{"id": "svelte-0091", "label": "correct", "note": "Repo tsconfig.json paths maps 'svelte' to ./src/index.d.ts; target matches that, though package.json runtime entry is ./src/index-client.js and published types are ./types/index.d.ts."}
+{"id": "vite-0092", "label": "internal_missed", "note": "Specifier resolves to the existing repository file packages/create-vite/template-vanilla-ts/src/assets/hero.png (non-code asset); no runtime condition is needed to find it.", "actual_target": "packages/create-vite/template-vanilla-ts/src/assets/hero.png"}
+{"id": "vite-0093", "label": "external_ok", "note": "External package/standard-library import; no repository file implements it."}
+{"id": "vite-0094", "label": "unresolved_ok", "note": "@vitejs/test-dep-conditions is an in-repo fixture package, but its exports select among index.browser.js / index.worker.js / index.custom1.js / index.default.js by condition; no single static target."}
+{"id": "vite-0095", "label": "internal_missed", "note": "Workspace package: 'vite' is packages/vite in this repo. Its package.json exports ./dist/node/index.js, a build shim whose source entry is packages/vite/src/node/index.ts.", "actual_target": "packages/vite/src/node/index.ts"}
+{"id": "vite-0096", "label": "external_ok", "note": "External package/standard-library import; no repository file implements it."}
+{"id": "vite-0097", "label": "external_ok", "note": "External package/standard-library import; no repository file implements it."}
+{"id": "vite-0098", "label": "external_ok", "note": "External package/standard-library import; no repository file implements it."}
+{"id": "svelte-0099", "label": "correct", "note": ""}
+{"id": "svelte-0100", "label": "correct", "note": "Repo tsconfig.json paths maps 'svelte' to ./src/index.d.ts; target matches that, though package.json runtime entry is ./src/index-client.js and published types are ./types/index.d.ts."}
+{"id": "vite-0101", "label": "external_ok", "note": "External package/standard-library import; no repository file implements it."}
+{"id": "svelte-0102", "label": "correct", "note": "Repo tsconfig.json paths maps 'svelte' to ./src/index.d.ts; target matches that, though package.json runtime entry is ./src/index-client.js and published types are ./types/index.d.ts."}
+{"id": "svelte-0103", "label": "correct", "note": ""}
+{"id": "flask-0104", "label": "external_ok", "note": "External package/standard-library import; no repository file implements it."}
+{"id": "svelte-0105", "label": "correct", "note": ""}
+{"id": "flask-0106", "label": "correct", "note": ""}
+{"id": "vite-0107", "label": "internal_missed", "note": "Specifier resolves to the existing repository file playground/css/async/async-1.css (non-code asset); no runtime condition is needed to find it.", "actual_target": "playground/css/async/async-1.css"}
+{"id": "flask-0108", "label": "correct", "note": ""}
+{"id": "vite-0109", "label": "correct", "note": ""}
+{"id": "flask-0110", "label": "external_ok", "note": "External package/standard-library import; no repository file implements it."}
+{"id": "vite-0111", "label": "correct", "note": ""}
+{"id": "svelte-0112", "label": "external_ok", "note": "External package/standard-library import; no repository file implements it."}
+{"id": "vite-0113", "label": "correct", "note": ""}
+{"id": "vite-0114", "label": "external_ok", "note": "External package/standard-library import; no repository file implements it."}
+{"id": "flask-0115", "label": "internal_missed", "note": "flaskr.db is examples/tutorial/flaskr/db.py.", "actual_target": "examples/tutorial/flaskr/db.py"}
+{"id": "vite-0116", "label": "correct", "note": ""}
+{"id": "vite-0117", "label": "correct", "note": ""}
+{"id": "flask-0118", "label": "correct", "note": ""}
+{"id": "vite-0119", "label": "correct", "note": ""}
+{"id": "svelte-0120", "label": "correct", "note": ""}
+{"id": "svelte-0121", "label": "correct", "note": ""}
+{"id": "flask-0122", "label": "external_ok", "note": "External package/standard-library import; no repository file implements it."}
+{"id": "vite-0123", "label": "correct", "note": ""}
+{"id": "vite-0124", "label": "external_ok", "note": "External package/standard-library import; no repository file implements it."}
+{"id": "flask-0125", "label": "external_ok", "note": "External package/standard-library import; no repository file implements it."}
+{"id": "flask-0126", "label": "internal_missed", "note": "flaskr.db is examples/tutorial/flaskr/db.py.", "actual_target": "examples/tutorial/flaskr/db.py"}
+{"id": "svelte-0127", "label": "correct", "note": "Repo tsconfig.json paths maps 'svelte' to ./src/index.d.ts; target matches that, though package.json runtime entry is ./src/index-client.js and published types are ./types/index.d.ts."}
+{"id": "svelte-0128", "label": "correct", "note": ""}
+{"id": "flask-0129", "label": "correct", "note": ""}
+{"id": "svelte-0130", "label": "unresolved_ok", "note": "playgrounds/sandbox/src is generated/downloaded by the sandbox scripts (gitignored); App.svelte does not exist in the checkout."}
+{"id": "vite-0131", "label": "internal_missed", "note": "Specifier resolves to the existing repository file playground/html/common.css (non-code asset); no runtime condition is needed to find it.", "actual_target": "playground/html/common.css"}
+{"id": "svelte-0132", "label": "unresolved_ok", "note": "Code-generation template (templates/ excluded from tsconfig); generated src/compiler/warnings.js imports ./utils/compile_diagnostic.js, which exists under src/compiler/utils/."}
+{"id": "vite-0133", "label": "external_ok", "note": "External package/standard-library import; no repository file implements it."}
+{"id": "flask-0134", "label": "external_ok", "note": "External package/standard-library import; no repository file implements it."}
+{"id": "vite-0135", "label": "external_ok", "note": "External package/standard-library import; no repository file implements it."}
+{"id": "vite-0136", "label": "internal_missed", "note": "Specifier resolves to the existing repository file playground/css/postcss-caching/blue-app/imported.css (non-code asset); no runtime condition is needed to find it.", "actual_target": "playground/css/postcss-caching/blue-app/imported.css"}
+{"id": "svelte-0137", "label": "correct", "note": "Repo tsconfig.json paths maps 'svelte' to ./src/index.d.ts; target matches that, though package.json runtime entry is ./src/index-client.js and published types are ./types/index.d.ts."}
+{"id": "flask-0138", "label": "correct", "note": ""}
+{"id": "vite-0139", "label": "internal_missed", "note": "Specifier resolves to the existing repository file packages/create-vite/template-qwik-ts/src/app.css (non-code asset); no runtime condition is needed to find it.", "actual_target": "packages/create-vite/template-qwik-ts/src/app.css"}
+{"id": "flask-0140", "label": "correct", "note": ""}
+{"id": "vite-0141", "label": "correct", "note": "module-a/package.json main is linked.js, which is a symlink to src/index.js; the target is the real file."}
+{"id": "flask-0142", "label": "correct", "note": ""}
+{"id": "vite-0143", "label": "correct", "note": ""}
+{"id": "svelte-0144", "label": "correct", "note": ""}
+{"id": "vite-0145", "label": "correct", "note": ""}
+{"id": "flask-0146", "label": "external_ok", "note": "External package/standard-library import; no repository file implements it."}
+{"id": "flask-0147", "label": "correct", "note": ""}
+{"id": "flask-0148", "label": "external_ok", "note": "External package/standard-library import; no repository file implements it."}
+{"id": "vite-0149", "label": "internal_missed", "note": "Specifier resolves to the existing repository file packages/create-vite/template-solid-ts/src/App.css (non-code asset); no runtime condition is needed to find it.", "actual_target": "packages/create-vite/template-solid-ts/src/App.css"}
+{"id": "flask-0150", "label": "correct", "note": ""}
+{"id": "svelte-0151", "label": "correct", "note": "Repo tsconfig.json paths maps 'svelte' to ./src/index.d.ts; target matches that, though package.json runtime entry is ./src/index-client.js and published types are ./types/index.d.ts."}
+{"id": "svelte-0152", "label": "correct", "note": "Repo tsconfig.json paths maps 'svelte' to ./src/index.d.ts; target matches that, though package.json runtime entry is ./src/index-client.js and published types are ./types/index.d.ts."}
+{"id": "svelte-0153", "label": "correct", "note": "Repo tsconfig.json paths maps 'svelte' to ./src/index.d.ts; target matches that, though package.json runtime entry is ./src/index-client.js and published types are ./types/index.d.ts."}
+{"id": "svelte-0154", "label": "correct", "note": ""}
+{"id": "vite-0155", "label": "correct", "note": "@vitejs/test-module-sync only defines the \"module-sync\" export condition, which points at ./index.js."}
+{"id": "vite-0156", "label": "internal_missed", "note": "Specifier resolves to the existing repository file playground/css/treeshake-scoped/order/after.css (non-code asset); no runtime condition is needed to find it.", "actual_target": "playground/css/treeshake-scoped/order/after.css"}
+{"id": "vite-0157", "label": "correct", "note": ""}
+{"id": "flask-0158", "label": "correct", "note": ""}
+{"id": "flask-0159", "label": "internal_missed", "note": "task_app is examples/celery/src/task_app; __init__.py defines create_app.", "actual_target": "examples/celery/src/task_app/__init__.py"}
+{"id": "svelte-0160", "label": "correct", "note": "Repo tsconfig.json paths maps 'svelte' to ./src/index.d.ts; target matches that, though package.json runtime entry is ./src/index-client.js and published types are ./types/index.d.ts."}
+{"id": "svelte-0161", "label": "correct", "note": ""}
+{"id": "flask-0162", "label": "internal_missed", "note": "cliapp.app is tests/test_apps/cliapp/app.py; defines testapp.", "actual_target": "tests/test_apps/cliapp/app.py"}
+{"id": "flask-0163", "label": "correct", "note": ""}
+{"id": "flask-0164", "label": "external_ok", "note": "External package/standard-library import; no repository file implements it."}
+{"id": "vite-0165", "label": "correct", "note": ""}
+{"id": "vite-0166", "label": "correct", "note": ""}
+{"id": "vite-0167", "label": "internal_missed", "note": "Specifier resolves to the existing repository file packages/create-vite/template-vanilla/src/assets/javascript.svg (non-code asset); no runtime condition is needed to find it.", "actual_target": "packages/create-vite/template-vanilla/src/assets/javascript.svg"}
+{"id": "flask-0168", "label": "correct", "note": ""}
+{"id": "flask-0169", "label": "internal_missed", "note": "flaskr.db is examples/tutorial/flaskr/db.py.", "actual_target": "examples/tutorial/flaskr/db.py"}
+{"id": "flask-0170", "label": "external_ok", "note": "External package/standard-library import; no repository file implements it."}
+{"id": "flask-0171", "label": "external_ok", "note": "External package/standard-library import; no repository file implements it."}
+{"id": "vite-0172", "label": "internal_missed", "note": "Specifier resolves to the existing repository file playground/css-lightningcss/external.css (non-code asset); no runtime condition is needed to find it.", "actual_target": "playground/css-lightningcss/external.css"}
+{"id": "svelte-0173", "label": "correct", "note": "Repo tsconfig.json paths maps 'svelte/compiler' to ./src/compiler/public.d.ts; target matches that, though package.json publishes ./types/index.d.ts for types."}
+{"id": "vite-0174", "label": "correct", "note": ""}
+{"id": "svelte-0175", "label": "internal_missed", "note": "Node package subpath import: packages/svelte/package.json 'imports' maps '#client/constants' to ./src/internal/client/constants.js.", "actual_target": "packages/svelte/src/internal/client/constants.js"}
+{"id": "svelte-0176", "label": "correct", "note": "Repo tsconfig.json paths maps 'svelte' to ./src/index.d.ts; target matches that, though package.json runtime entry is ./src/index-client.js and published types are ./types/index.d.ts."}
+{"id": "vite-0177", "label": "correct", "note": ""}
+{"id": "flask-0178", "label": "internal_missed", "note": "examples/tutorial/flaskr is an in-repo package; __init__.py defines create_app.", "actual_target": "examples/tutorial/flaskr/__init__.py"}
+{"id": "flask-0179", "label": "external_ok", "note": "External package/standard-library import; no repository file implements it."}
+{"id": "svelte-0180", "label": "correct", "note": ""}
+{"id": "flask-0181", "label": "external_ok", "note": "External package/standard-library import; no repository file implements it."}
+{"id": "vite-0182", "label": "correct", "note": ""}
+{"id": "vite-0183", "label": "correct", "note": ""}
+{"id": "vite-0184", "label": "internal_missed", "note": "Specifier resolves to the existing repository file playground/chunk-importmap/dynamic.css (non-code asset); no runtime condition is needed to find it.", "actual_target": "playground/chunk-importmap/dynamic.css"}
+{"id": "flask-0185", "label": "correct", "note": ""}
+{"id": "vite-0186", "label": "external_ok", "note": "External package/standard-library import; no repository file implements it."}
+{"id": "vite-0187", "label": "internal_missed", "note": "Specifier resolves to the existing repository file playground/css/treeshake-scoped/order/before.css (non-code asset); no runtime condition is needed to find it.", "actual_target": "playground/css/treeshake-scoped/order/before.css"}
+{"id": "svelte-0188", "label": "correct", "note": ""}
+{"id": "svelte-0189", "label": "correct", "note": "Repo tsconfig.json paths maps 'svelte' to ./src/index.d.ts; target matches that, though package.json runtime entry is ./src/index-client.js and published types are ./types/index.d.ts."}
+{"id": "flask-0190", "label": "external_ok", "note": "External package/standard-library import; no repository file implements it."}
+{"id": "vite-0191", "label": "correct", "note": "@vitejs/plugin-legacy exports ./dist/index.js (build shim); packages/plugin-legacy/src/index.ts is its source entry and defines the default plugin."}
+{"id": "vite-0192", "label": "correct", "note": ""}
+{"id": "svelte-0193", "label": "correct", "note": ""}
+{"id": "svelte-0194", "label": "external_ok", "note": "External package/standard-library import; no repository file implements it."}
+{"id": "svelte-0195", "label": "external_ok", "note": "External package/standard-library import; no repository file implements it."}
+{"id": "svelte-0196", "label": "correct", "note": ""}
+{"id": "svelte-0197", "label": "external_ok", "note": "External package/standard-library import; no repository file implements it."}
+{"id": "vite-0198", "label": "internal_missed", "note": "In-repo fixture package: @vitejs/cjs-external lives at .../fixtures/cjs-external with \"main\": \"index.cjs\".", "actual_target": "packages/vite/src/node/ssr/runtime/__tests__/fixtures/cjs-external/index.cjs"}
+{"id": "flask-0199", "label": "internal_missed", "note": "flaskr.db is examples/tutorial/flaskr/db.py.", "actual_target": "examples/tutorial/flaskr/db.py"}
+{"id": "svelte-0200", "label": "correct", "note": ""}
+{"id": "vite-0201", "label": "internal_missed", "note": "Specifier resolves to the existing repository file playground/css/mod.module.css (non-code asset); no runtime condition is needed to find it.", "actual_target": "playground/css/mod.module.css"}
+{"id": "vite-0202", "label": "correct", "note": ""}
+{"id": "vite-0203", "label": "internal_missed", "note": "Workspace package: 'vite' is packages/vite in this repo. Its package.json exports ./dist/node/index.js, a build shim whose source entry is packages/vite/src/node/index.ts.", "actual_target": "packages/vite/src/node/index.ts"}
+{"id": "vite-0204", "label": "correct", "note": ""}
+{"id": "vite-0205", "label": "correct", "note": ""}
+{"id": "flask-0206", "label": "internal_missed", "note": "Submodule import within the in-repo blueprintapp test package.", "actual_target": "tests/test_apps/blueprintapp/apps/admin/__init__.py"}
+{"id": "svelte-0207", "label": "correct", "note": "Repo tsconfig.json paths maps 'svelte' to ./src/index.d.ts; target matches that, though package.json runtime entry is ./src/index-client.js and published types are ./types/index.d.ts."}
+{"id": "vite-0208", "label": "internal_missed", "note": "Specifier resolves to the existing repository file playground/hmr-full-bundle-mode/asset.png (non-code asset); no runtime condition is needed to find it.", "actual_target": "playground/hmr-full-bundle-mode/asset.png"}
+{"id": "vite-0209", "label": "correct", "note": ""}
+{"id": "svelte-0210", "label": "correct", "note": ""}
+{"id": "svelte-0211", "label": "unresolved_ok", "note": "Code-generation template (templates/ excluded from tsconfig); generated output src/internal/server/errors.js imports ../shared/errors.js, which is src/internal/shared/errors.js."}
+{"id": "flask-0212", "label": "external_ok", "note": "External package/standard-library import; no repository file implements it."}
+{"id": "flask-0213", "label": "correct", "note": ""}
+{"id": "vite-0214", "label": "correct", "note": ""}
+{"id": "svelte-0215", "label": "correct", "note": ""}
+{"id": "vite-0216", "label": "correct", "note": ""}
+{"id": "svelte-0217", "label": "correct", "note": "Repo tsconfig.json paths maps 'svelte' to ./src/index.d.ts; target matches that, though package.json runtime entry is ./src/index-client.js and published types are ./types/index.d.ts."}
+{"id": "vite-0218", "label": "external_ok", "note": "External package/standard-library import; no repository file implements it."}
+{"id": "svelte-0219", "label": "correct", "note": "Repo tsconfig.json paths maps 'svelte' to ./src/index.d.ts; target matches that, though package.json runtime entry is ./src/index-client.js and published types are ./types/index.d.ts."}
+{"id": "vite-0220", "label": "correct", "note": ""}
+{"id": "svelte-0221", "label": "unresolved_ok", "note": "Snapshot _expected compiler output, not a real source module; the referenced Child.svelte is not part of this snapshot fixture."}
+{"id": "flask-0222", "label": "correct", "note": ""}
+{"id": "flask-0223", "label": "correct", "note": ""}
+{"id": "svelte-0224", "label": "correct", "note": "Repo tsconfig.json paths maps 'svelte' to ./src/index.d.ts; target matches that, though package.json runtime entry is ./src/index-client.js and published types are ./types/index.d.ts."}
+{"id": "svelte-0225", "label": "correct", "note": ""}
+{"id": "flask-0226", "label": "correct", "note": ""}
+{"id": "svelte-0227", "label": "correct", "note": ""}
+{"id": "vite-0228", "label": "correct", "note": ""}
+{"id": "vite-0229", "label": "correct", "note": ""}
+{"id": "vite-0230", "label": "external_ok", "note": "External package/standard-library import; no repository file implements it."}
+{"id": "flask-0231", "label": "correct", "note": ""}
+{"id": "vite-0232", "label": "correct", "note": ""}
+{"id": "vite-0233", "label": "correct", "note": ""}
+{"id": "flask-0234", "label": "external_ok", "note": "celery is a third-party dependency, not present in the repository."}
+{"id": "svelte-0235", "label": "external_ok", "note": "External package/standard-library import; no repository file implements it."}
+{"id": "flask-0236", "label": "external_ok", "note": "External package/standard-library import; no repository file implements it."}
+{"id": "flask-0237", "label": "external_ok", "note": "celery is a third-party dependency, not present in the repository."}
+{"id": "vite-0238", "label": "correct", "note": ""}
+{"id": "vite-0239", "label": "internal_missed", "note": "Specifier resolves to the existing repository file playground/css-lightningcss/mod.module.css (non-code asset); no runtime condition is needed to find it.", "actual_target": "playground/css-lightningcss/mod.module.css"}
+{"id": "vite-0240", "label": "correct", "note": ""}
+{"id": "flask-0241", "label": "external_ok", "note": "External package/standard-library import; no repository file implements it."}
+{"id": "svelte-0242", "label": "unresolved_ok", "note": "Code-generation template (templates/ excluded from tsconfig); generated output src/internal/client/errors.js imports ../shared/errors.js, which is src/internal/shared/errors.js."}
+{"id": "flask-0243", "label": "external_ok", "note": "celery is a third-party dependency, not present in the repository."}
+{"id": "flask-0244", "label": "correct", "note": ""}
+{"id": "flask-0245", "label": "internal_missed", "note": "blueprintapp is tests/test_apps/blueprintapp (tests/conftest.py prepends tests/test_apps to sys.path); __init__.py defines app.", "actual_target": "tests/test_apps/blueprintapp/__init__.py"}
+{"id": "vite-0246", "label": "correct", "note": ""}
+{"id": "flask-0247", "label": "correct", "note": ""}
+{"id": "svelte-0248", "label": "internal_missed", "note": "Node package subpath import: packages/svelte/package.json 'imports' maps '#compiler/builders' to ./src/compiler/utils/builders.js.", "actual_target": "packages/svelte/src/compiler/utils/builders.js"}
+{"id": "flask-0249", "label": "internal_missed", "note": "blueprintapp is tests/test_apps/blueprintapp (tests/conftest.py prepends tests/test_apps to sys.path); __init__.py defines app.", "actual_target": "tests/test_apps/blueprintapp/__init__.py"}
+{"id": "flask-0250", "label": "external_ok", "note": "celery is a third-party dependency, not present in the repository."}
+{"id": "svelte-0251", "label": "correct", "note": ""}
+{"id": "svelte-0252", "label": "external_ok", "note": "External package/standard-library import; no repository file implements it."}
+{"id": "svelte-0253", "label": "external_ok", "note": "External package/standard-library import; no repository file implements it."}
+{"id": "svelte-0254", "label": "unresolved_ok", "note": "Snapshot _expected compiler output, not a real source module; the referenced Child.svelte is not part of this snapshot fixture."}
+{"id": "svelte-0255", "label": "correct", "note": ""}
+{"id": "svelte-0256", "label": "correct", "note": "Repo tsconfig.json paths maps 'svelte' to ./src/index.d.ts; target matches that, though package.json runtime entry is ./src/index-client.js and published types are ./types/index.d.ts."}
+{"id": "svelte-0257", "label": "internal_missed", "note": "Node package subpath import: packages/svelte/package.json 'imports' maps '#compiler/builders' to ./src/compiler/utils/builders.js.", "actual_target": "packages/svelte/src/compiler/utils/builders.js"}
+{"id": "vite-0258", "label": "correct", "note": ""}
+{"id": "svelte-0259", "label": "correct", "note": ""}
+{"id": "svelte-0260", "label": "correct", "note": "Repo tsconfig.json paths maps 'svelte' to ./src/index.d.ts; target matches that, though package.json runtime entry is ./src/index-client.js and published types are ./types/index.d.ts."}
+{"id": "svelte-0261", "label": "correct", "note": "Repo tsconfig.json paths maps 'svelte' to ./src/index.d.ts; target matches that, though package.json runtime entry is ./src/index-client.js and published types are ./types/index.d.ts."}
+{"id": "vite-0262", "label": "unresolved_ok", "note": "Vite ?url import creates a generated URL module from playground/worker/modules/module1.js; requires build semantics."}
+{"id": "vite-0263", "label": "external_ok", "note": "External package/standard-library import; no repository file implements it."}
+{"id": "vite-0264", "label": "internal_missed", "note": "Specifier resolves to the existing repository file packages/create-vite/template-solid/src/App.css (non-code asset); no runtime condition is needed to find it.", "actual_target": "packages/create-vite/template-solid/src/App.css"}
+{"id": "svelte-0265", "label": "internal_missed", "note": "Node package subpath import: packages/svelte/package.json 'imports' maps '#shared' to ./src/internal/shared/types.d.ts.", "actual_target": "packages/svelte/src/internal/shared/types.d.ts"}
+{"id": "svelte-0266", "label": "unresolved_ok", "note": "Code-generation template (templates/ excluded from tsconfig); generated src/compiler/errors.js imports ./utils/compile_diagnostic.js, which exists under src/compiler/utils/."}
+{"id": "flask-0267", "label": "external_ok", "note": "External package/standard-library import; no repository file implements it."}
+{"id": "svelte-0268", "label": "correct", "note": ""}
+{"id": "flask-0269", "label": "correct", "note": ""}
+{"id": "vite-0270", "label": "unresolved_ok", "note": "Vite ?worker import creates a generated worker module from playground/hmr-full-bundle-mode/worker-query.js; requires build semantics."}

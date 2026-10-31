@@ -1,0 +1,117 @@
+{
+ "corpus": "pallets/flask",
+ "commit": "d086db8",
+ "seed": 20261028,
+ "pool_size": 81,
+ "k": 12,
+ "symbols": [
+  {
+   "name": "Flask",
+   "module": "src/flask/app.py",
+   "line": 109,
+   "end_line": 1625,
+   "kind": "ClassDef",
+   "decorators": [],
+   "loads": 41
+  },
+  {
+   "name": "AppGroup",
+   "module": "src/flask/cli.py",
+   "line": 405,
+   "end_line": 437,
+   "kind": "ClassDef",
+   "decorators": [],
+   "loads": 5
+  },
+  {
+   "name": "CertParamType",
+   "module": "src/flask/cli.py",
+   "line": 780,
+   "end_line": 825,
+   "kind": "ClassDef",
+   "decorators": [],
+   "loads": 1
+  },
+  {
+   "name": "prepare_import",
+   "module": "src/flask/cli.py",
+   "line": 200,
+   "end_line": 226,
+   "kind": "FunctionDef",
+   "decorators": [],
+   "loads": 2
+  },
+  {
+   "name": "DebugFilesKeyError",
+   "module": "src/flask/debughelpers.py",
+   "line": 23,
+   "end_line": 47,
+   "kind": "ClassDef",
+   "decorators": [],
+   "loads": 1
+  },
+  {
+   "name": "get_load_dotenv",
+   "module": "src/flask/helpers.py",
+   "line": 36,
+   "end_line": 48,
+   "kind": "FunctionDef",
+   "decorators": [],
+   "loads": 2
+  },
+  {
+   "name": "Blueprint",
+   "module": "src/flask/sansio/blueprints.py",
+   "line": 119,
+   "end_line": 692,
+   "kind": "ClassDef",
+   "decorators": [],
+   "loads": 7
+  },
+  {
+   "name": "SecureCookieSession",
+   "module": "src/flask/sessions.py",
+   "line": 57,
+   "end_line": 80,
+   "kind": "ClassDef",
+   "decorators": [],
+   "loads": 3
+  },
+  {
+   "name": "SessionInterface",
+   "module": "src/flask/sessions.py",
+   "line": 100,
+   "end_line": 270,
+   "kind": "ClassDef",
+   "decorators": [],
+   "loads": 2
+  },
+  {
+   "name": "Environment",
+   "module": "src/flask/templating.py",
+   "line": 36,
+   "end_line": 46,
+   "kind": "ClassDef",
+   "decorators": [],
+   "loads": 4
+  },
+  {
+   "name": "View",
+   "module": "src/flask/views.py",
+   "line": 16,
+   "end_line": 135,
+   "kind": "ClassDef",
+   "decorators": [],
+   "loads": 1
+  },
+  {
+   "name": "Request",
+   "module": "src/flask/wrappers.py",
+   "line": 18,
+   "end_line": 219,
+   "kind": "ClassDef",
+   "decorators": [],
+   "loads": 14
+  }
+ ]
+}

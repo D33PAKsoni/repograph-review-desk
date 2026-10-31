@@ -1,0 +1,140 @@
+{
+  "sample": "benchmarks/eval/sample.jsonl",
+  "labelers": [
+    "benchmarks/eval/labels-baseline-a.jsonl",
+    "benchmarks/eval/labels-baseline-b.jsonl"
+  ],
+  "n": 294,
+  "agreement": 0.9932,
+  "disagreements": [
+    {
+      "id": "vue-core-0049",
+      "reason": "label-disagreement",
+      "labels": [
+        "unresolved_ok",
+        "internal_missed"
+      ],
+      "file": "packages-private/sfc-playground/src/main.ts",
+      "line": 2,
+      "module": "./App.vue",
+      "target": null
+    },
+    {
+      "id": "vue-core-0275",
+      "reason": "label-disagreement",
+      "labels": [
+        "unresolved_ok",
+        "internal_missed"
+      ],
+      "file": "packages-private/vite-debug/main.ts",
+      "line": 2,
+      "module": "./App.vue",
+      "target": null
+    }
+  ],
+  "disagreement_count": 2,
+  "overall": {
+    "group": "all",
+    "resolved_sample": 144,
+    "resolved_labeled": 144,
+    "miss_sample": 150,
+    "weighted_estimated_edges": {
+      "correct": 3819.1,
+      "wrong_target": 15.9,
+      "not_internal": 24.0,
+      "uncertain": 0.0,
+      "internal_missed": 115.8
+    },
+    "precision": 0.9897,
+    "precision_conservative": 0.9897,
+    "recall_estimate": 0.9706,
+    "precision_unweighted": 0.8264,
+    "by_confidence": {
+      "confirmed": {
+        "n": 90,
+        "precision": 1.0
+      },
+      "inferred": {
+        "n": 54,
+        "precision": 0.537
+      }
+    }
+  },
+  "express": {
+    "group": "express",
+    "resolved_sample": 30,
+    "resolved_labeled": 30,
+    "miss_sample": 50,
+    "weighted_estimated_edges": {
+      "correct": 46.0,
+      "wrong_target": 0.0,
+      "not_internal": 0.0,
+      "uncertain": 0.0,
+      "internal_missed": 96.0
+    },
+    "precision": 1.0,
+    "precision_conservative": 1.0,
+    "recall_estimate": 0.3239,
+    "precision_unweighted": 1.0,
+    "by_confidence": {
+      "confirmed": {
+        "n": 30,
+        "precision": 1.0
+      }
+    }
+  },
+  "fastapi": {
+    "group": "fastapi",
+    "resolved_sample": 54,
+    "resolved_labeled": 54,
+    "miss_sample": 50,
+    "weighted_estimated_edges": {
+      "correct": 1914.0,
+      "wrong_target": 0.0,
+      "not_internal": 24.0,
+      "uncertain": 0.0,
+      "internal_missed": 0.0
+    },
+    "precision": 0.9876,
+    "precision_conservative": 0.9876,
+    "recall_estimate": 1.0,
+    "precision_unweighted": 0.5556,
+    "by_confidence": {
+      "confirmed": {
+        "n": 30,
+        "precision": 1.0
+      },
+      "inferred": {
+        "n": 24,
+        "precision": 0.0
+      }
+    }
+  },
+  "vue-core": {
+    "group": "vue-core",
+    "resolved_sample": 60,
+    "resolved_labeled": 60,
+    "miss_sample": 50,
+    "weighted_estimated_edges": {
+      "correct": 1859.1,
+      "wrong_target": 15.9,
+      "not_internal": 0.0,
+      "uncertain": 0.0,
+      "internal_missed": 19.8
+    },
+    "precision": 0.9915,
+    "precision_conservative": 0.9915,
+    "recall_estimate": 0.9894,
+    "precision_unweighted": 0.9833,
+    "by_confidence": {
+      "confirmed": {
+        "n": 30,
+        "precision": 1.0
+      },
+      "inferred": {
+        "n": 30,
+        "precision": 0.9667
+      }
+    }
+  }
+}

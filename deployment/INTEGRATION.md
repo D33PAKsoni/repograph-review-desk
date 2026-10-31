@@ -1,5 +1,10 @@
 # Frozen-contract integration checklist
 
+## Combined branch status — 31 October 2026
+
+The analysis, Gemma, and web/deployment branches are integrated. See [the branch integration record](../docs/BRANCH_INTEGRATION.md) for conflict decisions and current verification. Entries below are historical records from the individual workstreams; their pending handoff statements no longer describe the merged source. Live provider access, deployment of the merged application, and analysis tool provenance remain unverified.
+
+
 Member 3's implementation uses only relative `/api/v1/...` URLs. No changes to the frozen contract, fixtures, validators or launcher are needed.
 
 ## Independent Member 3 handoff

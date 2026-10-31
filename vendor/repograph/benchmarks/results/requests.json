@@ -1,0 +1,38 @@
+{
+  "name": "requests",
+  "source": "https://github.com/psf/requests",
+  "generated_at": "2026-10-27T08:22:36Z",
+  "environment": {
+    "python": "3.14.8",
+    "platform": "Linux-7.2.5-3-omarchy-x86_64-with-glibc2.44",
+    "machine": "x86_64"
+  },
+  "index": {
+    "files": 37,
+    "symbols": 807,
+    "internal_imports": 130,
+    "refs": 2633,
+    "tests": 15,
+    "parse_errors": 0,
+    "languages": {
+      "python": 37
+    },
+    "cold_seconds": 0.2587,
+    "cold_added": 37,
+    "incremental_seconds": 0.0406,
+    "incremental_updated": 0,
+    "db_bytes": 520192,
+    "files_per_second": 143.0
+  },
+  "queries": {
+    "search_median_ms": 0.7,
+    "impact_median_ms": 8.2,
+    "architecture_ms": 1.5,
+    "graph_ms": 0.6,
+    "impact_hub": "src/requests/__init__.py",
+    "impact_hub_inbound": 16,
+    "graph_nodes": 34,
+    "graph_edges": 129,
+    "architecture_hubs": 10
+  }
+}

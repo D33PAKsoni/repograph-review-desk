@@ -1,0 +1,320 @@
+{
+  "fetched_at": "2026-10-27T08:04:39.232465+00:00",
+  "source": "GitHub repository search API",
+  "queries": {
+    "code intelligence mcp server": [
+      {
+        "full_name": "xberg-io/xberg",
+        "description": "Polyglot document intelligence with a Rust core: extract text, metadata, images, tables, and structured data from 106 formats across 140 file extensions, plus code intelligence for 371 languages. Fifteen bindings, with CLI, REST API, and MCP server.",
+        "stargazers_count": 9451,
+        "license": "MIT",
+        "pushed_at": "2026-10-27T07:51:15Z",
+        "language": "Rust"
+      },
+      {
+        "full_name": "zzet/gortex",
+        "description": "High-performance code-intelligence engine for AI agents and IDE, supports 257 languages, multi repositories, based on graph, with access via CLI, MCP Server, and API. AI coding agents teammate - expose only needed information, cutting token usage up to 50x. 100% local. Discord: https://discord.gg/39MFHu3J5d",
+        "stargazers_count": 1920,
+        "license": "Apache-2.0",
+        "pushed_at": "2026-10-27T08:00:36Z",
+        "language": "Go"
+      },
+      {
+        "full_name": "aoci-spec/aoci-code",
+        "description": "A persistent, Git-versioned map of your whole codebase and database schema that coding agents read before they touch anything. Local-first MCP server + CLI in Go: a governed repository index of code knowledge that gives Claude Code, Codex, Cursor, and opencode long-term context, memory, and code intelligence.",
+        "stargazers_count": 1758,
+        "license": "NOASSERTION",
+        "pushed_at": "2026-10-27T07:39:35Z",
+        "language": "Go"
+      },
+      {
+        "full_name": "justrach/codedb",
+        "description": "Zig code intelligence server and MCP toolset for AI agents. Fast tree, outline, symbol, search, read, edit, deps, snapshot, and remote GitHub repo queries.",
+        "stargazers_count": 1397,
+        "license": "BSD-3-Clause",
+        "pushed_at": "2026-10-26T17:14:59Z",
+        "language": "Zig"
+      },
+      {
+        "full_name": "bartolli/codanna",
+        "description": "Local code intelligence MCP server and CLI for AI coding agents",
+        "stargazers_count": 757,
+        "license": "Apache-2.0",
+        "pushed_at": "2026-10-11T22:02:34Z",
+        "language": "Rust"
+      },
+      {
+        "full_name": "aovestdipaperino/tokensave",
+        "description": "The most comprehensive code intelligence MCP server for AI coding agents. 40+ tools, 30+ languages, 9 agent integrations. Pre-indexed semantic knowledge graphs for instant code understanding \u2014 fewer tokens, fewer tool calls, 100% local.",
+        "stargazers_count": 679,
+        "license": "MIT",
+        "pushed_at": "2026-10-26T21:04:23Z",
+        "language": "Rust"
+      },
+      {
+        "full_name": "Muvon/octocode",
+        "description": "Structural code intelligence for AI agents \u2014 semantic search, knowledge graphs, and a built-in MCP server in one Rust binary. Give Claude, Cursor, and any MCP client a deep understanding of your codebase.",
+        "stargazers_count": 518,
+        "license": "Apache-2.0",
+        "pushed_at": "2026-10-25T09:06:22Z",
+        "language": "Rust"
+      },
+      {
+        "full_name": "Cranot/roam-code",
+        "description": "Local codebase intelligence CLI + MCP server for AI coding agents: SQLite code graph, 28 languages, 287 commands, 246 MCP tools, change-safety gates, audit evidence, zero API keys.",
+        "stargazers_count": 517,
+        "license": "Apache-2.0",
+        "pushed_at": "2026-10-24T01:32:42Z",
+        "language": "Python"
+      }
+    ],
+    "codebase graph mcp": [
+      {
+        "full_name": "Graphify-Labs/graphify",
+        "description": "Turn any codebase, with its docs, SQL schemas, configs, and PDFs, into a queryable knowledge graph. A /graphify skill for Claude Code, Cursor, Codex, and Gemini CLI: local deterministic AST parsing, every edge explained, no vector store.",
+        "stargazers_count": 136425,
+        "license": "Apache-2.0",
+        "pushed_at": "2026-10-26T15:18:22Z",
+        "language": "Python"
+      },
+      {
+        "full_name": "DeusData/codebase-memory-mcp",
+        "description": "Local code intelligence for developers and AI agents. Connect code, docs and infrastructure in a persistent graph, with CBM Lens, MCP tools, agent integrations and change-aware test selection.",
+        "stargazers_count": 47599,
+        "license": "MIT",
+        "pushed_at": "2026-10-26T01:29:10Z",
+        "language": "C"
+      },
+      {
+        "full_name": "tirth8205/code-review-graph",
+        "description": "Local-first code intelligence graph for MCP and CLI. Builds a persistent map of your codebase so AI coding tools read only what matters, with benchmarked context reductions on reviews and large-repo workflows.",
+        "stargazers_count": 32419,
+        "license": "MIT",
+        "pushed_at": "2026-10-16T11:20:26Z",
+        "language": "Python"
+      },
+      {
+        "full_name": "vitali87/code-graph-rag",
+        "description": "The ultimate RAG for your monorepo. Query, understand, and edit multi-language codebases with the power of AI and knowledge graphs",
+        "stargazers_count": 5287,
+        "license": "MIT",
+        "pushed_at": "2026-10-27T00:37:25Z",
+        "language": "Python"
+      },
+      {
+        "full_name": "fallow-rs/fallow",
+        "description": "Codebase intelligence for TypeScript and JavaScript. Health, complexity hotspots, duplication, architecture boundaries, circular dependencies, design-system drift, and unused code, from one graph. CLI, GitHub Action, LSP, MCP, and VS Code. Rust, MIT licensed.",
+        "stargazers_count": 5255,
+        "license": "MIT",
+        "pushed_at": "2026-10-27T07:59:06Z",
+        "language": "Rust"
+      },
+      {
+        "full_name": "giancarloerra/SocratiCode",
+        "description": "Enterprise-grade (40m+ LOC) codebase intelligence, zero-setup, local & private Plugin/Skill/Extension or MCP: hybrid semantic search, polyglot dependency graphs, symbol-level impact analysis & call-flow, interactive HTML viewer, cross-project & branch-aware search, DB/API/infra knowledge. 61% less tokens, 84% fewer calls, 37x faster. Cloud in beta.",
+        "stargazers_count": 3356,
+        "license": "AGPL-3.0",
+        "pushed_at": "2026-10-23T23:34:57Z",
+        "language": "TypeScript"
+      },
+      {
+        "full_name": "forloopcodes/contextplus",
+        "description": "Semantic Intelligence for Large-Scale Engineering. Context+ is an MCP server designed for developers who demand 99% accuracy. By combining RAG, Tree-sitter AST, Spectral Clustering, and Obsidian-style linking, Context+ turns a massive codebase into a searchable, hierarchical feature graph.",
+        "stargazers_count": 1985,
+        "license": "MIT",
+        "pushed_at": "2026-07-13T09:40:42Z",
+        "language": "TypeScript"
+      },
+      {
+        "full_name": "harshkedia177/axon",
+        "description": "Graph-powered code intelligence engine \u2014 indexes codebases into a knowledge graph, exposed via MCP tools for AI agents and a CLI for developers.",
+        "stargazers_count": 815,
+        "license": null,
+        "pushed_at": "2026-08-03T11:51:21Z",
+        "language": "Python"
+      }
+    ],
+    "repository context mcp": [
+      {
+        "full_name": "aoci-spec/aoci-code",
+        "description": "A persistent, Git-versioned map of your whole codebase and database schema that coding agents read before they touch anything. Local-first MCP server + CLI in Go: a governed repository index of code knowledge that gives Claude Code, Codex, Cursor, and opencode long-term context, memory, and code intelligence.",
+        "stargazers_count": 1758,
+        "license": "NOASSERTION",
+        "pushed_at": "2026-10-27T07:39:35Z",
+        "language": "Go"
+      },
+      {
+        "full_name": "yc-duan/fastctx",
+        "description": "Fast, context-efficient repository tools for AI agents (MCP)",
+        "stargazers_count": 1508,
+        "license": "Apache-2.0",
+        "pushed_at": "2026-10-27T07:18:12Z",
+        "language": "Rust"
+      },
+      {
+        "full_name": "LinkedInLearning/model-context-protocol-mcp-hands-on-with-agentic-ai-2034200",
+        "description": "This is a code repository for the LinkedIn Learning course Model Context Protocol (MCP): Hands-On with Agentic AI [ASI] [TEXT] [MODELS]",
+        "stargazers_count": 118,
+        "license": "NOASSERTION",
+        "pushed_at": "2025-03-20T22:41:45Z",
+        "language": "TypeScript"
+      },
+      {
+        "full_name": "SaM-92/mcp_autogen_sse_stdio",
+        "description": "This repository demonstrates how to use AutoGen to integrate local and remote MCP (Model Context Protocol) servers. It showcases a local math tool (math_server.py) using Stdio and a remote Apify tool (RAG Web Browser Actor) via SSE for tasks like arithmetic and web browsing.",
+        "stargazers_count": 29,
+        "license": null,
+        "pushed_at": "2025-04-13T20:58:59Z",
+        "language": "Python"
+      },
+      {
+        "full_name": "logicbaselabs/mcp-tutorial",
+        "description": "Welcome to the official source code repository for the Model Context Protocol Tutorial on logicBase Labs official YouTube Channel",
+        "stargazers_count": 24,
+        "license": null,
+        "pushed_at": "2025-08-02T14:53:33Z",
+        "language": "JavaScript"
+      },
+      {
+        "full_name": "synthetic-sciences/delphi",
+        "description": "Open-source MCP server for AI agents \u2014 index code repositories, research papers, and datasets. Runs fully local.",
+        "stargazers_count": 24,
+        "license": "Apache-2.0",
+        "pushed_at": "2026-09-10T01:38:53Z",
+        "language": "Python"
+      },
+      {
+        "full_name": "snowmerak/lux",
+        "description": "A tool for managing a knowledge repository (.md files) and providing it to AI agents via the Model Context Protocol (MCP).",
+        "stargazers_count": 24,
+        "license": "MIT",
+        "pushed_at": "2026-02-09T13:19:25Z",
+        "language": "Go"
+      }
+    ],
+    "code graph rag": [
+      {
+        "full_name": "Graphify-Labs/graphify",
+        "description": "Turn any codebase, with its docs, SQL schemas, configs, and PDFs, into a queryable knowledge graph. A /graphify skill for Claude Code, Cursor, Codex, and Gemini CLI: local deterministic AST parsing, every edge explained, no vector store.",
+        "stargazers_count": 136425,
+        "license": "Apache-2.0",
+        "pushed_at": "2026-10-26T15:18:22Z",
+        "language": "Python"
+      },
+      {
+        "full_name": "vitali87/code-graph-rag",
+        "description": "The ultimate RAG for your monorepo. Query, understand, and edit multi-language codebases with the power of AI and knowledge graphs",
+        "stargazers_count": 5287,
+        "license": "MIT",
+        "pushed_at": "2026-10-27T00:37:25Z",
+        "language": "Python"
+      },
+      {
+        "full_name": "satellitecomponent/Neurite",
+        "description": "Fractal Graph-of-Thought. Rhizomatic Mind-Mapping for Ai-Agents, Web-Links, Notes, and Code.",
+        "stargazers_count": 2157,
+        "license": "MIT",
+        "pushed_at": "2026-03-16T18:51:10Z",
+        "language": "JavaScript"
+      },
+      {
+        "full_name": "swarmclawai/swarmvault",
+        "description": "The local-first LLM Wiki: open-source knowledge graph builder, RAG knowledge base, and agent memory store. Built on Andrej Karpathy's pattern. An Obsidian alternative for personal knowledge management, AI second brain, and durable Claude Code / Codex / OpenClaw memory.",
+        "stargazers_count": 729,
+        "license": "MIT",
+        "pushed_at": "2026-06-30T20:28:43Z",
+        "language": "TypeScript"
+      },
+      {
+        "full_name": "Muvon/octocode",
+        "description": "Structural code intelligence for AI agents \u2014 semantic search, knowledge graphs, and a built-in MCP server in one Rust binary. Give Claude, Cursor, and any MCP client a deep understanding of your codebase.",
+        "stargazers_count": 518,
+        "license": "Apache-2.0",
+        "pushed_at": "2026-10-25T09:06:22Z",
+        "language": "Rust"
+      },
+      {
+        "full_name": "Lyellr88/marm-memory",
+        "description": "Local-first 3-in-1 AI memory layer & MCP server for Claude Code, Codex, Grok, Gemini, VS Code and Cursor. Fuses session history, codebase indexing & concept graphs in SQLite. Enables zero-cloud, privacy-first context & instant recall, supports multi-agent swarms.",
+        "stargazers_count": 424,
+        "license": "Apache-2.0",
+        "pushed_at": "2026-10-23T10:16:31Z",
+        "language": "Python"
+      },
+      {
+        "full_name": "osovv/grace-marketplace",
+        "description": " GRACE (Graph-RAG Anchored Code Engineering): open Agent Skills for contract-driven AI code generation with semantic markup, knowledge graphs, and support for Claude   Code, Codex CLI, and Kilo Code.",
+        "stargazers_count": 256,
+        "license": "MIT",
+        "pushed_at": "2026-09-24T06:54:46Z",
+        "language": "TypeScript"
+      },
+      {
+        "full_name": "Eshaan-Nair/ArcRift",
+        "description": "Persistent local memory layer for AI. ArcRift uses a extension and a native MCP server to sync context and decisions from your browser chats (Claude, ChatGPT, DeepSeek) straight to your local IDE agents (Cursor, Claude Code, Windsurf)  powered by a local SQLite knowledge graph.",
+        "stargazers_count": 247,
+        "license": "MIT",
+        "pushed_at": "2026-07-07T12:52:48Z",
+        "language": "TypeScript"
+      }
+    ],
+    "impact analysis code llm": [
+      {
+        "full_name": "johunsang/semble_rs",
+        "description": "Fast, AI-agent-native code search in Rust \u2014 hybrid BM25 + semantic, Tree-sitter AST chunking, dependency & impact analysis. Drop-in replacement for grep/cat/read/ls in Claude Code, Codex, Cursor, Aider, OpenHands.",
+        "stargazers_count": 216,
+        "license": null,
+        "pushed_at": "2026-06-01T19:01:36Z",
+        "language": "Rust"
+      },
+      {
+        "full_name": "SimplyLiz/ckb",
+        "description": "Code intelligence for AI assistants - MCP server, CLI, and HTTP API with symbol navigation, impact analysis, and architecture mapping",
+        "stargazers_count": 111,
+        "license": "NOASSERTION",
+        "pushed_at": "2026-10-14T16:52:21Z",
+        "language": "Go"
+      },
+      {
+        "full_name": "0ximu/mu",
+        "description": "MCP server that gives AI assistants deep codebase understanding. Semantic graph, BM25 search, impact analysis, code review.",
+        "stargazers_count": 70,
+        "license": "Apache-2.0",
+        "pushed_at": "2026-09-22T19:02:44Z",
+        "language": "Rust"
+      },
+      {
+        "full_name": "quantamixsol/graqle",
+        "description": "Persistent organisational intelligence for AI agents. Turn codebases, documents, policies and decisions into a knowledge graph \u2014 13 LLM backends, impact analysis, evidence + confidence. Works with Claude Code, Cursor, Copilot.",
+        "stargazers_count": 32,
+        "license": "NOASSERTION",
+        "pushed_at": "2026-10-25T06:23:37Z",
+        "language": "Python"
+      },
+      {
+        "full_name": "gregordadera/aicb-roslyn-mcp",
+        "description": "AIContextBuilder (AICB): Roslyn MCP server and CLI for C#/.NET (dotnet) code intelligence - semantic code analysis and navigation for coding agents: callers, change impact, implementations, dependency injection, tests, side effects, dead code, token-budgeted context. For Claude Code, Codex, OpenCode and Cursor; Windows desktop app included.",
+        "stargazers_count": 11,
+        "license": "NOASSERTION",
+        "pushed_at": "2026-10-26T11:26:31Z",
+        "language": null
+      },
+      {
+        "full_name": "ArchiCore-Team/archicore",
+        "description": "Open-source code architecture analysis tool. Dependency graphs, impact analysis, security scanning, dead code  detection - all without LLM. Supports 40+ languages.",
+        "stargazers_count": 9,
+        "license": "MIT",
+        "pushed_at": "2026-03-16T16:18:33Z",
+        "language": "TypeScript"
+      },
+      {
+        "full_name": "BehnamJalaliCo/CodeCortex",
+        "description": "Open-source context intelligence engine for AI coding agents \u2014 repository graph, precise code navigation, MCP, impact analysis, memory, and guarded edits.",
+        "stargazers_count": 8,
+        "license": "Apache-2.0",
+        "pushed_at": "2026-10-26T12:40:29Z",
+        "language": "Python"
+      }
+    ]
+  }
+}

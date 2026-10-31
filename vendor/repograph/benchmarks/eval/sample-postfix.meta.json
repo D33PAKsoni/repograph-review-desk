@@ -1,0 +1,16 @@
+{
+  "seed": 20261027,
+  "sample_size": 226,
+  "population": {
+    "fastapi|resolved|confirmed": 1914,
+    "fastapi|unresolved|unresolved": 158,
+    "fastapi|external|external": 2128,
+    "vue-core|resolved|confirmed": 1418,
+    "vue-core|resolved|inferred": 475,
+    "vue-core|unresolved|unresolved": 16,
+    "vue-core|external|external": 210,
+    "express|resolved|confirmed": 142,
+    "express|external|external": 225
+  },
+  "labels": {}
+}

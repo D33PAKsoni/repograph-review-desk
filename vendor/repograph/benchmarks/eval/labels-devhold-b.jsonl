@@ -1,0 +1,217 @@
+{"id": "axios-0001", "label": "correct", "note": "workspace package 'axios': package.json module/exports default -> index.js (source entry); published main/require -> dist/node/axios.cjs is a build shim not present in repo"}
+{"id": "axios-0002", "label": "correct", "note": ""}
+{"id": "requests-0003", "label": "correct", "note": ""}
+{"id": "zod-0004", "label": "correct", "note": "workspace package 'zod': package.json main/index.cjs is build output; subpath entry resolves to packages/zod/src/... via exports @zod/source / zshy source map"}
+{"id": "axios-0005", "label": "unresolved_ok", "note": "'./declarations/index.js' under tests/module/esm/tests/helpers/ does not exist in the repo; the directory is produced by tsc declaration emit when the module test runs."}
+{"id": "axios-0006", "label": "correct", "note": ""}
+{"id": "requests-0007", "label": "correct", "note": "relative import from tests/test_requests.py resolves to the tests package helper tests/compat.py (not src/requests/compat.py); tests/compat.py provides StringIO."}
+{"id": "axios-0008", "label": "correct", "note": ""}
+{"id": "axios-0009", "label": "external_ok", "note": ""}
+{"id": "zod-0010", "label": "external_ok", "note": ""}
+{"id": "requests-0011", "label": "correct", "note": ""}
+{"id": "zod-0012", "label": "correct", "note": "workspace package 'zod': package.json main/index.cjs is build output; subpath entry resolves to packages/zod/src/... via exports @zod/source / zshy source map"}
+{"id": "requests-0013", "label": "external_ok", "note": ""}
+{"id": "axios-0014", "label": "correct", "note": ""}
+{"id": "zod-0015", "label": "correct", "note": ""}
+{"id": "requests-0016", "label": "correct", "note": ""}
+{"id": "axios-0017", "label": "correct", "note": ""}
+{"id": "axios-0018", "label": "external_ok", "note": ""}
+{"id": "zod-0019", "label": "correct", "note": ""}
+{"id": "requests-0020", "label": "correct", "note": ""}
+{"id": "requests-0021", "label": "external_ok", "note": ""}
+{"id": "axios-0022", "label": "correct", "note": "workspace package 'axios': package.json module/exports default -> index.js (source entry); published main/require -> dist/node/axios.cjs is a build shim not present in repo"}
+{"id": "requests-0023", "label": "correct", "note": ""}
+{"id": "requests-0024", "label": "correct", "note": "relative import from tests/test_lowlevel.py resolves to tests/utils.py, not src/requests/utils.py."}
+{"id": "axios-0025", "label": "correct", "note": "workspace package 'axios': package.json module/exports default -> index.js (source entry); published main/require -> dist/node/axios.cjs is a build shim not present in repo"}
+{"id": "zod-0026", "label": "unresolved_ok", "note": "packages/docs/app/global.css exists, but it is a Next.js CSS asset import, not a code module; resolution requires the bundler.", "actual_target": "packages/docs/app/global.css"}
+{"id": "requests-0027", "label": "correct", "note": ""}
+{"id": "zod-0028", "label": "correct", "note": "workspace package 'zod': package.json main/index.cjs is build output; subpath entry resolves to packages/zod/src/... via exports @zod/source / zshy source map"}
+{"id": "zod-0029", "label": "correct", "note": "workspace package 'zod': package.json main/index.cjs is build output; subpath entry resolves to packages/zod/src/... via exports @zod/source / zshy source map"}
+{"id": "zod-0030", "label": "correct", "note": "workspace package 'zod': package.json main/index.cjs is build output; subpath entry resolves to packages/zod/src/... via exports @zod/source / zshy source map"}
+{"id": "axios-0031", "label": "correct", "note": "workspace package 'axios': package.json module/exports default -> index.js (source entry); published main/require -> dist/node/axios.cjs is a build shim not present in repo"}
+{"id": "axios-0032", "label": "external_ok", "note": ""}
+{"id": "axios-0033", "label": "correct", "note": ""}
+{"id": "axios-0034", "label": "external_ok", "note": ""}
+{"id": "axios-0035", "label": "correct", "note": ""}
+{"id": "zod-0036", "label": "correct", "note": "workspace package 'zod': package.json main/index.cjs is build output; subpath entry resolves to packages/zod/src/... via exports @zod/source / zshy source map"}
+{"id": "zod-0037", "label": "correct", "note": "'@/*' -> packages/docs/* per packages/docs/tsconfig.json paths (docs tsconfig, no external package)"}
+{"id": "zod-0038", "label": "correct", "note": ""}
+{"id": "zod-0039", "label": "correct", "note": ""}
+{"id": "axios-0040", "label": "correct", "note": ""}
+{"id": "requests-0041", "label": "correct", "note": ""}
+{"id": "axios-0042", "label": "correct", "note": ""}
+{"id": "zod-0043", "label": "external_ok", "note": ""}
+{"id": "zod-0044", "label": "correct", "note": "workspace package 'zod': package.json main/index.cjs is build output; subpath entry resolves to packages/zod/src/... via exports @zod/source / zshy source map"}
+{"id": "zod-0045", "label": "correct", "note": ""}
+{"id": "zod-0046", "label": "correct", "note": ""}
+{"id": "zod-0047", "label": "correct", "note": "'@/*' -> packages/docs/* per packages/docs/tsconfig.json paths (docs tsconfig, no external package)"}
+{"id": "axios-0048", "label": "correct", "note": ""}
+{"id": "zod-0049", "label": "correct", "note": ""}
+{"id": "zod-0050", "label": "correct", "note": "workspace package 'zod': package.json main/index.cjs is build output; subpath entry resolves to packages/zod/src/... via exports @zod/source / zshy source map"}
+{"id": "axios-0051", "label": "unresolved_ok", "note": "docs/.vitepress/theme/style.css exists, but the import is a Vite CSS asset, not a JS/TS module; resolution needs the bundler, so no code-module edge is expected.", "actual_target": "docs/.vitepress/theme/style.css"}
+{"id": "zod-0052", "label": "correct", "note": ""}
+{"id": "zod-0053", "label": "correct", "note": ""}
+{"id": "axios-0054", "label": "correct", "note": "workspace package 'axios': package.json module/exports default -> index.js (source entry); published main/require -> dist/node/axios.cjs is a build shim not present in repo"}
+{"id": "zod-0055", "label": "external_ok", "note": ""}
+{"id": "requests-0056", "label": "correct", "note": ""}
+{"id": "axios-0057", "label": "external_ok", "note": ""}
+{"id": "axios-0058", "label": "correct", "note": "Type-only names (AxiosInstance, AxiosResponse) come from the package entry's index.d.ts; value entry is index.js. Both are the same package entry, so the edge is right."}
+{"id": "zod-0059", "label": "correct", "note": ""}
+{"id": "axios-0060", "label": "correct", "note": "workspace package 'axios': package.json module/exports default -> index.js (source entry); published main/require -> dist/node/axios.cjs is a build shim not present in repo; CJS require() would hit the dist shim at runtime, but index.js is the repo source entry"}
+{"id": "axios-0061", "label": "correct", "note": ""}
+{"id": "axios-0062", "label": "correct", "note": "workspace package 'axios': package.json module/exports default -> index.js (source entry); published main/require -> dist/node/axios.cjs is a build shim not present in repo; CJS require() would hit the dist shim at runtime, but index.js is the repo source entry"}
+{"id": "requests-0063", "label": "correct", "note": ""}
+{"id": "zod-0064", "label": "correct", "note": "workspace package 'zod': package.json main/index.cjs is build output; subpath entry resolves to packages/zod/src/... via exports @zod/source / zshy source map"}
+{"id": "requests-0065", "label": "external_ok", "note": ""}
+{"id": "zod-0066", "label": "correct", "note": "workspace package 'zod': package.json main/index.cjs is build output; subpath entry resolves to packages/zod/src/... via exports @zod/source / zshy source map"}
+{"id": "requests-0067", "label": "correct", "note": ""}
+{"id": "axios-0068", "label": "correct", "note": "workspace package 'axios': package.json module/exports default -> index.js (source entry); published main/require -> dist/node/axios.cjs is a build shim not present in repo"}
+{"id": "requests-0069", "label": "correct", "note": ""}
+{"id": "zod-0070", "label": "correct", "note": ""}
+{"id": "axios-0071", "label": "correct", "note": "workspace package 'axios': package.json module/exports default -> index.js (source entry); published main/require -> dist/node/axios.cjs is a build shim not present in repo; CJS require() would hit the dist shim at runtime, but index.js is the repo source entry"}
+{"id": "requests-0072", "label": "external_ok", "note": ""}
+{"id": "zod-0073", "label": "external_ok", "note": ""}
+{"id": "zod-0074", "label": "external_ok", "note": ""}
+{"id": "axios-0075", "label": "correct", "note": ""}
+{"id": "requests-0076", "label": "correct", "note": ""}
+{"id": "zod-0077", "label": "external_ok", "note": ""}
+{"id": "axios-0078", "label": "correct", "note": "workspace package 'axios': package.json module/exports default -> index.js (source entry); published main/require -> dist/node/axios.cjs is a build shim not present in repo"}
+{"id": "requests-0079", "label": "external_ok", "note": ""}
+{"id": "axios-0080", "label": "correct", "note": ""}
+{"id": "axios-0081", "label": "correct", "note": ""}
+{"id": "axios-0082", "label": "correct", "note": ""}
+{"id": "zod-0083", "label": "correct", "note": ""}
+{"id": "axios-0084", "label": "correct", "note": ""}
+{"id": "axios-0085", "label": "correct", "note": ""}
+{"id": "zod-0086", "label": "correct", "note": ""}
+{"id": "axios-0087", "label": "correct", "note": ""}
+{"id": "requests-0088", "label": "external_ok", "note": ""}
+{"id": "axios-0089", "label": "correct", "note": "workspace package 'axios': package.json module/exports default -> index.js (source entry); published main/require -> dist/node/axios.cjs is a build shim not present in repo; CJS require() would hit the dist shim at runtime, but index.js is the repo source entry"}
+{"id": "axios-0090", "label": "correct", "note": "workspace package 'axios': package.json module/exports default -> index.js (source entry); published main/require -> dist/node/axios.cjs is a build shim not present in repo"}
+{"id": "axios-0091", "label": "external_ok", "note": ""}
+{"id": "zod-0092", "label": "external_ok", "note": ""}
+{"id": "requests-0093", "label": "correct", "note": ""}
+{"id": "zod-0094", "label": "external_ok", "note": ""}
+{"id": "requests-0095", "label": "external_ok", "note": ""}
+{"id": "axios-0096", "label": "correct", "note": "Mix of value and type names: values exist in index.js, type names in index.d.ts, both part of the package entry."}
+{"id": "zod-0097", "label": "correct", "note": ""}
+{"id": "zod-0098", "label": "correct", "note": "workspace package 'zod': package.json main/index.cjs is build output; subpath entry resolves to packages/zod/src/... via exports @zod/source / zshy source map"}
+{"id": "zod-0099", "label": "correct", "note": "workspace package 'zod': package.json main/index.cjs is build output; subpath entry resolves to packages/zod/src/... via exports @zod/source / zshy source map"}
+{"id": "axios-0100", "label": "correct", "note": "workspace package 'axios': package.json module/exports default -> index.js (source entry); published main/require -> dist/node/axios.cjs is a build shim not present in repo; CJS require() would hit the dist shim at runtime, but index.js is the repo source entry"}
+{"id": "axios-0101", "label": "correct", "note": ""}
+{"id": "axios-0102", "label": "external_ok", "note": ""}
+{"id": "axios-0103", "label": "correct", "note": "Mix of value and type names: values exist in index.js, type names in index.d.ts, both part of the package entry."}
+{"id": "zod-0104", "label": "correct", "note": "workspace package 'zod': package.json main/index.cjs is build output; subpath entry resolves to packages/zod/src/... via exports @zod/source / zshy source map"}
+{"id": "zod-0105", "label": "correct", "note": ""}
+{"id": "requests-0106", "label": "correct", "note": "absolute requests.* import resolves under the src/requests package (src layout in pyproject.toml)."}
+{"id": "zod-0107", "label": "correct", "note": "workspace package 'zod': package.json main/index.cjs is build output; subpath entry resolves to packages/zod/src/... via exports @zod/source / zshy source map"}
+{"id": "axios-0108", "label": "correct", "note": "workspace package 'axios': package.json module/exports default -> index.js (source entry); published main/require -> dist/node/axios.cjs is a build shim not present in repo"}
+{"id": "requests-0109", "label": "external_ok", "note": ""}
+{"id": "zod-0110", "label": "correct", "note": ""}
+{"id": "zod-0111", "label": "correct", "note": ""}
+{"id": "zod-0112", "label": "correct", "note": ""}
+{"id": "requests-0113", "label": "external_ok", "note": ""}
+{"id": "axios-0114", "label": "external_ok", "note": ""}
+{"id": "zod-0115", "label": "correct", "note": ""}
+{"id": "requests-0116", "label": "correct", "note": ""}
+{"id": "axios-0117", "label": "correct", "note": ""}
+{"id": "zod-0118", "label": "correct", "note": ""}
+{"id": "requests-0119", "label": "correct", "note": "models.py re-exports urlencode via 'from .compat import urlencode', so the name is present on the module."}
+{"id": "axios-0120", "label": "correct", "note": "workspace package 'axios': package.json module/exports default -> index.js (source entry); published main/require -> dist/node/axios.cjs is a build shim not present in repo"}
+{"id": "zod-0121", "label": "correct", "note": "workspace package 'zod': package.json main/index.cjs is build output; subpath entry resolves to packages/zod/src/... via exports @zod/source / zshy source map"}
+{"id": "axios-0122", "label": "external_ok", "note": ""}
+{"id": "axios-0123", "label": "correct", "note": "workspace package 'axios': package.json module/exports default -> index.js (source entry); published main/require -> dist/node/axios.cjs is a build shim not present in repo"}
+{"id": "requests-0124", "label": "correct", "note": "absolute requests.* import resolves under src/requests/."}
+{"id": "zod-0125", "label": "correct", "note": "workspace package 'zod': package.json main/index.cjs is build output; subpath entry resolves to packages/zod/src/... via exports @zod/source / zshy source map"}
+{"id": "zod-0126", "label": "correct", "note": "workspace package 'zod': package.json main/index.cjs is build output; subpath entry resolves to packages/zod/src/... via exports @zod/source / zshy source map"}
+{"id": "axios-0127", "label": "external_ok", "note": ""}
+{"id": "requests-0128", "label": "external_ok", "note": ""}
+{"id": "zod-0129", "label": "external_ok", "note": ""}
+{"id": "zod-0130", "label": "external_ok", "note": ""}
+{"id": "requests-0131", "label": "external_ok", "note": ""}
+{"id": "axios-0132", "label": "correct", "note": "workspace package 'axios': package.json module/exports default -> index.js (source entry); published main/require -> dist/node/axios.cjs is a build shim not present in repo"}
+{"id": "zod-0133", "label": "correct", "note": ""}
+{"id": "zod-0134", "label": "correct", "note": "'@/*' -> packages/docs/* per packages/docs/tsconfig.json paths (docs tsconfig, no external package)"}
+{"id": "zod-0135", "label": "correct", "note": ""}
+{"id": "requests-0136", "label": "external_ok", "note": ""}
+{"id": "zod-0137", "label": "correct", "note": "'@/*' -> packages/docs/* per packages/docs/tsconfig.json paths (docs tsconfig, no external package)"}
+{"id": "requests-0138", "label": "external_ok", "note": ""}
+{"id": "axios-0139", "label": "external_ok", "note": ""}
+{"id": "zod-0140", "label": "external_ok", "note": ""}
+{"id": "zod-0141", "label": "external_ok", "note": ""}
+{"id": "requests-0142", "label": "internal_missed", "note": "tests/__init__.py binds SNIMissingWarning (try: from urllib3.exceptions import SNIMissingWarning except ImportError: None), so 'from . import SNIMissingWarning' resolves to the tests package __init__; name binding is conditional on urllib3 version but the file does implement it.", "actual_target": "tests/__init__.py"}
+{"id": "axios-0143", "label": "external_ok", "note": ""}
+{"id": "zod-0144", "label": "correct", "note": "workspace package 'zod': package.json main/index.cjs is build output; subpath entry resolves to packages/zod/src/... via exports @zod/source / zshy source map"}
+{"id": "zod-0145", "label": "correct", "note": ""}
+{"id": "zod-0146", "label": "correct", "note": ""}
+{"id": "axios-0147", "label": "correct", "note": "workspace package 'axios': package.json module/exports default -> index.js (source entry); published main/require -> dist/node/axios.cjs is a build shim not present in repo; CJS require() would hit the dist shim at runtime, but index.js is the repo source entry"}
+{"id": "axios-0148", "label": "unresolved_ok", "note": "rollup.config.js requires the JSON file ./package.json, which exists, but it is a data/config asset rather than a source module; require() of JSON is a runtime data load, not a code dependency edge.", "actual_target": "package.json"}
+{"id": "axios-0149", "label": "correct", "note": "workspace package 'axios': package.json module/exports default -> index.js (source entry); published main/require -> dist/node/axios.cjs is a build shim not present in repo; CJS require() would hit the dist shim at runtime, but index.js is the repo source entry"}
+{"id": "axios-0150", "label": "correct", "note": "Second imported name is redacted in the sample; target lib/core/AxiosError.js and default AxiosError import are verified."}
+{"id": "axios-0151", "label": "external_ok", "note": ""}
+{"id": "axios-0152", "label": "correct", "note": "workspace package 'axios': package.json module/exports default -> index.js (source entry); published main/require -> dist/node/axios.cjs is a build shim not present in repo"}
+{"id": "axios-0153", "label": "correct", "note": ""}
+{"id": "zod-0154", "label": "external_ok", "note": ""}
+{"id": "zod-0155", "label": "correct", "note": "workspace package 'zod': package.json main/index.cjs is build output; subpath entry resolves to packages/zod/src/... via exports @zod/source / zshy source map"}
+{"id": "zod-0156", "label": "external_ok", "note": ""}
+{"id": "axios-0157", "label": "correct", "note": "workspace package 'axios': package.json module/exports default -> index.js (source entry); published main/require -> dist/node/axios.cjs is a build shim not present in repo; CJS require() would hit the dist shim at runtime, but index.js is the repo source entry"}
+{"id": "requests-0158", "label": "correct", "note": "Line imports both packages and utils from the package; the recorded edge is accurate for the 'utils' name (src/requests/utils.py). A separate edge to src/requests/packages.py exists on the same line."}
+{"id": "axios-0159", "label": "correct", "note": ""}
+{"id": "requests-0160", "label": "correct", "note": ""}
+{"id": "zod-0161", "label": "correct", "note": ""}
+{"id": "requests-0162", "label": "external_ok", "note": ""}
+{"id": "zod-0163", "label": "correct", "note": "workspace package 'zod': package.json main/index.cjs is build output; subpath entry resolves to packages/zod/src/... via exports @zod/source / zshy source map"}
+{"id": "axios-0164", "label": "external_ok", "note": ""}
+{"id": "axios-0165", "label": "correct", "note": ""}
+{"id": "zod-0166", "label": "correct", "note": ""}
+{"id": "requests-0167", "label": "correct", "note": "relative import from tests/test_requests.py resolves to tests/utils.py, not src/requests/utils.py."}
+{"id": "axios-0168", "label": "correct", "note": ""}
+{"id": "zod-0169", "label": "external_ok", "note": ""}
+{"id": "zod-0170", "label": "correct", "note": ""}
+{"id": "axios-0171", "label": "correct", "note": "workspace package 'axios': package.json module/exports default -> index.js (source entry); published main/require -> dist/node/axios.cjs is a build shim not present in repo; CJS require() would hit the dist shim at runtime, but index.js is the repo source entry"}
+{"id": "axios-0172", "label": "correct", "note": "workspace package 'axios': package.json module/exports default -> index.js (source entry); published main/require -> dist/node/axios.cjs is a build shim not present in repo"}
+{"id": "zod-0173", "label": "external_ok", "note": ""}
+{"id": "zod-0174", "label": "correct", "note": "workspace package 'zod': package.json main/index.cjs is build output; subpath entry resolves to packages/zod/src/... via exports @zod/source / zshy source map"}
+{"id": "zod-0175", "label": "correct", "note": "workspace package 'zod': package.json main/index.cjs is build output; subpath entry resolves to packages/zod/src/... via exports @zod/source / zshy source map"}
+{"id": "requests-0176", "label": "external_ok", "note": ""}
+{"id": "requests-0177", "label": "correct", "note": ""}
+{"id": "axios-0178", "label": "external_ok", "note": ""}
+{"id": "axios-0179", "label": "correct", "note": ""}
+{"id": "axios-0180", "label": "external_ok", "note": ""}
+{"id": "zod-0181", "label": "external_ok", "note": ""}
+{"id": "zod-0182", "label": "correct", "note": "workspace package 'zod': package.json main/index.cjs is build output; subpath entry resolves to packages/zod/src/... via exports @zod/source / zshy source map"}
+{"id": "zod-0183", "label": "correct", "note": ""}
+{"id": "requests-0184", "label": "correct", "note": "absolute requests.* import resolves under src/requests/."}
+{"id": "requests-0185", "label": "external_ok", "note": ""}
+{"id": "requests-0186", "label": "correct", "note": ""}
+{"id": "axios-0187", "label": "external_ok", "note": ""}
+{"id": "requests-0188", "label": "correct", "note": "absolute 'requests' import maps to the src layout package at src/requests/import requests -> src/requests/__init__.py"}
+{"id": "axios-0189", "label": "correct", "note": "workspace package 'axios': package.json module/exports default -> index.js (source entry); published main/require -> dist/node/axios.cjs is a build shim not present in repo; CJS require() would hit the dist shim at runtime, but index.js is the repo source entry"}
+{"id": "axios-0190", "label": "external_ok", "note": ""}
+{"id": "zod-0191", "label": "external_ok", "note": ""}
+{"id": "zod-0192", "label": "correct", "note": "workspace package 'zod': package.json main/index.cjs is build output; subpath entry resolves to packages/zod/src/... via exports @zod/source / zshy source map"}
+{"id": "zod-0193", "label": "correct", "note": ""}
+{"id": "axios-0194", "label": "external_ok", "note": ""}
+{"id": "axios-0195", "label": "unresolved_ok", "note": "docs/.vitepress/theme/SecurityUpdatesBanner.vue exists, but it is a Vue SFC that needs the Vite/Vue build pipeline; not statically resolvable as a JS module.", "actual_target": "docs/.vitepress/theme/SecurityUpdatesBanner.vue"}
+{"id": "zod-0196", "label": "external_ok", "note": ""}
+{"id": "axios-0197", "label": "correct", "note": ""}
+{"id": "axios-0198", "label": "correct", "note": "workspace package 'axios': package.json module/exports default -> index.js (source entry); published main/require -> dist/node/axios.cjs is a build shim not present in repo; CJS require() would hit the dist shim at runtime, but index.js is the repo source entry"}
+{"id": "requests-0199", "label": "external_ok", "note": ""}
+{"id": "requests-0200", "label": "external_ok", "note": ""}
+{"id": "axios-0201", "label": "external_ok", "note": ""}
+{"id": "requests-0202", "label": "external_ok", "note": ""}
+{"id": "zod-0203", "label": "correct", "note": "workspace package 'zod': package.json main/index.cjs is build output; subpath entry resolves to packages/zod/src/... via exports @zod/source / zshy source map"}
+{"id": "axios-0204", "label": "correct", "note": "workspace package 'axios': package.json module/exports default -> index.js (source entry); published main/require -> dist/node/axios.cjs is a build shim not present in repo; CJS require() would hit the dist shim at runtime, but index.js is the repo source entry"}
+{"id": "axios-0205", "label": "correct", "note": "workspace package 'axios': package.json module/exports default -> index.js (source entry); published main/require -> dist/node/axios.cjs is a build shim not present in repo"}
+{"id": "zod-0206", "label": "external_ok", "note": ""}
+{"id": "requests-0207", "label": "correct", "note": "absolute 'requests' import maps to the src layout package at src/requests/import requests -> src/requests/__init__.py"}
+{"id": "axios-0208", "label": "correct", "note": ""}
+{"id": "zod-0209", "label": "correct", "note": ""}
+{"id": "requests-0210", "label": "correct", "note": ""}
+{"id": "requests-0211", "label": "external_ok", "note": ""}
+{"id": "axios-0212", "label": "correct", "note": ""}
+{"id": "zod-0213", "label": "correct", "note": "workspace package 'zod': package.json main/index.cjs is build output; subpath entry resolves to packages/zod/src/... via exports @zod/source / zshy source map"}
+{"id": "requests-0214", "label": "unresolved_ok", "note": "'requests.packages' is a module (src/requests/packages.py), not a package dir: it aliases urllib3 into sys.modules at runtime, so requests.packages.urllib3.poolmanager actually points at the external urllib3 module. Not statically internal and not a repo file edge."}
+{"id": "requests-0215", "label": "correct", "note": ""}
+{"id": "requests-0216", "label": "correct", "note": ""}
+{"id": "axios-0217", "label": "correct", "note": ""}

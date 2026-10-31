@@ -1,0 +1,46 @@
+{
+ "seed": 20261029,
+ "sample_size": 203,
+ "population": {
+  "httpx|resolved|confirmed": 124,
+  "httpx|external|external": 216,
+  "zustand|resolved|confirmed": 36,
+  "zustand|resolved|inferred": 36,
+  "zustand|unresolved|unresolved": 10,
+  "zustand|external|external": 76,
+  "mocha|resolved|confirmed": 321,
+  "mocha|unresolved|unresolved": 13,
+  "mocha|external|external": 298
+ },
+ "labels": {},
+ "frozen_sha256": "26bae0530b8cfca2c0ab5e323fb7f3c5e4cfc74ceb04f881eb1982867705c7c0",
+ "protocol": "research/EDGE_ACCURACY_PROTOCOL.md, unchanged",
+ "commits": {
+  "httpx": "b5addb64f0161ff6bfe94c124ef76f6a1fba5254",
+  "zustand": "382d29c485e67018c06e75ec7235130d0968522c",
+  "mocha": "5b5afa7b12e3f76f4e0c6afa12e960c0b378358c"
+ },
+ "index_counts": {
+  "httpx": {
+   "files": 60,
+   "parse_errors": 0,
+   "internal": 124,
+   "unresolved": 0,
+   "external": 216
+  },
+  "zustand": {
+   "files": 51,
+   "parse_errors": 5,
+   "internal": 72,
+   "unresolved": 10,
+   "external": 76
+  },
+  "mocha": {
+   "files": 483,
+   "parse_errors": 3,
+   "internal": 321,
+   "unresolved": 13,
+   "external": 298
+  }
+ }
+}
