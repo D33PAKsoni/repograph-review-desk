@@ -12,6 +12,7 @@ Avoid:
 - "understand any codebase"
 - "supports N languages" (three)
 - "safe changes" or "proven impact"
+- "test selection works" (measured 0.23 pooled file recall; documented as a heuristic)
 - unverified competitor comparisons
 - fabricated performance numbers
 
@@ -23,16 +24,18 @@ Avoid:
 - [x] Security model documented; non-execution tested.
 - [x] Benchmarks reproducible and failures disclosed.
 - [x] README has honest limitations.
-- [ ] Edge precision measured on a labeled corpus (see `VALIDATION_PLAN.md`).
-- [ ] A clean install from a fresh copy succeeds.
-- [ ] CI passes on a public branch.
-- [ ] Repository has a maintainer, issue templates, and a security contact.
-- [ ] At least one design partner has run it on a real repository.
-- [ ] No private paths, credentials or generated indexes are committed.
+- [x] Edge precision measured on a labeled corpus: 98.3% precision on 120 audited edges, 93.7% estimated recall (`research/EDGE_ACCURACY_RESULTS.md`). Labels are AI, not human.
+- [x] A clean install from a fresh copy succeeds: `pip install repograph-codeintel` verified in an empty venv from the PyPI index.
+- [x] CI passes on a public branch.
+- [x] Repository has issue templates, a security policy and CI; no named maintainer beyond the GitHub account.
+- [ ] At least one design partner has run it on a real repository. **Still false — this is the only item that matters now.**
+- [x] No private paths, credentials or generated indexes are committed (a fixture index leaked once and was removed; `.gitignore` now covers it at any depth).
 
-The unchecked items block a public "trustworthy impact analysis" launch. Without precision data, launch as an **experimental graph explorer**, not as a change-safety tool.
+Precision data now exists; the only unmet item is a person outside this project running it. Until that changes, any announcement goes out as an **experimental graph explorer** — never as a change-safety or CI-gate product.
 
 ## Audience and channels
+
+The concrete plan is **`OUTREACH_TARGETS.md`**: ten named repositories, ten 1:1 asks, and a decision rule for the result.
 
 | Audience | Message | Channel |
 | --- | --- | --- |

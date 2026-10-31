@@ -1,75 +1,86 @@
 # Draft announcement
 
-> **Not published.** Requires maintainer approval and the launch checklist in `LAUNCH_STRATEGY.md`.
+> **Not published.** Requires maintainer approval and the checklist in `LAUNCH_STRATEGY.md`.
 
-## RepoGraph: local-first impact analysis for coding agents
+## Which code does this change touch?
 
-Coding agents are good at editing a file and bad at knowing what else depends on it. Asking the agent to grep is not a dependency analysis, and a dependency list without provenance is hard to trust.
+Coding agents are good at editing one file and bad at knowing what else depends on it. Grep finds
+strings, not dependencies, and a list of "related files" with no provenance is hard to act on.
 
-RepoGraph indexes a repository locally with tree-sitter and SQLite, then exposes the result through a CLI and an MCP server. The point is not another code graph. The point is an **auditable answer**:
-
-- every relationship carries file:line, extraction method and confidence;
-- unresolved, dynamic and external imports are reported separately;
-- every impact analysis lists its blind spots;
-- an empty dependent list is explicitly **not** a safety verdict.
+RepoGraph indexes a repository locally with tree-sitter and SQLite — no network, no API key, no
+code execution — and answers questions where every edge carries its evidence:
 
 ```bash
 repograph index .
-repograph impact src/payments/refund.py
+repograph impact src/flask/helpers.py
 ```
 
 ```
-direct dependents (3):
-  [confirmed] src/payments/api.py      (imports-changed-file at line 4)
-  [confirmed] tests/test_refund.py     (imports-changed-file at line 2)
-  [inferred]  src/payments/worker.py   (references-changed-symbol at line 31)
-
-blind spots:
-  - external-imports (2): External packages were not analyzed...
-  - repo-parse-errors (1): Files with parse errors contribute no symbols or edges...
+direct dependents (10):
+  [confirmed] src/flask/__init__.py      (imports-changed-file at line 13)
+  [confirmed] src/flask/app.py           (imports-changed-file at line 38)
+  [confirmed] src/flask/blueprints.py    (imports-changed-file at line 9)
+  [confirmed] src/flask/cli.py           (imports-changed-file at line 24)
+  [confirmed] tests/test_helpers.py      (imports-changed-file at line 8)
+  ...
+transitive dependents: 53
 ```
 
-MCP tools: `search_symbols`, `find_references`, `get_dependency_graph`, `analyze_change_impact`, `find_related_tests`, `get_architecture_summary`.
+Four confidence classes (`confirmed`, `inferred`, `heuristic`, `unresolved`), external and dynamic
+imports kept separate, and every report ends with its blind spots. An empty dependent list is
+labelled as *not evidence of safety*.
 
-### What it is not
+MCP tools for agents: `search_symbols`, `find_references`, `get_dependency_graph`,
+`analyze_change_impact`, `find_related_tests`, `get_architecture_summary`.
 
-- Not a compiler or type checker.
-- Not semantic search.
-- Not safe for a blocking CI gate yet.
-- Not multi-language beyond Python, TypeScript and JavaScript.
-- Not free of blind spots. Dynamic imports, reflection, DI and external consumers are not modeled.
+## Measured on real repositories
 
-### Measured on real repositories
+Edge accuracy, round 5 (httpx, zustand, mocha — never indexed or tuned against before the round):
 
-Single run, Linux x86_64, Python 3.14.8:
+| Metric | Result |
+| --- | ---: |
+| Precision | 118/120 audited resolved edges (98.3%, Wilson 94.1%–99.5%) |
+| Estimated recall | 118/126 (93.7%, Wilson 88.0%–96.8%) |
 
-| Repo | Files | Cold index | Incremental | Impact (highest-inbound, depth 2) |
-| --- | ---: | ---: | ---: | ---: |
-| requests | 37 | 0.26 s | 0.04 s | 8.2 ms |
-| click | 91 | 0.57 s | 0.06 s | 18.4 ms |
-| express | 142 | 0.28 s | 0.08 s | 2.1 ms |
-| vue-core | 528 | 1.79 s | 0.24 s | 22.4 ms |
-| fastapi | 1,223 | 5.26 s | 1.10 s | 82.1 ms |
+Labels came from two independent AI agents with adjudication, not humans. Three small repositories
+are not a random sample of all code; treat this as an estimate, not a promise.
 
-Express exposed a real weakness: 142 JavaScript files yielded only 63 symbols because CommonJS function-expression exports are poorly extracted. Vue core produced two parse errors. Both are in the report.
+Indexing is fast and local: requests 37 files / 0.26 s, click 91 / 0.57 s, fastapi 1,223 / 5.3 s.
 
-### Try it
+## And one thing that does not work
+
+I built a test-selection mode: *run only the tests this diff affects*. I measured it against real
+pytest results — 22 mutations across click, Flask and packaging, 180 failing test files:
+
+| | Selected tests | Recall |
+| --- | ---: | ---: |
+| Selection alone | median 6.7% of files | **0.23** (41/180) |
+| Selection + every disclosed reachable file | 98.9% of files | 0.994 |
+
+There is no setting that is both safe and cheap, so it is documented as a heuristic that must be
+backed by a full suite run, and the number is printed next to the feature. If you want a code-graph
+tool that publishes its own failures, this is that tool.
+
+## Try it
 
 ```bash
-git clone <repository-url>
-cd repograph
-python -m venv .venv
-.venv/bin/pip install -e .
-.venv/bin/repograph index /path/to/your/repo
-.venv/bin/repograph impact /path/to/your/repo/src/file.py --root /path/to/your/repo
+pip install repograph-codeintel
+repograph init . && repograph index .
+repograph impact src/your_module.py
+repograph setup .          # optional: registers the MCP server with Claude Code / Cursor / Codex
 ```
 
-Apache-2.0. No API key. No network. No code execution.
+Python 3.10+. Apache-2.0. Indexes Python, TypeScript, TSX, JavaScript, JSX and Prisma.
+Source: https://github.com/INDEX0-RESEARCH-LABS/repograph
 
-### What I want from you
+## What I want from you
 
-Run it on a repository you know. Tell me where the graph is **wrong**: a missed import, a bad alias, a false dependent, a route it failed to see. Edge accuracy is the next milestone, and wrong-edge reports are more useful than stars.
+Run it on a repository you know well, and reply with **one place the graph is wrong**: a missed
+import, a false dependent, a route it failed to see. Wrong-edge reports are worth more than stars.
+
+Then, honestly: tell me whether you ran it a second time, and on what. That is the only number I
+am actually trying to move.
 
 ---
 
-*RepoGraph is an alpha. Do not use its output as the only basis for a production change.*
+*Alpha. Do not use its output as the only basis for a production change.*
