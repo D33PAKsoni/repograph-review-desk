@@ -121,7 +121,7 @@ One command registers the server **and** installs the instructions that make the
 repograph setup .
 ```
 
-It writes a project `.mcp.json` plus a Claude Code skill (and a Cursor rule when `.cursor/` exists), shows the diff first, and backs up any file it changes. Add `--client codex` to register it in `~/.codex/config.toml`; `--dry-run` writes nothing.
+It writes a project `.mcp.json` plus a Claude Code skill (and a Cursor rule when `.cursor/` exists), shows the diff first, and backs up any file it changes. Add `--client codex` to register it in `~/.codex/config.toml`, or `--client opencode` to register it in `opencode.json` and write the instructions into `AGENTS.md`; `--dry-run` writes nothing.
 
 Restart your agent, then ask:
 

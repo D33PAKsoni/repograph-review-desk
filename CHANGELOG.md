@@ -2,7 +2,7 @@
 
 All notable changes to this project are documented here. The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). This project follows semantic versioning once it reaches 1.0.
 
-## [Unreleased]
+## [0.1.2] — 2026-10-31
 
 ### Added
 
@@ -18,7 +18,6 @@ All notable changes to this project are documented here. The format is based on 
   Tools return that error instead.
 - The agent instructions now list deleting a symbol or file as a reason to call
   `analyze_change_impact`; a deletion task measured 0 of 1 runs calling any tool before.
-
 
 ## [0.1.1] — 2026-10-31
 

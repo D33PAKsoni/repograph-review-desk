@@ -1,8 +1,8 @@
 # Status report
 
 **Date:** 2026-10-31
-**Version:** 0.1.0 alpha
-**Repository:** `/home/darion-dev/repograph` — published source at `https://github.com/INDEX0-RESEARCH-LABS/repograph` (no release, package publication or announcement)
+**Version:** 0.1.2 alpha
+**Repository:** `/home/darion-dev/repograph` — published source at `https://github.com/INDEX0-RESEARCH-LABS/repograph`; 0.1.0–0.1.2 published to PyPI, not announced
 
 ## Bottom line
 
@@ -56,7 +56,7 @@ The **affected-tests gate failed its own pre-registered bar**. On 22 one-functio
   `--strict` exits 3, and `--command` emits the pytest line for CI.
   It is a disclosure aid, not a gate: `research/TEST_SELECTION_GATE_RESULTS.md` measured pooled
   file recall of 0.23 (41/180) at a median 6.7% of files selected.
-- `repograph setup` registers the server with Claude Code, Cursor or Codex and installs the agent
+- `repograph setup` registers the server with Claude Code, Cursor, Codex or OpenCode and installs the agent
   instructions that make the tool get called: diff before writing, one-time `.bak`, idempotent
   re-runs, and a launch command verified to work from an unrelated working directory.
 
@@ -74,16 +74,16 @@ The **affected-tests gate failed its own pre-registered bar**. On 22 one-functio
 ### Tests
 
 ```
-76 passed
+80 passed
 ```
 
 Coverage (direct in-process measurement):
 
 ```
-TOTAL 2520 statements, 784 missed, 69%
+TOTAL 2540 statements, 778 missed, 69%
 ```
 
-The CLI and MCP server show 0% direct coverage because they are tested through subprocesses (`python -m repograph`, stdio MCP client). Their behavior is exercised; the coverage tool does not attribute it to those modules. Core modules: `impact.py` 94%, `indexer.py` 96%, `store.py` 94%, `resolve.py` 91%, `extract.py` 89%, `agent_setup.py` 80%, `test_gate.py` 94%.
+The CLI and MCP server show 0% direct coverage because they are tested through subprocesses (`python -m repograph`, stdio MCP client). Their behavior is exercised; the coverage tool does not attribute it to those modules. Core modules: `impact.py` 94%, `indexer.py` 96%, `store.py` 94%, `resolve.py` 91%, `extract.py` 89%, `agent_setup.py` 87%, `test_gate.py` 94%.
 
 Reproduce:
 
