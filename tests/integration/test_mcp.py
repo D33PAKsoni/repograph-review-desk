@@ -72,3 +72,27 @@ def test_mcp_stdio_server_exposes_and_answers(repo: Path):
     index_repository(repo)
     result = asyncio.run(asyncio.wait_for(_exercise(repo), timeout=90))
     assert EXPECTED_TOOLS <= result["tools"]
+
+
+async def _unindexed(repo: Path) -> dict:
+    params = StdioServerParameters(
+        command=sys.executable,
+        args=["-m", "repograph.mcp_server"],
+        env={**os.environ, "REPOGRAPH_ROOT": str(repo)},
+    )
+    async with stdio_client(params) as (read, write):
+        async with ClientSession(read, write) as session:
+            await session.initialize()
+            # The connection must survive an unindexed repository: a client
+            # reports a process exit as a disconnected server, and the agent
+            # then has nothing to call.
+            tools = {t.name for t in (await session.list_tools()).tools}
+            assert EXPECTED_TOOLS <= tools
+            result = _payload(await session.call_tool("search_symbols", {"query": "x"}))
+            return result
+
+
+def test_mcp_server_stays_connected_without_an_index(tmp_path: Path):
+    result = asyncio.run(asyncio.wait_for(_unindexed(tmp_path), timeout=90))
+    assert "no index" in result["error"]
+    assert "repograph index" in result["error"]

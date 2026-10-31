@@ -76,7 +76,9 @@ def test_opencode_writes_mcp_config_and_agents_instructions(tmp_path: Path) -> N
 
     config = json.loads((tmp_path / "opencode.json").read_text())
     entry = config["mcp"]["servers"]["repograph"]
-    assert entry["args"][-2:] == ["--root", str(tmp_path.resolve())]
+    # OpenCode wants one argv array; command+args is silently ignored by it.
+    assert entry["type"] == "local"
+    assert entry["command"][-3:] == ["serve", "--root", str(tmp_path.resolve())]
 
     agents = (tmp_path / "AGENTS.md").read_text()
     assert agents.startswith("<!-- repograph:start")

@@ -6,10 +6,18 @@ All notable changes to this project are documented here. The format is based on 
 
 ### Added
 
-- `repograph setup --client opencode`: registers the MCP server in `opencode.json` and writes the
-  agent instructions into `AGENTS.md` between markers. Measured: with the server but no
-  instructions an OpenCode agent called the tools in 0 of 3 runs; with instructions, 4 of 4
-  (`research/OPENCODE_MCP_RESULTS.md`).
+- `repograph setup --client opencode`: registers the MCP server in `opencode.json` using the
+  argv-array shape OpenCode requires, and writes the agent instructions into `AGENTS.md` between
+  markers. Measured: with the server but no instructions an OpenCode agent called the tools in
+  0 of 3 runs; with instructions, 4 of 4 (`research/OPENCODE_MCP_RESULTS.md`).
+
+### Fixed
+
+- The MCP server no longer exits when the repository has no index. Exiting made clients report
+  "connection closed", and the agent never saw the error telling it to run `repograph index`.
+  Tools return that error instead.
+- The agent instructions now list deleting a symbol or file as a reason to call
+  `analyze_change_impact`; a deletion task measured 0 of 1 runs calling any tool before.
 
 
 ## [0.1.1] — 2026-10-31

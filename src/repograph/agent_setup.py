@@ -31,8 +31,8 @@ repository code.
 ## When to call
 
 Call `analyze_change_impact` before a change that crosses a file boundary:
-renaming or moving a symbol, changing a signature, editing a shared module, a
-route handler, or a database model.
+renaming, moving or deleting a symbol or a file, changing a signature, editing a
+shared module, a route handler, or a database model.
 
 Skip it for edits fully contained in one file with no importers, for prose or
 dependency bumps, and for runtime-behaviour questions — the graph is static.
@@ -172,6 +172,15 @@ AGENTS_START = "<!-- repograph:start (managed by `repograph setup`) -->"
 AGENTS_END = "<!-- repograph:end -->"
 
 
+def _opencode_entry(entry: dict[str, object]) -> dict[str, object]:
+    """OpenCode takes one argv array, unlike Claude/Cursor's command+args pair.
+
+    Emitting the other shape is silently skipped by the client, so the server
+    looks configured but never starts.
+    """
+    return {"type": "local", "command": [entry["command"], *entry["args"]]}  # type: ignore[misc]
+
+
 def _opencode_rule(root: Path) -> Change:
     """OpenCode reads project instructions from AGENTS.md, keyed by markers."""
     path = root / "AGENTS.md"
@@ -227,7 +236,12 @@ def plan(
             changes.append(_skill_file(root))
     if "opencode" in clients:
         changes.append(
-            _merge_json(root / "opencode.json", ("mcp", "servers"), entry, "OpenCode MCP config")
+            _merge_json(
+                root / "opencode.json",
+                ("mcp", "servers"),
+                _opencode_entry(entry),
+                "OpenCode MCP config",
+            )
         )
         if include_skill:
             changes.append(_opencode_rule(root))

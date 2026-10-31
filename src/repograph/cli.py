@@ -445,11 +445,14 @@ def serve(
     from .mcp_server import build_server
 
     root = _root(path)
-    try:
-        server = build_server(root)
-    except FileNotFoundError as exc:
-        typer.echo(str(exc), err=True)
-        raise typer.Exit(1) from exc
+    settings = load_settings(root)
+    if not settings.db_path.exists():
+        typer.echo(
+            f"warning: no index at {settings.db_path}; tools return that error until "
+            f"`repograph index {root}` runs",
+            err=True,
+        )
+    server = build_server(root)
     if http:
         server.settings.host = host
         server.settings.port = port

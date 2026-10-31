@@ -38,8 +38,9 @@ def _store(root: Path) -> Store:
 
 def build_server(root: str | Path) -> MCPServer:
     root = Path(root).expanduser().resolve()
-    _store(root).close()  # fail fast with a clear error if unindexed
-
+    # No fail-fast here on purpose. An MCP client reports a process exit as a
+    # disconnected server, and the agent is then left with no tool to call.
+    # Tools return the missing-index error instead, which is actionable.
     server = MCPServer("repograph", instructions=INSTRUCTIONS, version=__version__)
 
     @server.tool(description="Search indexed symbols by name or qualified name. Returns definitions with file:line evidence.")
