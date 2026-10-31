@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1360" height="850" viewBox="0 0 1360 850" role="img" aria-labelledby="title desc">
   <title id="title">RepoGraph Review Desk system flow</title>
-  <desc id="desc">Member 1 produces pinned JSON evidence from RepoGraph and Graphify offline. On Cloudways, Member 3's dashboard calls Member 2's API, which loads the evidence, requests a Gemma explanation, validates citations, and returns a briefing for viewing and export.</desc>
+  <desc id="desc">Analysis Engine produces pinned JSON evidence from RepoGraph and Graphify. On Cloudways, the React dashboard calls the Briefing API, which loads the evidence, requests a Gemma explanation, validates citations, and returns a briefing for viewing and export.</desc>
   <defs>
     <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="#64748b"/></marker>
     <style>
@@ -16,9 +16,9 @@
   </defs>
   <rect width="1360" height="850" fill="#f8fafc"/>
   <text x="40" y="43" class="title">RepoGraph Review Desk</text>
-  <text x="40" y="72" class="body">One source-linked review briefing, built through three independent workstreams</text>
+  <text x="40" y="72" class="body">One source-linked review briefing, built through modular architectural layers</text>
   <rect x="30" y="92" width="1300" height="262" rx="20" fill="#edf5ff" stroke="#c6ddf8"/>
-  <text x="52" y="123" class="section">OFFLINE GENERATION · MEMBER 1</text>
+  <text x="52" y="123" class="section">OFFLINE GENERATION · ANALYSIS ENGINE</text>
   <rect x="52" y="175" width="220" height="100" class="box" fill="white" stroke="#9bbbe2"/>
   <text x="162" y="211" text-anchor="middle" class="label">Public repository</text>
   <text x="162" y="240" text-anchor="middle" class="body">Pinned commit</text>
@@ -41,11 +41,11 @@
   <rect x="758" y="432" width="276" height="30" fill="#f0f4f8"/>
   <text x="765" y="452" class="small">Prepared snapshot; no Python server</text>
   <rect x="90" y="500" width="250" height="100" class="box" fill="#e2f4e9" stroke="#91bea3"/>
-  <text x="215" y="530" text-anchor="middle" class="small">MEMBER 3</text>
+  <text x="215" y="530" text-anchor="middle" class="small">DASHBOARD</text>
   <text x="215" y="557" text-anchor="middle" class="label">Reviewer dashboard</text>
   <text x="215" y="581" text-anchor="middle" class="body">Select a supported file</text>
   <rect x="490" y="500" width="270" height="100" class="box" fill="#eee7fa" stroke="#b69bd5"/>
-  <text x="625" y="530" text-anchor="middle" class="small">MEMBER 2</text>
+  <text x="625" y="530" text-anchor="middle" class="small">BRIEFING SERVICE</text>
   <text x="625" y="557" text-anchor="middle" class="label">Node API</text>
   <text x="625" y="581" text-anchor="middle" class="body">Validate input + citations</text>
   <rect x="995" y="500" width="270" height="100" class="box" fill="white" stroke="#b69bd5"/>
@@ -64,7 +64,7 @@
   <rect x="90" y="675" width="430" height="85" class="box" fill="#e2f4e9" stroke="#91bea3"/>
   <text x="305" y="709" text-anchor="middle" class="label">Evidence view + Markdown export</text>
   <text x="305" y="736" text-anchor="middle" class="body">Source references and caveats stay visible</text>
-  <text x="660" y="701" class="body">Shared starting pack for all members:</text>
-  <text x="660" y="730" class="body">Frozen schemas + synthetic fixtures + mock API + launcher</text>
+  <text x="660" y="701" class="body">Architecture Foundation:</text>
+  <text x="660" y="730" class="body">Frozen schemas · synthetic fixtures · mock API · native launcher</text>
   <text x="40" y="825" class="small">Prepared file-impact scenarios · Live AI is labeled separately from data provenance · Review guidance, not a safety verdict</text>
 </svg>

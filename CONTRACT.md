@@ -1,18 +1,18 @@
-# Frozen integration contract — v1.0.0
+# System Integration Contract — v1.0.0
 
-This file and `contracts/`, `fixtures/`, and `bootstrap/` are supplied to all three members at the start. Work against these now; do not wait for another member. Phase 1 permits implementation changes behind these interfaces, not incompatible field or route changes. All timestamps are UTC ISO 8601; planning times in the member documents are IST.
+This specification establishes the interface contracts between the Analysis Pipeline, the Briefing Service, and the Review Desk UI. All timestamps are UTC ISO 8601.
 
-## Scope and ownership boundaries
+## Scope and Module Boundaries
 
-The MVP handles one public repository at one pinned commit and up to three prepared **file-impact scenarios**. A scenario means “what might depend on this file if it changes”; it is not analysis of a pasted patch, real PR, or arbitrary repository. Generated snapshots and live AI inference are separate capabilities.
+The system evaluates impact scenarios across target repositories: "what might depend on this file if it changes". Generated evidence artifacts and live AI inference are cleanly decoupled.
 
-| Boundary | Member supplies | Consumer expects |
-|---|---|---|
-| Analysis → service | `data/production/artifact-bundle.json` | A complete immutable artifact bundle matching the supplied schema. |
-| Service → launcher | `service/api-handler.mjs` | `export async function createApiHandler(context)` returning an async Node `(req, res) => void` handler. |
-| UI → launcher | `web/dist/` | Built static assets; all API requests use relative `/api/v1/...` URLs. |
+| Boundary | Provider Module | Consumer Module | Interface Deliverable |
+|---|---|---|---|
+| Analysis → Service | Analysis Engine (`analysis/`) | Briefing Service (`service/`) | `data/production/artifact-bundle.json` matching `contracts/artifact-bundle.schema.json`. |
+| Service → Launcher | Briefing Service (`service/`) | Application Launcher (`bootstrap/server.mjs`) | `export async function createApiHandler(context)` returning an async Node `(req, res) => void` handler. |
+| UI → Launcher | Review Desk Web (`web/`) | Application Launcher (`bootstrap/server.mjs`) | Built static assets in `web/dist/`; all API requests use relative `/api/v1/...` URLs. |
 
-The launcher context is `{projectRoot, bundlePath}`; both values are absolute paths. The handler factory loads and validates the bundle before resolving. It owns every `/api/` response, including unknown routes. It returns only after ending the response and catches request-level failures. The launcher owns listening on `0.0.0.0`, `PORT`, static assets, and startup failure. No member changes another member's directory.
+The launcher context is `{projectRoot, bundlePath}`; both values are absolute paths. The handler factory loads and validates the bundle before resolving. It owns every `/api/` response, including unknown routes. It returns only after ending the response and catches request-level failures. The launcher owns listening on `0.0.0.0`, `PORT`, static assets, and startup failure.
 
 ## Starter commands: Node.js 22 or 24, no npm install needed
 

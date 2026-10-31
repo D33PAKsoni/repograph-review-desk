@@ -19,7 +19,7 @@ async function file(path) {
 }
 await check('Node runtime', () => {
   const [major, minor] = process.versions.node.split('.').map(Number);
-  if (!((major === 22 && minor >= 12) || major === 24)) throw new Error('Use Node 22.12+ or Node 24.');
+  if (!((major === 20 && minor >= 18) || (major === 22 && minor >= 12) || major === 24)) throw new Error('Use Node 20.18+, Node 22.12+ or Node 24.');
   return process.version;
 });
 await check('Root build/start commands', async () => {
@@ -41,10 +41,10 @@ await check('Built frontend', async () => {
   for (const [, asset] of html.matchAll(/(?:src|href)="(\/assets\/[^"?#]+)"/g)) await access(resolve(projectRoot, `web/dist${asset}`));
   return file('web/dist/index.html');
 });
-await check(production ? 'Member 1 generated bundle' : 'Supplied fixture bundle and briefing', async () => {
+await check(production ? 'Generated analysis bundle' : 'Supplied fixture bundle and briefing', async () => {
   const path = production ? 'data/production/artifact-bundle.json' : 'fixtures/artifact-bundle.fixture.json';
   let bundle;
-  try { bundle = await json(path); } catch { throw new Error(`Missing or unreadable ${path}. ${production ? 'Await Member 1 handoff.' : 'Restore the supplied starter fixture.'}`); }
+  try { bundle = await json(path); } catch { throw new Error(`Missing or unreadable ${path}.`); }
   validateBundle(bundle);
   if (bundle.artifactKind !== (production ? 'generated' : 'fixture')) throw new Error('Artifact provenance does not match the requested preflight mode.');
   if (!production) validateBriefing(await json('fixtures/briefing.fixture.json'), bundle);
@@ -52,9 +52,9 @@ await check(production ? 'Member 1 generated bundle' : 'Supplied fixture bundle 
   return { ...(await file(path)), artifactKind: bundle.artifactKind, commitSha: bundle.repository.commitSha, cases: bundle.cases.length };
 });
 if (production) {
-  await check('Member 2 handler file', async () => {
+  await check('API handler module', async () => {
     try { return await file('service/api-handler.mjs'); }
-    catch { throw new Error('Missing service/api-handler.mjs. Await Member 2 handoff; factory behavior still requires service checks.'); }
+    catch { throw new Error('Missing service/api-handler.mjs.'); }
   });
   await check('Production process environment', () => {
     const expected = { ARTIFACT_BUNDLE: 'data/production/artifact-bundle.json', API_HANDLER_MODULE: 'service/api-handler.mjs', WEB_DIST: 'web/dist', AI_MODE: 'live' };
