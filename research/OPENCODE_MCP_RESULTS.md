@@ -66,6 +66,33 @@ Adding "deleting … a file" took it from 0 calls to 1, but to `find_references`
 `analyze_change_impact`. The instruction now fires on the right class of change; tool selection
 within that class is still unreliable at n=2.
 
+## T3: unprompted discovery
+
+T1 and T2 both named the file. The realistic case names only intent, so the tool has to be
+found from the instruction alone:
+
+> I want to add a context argument to input validation. What does that touch?
+
+Three runs in `project-e` under condition D, same client and model, no other change.
+
+| Run | RepoGraph calls | `analyze_change_impact` | Final answer source |
+| --- | --- | --- | --- |
+| D1 | 2 | **yes** (twice) | dependency counts, 8 direct dependents |
+| D2 | 2 (`analyze_change_impact`, `find_references`) | **yes** | "blast radius (8 direct + 4 transitive)", confidence labels |
+| D3 | 3 (`get_architecture_summary`, `analyze_change_impact`, `find_references`) | **yes** | per-symbol call-site counts, "7 confirmed dependents" |
+
+**3/3 runs reached the graph, and 3/3 called `analyze_change_impact` without a file or symbol in
+the prompt.** The instruction names the class of change ("changing a signature", "editing a
+shared module"), the agent maps "add an argument to validation" onto it, and the tool is used
+before the answer is written.
+
+This is the case that the conditions A/B comparison left open, and it is the one that matters
+for adoption: a user asking a vague question is closer to a real workflow than a user who
+already knows which file to open.
+
+It is also three runs on one repository with one model. It shows the instruction can fire
+without a filename; it does not estimate a rate.
+
 ## Defects this test found
 
 **1. `setup` wrote a config shape OpenCode silently discards.** Claude and Cursor take
@@ -132,11 +159,12 @@ large one.
 
 ## Limits
 
-- n = 7 comparable runs (plus 2 on the deletion task), one model, one repository, two prompts.
-  Self-scored from JSON events, not blind.
+- n = 7 comparable runs (plus 2 on the deletion task, plus 3 unprompted). One model, one repository,
+  three prompts. Self-scored from JSON events, not blind.
 - Answer quality was not measured. Ranking B/C above A on quality would be an opinion.
-- Both prompts named a concrete file and symbol, which helps any agent. Unprompted discovery was
-  not tested.
+- T1 and T2 named a concrete file and symbol, which helps any agent. T3 named only the concept
+  ("input validation") and removed that advantage, but "validation" still points near a module
+  named `validation.py`; a prompt with no vocabulary overlap is untested.
 - `AGENTS.md` is loaded as project instructions; a client that does not read it behaves like A.
 
 ## Consequence for the product
