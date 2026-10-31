@@ -96,7 +96,9 @@ def server_entry(root: Path) -> dict[str, object]:
     return {"command": sys.executable, "args": ["-m", "repograph", *args]}
 
 
-def _merge_json(path: Path, key: str, entry: dict[str, object], note: str) -> Change:
+def _merge_json(
+    path: Path, keys: str | tuple[str, ...], entry: dict[str, object], note: str
+) -> Change:
     before = path.read_text(encoding="utf-8") if path.is_file() else ""
     try:
         data = json.loads(before) if before.strip() else {}
@@ -104,11 +106,14 @@ def _merge_json(path: Path, key: str, entry: dict[str, object], note: str) -> Ch
         raise ValueError(f"{path} is not valid JSON; fix it before running setup") from exc
     if not isinstance(data, dict):
         raise ValueError(f"{path} must contain a JSON object")
-    servers = data.get(key)
-    if servers is not None and not isinstance(servers, dict):
-        raise ValueError(f"{path}: {key!r} must be an object")
-    data.setdefault(key, {})
-    data[key][SKILL_NAME] = entry
+    keys = (keys,) if isinstance(keys, str) else keys
+    node = data
+    for key in keys:
+        child = node.setdefault(key, {})
+        if not isinstance(child, dict):
+            raise ValueError(f"{path}: {key!r} must be an object")
+        node = child
+    node[SKILL_NAME] = entry
     after = json.dumps(data, indent=2, ensure_ascii=False) + "\n"
     return Change(path=path, before=before, after=after, note=note)
 
@@ -163,6 +168,23 @@ def _cursor_rule(root: Path) -> Change:
     return Change(path=path, before=before, after=after, note="Cursor rule")
 
 
+AGENTS_START = "<!-- repograph:start (managed by `repograph setup`) -->"
+AGENTS_END = "<!-- repograph:end -->"
+
+
+def _opencode_rule(root: Path) -> Change:
+    """OpenCode reads project instructions from AGENTS.md, keyed by markers."""
+    path = root / "AGENTS.md"
+    before = path.read_text(encoding="utf-8") if path.is_file() else ""
+    block = f"{AGENTS_START}\n{SKILL_BODY}{AGENTS_END}\n"
+    pattern = re.compile(r"<!-- repograph:start.*?<!-- repograph:end -->\n?", re.DOTALL)
+    if pattern.search(before):
+        after = pattern.sub(block, before, count=1)
+    else:
+        after = before + ("\n" if before and not before.endswith("\n") else "") + block
+    return Change(path=path, before=before, after=after, note="OpenCode instructions (AGENTS.md)")
+
+
 def detect_clients(root: Path, home: Path) -> list[str]:
     """Project-scoped clients only.
 
@@ -173,6 +195,12 @@ def detect_clients(root: Path, home: Path) -> list[str]:
     found: list[str] = []
     if (root / ".cursor").is_dir():
         found.append("cursor")
+    if (
+        (root / "opencode.json").is_file()
+        or (root / ".opencode").is_dir()
+        or (home / ".config" / "opencode" / "opencode.json").is_file()
+    ):
+        found.append("opencode")
     # Claude Code is the default: it is the client that reads project `.mcp.json`
     # and the skill directory, and it is where the invocation gap was measured.
     found.append("claude")
@@ -189,7 +217,7 @@ def plan(
     home = (home or Path.home()).expanduser().resolve()
     entry = server_entry(root)
     changes: list[Change] = []
-    unknown = set(clients) - {"claude", "cursor", "codex"}
+    unknown = set(clients) - {"claude", "cursor", "codex", "opencode"}
     if unknown:
         raise ValueError(f"unknown client(s): {', '.join(sorted(unknown))}")
 
@@ -197,6 +225,12 @@ def plan(
         changes.append(_merge_json(root / ".mcp.json", "mcpServers", entry, "project MCP config"))
         if include_skill:
             changes.append(_skill_file(root))
+    if "opencode" in clients:
+        changes.append(
+            _merge_json(root / "opencode.json", ("mcp", "servers"), entry, "OpenCode MCP config")
+        )
+        if include_skill:
+            changes.append(_opencode_rule(root))
     if "cursor" in clients:
         changes.append(
             _merge_json(root / ".cursor" / "mcp.json", "mcpServers", entry, "Cursor MCP config")

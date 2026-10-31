@@ -69,3 +69,40 @@ def test_rejects_broken_json(tmp_path: Path) -> None:
     (tmp_path / ".mcp.json").write_text("{not json")
     with pytest.raises(ValueError, match="not valid JSON"):
         plan(tmp_path, ["claude"], home=tmp_path / "home")
+
+
+def test_opencode_writes_mcp_config_and_agents_instructions(tmp_path: Path) -> None:
+    apply(plan(tmp_path, ["opencode"], home=tmp_path / "home"))
+
+    config = json.loads((tmp_path / "opencode.json").read_text())
+    entry = config["mcp"]["servers"]["repograph"]
+    assert entry["args"][-2:] == ["--root", str(tmp_path.resolve())]
+
+    agents = (tmp_path / "AGENTS.md").read_text()
+    assert agents.startswith("<!-- repograph:start")
+    assert "analyze_change_impact" in agents and "blind_spots" in agents
+
+
+def test_opencode_keeps_existing_agents_file_and_reruns_clean(tmp_path: Path) -> None:
+    (tmp_path / "AGENTS.md").write_text("# House rules\n\nUse tabs.\n")
+
+    first = plan(tmp_path, ["opencode"], home=tmp_path / "home")
+    assert all(c.kind != "unchanged" for c in first)
+    apply(first)
+
+    text = (tmp_path / "AGENTS.md").read_text()
+    assert text.startswith("# House rules\n\nUse tabs.\n")
+    assert text.count("<!-- repograph:start") == 1
+
+    again = plan(tmp_path, ["opencode"], home=tmp_path / "home")
+    assert all(c.kind == "unchanged" for c in again)
+
+
+def test_detects_opencode_from_global_config(tmp_path: Path) -> None:
+    from repograph.agent_setup import detect_clients
+
+    home = tmp_path / "home"
+    assert "opencode" not in detect_clients(tmp_path, home)
+    (home / ".config" / "opencode").mkdir(parents=True)
+    (home / ".config" / "opencode" / "opencode.json").write_text("{}")
+    assert "opencode" in detect_clients(tmp_path, home)

@@ -4,7 +4,13 @@ All notable changes to this project are documented here. The format is based on 
 
 ## [Unreleased]
 
-Nothing yet.
+### Added
+
+- `repograph setup --client opencode`: registers the MCP server in `opencode.json` and writes the
+  agent instructions into `AGENTS.md` between markers. Measured: with the server but no
+  instructions an OpenCode agent called the tools in 0 of 3 runs; with instructions, 4 of 4
+  (`research/OPENCODE_MCP_RESULTS.md`).
+
 
 ## [0.1.1] — 2026-10-31
 

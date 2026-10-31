@@ -377,7 +377,7 @@ def arch(
 def setup(
     path: Optional[Path] = typer.Argument(None, help="Repository root (default: cwd)."),
     client: Optional[list[str]] = typer.Option(
-        None, "--client", "-c", help="claude, cursor, codex. Repeatable. Default: detected."
+        None, "--client", "-c", help="claude, cursor, codex, opencode. Repeatable. Default: detected."
     ),
     yes: bool = typer.Option(False, "--yes", "-y", help="Apply without asking."),
     dry_run: bool = typer.Option(False, "--dry-run", help="Show changes and write nothing."),
