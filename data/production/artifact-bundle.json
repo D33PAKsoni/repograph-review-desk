@@ -1,0 +1,102 @@
+{
+  "schemaVersion": "1.0.0",
+  "artifactKind": "generated",
+  "repository": {
+    "id": "repograph",
+    "name": "D33PAKsoni/repograph",
+    "url": "https://github.com/D33PAKsoni/repograph",
+    "commitSha": "3449061d736ef72845701e0c4bf3a6ce8c916d73"
+  },
+  "generatedAt": "2026-10-31T07:40:00Z",
+  "tools": [
+    {
+      "name": "repograph",
+      "version": "0.1.2",
+      "mode": "static"
+    },
+    {
+      "name": "graphify",
+      "version": "0.9.99",
+      "mode": "code-only"
+    }
+  ],
+  "cases": [
+    {
+      "id": "repograph-impact-core",
+      "title": "Analyze impact of modifying core impact and blast radius engine",
+      "scenarioType": "file-impact",
+      "changedFiles": [
+        "src/repograph/impact.py"
+      ],
+      "impact": {
+        "directDependents": [
+          {
+            "path": "src/repograph/cli.py",
+            "evidenceIds": [
+              "RG001"
+            ]
+          }
+        ],
+        "transitiveDependents": [],
+        "relatedTests": [
+          {
+            "path": "tests/integration/test_impact.py",
+            "evidenceIds": [
+              "RG002"
+            ]
+          }
+        ],
+        "blindSpots": [
+          "Dynamic imports, reflection, and runtime dependency injection are omitted by static analysis.",
+          "Downstream external consumers outside the repository root are not monitored."
+        ]
+      },
+      "architecture": {
+        "summary": "CLI interface routes command invocations to the impact analysis engine.",
+        "contextText": "Graphify topology records call edge from cli.impact to impact.analyze_impact.",
+        "evidenceIds": [
+          "GF001"
+        ]
+      },
+      "evidence": [
+        {
+          "id": "RG001",
+          "producer": "repograph",
+          "path": "src/repograph/cli.py",
+          "startLine": 14,
+          "endLine": 14,
+          "relation": "imports",
+          "confidence": "confirmed",
+          "excerpt": "from .impact import analyze_impact",
+          "sourceUrl": "https://github.com/D33PAKsoni/repograph/blob/3449061d736ef72845701e0c4bf3a6ce8c916d73/src/repograph/cli.py#L14"
+        },
+        {
+          "id": "RG002",
+          "producer": "repograph",
+          "path": "tests/integration/test_impact.py",
+          "startLine": 7,
+          "endLine": 7,
+          "relation": "imports",
+          "confidence": "confirmed",
+          "excerpt": "from repograph.impact import analyze_impact, git_changes",
+          "sourceUrl": "https://github.com/D33PAKsoni/repograph/blob/3449061d736ef72845701e0c4bf3a6ce8c916d73/tests/integration/test_impact.py#L7"
+        },
+        {
+          "id": "GF001",
+          "producer": "graphify",
+          "path": "src/repograph/cli.py",
+          "startLine": 176,
+          "endLine": 176,
+          "relation": "calls",
+          "confidence": "EXTRACTED",
+          "excerpt": "data = analyze_impact(store, root, paths=list(paths or []), symbol=symbol)",
+          "sourceUrl": "https://github.com/D33PAKsoni/repograph/blob/3449061d736ef72845701e0c4bf3a6ce8c916d73/src/repograph/cli.py#L176"
+        }
+      ],
+      "limitations": [
+        "Static evidence is computed from pinned repository commit 3449061d736ef72845701e0c4bf3a6ce8c916d73.",
+        "Absence of detected dependents does not certify absence of behavioral regressions."
+      ]
+    }
+  ]
+}

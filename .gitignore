@@ -7,4 +7,5 @@
 web/dist/
 analysis/raw/
 analysis/work/
+.repograph/
 *.log

@@ -1,0 +1,6 @@
+# Analysis Engine Dependencies
+repograph-codeintel>=0.1.2
+tree-sitter>=0.21.0
+tree-sitter-python>=0.21.0
+graphifyy>=0.9.99
+pydantic>=2.0.0
